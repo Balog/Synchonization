@@ -24,6 +24,17 @@ public:
     void DeleteingFile(const QString &_file_name);
     QDateTime GetLastMod(const QString& _file_name);
     QDateTime RoundDateTime(const QDateTime &_dt) const;
+    void PrepareSendFile(const QString& _file_name);
+
+    void PrepareDeletingServer(const QString& _file_name);
+    void PrepareReceiveFile(const QString& _file_name);
+    void PrepareDeletingLocal(const QString& _file_name);
+    void ClearlModConv();
+
+    bool GetNextSendDelModel(QString &_name_model);
+//    void GetSendModeles(QStringList &_list_models);
+    void GetSendModelFiles(QString& _name_model, QStringList& _list_files);
+    void GetDeleteServerModelFiles(QString& _name_model, QStringList& _list_files);
 
 private:
     QSqlDatabase db;

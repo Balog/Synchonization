@@ -79,8 +79,9 @@ private slots:
     void OnConnect();
     void OnDisconnect();
 
-    void EndConveyor();
-    void ErrorConveyor();
+//    void EndConveyor();
+    void EndTransactions();
+//    void ErrorConveyor();
 
     void OnAutorizStart();
     void OnSetVisible(const bool vis);

@@ -15,8 +15,23 @@ tReadWriteMutex::~tReadWriteMutex()
 void tReadWriteMutex::lockRead(const QString &_login)
 {
     //занимается семафор и записывается логин того кто его взял
+
+    //если этот логин уже взял один семафор, другие брать не нужно
+    bool found=false;
+    user_semaphore::const_iterator it;
+    for(it=us.begin();it!=us.end();it++)
+    {
+        if((*it)==_login)
+        {
+            found=true;
+            break;
+        }
+    }
+    if(!found)
+    {
     semaphore.acquire();
     us.push_back(_login);
+    }
 }
 //------------------------------------------------------------------------------
 
@@ -39,16 +54,18 @@ void tReadWriteMutex::unlockRead(const QString &_login)
 
 void tReadWriteMutex::lockWrite(const QString &_login)
 {
-//установка временного мьютекса на время занятия всех семафоров
-
-    QMutexLocker locker(&mutex);
-    for(int i=0; i<maxReaders(); i++)
+    //установка временного мьютекса на время занятия всех семафоров
+    if(write_user_login!=_login)//если объект заблокирован тем же логином что и текущий то ничего не делаем
     {
-        semaphore.acquire();
-    }
+        QMutexLocker locker(&mutex);
+        for(int i=0; i<maxReaders(); i++)
+        {
+            semaphore.acquire();
+        }
 
-//запоминание кто взял блокировку на запись
-    write_user_login=_login;
+        //запоминание кто взял блокировку на запись
+        write_user_login=_login;
+    }
 }
 //------------------------------------------------------------------------------
 

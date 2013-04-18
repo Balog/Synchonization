@@ -859,7 +859,7 @@ void tDatabaseOp::UpdateFileInfo(const QString& _file, const QString &model_stru
 
     QString relat_path=_file.right(_file.length()-root.length());
     QSqlQuery search_file(db);
-    search_file.prepare("SELECT Count(*), LastMod FROM Files WHERE File='"+relat_path+"'");
+    search_file.prepare("SELECT Count(*), LastMod FROM Files WHERE File='"+relat_path+"' AND Model="+QString::number(num_model));
     if(!search_file.exec()){qDebug() << QString::fromUtf8("Ошибка поиска файла для обновления даты-времени модификации файла и хеша ") << _file;}
     search_file.next();
     int n=search_file.value(0).toInt();

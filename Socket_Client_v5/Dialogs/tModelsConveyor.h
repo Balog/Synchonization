@@ -15,11 +15,15 @@ public:
     void SetDatabaseOperator(tDatabaseOp *_db_op){ db_op=_db_op;}
     void StartServer(const QString &_addr, const int _port);//Пробросить к конвейру
     void Clear();
-    bool SendFile(const QString &_file_name);
-    bool DeletingFile(const QString &_file_name, const bool _send);
+    void SendFile(const QString &_file_name);
+    void DeletingServerFile(const QString &_file_name);
     void CancelOperations();
     void Autorization(QString& _login, QString& _password);
     void OnListFiles();
+    void StartSendDeleteFiles();
+    void ReceiveFile(const QString& _file_name);
+    void DeletingLocalFile(const QString& _file_name);
+
 
 private:
     QObject *link;
@@ -34,6 +38,7 @@ signals:
     void AutorizStart();//Пробросить в форму
     void CloseMain();//Пробросить в форму
     void SetVisible(bool vis);//пробросить в форму
+    void EndTransactions();
 
 private slots:
     void EndConveyor();

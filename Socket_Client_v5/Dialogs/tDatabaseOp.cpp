@@ -1070,3 +1070,128 @@ QDateTime tDatabaseOp::GetLastMod(const QString& _file_name)
     QDateTime dt=sel_last_dt.value(1).toDateTime();
     return dt;
 }
+//----------------------------------------------------------
+void tDatabaseOp::ClearlModConv()
+{
+    //Сбрасываем поля Send и Delete_local перед началом работы конвейера моделей
+    QSqlQuery clear_local_mod(db);
+    clear_local_mod.prepare("Update Files Set Send=0, Delete_local=0");
+    if(!clear_local_mod.exec()){qDebug() << QString::fromUtf8("Ошибка сброса Send и Delete_local перед началом работы конвейера моделей ");}
+
+    QSqlQuery clear_server_mod(db);
+    clear_server_mod.prepare("Update ServerFiles Set Receive=0, Delete_server=0");
+    if(!clear_server_mod.exec()){qDebug() << QString::fromUtf8("Ошибка сброса Receive и Delete_server перед началом работы конвейера моделей ");}
+
+}
+//----------------------------------------------------------
+void tDatabaseOp::PrepareSendFile(const QString &_file_name)
+{
+    //мы не смогли бы выбрать в интерфейсе этот файл если бы его небыло в базе
+    //поэтому проверять его наличие в базе не буду
+
+    //нужно отметить в поле Send=true
+    QSqlQuery upd_send(db);
+    upd_send.prepare("UPDATE Files SET Send=1 WHERE File='"+_file_name+"'");
+    if(!upd_send.exec()){qDebug() << QString::fromUtf8("Ошибка отметки Send файла ") << _file_name;}
+}
+//----------------------------------------------------------
+
+void tDatabaseOp::PrepareDeletingServer(const QString& _file_name)
+{
+    //нужно отметить в поле Delete_server=true
+    QSqlQuery upd_del_serv(db);
+    upd_del_serv.prepare("UPDATE ServerFiles SET Delete_server=1 WHERE File='"+_file_name+"'");
+    if(!upd_del_serv.exec()){qDebug() << QString::fromUtf8("Ошибка отметки Delete_server файла ") << _file_name;}
+}
+//----------------------------------------------------------
+void tDatabaseOp::PrepareReceiveFile(const QString& _file_name)
+{
+    //нужно отметить Receive=true
+    QSqlQuery upd_receive(db);
+    upd_receive.prepare("UPDATE ServerFiles SET Receive=1 WHERE File='"+_file_name+"'");
+    if(!upd_receive.exec()){qDebug() << QString::fromUtf8("Ошибка отметки Receive файла ") << _file_name;}
+}
+//----------------------------------------------------------
+void tDatabaseOp::PrepareDeletingLocal(const QString& _file_name)
+{
+    //нужно отметить в поле Delete_local=true
+    QSqlQuery upd_del_loc(db);
+    upd_del_loc.prepare("UPDATE Files SET Delete_local=1 WHERE File='"+_file_name+"'");
+    if(!upd_del_loc.exec()){qDebug() << QString::fromUtf8("Ошибка отметки Delete_local файла ") << _file_name;}
+}
+//----------------------------------------------------------
+//void tDatabaseOp::GetSendModeles(QStringList& _list_models)
+//{
+//    //занести в список все модели, у файлов которых выделено Send=true
+//    QSqlQuery select_send_models(db);
+//    select_send_models.prepare("SELECT StructModels.Struct FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num GROUP BY StructModels.Struct, Files.Send HAVING Files.Send=1");
+//    if(!select_send_models.exec()){qDebug() << QString::fromUtf8("Ошибка выборки отмеченных на отправку моделей ");}
+//    while(select_send_models.next())
+//    {
+//        QString name_mod=select_send_models.value(0).toString();
+//        _list_models.push_back(name_mod);
+//    }
+
+//}
+//----------------------------------------------------------
+bool tDatabaseOp::GetNextSendDelModel(QString& _name_model)
+{
+    QSqlQuery select_send_models(db);
+    select_send_models.prepare("SELECT StructModels.Struct, StructModels.Num FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num GROUP BY StructModels.Struct, Files.Send HAVING Files.Send=1");
+    if(!select_send_models.exec()){qDebug() << QString::fromUtf8("Ошибка выборки отмеченных на отправку моделей ");}
+    if(select_send_models.next())
+    {
+        _name_model=select_send_models.value(0).toString();
+        return true;
+    }
+    else
+    {
+        QSqlQuery select_del_models(db);
+        select_del_models.prepare("SELECT ServerStructModels.Struct, ServerStructModels.Num FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num GROUP BY ServerStructModels.Struct, ServerFiles.Delete_server HAVING ServerFiles.Delete_server=1");
+        if(!select_del_models.exec()){qDebug() << QString::fromUtf8("Ошибка выборки отмеченных на удаление моделей ");}
+        if(select_del_models.next())
+        {
+            _name_model=select_del_models.value(0).toString();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
+//----------------------------------------------------------
+void tDatabaseOp::GetSendModelFiles(QString& _name_model, QStringList& _list_files)
+{
+    QSqlQuery select_send_files(db);
+    select_send_files.prepare("SELECT Files.File FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num WHERE StructModels.Struct='"+_name_model+"' AND Send=1");
+    if(!select_send_files.exec()){qDebug() << QString::fromUtf8("Ошибка выборки отмеченных на отправку файлов модели ") << _name_model;}
+    while(select_send_files.next())
+    {
+        QString file_name=select_send_files.value(0).toString();
+        _list_files.push_back(file_name);
+
+        //Снять отметку с файлов обработанной модели
+        QSqlQuery update_sending_files(db);
+        update_sending_files.prepare("UPDATE Files SET Send=0  WHERE File='"+file_name+"'");
+        if(!update_sending_files.exec()){qDebug() << QString::fromUtf8("Ошибка снятия отметки Send с обработанной модели ") << _name_model;}
+    }
+}
+//----------------------------------------------------------
+void tDatabaseOp::GetDeleteServerModelFiles(QString& _name_model, QStringList& _list_files)
+{
+    QSqlQuery select_server_del_files(db);
+    select_server_del_files.prepare("SELECT ServerFiles.File FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num WHERE ServerStructModels.Struct='"+_name_model+"' AND Delete_server=1");
+    if(!select_server_del_files.exec()){qDebug() << QString::fromUtf8("Ошибка выборки отмеченных на удаление с сервера файлов модели ") << _name_model;}
+    while(select_server_del_files.next())
+    {
+        QString file_name=select_server_del_files.value(0).toString();
+        _list_files.push_back(file_name);
+
+        //Снять отметку с файлов обработанной модели
+        QSqlQuery update_delete_server_files(db);
+        update_delete_server_files.prepare("UPDATE ServerFiles SET Delete_server=0  WHERE File='"+file_name+"'");
+        if(!update_delete_server_files.exec()){qDebug() << QString::fromUtf8("Ошибка снятия отметки Delete_server с обработанной модели ") << _name_model;}
+    }
+}
+//----------------------------------------------------------

@@ -123,7 +123,7 @@ void MainForm::OnDisconnect()
 
 }
 //---------------------------------------------------------------------
-void MainForm::EndConveyor()
+void MainForm::EndTransactions()
 {
 //    NumCelServModel=ui->lwListModels->currentIndex().row();
 //    OnListFiles();
@@ -131,18 +131,18 @@ void MainForm::EndConveyor()
 //    OnListFilesLocal();
 
     QMessageBox MB;
-    MB.setText(QString::fromUtf8("Пакет команд выполнен"));
-    MB.setWindowTitle(QString::fromUtf8("Пакет команд"));
+    MB.setText(QString::fromUtf8("Пакет транзакций выполнен"));
+    MB.setWindowTitle(QString::fromUtf8("Пакет транзакций"));
     MB.exec();
 }
 //---------------------------------------------------------------------
-void MainForm::ErrorConveyor()
-{
-    QMessageBox MB;
-    MB.setText(QString::fromUtf8("Выполнение пакета команд прервано"));
-    MB.setWindowTitle(QString::fromUtf8("Пакет команд"));
-    MB.exec();
-}
+//void MainForm::ErrorConveyor()
+//{
+//    QMessageBox MB;
+//    MB.setText(QString::fromUtf8("Выполнение пакета команд прервано"));
+//    MB.setWindowTitle(QString::fromUtf8("Пакет команд"));
+//    MB.exec();
+//}
 //---------------------------------------------------------------------
 void MainForm::OnAutorizStart()
 {
@@ -186,6 +186,28 @@ void MainForm::OnAddSend()
 //---------------------------------------------------------------------
 void MainForm::OnStartSend()
 {
+    mod_conv->Clear();
+    if(listSend.size()!=0)
+    {
+        for(int i=0; i<listSend.size(); i++)
+        {
+            QString S=listSend[i];
+            mod_conv->SendFile(S);
+        }
+    }
+
+    if(listDel.size()!=0)
+    {
+        for(int i=0; i<listDel.size(); i++)
+        {
+            QString S=listDel[i];
+            mod_conv->DeletingServerFile(S);
+        }
+
+    }
+
+    mod_conv->StartSendDeleteFiles();
+
 //    bool stop=false;
 //    QModelIndex MI=ui->lwListModels->currentIndex();
 
@@ -359,6 +381,24 @@ void MainForm::OnClearDeleteLocal()
 //---------------------------------------------------------------------
 void MainForm::OnStartReceive()
 {
+    mod_conv->Clear();
+    if(listRec.size()>0)
+    {
+        for(int i=0; i<listRec.size(); i++)
+        {
+            QString S=listRec[i];
+            mod_conv->ReceiveFile(S);
+        }
+    }
+
+    if(listDelLoc.size()>0)
+    {
+        for(int i=0;i<listDelLoc.size(); i++)
+        {
+            QString S=listDelLoc[i];
+            mod_conv->DeletingLocalFile(S);
+        }
+    }
 //    bool stop=false;
 //    QModelIndex MI=ui->lwLocalListModels->currentIndex();
 
