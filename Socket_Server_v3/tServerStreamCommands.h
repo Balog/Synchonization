@@ -220,7 +220,7 @@ private:
         QString client_hash;
         QString server_hash;
     };
-    QString model_file;
+//    QString model_file;
     QList<tFileList> file_list;
     int send_mode;
 };

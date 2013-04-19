@@ -42,7 +42,7 @@ public:
     bool ReceiveFile(const QString &_file_name);
     bool DeletingFile(const QString &_file_name, const bool _send);
 
-    void AddCommitTransaction(const bool _send, const QString model_file);
+    void AddCommitTransaction(const bool _send);
     void AddCommitTransactionDel();
 
     bool AddSendCommand();
@@ -58,6 +58,8 @@ public:
 
     void GetListServerModels();
 //    void SetDatabaseOperator(tDatabaseOp *_db_op);
+
+        void CorrectLastSynch();
 
 private:
     QObject *link;
@@ -78,7 +80,9 @@ private:
     QString root;
     QString temp;
 
-    bool send_mode;
+    int send_mode;  //1 -- Send
+                    //2 -- Receive
+                    //0 -- ничего не производилось
 
     void ClearTempFolder();
     bool removeFolder(const QDir &_dir, const bool _del_dir);
@@ -100,6 +104,7 @@ private:
     QString NormalizePathFiles(QString Path);
     void VerifyReplacedFiles();
     void VerifyDeletedFiles();
+
 
 signals:
     void EndCommands();

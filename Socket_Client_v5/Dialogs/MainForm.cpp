@@ -208,76 +208,6 @@ void MainForm::OnStartSend()
 
     mod_conv->StartSendDeleteFiles();
 
-//    bool stop=false;
-//    QModelIndex MI=ui->lwListModels->currentIndex();
-
-//    int N=MI.row();
-//    if(N<0)
-//    {
-//        QMessageBox MB;
-//        MB.setText(QString::fromUtf8("Выделите серверную модель"));
-//        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-//        MB.exec();
-//    }
-//    else
-//    {
-//    QStringListModel *M=new QStringListModel;
-//    M=(QStringListModel *)MI.model();
-
-//    QString S=M->stringList().value(N);
-
-//    mod_conv->Clear();
-
-//    //Обработка списка пересылаемых файлов
-
-//    if(listSend.size()!=0)
-//    {
-//        //Если есть файлы для записи на сервер
-//        //Внести данные о пересылаемых файлах в список пересылаемыз файлов
-//        for(int i=0; i<listSend.size(); i++)
-//        {
-//            QString S=listSend[i];
-//            stop=conv->SendFile(S);
-//            if(stop)
-//            {
-//                break;
-//            }
-//        }
-//    }
-
-//    if(listDel.size()!=0)
-//    {
-//        for(int i=0; i<listDel.size(); i++)
-//        {
-//        QString S=listDel[i];
-//        stop=conv->DeletingFile(S, true);
-//        if(stop)
-//        {
-//            break;
-//        }
-//        }
-
-
-//    }
-//    conv->AddStartTransaction(true);
-//    stop=conv->AddSendCommand();
-//    conv->AddDelCommand();
-
-//    conv->AddCommitTransaction(true, S);
-
-//    //Начало выполнения списка команд
-//    if(!stop)
-//    {
-//    conv->StartExecution();
-//    }
-//    else
-//    {
-//        QMessageBox MB;
-//        MB.setText(QString::fromUtf8("Локальный файл изменился. Операция прервана."));
-//        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-//        MB.exec();
-//    }
-//}
 }
 //---------------------------------------------------------------------
 void MainForm::OnClearSendAll()
@@ -399,6 +329,8 @@ void MainForm::OnStartReceive()
             mod_conv->DeletingLocalFile(S);
         }
     }
+
+
 //    bool stop=false;
 //    QModelIndex MI=ui->lwLocalListModels->currentIndex();
 
@@ -586,5 +518,10 @@ void MainForm::OnServerModelClick(const QModelIndex Ind)
     sLM_server_list_files=new QStringListModel;
     sLM_server_list_files->setStringList(list);
     ui->lvListFiles->setModel(sLM_server_list_files);
+}
+//----------------------------------------------------------
+void MainForm::CorrectLastSynch()
+{
+    mod_conv->CorrectLastSynch();
 }
 //----------------------------------------------------------

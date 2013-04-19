@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>434</width>
+    <width>430</width>
     <height>300</height>
    </rect>
   </property>
@@ -143,19 +143,6 @@
     <string>Temp</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>100</y>
-     <width>91</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Очистить</string>
-   </property>
-  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
@@ -205,22 +192,6 @@
     <hint type="destinationlabel">
      <x>73</x>
      <y>81</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
-   <slot>OnClearModels()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>177</x>
-     <y>118</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>178</x>
-     <y>130</y>
     </hint>
    </hints>
   </connection>

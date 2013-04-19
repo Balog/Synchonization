@@ -18,8 +18,6 @@ public:
     QDateTime GetLastMod(const QString &name_file) const;
     QDateTime RoundDateTime(const QDateTime &_dt) const;
     void Update_LastMod_Hash(const QString &_file_name, const QDateTime &_last_mod, const QString &_hash);
-    void UpdateFileInfo(const QString& _file, const QString &model_file);
-    void DeleteingFile(const QString &_file_name);
 
 private:
     QSqlDatabase db;

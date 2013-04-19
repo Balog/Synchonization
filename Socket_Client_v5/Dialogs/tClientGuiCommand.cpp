@@ -295,8 +295,8 @@ void tGuiCommitTransaction::ExeCommand(QDataStream &_in)
 
     QString model_file="";
 
-    _in >> model_file;
-    out << model_file;
+//    _in >> model_file;
+//    out << model_file;
 
     int num_files=-1;
     _in >> num_files;
@@ -325,6 +325,7 @@ void tGuiCommitTransaction::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tGuiReportCommitTransaction::ExeCommand(QDataStream &)
 {
+    ((MainForm*)link)->CorrectLastSynch();
     emit NextCommand();
 }
 //************************************************************************************************

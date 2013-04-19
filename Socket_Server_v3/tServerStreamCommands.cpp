@@ -756,8 +756,8 @@ root=my_settings.GetRoot();
 
 _in >> send_mode;
 
-model_file="";
-_in >> model_file;
+//model_file="";
+//_in >> model_file;
 
     int num_files=-1;
 
@@ -882,6 +882,8 @@ bool tCommitTransaction::ExeCommand(QDataStream &, QDataStream &_out)
     _out.device()->seek(0);
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
+
+    db_op->RefreshModelsFiles();
 
     return false;
 }
@@ -1049,10 +1051,11 @@ void tCommitTransaction::Move(const QString &_entry_abs_path, const QString &_ne
         if(file_temp.copy(_new_abs_path))
         {
             //копирование файла удалось
-            //удаление не столь важно
-            db_op->UpdateFileInfo(_new_abs_path, model_file);
 
-            QFile::setPermissions(_entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
+            QFile::setPermissions(_new_abs_path, QFile::ReadOwner | QFile::WriteOwner);
+//            db_op->UpdateFileInfo(_new_abs_path);
+
+
             if(!file_temp.remove())
             {
                 _error_file=file_temp.fileName();
@@ -1098,7 +1101,7 @@ void tCommitTransaction::Verify(const QString &_new_abs_path, bool &_stopped, QS
 bool tCommitTransaction::Delete(const QString &_new_abs_path, QString &_error_file)
 {
     //удаляем информацию о файле из базы
-    db_op->DeleteingFile(_new_abs_path);
+//    db_op->DeleteingFile(_new_abs_path);
     bool stopped=false;
     QFile file_real(_new_abs_path);
     if(file_real.exists())

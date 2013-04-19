@@ -1195,3 +1195,34 @@ void tDatabaseOp::GetDeleteServerModelFiles(QString& _name_model, QStringList& _
     }
 }
 //----------------------------------------------------------
+void tDatabaseOp::UpdateLastSynch(const QString& _file_name)
+{
+    //Перебирая модели добавить или обновить записи в таблице файлов по каждому файлу (хэш-суммы можно брать из таблицы локальных данных)
+    //После окончания пройтить по всем моделям LastSynch и пересчитать сумму хэш-сумм
+    QSqlQuery ls_model(db);
+    ls_model.prepare("SELECT StructModels.Num, DiskFile FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num WHERE Files.File='"+_file_name+"'");
+    if(!ls_model.exec()){qDebug() << QString::fromUtf8("Ошибка выборки модели по файлам ") << _file_name;}
+
+    while(ls_model.next())
+    {
+        qlonglong num_mod=ls_model.value(0).toLongLong();
+        QString disk_file=ls_model.value(1).toString();
+        //найдем есть ли у меня в таблице последнего состояния модели такая модель (disk_file)
+        QSqlQuery sel_last_mod(db);
+        sel_last_mod.prepare("SELECT Num, Count(*) FROM LastStructModels WHERE DiskFile='"+disk_file+"'");
+        if(!ls_model.exec()){qDebug() << QString::fromUtf8("Ошибка выборки модели последнего состояния по DiskFile ") << disk_file;}
+        ls_model.next();
+        qlonglong num_last_mod=ls_model.value(0).toLongLong();
+        int c=ls_model.value(1).toInt();
+        if(c!=0)
+        {
+            //такая модель в последнем состоянии моделей уже есть
+            //обновить
+        }
+        else
+        {
+            //такой модели в последнем состоянии моделей еще нет
+            //добавить
+        }
+    }
+}

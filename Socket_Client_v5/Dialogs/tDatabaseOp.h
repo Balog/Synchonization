@@ -35,6 +35,7 @@ public:
 //    void GetSendModeles(QStringList &_list_models);
     void GetSendModelFiles(QString& _name_model, QStringList& _list_files);
     void GetDeleteServerModelFiles(QString& _name_model, QStringList& _list_files);
+    void UpdateLastSynch(const QString& _file_name);
 
 private:
     QSqlDatabase db;

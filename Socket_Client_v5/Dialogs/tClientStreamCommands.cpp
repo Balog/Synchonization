@@ -739,8 +739,8 @@ bool tStreamCommitTransaction::Initialize(QDataStream &_in)
     send=-1;
     _in >> send;
 
-    model_file="";
-    _in >> model_file;
+//    model_file="";
+//    _in >> model_file;
 
     int num_files=-1;
     _in >> num_files;
@@ -792,7 +792,7 @@ bool tStreamCommitTransaction::ExeCommand(QDataStream &_out)
 
     _out << send;
 
-    _out << model_file;
+//    _out << model_file;
 
     int num_files=file_list.size();
 

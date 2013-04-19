@@ -35,6 +35,8 @@ public:
     void SaveServerModelFiles(QByteArray &_block);
     QStringListModel *slm_server_list_models;//модель списка серверных моделей
     int NumCelServModel;
+
+        void CorrectLastSynch();
     
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
@@ -73,6 +75,7 @@ private:
     void SearchModelsOnDatabase(QStringList &_list);
 
 
+
 private slots:
     void Autorization(QString &_login, QString &_password);
 
@@ -107,6 +110,8 @@ private slots:
     void OnClearModels();
 
     void OnLocalModelClick(const QModelIndex Ind);
+
+
 
 
 public slots:

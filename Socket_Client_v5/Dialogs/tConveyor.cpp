@@ -7,7 +7,7 @@
 extern tSettings my_settings;
 
 tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
-    QObject(parent), ui(_ui), gui_comm(NULL), db_op(_db_op), link(_link)
+    QObject(parent), ui(_ui), gui_comm(NULL), db_op(_db_op), link(_link), send_mode(0)
 {
     root=my_settings.GetRoot();
     v_conv.clear();
@@ -84,6 +84,7 @@ void tConveyor::Clear()
 {
     file_list.clear();
     file_list1.clear();
+    send_mode=0;
 }
 //-----------------------------------------------------------------
 void tConveyor::OnCommand(QByteArray _block)
@@ -206,7 +207,7 @@ void tConveyor::StartExecution()
     NextCommand();
 }
 //--------------------------------------------------------------------------------
-void tConveyor::AddCommitTransaction(const bool _send, const QString model_struct)
+void tConveyor::AddCommitTransaction(const bool _send)
 {
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
@@ -228,7 +229,7 @@ void tConveyor::AddCommitTransaction(const bool _send, const QString model_struc
     }
      out << s;
 
-     out << model_struct;
+//     out << model_struct;
 
      int num_files=file_list.size()+file_list1.size();
 
@@ -267,7 +268,7 @@ void tConveyor::AddCommitTransaction(const bool _send, const QString model_struc
         gui_command="VerifyMoveDelete";
 
         out << gui_command;
-        out << model_struct;
+//        out << model_struct;
 
         AddCommand(block);
     }
@@ -367,6 +368,15 @@ void tConveyor::VerifyMoveDelete(QString &m_struct)
 //---------------------------------------------------------------------------------
 void tConveyor::AddStartTransaction(const bool _send)
 {
+    if(_send) //запомним какая операция была последней для того что бы знать как менять таблицу последнего состояния файлов и моделей
+    {
+        send_mode=1;
+    }
+    else
+    {
+        send_mode=2;
+    }
+
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
@@ -919,3 +929,37 @@ void tConveyor::VerifyDeletedFiles()
     }
 }
 //----------------------------------------------------------
+void tConveyor::CorrectLastSynch()
+{
+    switch (send_mode)
+    {
+    case 1:
+    {
+        //ПЛАН:
+
+        //По спискам file_list и file_list1 для каждого файла найти модель или модели, в которых он участвует (локальные таблицы)
+        //Перебирая модели добавить или обновить записи в таблице файлов по каждому файлу (хэш-суммы можно брать из таблицы локальных данных)
+        //После окончания пройтить по всем моделям LastSynch и пересчитать сумму хэш-сумм
+        //(это уже отдельной процедурой запускаемой когда весь список транзакций будет завершен)
+        for(int i=0; i<file_list.size(); i++)
+        {
+            db_op->UpdateLastSynch(file_list[i].file_name);
+        }
+
+        for(int i=0; i<file_list1.size(); i++)
+        {
+            db_op->UpdateLastSynch(file_list1[i].file_name);
+        }
+
+        break;
+    }
+    case 2:
+    {
+
+        break;
+    }
+    }
+
+}
+//----------------------------------------------------------
+

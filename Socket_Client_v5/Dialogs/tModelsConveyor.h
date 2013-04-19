@@ -23,7 +23,8 @@ public:
     void StartSendDeleteFiles();
     void ReceiveFile(const QString& _file_name);
     void DeletingLocalFile(const QString& _file_name);
-
+    void StartReceiveDeleteFiles();
+    void CorrectLastSynch();
 
 private:
     QObject *link;

@@ -240,7 +240,7 @@ private:
         QString server_hash;
     };
     QList<tFileList>file_list;
-    QString model_file;
+//    QString model_file;
 int send;
 };
 inline tAbstractStreamCommand* Create_tStreamCommitTransaction()
