@@ -861,6 +861,9 @@ bool tCommitTransaction::ExeCommand(QDataStream &, QDataStream &_out)
         {
             SendError(_out);
         }
+
+        db_op->RefreshModelsFiles();
+
         for(int i=0; i<file_list.size(); i++)
         {
             //                QString NN=file_list[i];
@@ -883,7 +886,7 @@ bool tCommitTransaction::ExeCommand(QDataStream &, QDataStream &_out)
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
 
-    db_op->RefreshModelsFiles();
+
 
     return false;
 }
