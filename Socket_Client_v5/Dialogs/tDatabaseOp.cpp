@@ -1200,13 +1200,6 @@ void tDatabaseOp::UpdateLastSynch(const QString& _file_name)
     //Перебирая модели добавить или обновить записи в таблице файлов по каждому файлу (хэш-суммы можно брать из таблицы локальных данных)
     //После окончания пройтить по всем моделям LastSynch и пересчитать сумму хэш-сумм
 
-//    //сбросить отметки Found у всех моделей и файлов таблиц последнего состояния
-//    QSqlQuery unset_models(db);
-//    unset_models.prepare("UPDATE LastStructModel SET Found=0");
-//    if(!unset_models.exec()){qDebug() << QString::fromUtf8("Ошибка сброса Found у моделей ");}
-
-
-
     QSqlQuery ls_model(db);
     ls_model.prepare("SELECT StructModels.Num, StructModels.DiskFile, StructModels.Title, StructModels.Description, StructModels.Struct, StructModels.LastMod, StructModels.Hash, StructModels.ListFilesLastMod, StructModels.ListFilesHash, StructModels.SummListHash FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num WHERE Files.File='"+_file_name+"'");
     if(!ls_model.exec()){qDebug() << QString::fromUtf8("Ошибка выборки модели по файлам ") << _file_name;}
@@ -1225,59 +1218,26 @@ void tDatabaseOp::UpdateLastSynch(const QString& _file_name)
         QString ListFilesHash=ls_model.value(8).toString();
         QString SummListHash=ls_model.value(9).toString();
 
-//        //найдем есть ли у меня в таблице последнего состояния модели такая модель (disk_file)
-//        QSqlQuery sel_last_mod(db);
-//        sel_last_mod.prepare("SELECT Count(*), Num FROM LastStructModels WHERE DiskFile='"+disk_file+"'");
-//        if(!ls_model.exec()){qDebug() << QString::fromUtf8("Ошибка выборки модели последнего состояния по DiskFile ") << disk_file;}
-//        ls_model.next();
-
-//        int c=ls_model.value(0).toInt();
-//        qlonglong num_last_mod=0;
-//        if(c!=0)
-//        {
-//            num_last_mod=ls_model.value(1).toLongLong();
-//            //такая модель в последнем состоянии моделей уже есть
-//            //обновить
-//            QSqlQuery update_synch_model(db);
-//            update_synch_model.prepare("UPDATE LastStructModels SET Title='"+Title+
-//                                       "', Description='"+Description+
-//                                       "', Struct='"+Struct+"', LastMod='"+LastMod.toString(Qt::ISODate)+
-//                                       "', Hash='"+Hash+"', ListFilesLastMod='"+ListFilesLastMod.toString(Qt::ISODate)+
-//                                       "', ListFilesHash='"+ListFilesHash+"', SummListHash='"+SummListHash+
-//                                       "', Found=1 WHERE DiskFile='"+disk_file+"'");
-//            if(!update_synch_model.exec()){qDebug() << QString::fromUtf8("Ошибка обновления в таблице последнего состояния моделей ") << disk_file;}
-//        }
-//        else
-//        {
-//            //такой модели в последнем состоянии моделей еще нет
-//            //добавить
-
         //удалить модель из таблицы состояний (файлы будут удалены автоматически), а потом добавим модель и файлы
         QSqlQuery del_model(db);
-        //DELETE FROM StructModels WHERE Found=0
         del_model.prepare("DELETE FROM LastStructModels WHERE DiskFile='"+disk_file+"'");
         if(!del_model.exec()){qDebug() << QString::fromUtf8("Ошибка удаления модели из последних состояний ") << disk_file;}
 
 
             QSqlQuery insert_synch_model(db);
-            insert_synch_model.prepare("INSERT INTO LastStructModels (Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, Found) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            insert_synch_model.bindValue(0, Title);
-            insert_synch_model.bindValue(1, Description);
-            insert_synch_model.bindValue(2, Struct);
-            insert_synch_model.bindValue(3, LastMod);
-            insert_synch_model.bindValue(4, Hash);
-            insert_synch_model.bindValue(5, ListFilesLastMod);
-            insert_synch_model.bindValue(6, ListFilesHash);
-            insert_synch_model.bindValue(7, SummListHash);
-            insert_synch_model.bindValue(8, 1);
+            insert_synch_model.prepare("INSERT INTO LastStructModels (DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, Found) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            insert_synch_model.bindValue(0, disk_file);
+            insert_synch_model.bindValue(1, Title);
+            insert_synch_model.bindValue(2, Description);
+            insert_synch_model.bindValue(3, Struct);
+            insert_synch_model.bindValue(4, LastMod);
+            insert_synch_model.bindValue(5, Hash);
+            insert_synch_model.bindValue(6, ListFilesLastMod);
+            insert_synch_model.bindValue(7, ListFilesHash);
+            insert_synch_model.bindValue(8, SummListHash);
+            insert_synch_model.bindValue(9, 1);
             if(!insert_synch_model.exec()){qDebug() << QString::fromUtf8("Ошибка добавления в таблицу последнего состояния моделей ") << disk_file;}
             qlonglong num_last_mod=insert_synch_model.lastInsertId().toLongLong();
-//        }
-
-//        //сбросим все отметки Found у файлов модели что бы узнать лишние записи
-//        QSqlQuery unset_files(db);
-//        unset_files.prepare("UPDATE LastFiles SET Found=0 WHERE Model="+QString::number(num_last_mod));
-//        if(!unset_files.exec()){qDebug() << QString::fromUtf8("Ошибка сброса Found у файлов модели ") << num_last_mod;}
 
         //теперь обойдем все файлы модели локальной таблицы и перенесем (обновим) данные таблицы файлов последнего состояния
         QSqlQuery sel_loc_file_mod(db);
@@ -1290,38 +1250,18 @@ void tDatabaseOp::UpdateLastSynch(const QString& _file_name)
             QDateTime LastMod=sel_loc_file_mod.value(2).toDateTime();
             QString Hash=sel_loc_file_mod.value(3).toString();
 
-//            //проверим есть ли такие же файлы в таблице последнего состояния
 
-//            QSqlQuery sel_last_file_mod(db);
-//            sel_last_file_mod.prepare("SELECT Count(*) FROM LastFiles WHERE Model="+QString::number(num_last_mod));
-//            if(!sel_last_file_mod.exec()){qDebug() << QString::fromUtf8("Ошибка проверки последнего состояния файлов модели ") << num_last_mod;}
-//            sel_last_file_mod.next();
-//            int c1=sel_last_file_mod.value(0).toInt();
-
-//            if(c1!=0)
-//            {
-//                //такой файл есть
-//                //обновить
-//                QSqlQuery upd_last_files(db);
-//                upd_last_files.prepare("UPDATE LastFiles SET Size="+QString::number(Size)
-//                                       +"', LastMod='"+LastMod.toString(Qt::ISODate)
-//                                       +"', Hash='"+Hash+"', Found=1 WHERE File='"+File+"' AND Model="+QString::number(num_last_mod));
-//                if(!upd_last_files.exec()){qDebug() << QString::fromUtf8("Ошибка обновления последнего состояния файлов модели ") << File << num_last_mod;}
-//            }
-//            else
-//            {
-//                //такого файла нет
-//                //добавить
                 QSqlQuery ins_last_files(db);
-                ins_last_files.prepare("INSERT INTO LastFiles (Model, Size, LastMod, Hash, Found) VALUES (?, ?, ?, ?, ?)");
+                ins_last_files.prepare("INSERT INTO LastFiles (Model, File, Size, LastMod, Hash, Found) VALUES (?, ?, ?, ?, ?, ?)");
+
                 ins_last_files.bindValue(0, num_last_mod);
-                ins_last_files.bindValue(1, Size);
-                ins_last_files.bindValue(2, LastMod);
-                ins_last_files.bindValue(3, Hash);
-                ins_last_files.bindValue(4, 1);
+                ins_last_files.bindValue(1, File);
+                ins_last_files.bindValue(2, Size);
+                ins_last_files.bindValue(3, LastMod);
+                ins_last_files.bindValue(4, Hash);
+                ins_last_files.bindValue(5, 1);
 
                 if(!ins_last_files.exec()){qDebug() << QString::fromUtf8("Ошибка добавления последнего состояния файлов модели ") << num_last_mod;}
-//            }
         }
     }
 }
