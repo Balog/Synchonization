@@ -1,0 +1,288 @@
+object Form1: TForm1
+  Left = 194
+  Top = 107
+  Width = 779
+  Height = 447
+  Caption = #1042#1099#1073#1086#1088' '#1086#1073#1085#1086#1074#1083#1077#1085#1080#1103
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PageControl2: TPageControl
+    Left = -1
+    Top = 1
+    Width = 769
+    Height = 417
+    ActivePage = TabSheet6
+    TabIndex = 2
+    TabOrder = 0
+    object TabSheet4: TTabSheet
+      Caption = #1063#1090#1077#1085#1080#1077' '#1089' '#1089#1077#1088#1074#1077#1088#1072
+      object TreeView1: TTreeView
+        Left = 8
+        Top = 8
+        Width = 321
+        Height = 345
+        Indent = 19
+        TabOrder = 0
+        Items.Data = {
+          01000000210000000000000000000000FFFFFFFFFFFFFFFF0000000001000000
+          08CFF0EEE5EAF220311F0000000000000000000000FFFFFFFFFFFFFFFF000000
+          000200000006CCEEE4E5EBE81F0000000000000000000000FFFFFFFFFFFFFFFF
+          000000000100000006C7E4E0EDE8FF190000000000000000000000FFFFFFFFFF
+          FFFFFF000000000000000000210000000000000000000000FFFFFFFFFFFFFFFF
+          000000000300000008D0E0F1F2E5EDE8FF200000000000000000000000FFFFFF
+          FFFFFFFFFF000000000200000007C4E5F0E5E2FCFF1F00000000000000000000
+          00FFFFFFFFFFFFFFFF000000000300000006D2EEEFEEEBFC2200000000000000
+          00000000FFFFFFFFFFFFFFFF0000000000000000094D6F64656C2E3364732100
+          00000000000000000000FFFFFFFFFFFFFFFF0000000000000000084C6973742E
+          626D70210000000000000000000000FFFFFFFFFFFFFFFF000000000000000008
+          4261726B2E626D701F0000000000000000000000FFFFFFFFFFFFFFFF00000000
+          0100000006C1E5F0E5E7E0190000000000000000000000FFFFFFFFFFFFFFFF00
+          00000000000000001E0000000000000000000000FFFFFFFFFFFFFFFF00000000
+          0100000005CAF3F1F2FB190000000000000000000000FFFFFFFFFFFFFFFF0000
+          000000000000001E0000000000000000000000FFFFFFFFFFFFFFFF0000000001
+          00000005D2F0E0E2E0190000000000000000000000FFFFFFFFFFFFFFFF000000
+          000000000000}
+      end
+      object Button2: TButton
+        Left = 8
+        Top = 360
+        Width = 75
+        Height = 25
+        Caption = #1055#1088#1086#1095#1080#1090#1072#1090#1100
+        TabOrder = 1
+      end
+      object PageControl1: TPageControl
+        Left = 336
+        Top = 10
+        Width = 417
+        Height = 343
+        ActivePage = TabSheet1
+        TabIndex = 0
+        TabOrder = 2
+        object TabSheet1: TTabSheet
+          Caption = #1054#1087#1080#1089#1072#1085#1080#1077
+          object Memo1: TMemo
+            Left = 0
+            Top = 8
+            Width = 409
+            Height = 145
+            Lines.Strings = (
+              #1042#1099#1089#1086#1082#1086#1087#1086#1083#1080#1075#1086#1085#1072#1083#1100#1085#1072#1103' '#1084#1086#1076#1077#1083#1100' '#1090#1086#1087#1086#1083#1103' '#1089#1077#1088#1077#1073#1088#1080#1089#1090#1086#1075#1086' '
+              ''
+              #1048#1079#1084#1077#1085#1077#1085#1072' 17.05.2013  14:23:32'
+              #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1100': Alekseev')
+            TabOrder = 0
+          end
+          object Button4: TButton
+            Left = 3
+            Top = 287
+            Width = 75
+            Height = 25
+            Caption = #1054#1073#1085#1086#1074#1080#1090#1100
+            TabOrder = 1
+          end
+          object Memo2: TMemo
+            Left = 0
+            Top = 160
+            Width = 409
+            Height = 121
+            Lines.Strings = (
+              #1060#1072#1081#1083': Model.3ds'
+              #1048#1079#1084#1077#1085#1077#1085': 14.05.2013'
+              #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1100': '#1057#1080#1076#1086#1088#1086#1074' '#1053'.'#1053'.')
+            TabOrder = 2
+          end
+        end
+        object TabSheet2: TTabSheet
+          Caption = #1056#1080#1089#1091#1085#1082#1080
+          ImageIndex = 1
+        end
+        object TabSheet3: TTabSheet
+          Caption = '3D '#1086#1090#1086#1073#1088#1072#1078#1077#1085#1080#1077
+          ImageIndex = 2
+        end
+      end
+      object Button3: TButton
+        Left = 678
+        Top = 359
+        Width = 75
+        Height = 25
+        Caption = #1047#1072#1082#1088#1099#1090#1100
+        TabOrder = 3
+      end
+    end
+    object TabSheet5: TTabSheet
+      Caption = #1047#1072#1087#1080#1089#1100' '#1085#1072' '#1089#1077#1088#1074#1077#1088
+      ImageIndex = 1
+      object TreeView2: TTreeView
+        Left = 8
+        Top = 8
+        Width = 321
+        Height = 345
+        Indent = 19
+        TabOrder = 0
+        Items.Data = {
+          01000000210000000000000000000000FFFFFFFFFFFFFFFF0000000001000000
+          08CFF0EEE5EAF220311F0000000000000000000000FFFFFFFFFFFFFFFF000000
+          000100000006CCEEE4E5EBE8210000000000000000000000FFFFFFFFFFFFFFFF
+          000000000100000008D0E0F1F2E5EDE8FF200000000000000000000000FFFFFF
+          FFFFFFFFFF000000000200000007C4E5F0E5E2FCFF1F00000000000000000000
+          00FFFFFFFFFFFFFFFF000000000300000006D2EEEFEEEBFC2200000000000000
+          00000000FFFFFFFFFFFFFFFF0000000000000000094D6F64656C2E3364732100
+          00000000000000000000FFFFFFFFFFFFFFFF0000000000000000084C6973742E
+          626D70210000000000000000000000FFFFFFFFFFFFFFFF000000000000000008
+          4261726B2E626D701F0000000000000000000000FFFFFFFFFFFFFFFF00000000
+          0100000006C1E5F0E5E7E0190000000000000000000000FFFFFFFFFFFFFFFF00
+          0000000000000000}
+      end
+      object Button1: TButton
+        Left = 8
+        Top = 362
+        Width = 75
+        Height = 25
+        Caption = #1047#1072#1087#1080#1089#1072#1090#1100
+        TabOrder = 1
+      end
+      object PageControl3: TPageControl
+        Left = 336
+        Top = 10
+        Width = 417
+        Height = 343
+        ActivePage = TabSheet7
+        TabIndex = 0
+        TabOrder = 2
+        object TabSheet7: TTabSheet
+          Caption = #1054#1087#1080#1089#1072#1085#1080#1077
+          object Memo3: TMemo
+            Left = 0
+            Top = 8
+            Width = 409
+            Height = 145
+            Lines.Strings = (
+              #1042#1099#1089#1086#1082#1086#1087#1086#1083#1080#1075#1086#1085#1072#1083#1100#1085#1072#1103' '#1084#1086#1076#1077#1083#1100' '#1090#1086#1087#1086#1083#1103' '#1089#1077#1088#1077#1073#1088#1080#1089#1090#1086#1075#1086' '
+              ''
+              #1048#1079#1084#1077#1085#1077#1085#1072' 17.05.2013  14:23:32'
+              #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1100': Alekseev')
+            TabOrder = 0
+          end
+          object Memo4: TMemo
+            Left = 0
+            Top = 160
+            Width = 409
+            Height = 121
+            Lines.Strings = (
+              #1050#1054#1053#1060#1051#1048#1050#1058' '#1042#1045#1056#1057#1048#1049' '#1052#1054#1044#1045#1051#1045#1049'!'
+              ''
+              #1057#1077#1088#1074#1077#1088#1085#1072#1103' '#1074#1077#1088#1089#1080#1103':'
+              #1048#1079#1084#1077#1085#1077#1085#1072': 25.05.2013 12:20:14'
+              #1055#1086#1083#1100#1079#1086#1074#1072#1090#1077#1083#1100': '#1048#1074#1072#1085#1086#1074' '#1056'.'#1055'.'
+              ''
+              #1050#1083#1080#1077#1085#1090#1089#1082#1072#1103' '#1074#1077#1088#1089#1080#1103':'
+              #1048#1079#1084#1077#1085#1077#1085#1072': 24.05.2013 17:30:24')
+            TabOrder = 1
+          end
+          object Button5: TButton
+            Left = 3
+            Top = 287
+            Width = 75
+            Height = 25
+            Caption = #1054#1073#1085#1086#1074#1080#1090#1100
+            TabOrder = 2
+          end
+        end
+        object TabSheet8: TTabSheet
+          Caption = #1056#1080#1089#1091#1085#1082#1080
+          ImageIndex = 1
+        end
+        object TabSheet9: TTabSheet
+          Caption = '3D '#1086#1090#1086#1073#1088#1072#1078#1077#1085#1080#1077
+          ImageIndex = 2
+        end
+      end
+      object Button6: TButton
+        Left = 678
+        Top = 359
+        Width = 75
+        Height = 25
+        Caption = #1047#1072#1082#1088#1099#1090#1100
+        TabOrder = 3
+      end
+    end
+    object TabSheet6: TTabSheet
+      Caption = #1040#1076#1084#1080#1085#1080#1089#1090#1088#1080#1088#1086#1074#1072#1085#1080#1077
+      ImageIndex = 2
+      object SG: TStringGrid
+        Left = 0
+        Top = 8
+        Width = 441
+        Height = 345
+        ColCount = 3
+        FixedCols = 0
+        TabOrder = 0
+        ColWidths = (
+          118
+          241
+          48)
+      end
+      object TreeView3: TTreeView
+        Left = 448
+        Top = 8
+        Width = 305
+        Height = 345
+        Indent = 19
+        TabOrder = 1
+        Items.Data = {
+          01000000210000000000000000000000FFFFFFFFFFFFFFFF0000000001000000
+          08CFF0EEE5EAF220311F0000000000000000000000FFFFFFFFFFFFFFFF000000
+          000300000006CCEEE4E5EBE8210000000000000000000000FFFFFFFFFFFFFFFF
+          000000000100000008D0E0F1F2E5EDE8FF190000000000000000000000FFFFFF
+          FFFFFFFFFF0000000000000000001F0000000000000000000000FFFFFFFFFFFF
+          FFFF000000000100000006C7E4E0EDE8FF190000000000000000000000FFFFFF
+          FFFFFFFFFF000000000000000000280000000000000000000000FFFFFFFFFFFF
+          FFFF00000000020000000FC2EEE5EDEDE0FF20F2E5F5EDE8EAE01F0000000000
+          000000000000FFFFFFFFFFFFFFFF000000000200000006D0EEF1F1E8FF210000
+          000000000000000000FFFFFFFFFFFFFFFF000000000200000008CDE0E7E5ECED
+          E0FF1E0000000000000000000000FFFFFFFFFFFFFFFF000000000100000005D2
+          E0EDEAE81D0000000000000000000000FFFFFFFFFFFFFFFF0000000000000000
+          04D22D39302B0000000000000000000000FFFFFFFFFFFFFFFF00000000010000
+          0012D0E0EAE5F2EDFBE520EAEEECEFEBE5EAF1FB190000000000000000000000
+          FFFFFFFFFFFFFFFF000000000000000000220000000000000000000000FFFFFF
+          FFFFFFFFFF000000000100000009C2EEE7E4F3F8EDE0FF190000000000000000
+          000000FFFFFFFFFFFFFFFF0000000000000000001D0000000000000000000000
+          FFFFFFFFFFFFFFFF000000000100000004CDC0D2CE1900000000000000000000
+          00FFFFFFFFFFFFFFFF000000000000000000}
+      end
+      object Button7: TButton
+        Left = 1
+        Top = 360
+        Width = 75
+        Height = 25
+        Caption = #1053#1086#1074#1099#1081
+        TabOrder = 2
+      end
+      object Button8: TButton
+        Left = 88
+        Top = 360
+        Width = 75
+        Height = 25
+        Caption = #1059#1076#1072#1083#1080#1090#1100
+        TabOrder = 3
+      end
+      object Button9: TButton
+        Left = 680
+        Top = 360
+        Width = 75
+        Height = 25
+        Caption = #1047#1072#1082#1088#1099#1090#1100
+        TabOrder = 4
+      end
+    end
+  end
+end
