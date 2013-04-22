@@ -193,26 +193,26 @@ void tModelsConveyor::StartSendDeleteFiles()
 //-------------------------------------------------------------------------
 void tModelsConveyor::StartReceiveDeleteFiles()
 {
-//    bool stop=false;
-//    QString name_model="";
-//    if(db_op->GetNextReceiveDelModel(name_model))
-//    {
-//        //получено имя очередной модели что нужно получить с сервера
-//        QStringList ReceiveModelFiles;
-//        if(ReceiveModelFiles.size()!=0)
-//        {
-//            //Если есть файлы для чтения с сервера
-//            //Внести данные о получаемых файлах в список получаемых файлов
-//            for(int i=0; i<SendModelFiles.size(); i++)
-//            {
-//                QString S=SendModelFiles[i];
-//                stop=conv->ReceiveFile(S);
-//                if(stop)
-//                {
-//                    break;
-//                }
-//            }
-//        }
+    bool stop=false;
+    QString name_model="";
+    if(db_op->GetNextReceiveDelModel(name_model))
+    {
+        //получено имя очередной модели что нужно получить с сервера
+        QStringList ReceiveModelFiles;
+        if(ReceiveModelFiles.size()!=0)
+        {
+            //Если есть файлы для чтения с сервера
+            //Внести данные о получаемых файлах в список получаемых файлов
+            for(int i=0; i<ReceiveModelFiles.size(); i++)
+            {
+                QString S=ReceiveModelFiles[i];
+                stop=conv->ReceiveFile(S);
+                if(stop)
+                {
+                    break;
+                }
+            }
+        }
 
 //        QStringList DeleteLocalModelFiles;
 //        db_op->GetDeleteLocalModelFiles(name_model, DeleteServerModelFiles);
@@ -225,7 +225,7 @@ void tModelsConveyor::StartReceiveDeleteFiles()
 //                stop=conv->DeletingFile(S, true);
 //            }
 //        }
-//    }
+    }
 }
 //-------------------------------------------------------------------------
 void tModelsConveyor::CorrectLastSynch()

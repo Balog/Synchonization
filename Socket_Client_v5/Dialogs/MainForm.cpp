@@ -330,7 +330,7 @@ void MainForm::OnStartReceive()
         }
     }
 
-
+    mod_conv->StartReceiveDeleteFiles();
 //    bool stop=false;
 //    QModelIndex MI=ui->lwLocalListModels->currentIndex();
 
