@@ -20,7 +20,7 @@ public:
     void GetServerListModels(QStringList &_list);
     QString GetLocalHash(const QString& _name_file_, bool& _sending, bool &_receiving);
     QString GetServerHash(const QString &name_file);
-    void UpdateFileInfo(const QString& _file);
+//    void UpdateFileInfo(const QString& _file);
     void DeleteingFile(const QString &_file_name);
     QDateTime GetLastMod(const QString& _file_name);
     QDateTime RoundDateTime(const QDateTime &_dt) const;
@@ -40,7 +40,7 @@ public:
     void GetReceiveModelFiles(const QString& _name_model_, QStringList& _list_files);
     void UpdateServerTable(const QString &_name);
     void GetDeleteLocalModelFiles(const QString& _name_model, QStringList& _list_files);
-    void UpdateLastSynchDelServ(const QString& _file_name);
+//    void UpdateLastSynchDelServ(const QString& _file_name);
 
 private:
     QSqlDatabase db;

@@ -499,7 +499,7 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
 
 }
 //************************************************************************************************
-void tUpdateMainLocal::ExeCommand(QDataStream &_in)
+void tUpdateMainLocal::ExeCommand(QDataStream &)
 {
     ((MainForm*)link)->OnListFilesLocal();
     ((MainForm*)link)->CorrectLastSynch(false);
