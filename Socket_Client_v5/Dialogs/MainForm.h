@@ -36,7 +36,7 @@ public:
     QStringListModel *slm_server_list_models;//модель списка серверных моделей
     int NumCelServModel;
 
-        void CorrectLastSynch();
+        void CorrectLastSynch(bool _server);
         bool GetIsTransaction()
         {
             bool tr=mod_conv->GetIsTransaction();

@@ -325,7 +325,11 @@ void tGuiCommitTransaction::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tGuiReportCommitTransaction::ExeCommand(QDataStream &)
 {
-    ((MainForm*)link)->CorrectLastSynch();
+    //для синхронизации последнего состояния нужно использовать разные процедуры при отправке и при приеме файлов
+    //И при этом проводить ее нужно после того как состояние докальных и серверных таблиц будет обновлено
+    //Значит делать это нужно в конце всех транзакций, после обновления локальныз таблиц (при приеме файлов и локальном удалении)
+    //или после обновления серверных таблиц (при передаче и серверном удалении)
+//    ((MainForm*)link)->CorrectLastSynch();
     emit NextCommand();
 }
 //************************************************************************************************
@@ -488,6 +492,8 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     bool tr=((MainForm*)link)->GetIsTransaction();
     if(tr)
     {
+    //Сюда процедуру обновления Last таблиц с серверных данных (true)
+    ((MainForm*)link)->CorrectLastSynch(true);
     emit FinalBlockTransactions();
     }
 
@@ -496,6 +502,7 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
 void tUpdateMainLocal::ExeCommand(QDataStream &_in)
 {
     ((MainForm*)link)->OnListFilesLocal();
+    ((MainForm*)link)->CorrectLastSynch(false);
     emit NextCommand();
 
 }

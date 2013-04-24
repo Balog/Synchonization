@@ -227,67 +227,69 @@ void tConveyor::GetServerModels()
 //--------------------------------------------------------------------------------
 void tConveyor::AddCommitTransaction(const bool _send)
 {
-//    Transaction=true;
+    //    Transaction=true;
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
-    QString gui_command="CommitTransaction";
-
-    out << gui_command;
-
-//    QString hash="";
-    int s=-1;
-    if(_send)
+    if(_send || file_list.size()!=0)
     {
-     s=1;
+        QString gui_command="CommitTransaction";
 
+        out << gui_command;
+
+        //    QString hash="";
+        int s=-1;
+        if(_send)
+        {
+            s=1;
+
+        }
+        else
+        {
+            s=0;
+        }
+        out << s;
+
+        //     out << model_struct;
+
+        int num_files=file_list.size()+file_list1.size();
+
+        out << num_files;
+
+        for(int i=0; i<file_list.size(); i++)
+        {
+            tFileList fl;
+            fl=file_list[i];
+
+            out << fl.file_name;
+
+            out << fl.client_hash;
+            out << fl.server_hash;
+
+        }
+
+        //удаляемые с сервера файлы
+        for(int i=0; i<file_list1.size(); i++)
+        {
+            tFileList fl;
+            fl=file_list1[i];
+
+            out << fl.file_name;
+            out << tr("");//типа локальный хеш уже отсутствующего файла
+            out << fl.server_hash;
+        }
+        AddCommand(block);
     }
-    else
-    {
-     s=0;
-    }
-     out << s;
-
-//     out << model_struct;
-
-     int num_files=file_list.size()+file_list1.size();
-
-     out << num_files;
-
-     for(int i=0; i<file_list.size(); i++)
-     {
-         tFileList fl;
-         fl=file_list[i];
-
-         out << fl.file_name;
-
-         out << fl.client_hash;
-         out << fl.server_hash;
-
-     }
-
-     //удаляемые с сервера файлы
-     for(int i=0; i<file_list1.size(); i++)
-     {
-         tFileList fl;
-         fl=file_list1[i];
-
-         out << fl.file_name;
-         out << tr("");//типа локальный хеш уже отсутствующего файла
-         out << fl.server_hash;
-     }
-    AddCommand(block);
-
     if(!_send)
     {
         //Добавить команду проверки, перемещения и удаления файлов на клиентском компе
         QByteArray block;
         QDataStream out(&block, QIODevice::WriteOnly);
 
-        gui_command="VerifyMoveDelete";
+        QString gui_command="VerifyMoveDelete";
 
         out << gui_command;
-//        out << model_struct;
+        //        out << model_struct;
 
         AddCommand(block);
 
@@ -408,41 +410,69 @@ void tConveyor::AddStartTransaction(const bool _send)
     QDataStream out(&block, QIODevice::WriteOnly);
 
     int num_files=file_list.size()+file_list1.size();
-    if(num_files!=0)
+
+    if(_send)
     {
+        if(file_list.size()!=0 || file_list1.size()!=0)
+        {
+            QString gui_command="StartTransaction";
 
-    QString gui_command="StartTransaction";
+            out << gui_command;
 
-    out << gui_command;
+            out << num_files;
 
+            for(int i=0; i<file_list.size(); i++)
+            {
+                tFileList fl;
+                fl=file_list[i];
 
+                out << fl.file_name;
+                out << fl.client_hash;
+                out << fl.server_hash;
+            }
 
-    out << num_files;
+            if(_send)
+            {
+                for(int i=0; i<file_list1.size(); i++)
+                {
+                    tFileList fl;
+                    fl=file_list1[i];
 
-    for(int i=0; i<file_list.size(); i++)
+                    out << fl.file_name;
+                    out << fl.client_hash;
+                    out << fl.server_hash;
+                }
+            }
+
+            out << _send;
+
+        AddCommand(block);
+        }
+    }
+    else
     {
-        tFileList fl;
-        fl=file_list[i];
+        if(file_list.size()!=0)
+        {
+            QString gui_command="StartTransaction";
 
-        out << fl.file_name;
-        out << fl.client_hash;
-        out << fl.server_hash;
+            out << gui_command;
+
+            out << num_files;
+
+            for(int i=0; i<file_list.size(); i++)
+            {
+                tFileList fl;
+                fl=file_list[i];
+
+                out << fl.file_name;
+                out << fl.client_hash;
+                out << fl.server_hash;
+            }
+            AddCommand(block);
+        }
+
     }
 
-    for(int i=0; i<file_list1.size(); i++)
-    {
-        tFileList fl;
-        fl=file_list1[i];
-
-        out << fl.file_name;
-        out << fl.client_hash;
-        out << fl.server_hash;
-    }
-
-    out << _send;
-
-    AddCommand(block);
-    }
 }
 //--------------------------------------------------------------------------------
 bool tConveyor::AddSendCommand()
@@ -478,7 +508,7 @@ bool tConveyor::AddSendCommand()
     return ret;
 }
 //--------------------------------------------------------------------------------
-bool tConveyor::SendFile(const QString &_file_name)
+bool tConveyor::SendFile(const QString &_file_name, QStringList& _all_files)
 {
     bool ret=false;
     bool is_find=false;
@@ -493,6 +523,7 @@ bool tConveyor::SendFile(const QString &_file_name)
 
     if(!is_find)
     {
+    _all_files.push_back(_file_name);
 
     bool sending=false;
     bool receiving=false;
@@ -542,7 +573,7 @@ bool tConveyor::AddReceiveCommand()
     return ret;
 }
 //--------------------------------------------------------------------------------
-bool tConveyor::ReceiveFile(const QString &_file_name)
+bool tConveyor::ReceiveFile(const QString &_file_name, QStringList &_all_files)
 {
     bool ret=false;
 bool is_find=false;
@@ -557,6 +588,7 @@ for(int i=0; i<file_list.size(); i++)
 
 if(!is_find)
 {
+    _all_files.push_back(_file_name);
     bool sending=false;
     bool receiving=false;
 tFileList fl;
@@ -579,7 +611,7 @@ void tConveyor::OnDisconnecting()
     emit DisconnectFromServer();
 }
 //--------------------------------------------------------------------------------
-bool tConveyor::DeletingFile(const QString &_file_name, const bool _send)
+bool tConveyor::DeletingFile(const QString &_file_name, QStringList &_all_files, const bool _send)
 {
     bool sending=false;
     bool receiving=false;
@@ -600,6 +632,7 @@ bool tConveyor::DeletingFile(const QString &_file_name, const bool _send)
 
         if(!is_find)
         {
+            _all_files.push_back(_file_name);
             QString server_hash=db_op->GetServerHash(_file_name);
 
 
@@ -781,7 +814,7 @@ void tConveyor::Move(const QString &_entry_abs_path, const QString &_new_abs_pat
         QFile file_temp(_entry_abs_path);
         if(file_temp.copy(_new_abs_path))
         {
-            db_op->UpdateFileInfo(_new_abs_path, model_file);
+//            db_op->UpdateFileInfo(_new_abs_path, model_file);//возможно не нужна, в конце провести проверку базы и все
 
             QFile::setPermissions(_entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
             tFileList fl;
@@ -968,67 +1001,64 @@ void tConveyor::VerifyDeletedFiles()
     }
 }
 //----------------------------------------------------------
-void tConveyor::CorrectLastSynch()
+void tConveyor::CorrectLastSynch(QStringList &_all_files, bool _server)
 {
-    switch (send_mode)
-    {
-    case 1:
-    {
-        //ПЛАН:
+//    switch (_server)
+//    {
+//    case 1:
+//    {
+//        //ПЛАН:
 
-        //По спискам file_list и file_list1 для каждого файла найти модель или модели, в которых он участвует (локальные таблицы)
-        //Перебирая модели добавить или обновить записи в таблице файлов по каждому файлу (хэш-суммы можно брать из таблицы локальных данных)
-        //После окончания пройтить по всем моделям LastSynch и пересчитать сумму хэш-сумм
-        //(это уже отдельной процедурой запускаемой когда весь список транзакций будет завершен)
-        QList<tFileList>summ_list=SummList(file_list, file_list1);
-        for(int i=0; i<summ_list.size(); i++)
-        {
+//        //По спискам file_list и file_list1 для каждого файла найти модель или модели, в которых он участвует (локальные таблицы)
+//        //Перебирая модели добавить или обновить записи в таблице файлов по каждому файлу (хэш-суммы можно брать из таблицы локальных данных)
+//        //После окончания пройтить по всем моделям LastSynch и пересчитать сумму хэш-сумм
+//        //(это уже отдельной процедурой запускаемой когда весь список транзакций будет завершен)
 
-
-            db_op->UpdateLastSynch(summ_list[i].file_name);
-
-//            db_op->UpdateServerTable(summ_list[i].file_name);
-        }
-
-//        for(int i=0; i<file_list1.size(); i++)
+//        break;
+//    }
+//    case 2:
+//    {
+//        QList<tFileList>summ_list=SummList(file_list, file_list1);
+//        for(int i=0; i<summ_list.size(); i++)
 //        {
-//            db_op->UpdateLastSynch(file_list1[i].file_name);
+//            db_op->UpdateLastSynch(summ_list[i].file_name);
 //        }
-
-        break;
-    }
-    case 2:
-    {
-
-        break;
-    }
-    }
+//        break;
+//    }
+//    }
+//        QList<tFileList>summ_list=SummList(file_list, file_list1);
+        for(int i=0; i<_all_files.size(); i++)
+        {
+            db_op->UpdateLastSynch(_all_files[i], _server);
+        }
 
 }
 //----------------------------------------------------------
-QList<tFileList> tConveyor::SummList(QList<tFileList> _l1, QList<tFileList> _l2)
-{
-    QList<tFileList> summ=_l1;
+//QList<tFileList> tConveyor::SummList(QList<tFileList> _l1, QList<tFileList> _l2)
+//{
+//    QList<tFileList> summ=_l1;
+//    for(int j=0; j<_l2.size();j++)
+//    {
+//        bool find=false;
+//        for(int i=0; i<summ.size(); i++)
+//        {
 
-    for(int i=0; i<summ.size(); i++)
-    {
-        bool find=false;
-        for(int j=0; j<_l2.size();j++)
-        {
-            if(summ[i].file_name==_l2[j].file_name)
-            {
-                find=true;
-                break;
-            }
-            if(!find)
-            {
-                summ.push_back(_l2[j]);
-            }
-        }
-    }
 
-    return summ;
-}
+//            if(summ[i].file_name==_l2[j].file_name)
+//            {
+//                find=true;
+//                break;
+//            }
+
+//        }
+//        if(!find)
+//        {
+//            summ.push_back(_l2[j]);
+//        }
+//    }
+
+//    return summ;
+//}
 //----------------------------------------------------------
 void tConveyor::OnEndTransactions()
 {

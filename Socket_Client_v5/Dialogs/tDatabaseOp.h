@@ -18,9 +18,9 @@ public:
     void SaveServerModelFiles(QByteArray &_block);
     void GetServerListFiles(const QString &_str, QStringList &_list);
     void GetServerListModels(QStringList &_list);
-    QString GetLocalHash(const QString& _name_file, bool& _sending, bool &_receiving);
+    QString GetLocalHash(const QString& _name_file_, bool& _sending, bool &_receiving);
     QString GetServerHash(const QString &name_file);
-    void UpdateFileInfo(const QString& _file, const QString &model_struct);
+    void UpdateFileInfo(const QString& _file);
     void DeleteingFile(const QString &_file_name);
     QDateTime GetLastMod(const QString& _file_name);
     QDateTime RoundDateTime(const QDateTime &_dt) const;
@@ -35,9 +35,9 @@ public:
 //    void GetSendModeles(QStringList &_list_models);
     void GetSendModelFiles(const QString &_name_model, QStringList& _list_files);
     void GetDeleteServerModelFiles(const QString &_name_model, QStringList& _list_files);
-    void UpdateLastSynch(const QString& _file_name);
+    void UpdateLastSynch(const QString& _file_name_, bool _server);
     bool GetNextReceiveDelModel(QString& _name_model);
-    void GetReceiveModelFiles(const QString& _name_model, QStringList& _list_files);
+    void GetReceiveModelFiles(const QString& _name_model_, QStringList& _list_files);
     void UpdateServerTable(const QString &_name);
     void GetDeleteLocalModelFiles(const QString& _name_model, QStringList& _list_files);
     void UpdateLastSynchDelServ(const QString& _file_name);

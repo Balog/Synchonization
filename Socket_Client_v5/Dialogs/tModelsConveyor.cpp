@@ -22,9 +22,10 @@ tModelsConveyor::tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp 
     connect(_link, SIGNAL(Disconnecting()), conv, SLOT(OnDisconnecting()));
 //    connect(conv, SIGNAL(ErrorCommands()),_link, SLOT(ErrorConveyor()));
 
-    connect(conv, SIGNAL(EndTransactions()), _link, SLOT(EndTransactions()));
-
-
+//    connect(conv, SIGNAL(EndTransactions()), this, SLOT(EndTransactions()));
+//    connect(this, SIGNAL(EndTransactionsMain()), _link, SLOT(EndTransactions()));
+connect(conv, SIGNAL(EndTransactions()), _link, SLOT(EndTransactions()));
+connect(this, SIGNAL(EndTransactions()), _link, SLOT(EndTransactions()));
 
 //    conv->SetDatabaseOperator(db_op);
 
@@ -66,7 +67,16 @@ void tModelsConveyor::EndConveyor()
 //    MB.exec();
 
     conv->Clear();
-    StartSendDeleteFiles();
+    if(send)
+    {
+        StartSendDeleteFiles();
+    }
+    else
+    {
+        StartReceiveDeleteFiles();
+    }
+
+
 }
 //-------------------------------------------------------------------------
 void tModelsConveyor::OnDisconnect()
@@ -126,6 +136,8 @@ void tModelsConveyor::DeletingLocalFile(const QString& _file_name)
 //-------------------------------------------------------------------------
 void tModelsConveyor::StartSendDeleteFiles()
 {
+
+    send=true;
 //    Transaction=true;
     bool stop=false;
     QString name_model="";
@@ -143,7 +155,7 @@ void tModelsConveyor::StartSendDeleteFiles()
             for(int i=0; i<SendModelFiles.size(); i++)
             {
                 QString S=SendModelFiles[i];
-                stop=conv->SendFile(S);
+                stop=conv->SendFile(S, all_files);
                 if(stop)
                 {
                     break;
@@ -159,16 +171,16 @@ void tModelsConveyor::StartSendDeleteFiles()
             for(int i=0; i<DeleteServerModelFiles.size(); i++)
             {
                 QString S=DeleteServerModelFiles[i];
-                stop=conv->DeletingFile(S, true);
+                stop=conv->DeletingFile(S, all_files, send);
             }
         }
 
 
-        conv->AddStartTransaction(true);
+        conv->AddStartTransaction(send);
         stop=conv->AddSendCommand();
         conv->AddDelCommand();
 
-        conv->AddCommitTransaction(true);
+        conv->AddCommitTransaction(send);
 
 
         //Начало выполнения списка команд
@@ -196,6 +208,8 @@ void tModelsConveyor::StartSendDeleteFiles()
 //-------------------------------------------------------------------------
 void tModelsConveyor::StartReceiveDeleteFiles()
 {
+
+    send=false;
 //    Transaction=true;
     bool stop=false;
     QString name_model="";
@@ -211,7 +225,7 @@ void tModelsConveyor::StartReceiveDeleteFiles()
             for(int i=0; i<ReceiveModelFiles.size(); i++)
             {
                 QString S=ReceiveModelFiles[i];
-                stop=conv->ReceiveFile(S);
+                stop=conv->ReceiveFile(S, all_files);
                 if(stop)
                 {
                     break;
@@ -227,15 +241,14 @@ void tModelsConveyor::StartReceiveDeleteFiles()
             for(int i=0; i<DeleteLocalModelFiles.size(); i++)
             {
                 QString S=DeleteLocalModelFiles[i];
-                stop=conv->DeletingFile(S, true);
+                stop=conv->DeletingFile(S, all_files, send);
             }
         }
-        conv->AddStartTransaction(false);
+        conv->AddStartTransaction(send);
         stop=conv->AddReceiveCommand();
-        conv->AddDelCommand();
+//        conv->AddDelCommand();
 
-//        conv->AddCommitTransaction(false);
-        conv->AddCommitTransactionDel();
+        conv->AddCommitTransaction(send);
 
         //Начало выполнения списка команд
         if(!stop)
@@ -255,17 +268,27 @@ void tModelsConveyor::StartReceiveDeleteFiles()
     }
     else
     {
+
+        //нужна команда GetListModels
+//        emit EndTransactions();
+//        db_op->RefreshModelsFiles();
         emit EndTransactions();
     }
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::CorrectLastSynch()
+void tModelsConveyor::CorrectLastSynch(bool _server)
 {
-    conv->CorrectLastSynch();
-
+    conv->CorrectLastSynch(all_files, _server);
+    all_files.clear();
 }
 //-------------------------------------------------------------------------
 void tModelsConveyor::SetTransactionFlag(bool _flag)
 {
     Transaction=_flag;
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::OnEndTransactions()
+{
+    db_op->RefreshModelsFiles();
+    emit EndTransactionsMain();
 }

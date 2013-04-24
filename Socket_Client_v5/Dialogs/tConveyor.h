@@ -38,9 +38,9 @@ public:
 
     void Clear();
 
-    bool SendFile(const QString &_file_name);
-    bool ReceiveFile(const QString &_file_name);
-    bool DeletingFile(const QString &_file_name, const bool _send);
+    bool SendFile(const QString &_file_name, QStringList &_all_files);
+    bool ReceiveFile(const QString &_file_name, QStringList &_all_files);
+    bool DeletingFile(const QString &_file_name, QStringList &_all_files, const bool _send);
 
     void AddCommitTransaction(const bool _send);
     void AddCommitTransactionDel();
@@ -59,7 +59,7 @@ public:
     void GetListServerModels();
 //    void SetDatabaseOperator(tDatabaseOp *_db_op);
 
-        void CorrectLastSynch();
+        void CorrectLastSynch(QStringList &_all_files, bool _server);
 //        bool GetIsTransaction()
 //        {
 //            return Transaction;
@@ -110,7 +110,7 @@ private:
     QString NormalizePathFiles(QString Path);
     void VerifyReplacedFiles();
     void VerifyDeletedFiles();
-    QList<tFileList> SummList(QList<tFileList> _l1, QList<tFileList> _l2);
+//    QList<tFileList> SummList(QList<tFileList> _l1, QList<tFileList> _l2);
 //    bool Transaction;
 
 

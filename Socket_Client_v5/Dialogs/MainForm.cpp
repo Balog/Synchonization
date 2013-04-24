@@ -512,10 +512,10 @@ void MainForm::OnServerModelClick(const QModelIndex Ind)
     ui->lvListFiles->setModel(sLM_server_list_files);
 }
 //----------------------------------------------------------
-void MainForm::CorrectLastSynch()
+void MainForm::CorrectLastSynch(bool _server)
 {
 
-    mod_conv->CorrectLastSynch();
+    mod_conv->CorrectLastSynch(_server);
 
 }
 //----------------------------------------------------------

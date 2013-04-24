@@ -24,7 +24,7 @@ public:
     void ReceiveFile(const QString& _file_name);
     void DeletingLocalFile(const QString& _file_name);
     void StartReceiveDeleteFiles();
-    void CorrectLastSynch();
+    void CorrectLastSynch(bool _server);
     bool GetIsTransaction()
     {
         return Transaction;
@@ -38,6 +38,8 @@ private:
     tDatabaseOp* db_op;
     tConveyor* conv;
     bool Transaction;
+    bool send;
+    QStringList all_files;
     
 signals:
     void NextCommand();
@@ -47,6 +49,7 @@ signals:
     void CloseMain();//Пробросить в форму
     void SetVisible(bool vis);//пробросить в форму
     void EndTransactions();
+    void EndTransactionsMain();
 
 private slots:
     void EndConveyor();
@@ -55,6 +58,7 @@ private slots:
     void OnAutorizStart();
 //    void OnSetVisible(const bool vis);
     void ErrorConveyor();
+    void OnEndTransactions();
 };
 
 #endif // TMODELSCONVEYOR_H
