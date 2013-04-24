@@ -2,7 +2,7 @@
 #include <QMessageBox>
 
 tModelsConveyor::tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
-    QObject(parent), ui(_ui), db_op(_db_op), link(_link)
+    QObject(parent), ui(_ui), db_op(_db_op), link(_link),Transaction(false)
 {
 //    db_op=new tDatabaseOp();
 
@@ -22,7 +22,7 @@ tModelsConveyor::tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp 
     connect(_link, SIGNAL(Disconnecting()), conv, SLOT(OnDisconnecting()));
 //    connect(conv, SIGNAL(ErrorCommands()),_link, SLOT(ErrorConveyor()));
 
-    connect(this, SIGNAL(EndTransactions()), _link, SLOT(EndTransactions()));
+    connect(conv, SIGNAL(EndTransactions()), _link, SLOT(EndTransactions()));
 
 
 
@@ -126,6 +126,7 @@ void tModelsConveyor::DeletingLocalFile(const QString& _file_name)
 //-------------------------------------------------------------------------
 void tModelsConveyor::StartSendDeleteFiles()
 {
+//    Transaction=true;
     bool stop=false;
     QString name_model="";
     if(db_op->GetNextSendDelModel(name_model))
@@ -169,6 +170,73 @@ void tModelsConveyor::StartSendDeleteFiles()
 
         conv->AddCommitTransaction(true);
 
+
+        //Начало выполнения списка команд
+        if(!stop)
+        {
+            conv->StartExecution();
+        }
+        else
+        {
+            QMessageBox MB;
+            MB.setText(QString::fromUtf8("Локальный файл изменился. Операция прервана."));
+            MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+            MB.exec();
+
+            conv->Clear();
+            EndConveyor();
+        }
+    }
+    else
+    {
+        conv->GetServerModels();
+//        emit EndTransactions();
+    }
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::StartReceiveDeleteFiles()
+{
+//    Transaction=true;
+    bool stop=false;
+    QString name_model="";
+    if(db_op->GetNextReceiveDelModel(name_model))
+    {
+        //получено имя очередной модели что нужно получить с сервера
+        QStringList ReceiveModelFiles;
+        db_op->GetReceiveModelFiles(name_model, ReceiveModelFiles);
+        if(ReceiveModelFiles.size()!=0)
+        {
+            //Если есть файлы для чтения с сервера
+            //Внести данные о получаемых файлах в список получаемых файлов
+            for(int i=0; i<ReceiveModelFiles.size(); i++)
+            {
+                QString S=ReceiveModelFiles[i];
+                stop=conv->ReceiveFile(S);
+                if(stop)
+                {
+                    break;
+                }
+            }
+        }
+
+        QStringList DeleteLocalModelFiles;
+        db_op->GetDeleteLocalModelFiles(name_model, DeleteLocalModelFiles);
+
+        if(DeleteLocalModelFiles.size()!=0)
+        {
+            for(int i=0; i<DeleteLocalModelFiles.size(); i++)
+            {
+                QString S=DeleteLocalModelFiles[i];
+                stop=conv->DeletingFile(S, true);
+            }
+        }
+        conv->AddStartTransaction(false);
+        stop=conv->AddReceiveCommand();
+        conv->AddDelCommand();
+
+//        conv->AddCommitTransaction(false);
+        conv->AddCommitTransactionDel();
+
         //Начало выполнения списка команд
         if(!stop)
         {
@@ -191,45 +259,13 @@ void tModelsConveyor::StartSendDeleteFiles()
     }
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::StartReceiveDeleteFiles()
-{
-    bool stop=false;
-    QString name_model="";
-    if(db_op->GetNextReceiveDelModel(name_model))
-    {
-        //получено имя очередной модели что нужно получить с сервера
-        QStringList ReceiveModelFiles;
-        if(ReceiveModelFiles.size()!=0)
-        {
-            //Если есть файлы для чтения с сервера
-            //Внести данные о получаемых файлах в список получаемых файлов
-            for(int i=0; i<ReceiveModelFiles.size(); i++)
-            {
-                QString S=ReceiveModelFiles[i];
-                stop=conv->ReceiveFile(S);
-                if(stop)
-                {
-                    break;
-                }
-            }
-        }
-
-//        QStringList DeleteLocalModelFiles;
-//        db_op->GetDeleteLocalModelFiles(name_model, DeleteServerModelFiles);
-
-//        if(DeleteServerModelFiles.size()!=0)
-//        {
-//            for(int i=0; i<DeleteServerModelFiles.size(); i++)
-//            {
-//                QString S=DeleteServerModelFiles[i];
-//                stop=conv->DeletingFile(S, true);
-//            }
-//        }
-    }
-}
-//-------------------------------------------------------------------------
 void tModelsConveyor::CorrectLastSynch()
 {
     conv->CorrectLastSynch();
+
 }
 //-------------------------------------------------------------------------
+void tModelsConveyor::SetTransactionFlag(bool _flag)
+{
+    Transaction=_flag;
+}

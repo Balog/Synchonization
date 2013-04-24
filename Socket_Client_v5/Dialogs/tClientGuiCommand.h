@@ -310,4 +310,17 @@ inline tAbstractGuiCommand* Create_tReportGuiGetListServerModels()
     return new tReportGuiGetListServerModels;
 }
 //**********************************************************************************
+class tUpdateMainLocal : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &_in);
+
+
+};
+inline tAbstractGuiCommand* Create_tUpdateMainLocal()
+{
+    return new tUpdateMainLocal;
+}
+//**********************************************************************************
 #endif // TCLIENTGUICOMMAND_H

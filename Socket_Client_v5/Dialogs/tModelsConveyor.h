@@ -25,12 +25,19 @@ public:
     void DeletingLocalFile(const QString& _file_name);
     void StartReceiveDeleteFiles();
     void CorrectLastSynch();
+    bool GetIsTransaction()
+    {
+        return Transaction;
+    }
+
+    void SetTransactionFlag(bool _flag);
 
 private:
     QObject *link;
     Ui::MainForm *ui;
     tDatabaseOp* db_op;
     tConveyor* conv;
+    bool Transaction;
     
 signals:
     void NextCommand();

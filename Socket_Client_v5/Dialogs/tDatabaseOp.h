@@ -37,6 +37,10 @@ public:
     void GetDeleteServerModelFiles(const QString &_name_model, QStringList& _list_files);
     void UpdateLastSynch(const QString& _file_name);
     bool GetNextReceiveDelModel(QString& _name_model);
+    void GetReceiveModelFiles(const QString& _name_model, QStringList& _list_files);
+    void UpdateServerTable(const QString &_name);
+    void GetDeleteLocalModelFiles(const QString& _name_model, QStringList& _list_files);
+    void UpdateLastSynchDelServ(const QString& _file_name);
 
 private:
     QSqlDatabase db;
@@ -48,6 +52,9 @@ private:
 
     void CheckFile(const qlonglong _num, const QString &_path_file);
     void CheckInfoFiles(const qlonglong _num, const QString &_folder_mod);
+    void UpdateLocalHash(const QString &_name_file, const QDateTime _disk_date_time, const QString &_hash);
+
+
 };
 
 #endif // TDATABASEOP_H

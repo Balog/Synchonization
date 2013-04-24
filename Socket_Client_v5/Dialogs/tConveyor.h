@@ -47,7 +47,7 @@ public:
 
     bool AddSendCommand();
     void AddDelCommand();
-    void AddReceiveCommand();
+    bool AddReceiveCommand();
 
     void AddStartTransaction(const bool _send);
     void StartExecution();
@@ -60,6 +60,12 @@ public:
 //    void SetDatabaseOperator(tDatabaseOp *_db_op);
 
         void CorrectLastSynch();
+//        bool GetIsTransaction()
+//        {
+//            return Transaction;
+//        }
+        void GetServerModels();
+
 
 private:
     QObject *link;
@@ -104,6 +110,8 @@ private:
     QString NormalizePathFiles(QString Path);
     void VerifyReplacedFiles();
     void VerifyDeletedFiles();
+    QList<tFileList> SummList(QList<tFileList> _l1, QList<tFileList> _l2);
+//    bool Transaction;
 
 
 signals:
@@ -114,6 +122,7 @@ signals:
     void SetVisible(bool vis);
     void DisconnectFromServer();
     void ErrorCommands();
+    void EndTransactions();
 
     
 public slots:
@@ -125,7 +134,7 @@ public slots:
     void OnStart(const bool _res);
     void OnDisconnecting();
     void VerifyMoveDelete(QString &m_struct);
-    
+    void OnEndTransactions();
 };
 
 #endif // TCONVEYOR_H

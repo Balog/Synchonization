@@ -35,13 +35,12 @@ public:
     QLabel *label;
     QLineEdit *leTemp;
     QLabel *label_2;
-    QPushButton *pushButton;
 
     void setupUi(QDialog *Dialog)
     {
         if (Dialog->objectName().isEmpty())
             Dialog->setObjectName(QString::fromUtf8("Dialog"));
-        Dialog->resize(434, 300);
+        Dialog->resize(430, 300);
         leAddres = new QLineEdit(Dialog);
         leAddres->setObjectName(QString::fromUtf8("leAddres"));
         leAddres->setGeometry(QRect(10, 10, 121, 20));
@@ -75,15 +74,11 @@ public:
         label_2 = new QLabel(Dialog);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(10, 70, 46, 13));
-        pushButton = new QPushButton(Dialog);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(120, 100, 91, 23));
 
         retranslateUi(Dialog);
         QObject::connect(pbConnect, SIGNAL(clicked()), Dialog, SLOT(OnConnect()));
         QObject::connect(pbDisconnect, SIGNAL(clicked()), Dialog, SLOT(OnDisconnect()));
         QObject::connect(pbAddNew, SIGNAL(clicked()), Dialog, SLOT(OnAddNew()));
-        QObject::connect(pushButton, SIGNAL(clicked()), Dialog, SLOT(OnClearModels()));
 
         QMetaObject::connectSlotsByName(Dialog);
     } // setupUi
@@ -98,7 +93,6 @@ public:
         pbAddNew->setText(QApplication::translate("Dialog", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("Dialog", "Root", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("Dialog", "Temp", 0, QApplication::UnicodeUTF8));
-        pushButton->setText(QApplication::translate("Dialog", "\320\236\321\207\320\270\321\201\321\202\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

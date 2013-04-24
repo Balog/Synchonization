@@ -37,6 +37,11 @@ public:
     int NumCelServModel;
 
         void CorrectLastSynch();
+        bool GetIsTransaction()
+        {
+            bool tr=mod_conv->GetIsTransaction();
+            return tr;
+        }
     
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
@@ -104,7 +109,7 @@ private slots:
     void OnDeleteLocal();
     void OnClearDeleteLocal();
     void OnStartReceive();
-    void OnListFilesLocal();
+
     void OnUpdateStruct();
 
     void OnClearModels();
@@ -116,6 +121,7 @@ private slots:
 
 public slots:
     void OnServerModelClick(const QModelIndex Ind);
+    void OnListFilesLocal();
 
 signals:
     void RunGui(QByteArray& block);

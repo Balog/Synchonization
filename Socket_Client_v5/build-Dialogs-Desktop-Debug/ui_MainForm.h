@@ -71,7 +71,7 @@ public:
     {
         if (MainForm->objectName().isEmpty())
             MainForm->setObjectName(QString::fromUtf8("MainForm"));
-        MainForm->resize(1061, 810);
+        MainForm->resize(1059, 809);
         leRoot = new QLineEdit(MainForm);
         leRoot->setObjectName(QString::fromUtf8("leRoot"));
         leRoot->setGeometry(QRect(600, 755, 141, 20));

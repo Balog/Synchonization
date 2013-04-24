@@ -45,17 +45,6 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
 
     mod_conv= new tModelsConveyor(ui, this, db_op);
 
-//    connect(this, SIGNAL(NextCommand()), conv, SLOT(NextCommand()));
-//    connect(conv, SIGNAL(EndCommands()), this, SLOT(EndConveyor()));
-
-//    connect(this, SIGNAL(RunGui(QByteArray&)), mod_conv, SLOT(OnRunGuiCommand(QByteArray&)));
-//    connect(mod_conv, SIGNAL(Disconnect()), this, SLOT(OnDisconnect()));
-//    connect(mod_conv, SIGNAL(CloseMain()), this, SLOT(close()));
-//    connect(mod_conv, SIGNAL(AutorizStart()), this, SLOT(OnAutorizStart()));
-//    connect(mod_conv, SIGNAL(SetVisible(bool)),this, SLOT(OnSetVisible(bool)));
-//    connect(this, SIGNAL(Disconnecting()), mod_conv, SLOT(OnDisconnecting()));
-//    connect(mod_conv, SIGNAL(ErrorCommands()),this, SLOT(ErrorConveyor()));
-
     mod_conv->StartServer(ui->leAddr->text(), ui->sbPort->value());
 
 
@@ -129,6 +118,7 @@ void MainForm::EndTransactions()
 //    OnListFiles();
 
 //    OnListFilesLocal();
+    mod_conv->SetTransactionFlag(false);
 
     QMessageBox MB;
     MB.setText(QString::fromUtf8("Пакет транзакций выполнен"));
@@ -186,6 +176,7 @@ void MainForm::OnAddSend()
 //---------------------------------------------------------------------
 void MainForm::OnStartSend()
 {
+    mod_conv->SetTransactionFlag(true);
     mod_conv->Clear();
     if(listSend.size()!=0)
     {
@@ -311,6 +302,7 @@ void MainForm::OnClearDeleteLocal()
 //---------------------------------------------------------------------
 void MainForm::OnStartReceive()
 {
+    mod_conv->SetTransactionFlag(true);
     mod_conv->Clear();
     if(listRec.size()>0)
     {
@@ -407,7 +399,7 @@ void MainForm::OnListFilesLocal()
     QString root=my_settings.GetRoot();
     QStringList list;
 //    CreateFileList(root, list);
-    db_op->RefreshModelsFiles();//ВРЕМЕННО ПОКА НЕТ СВЯЗИ ПЕРЕДАЧ И БАЗЫ
+    db_op->RefreshModelsFiles();
     SearchModelsOnDatabase(list);
 
     sLM_loc_list_models=new QStringListModel;
@@ -522,6 +514,8 @@ void MainForm::OnServerModelClick(const QModelIndex Ind)
 //----------------------------------------------------------
 void MainForm::CorrectLastSynch()
 {
+
     mod_conv->CorrectLastSynch();
+
 }
 //----------------------------------------------------------

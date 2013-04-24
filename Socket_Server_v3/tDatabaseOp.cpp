@@ -620,7 +620,7 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
     foreach(QString entry, lst_files)
     {
         QFileInfo info(NormalizePathFiles(info_folder+"/"+entry));
-        QString suffix=info.suffix();
+        QString suffix=info.suffix().toLower();
         if(suffix=="bmp" | suffix=="jpg" | suffix=="jpeg" | suffix=="gif" | suffix=="png")
         {
             //проверяем есть ли такой файл в базе

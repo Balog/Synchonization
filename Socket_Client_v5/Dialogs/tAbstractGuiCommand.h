@@ -27,6 +27,7 @@ signals:
     void StartStop(bool res);
     void OkAutoriz(bool res);
     void NextCommand();
+    void FinalBlockTransactions();
     void VerifyMoveDelete(QString&);
 };
 

@@ -475,22 +475,6 @@ void tGetListModels::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
 {
-
-//    QStringList list;
-
-//    int num=-1;
-//    _in >> num;
-//    for(int i=0; i<num;i++)
-//    {
-//        QString file="";
-//        _in >> file;
-//        list.push_back(file);
-//    }
-
-//    ((MainForm*)link)->LocalListFile(list);
-
-
-//    ((MainForm*)link)->ServerListModels(list);
     _in.device()->seek(0);
     _in.device()->seek(54);
 
@@ -501,25 +485,18 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
 
     ((MainForm*)link)->SaveServerModelFiles(block);
 
-
-//    ui->lwListModels->selectionModel()->setCurrentIndex(((MainForm*)link)->slm_server_list_models, QItemSelectionModel::ClearAndSelect);
-    //((MainForm*)link)->slm_server_list_models->createIndex(((MainForm*)link)->NumCelServModel, 0);
-//    QModelIndex MI=ui->lwListModels->currentIndex();
-//    int N=MI.row();
-//    if(N>0)
-//    {
-//    ((MainForm*)link)->OnServerModelClick(MI);
-//    }
-
-    /*
-    QModelIndex MI=ui->lwListModels->currentIndex();
-
-    int N=MI.row();
-    if(N>0)
+    bool tr=((MainForm*)link)->GetIsTransaction();
+    if(tr)
     {
-    OnServerModelClick(MI);
+    emit FinalBlockTransactions();
     }
-    */
+
+}
+//************************************************************************************************
+void tUpdateMainLocal::ExeCommand(QDataStream &_in)
+{
+    ((MainForm*)link)->OnListFilesLocal();
+    emit NextCommand();
 
 }
 //************************************************************************************************

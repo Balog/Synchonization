@@ -7,7 +7,7 @@
 extern tSettings my_settings;
 
 tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
-    QObject(parent), ui(_ui), gui_comm(NULL), db_op(_db_op), link(_link), send_mode(0)
+    QObject(parent), ui(_ui), gui_comm(NULL), db_op(_db_op), link(_link), send_mode(0)//, Transaction(false)
 {
     root=my_settings.GetRoot();
     v_conv.clear();
@@ -38,6 +38,8 @@ tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QOb
 
     gui_vf.reg("GetListModels",Create_tGetListModels);
     gui_vf.reg("ReportGetListServerModels",Create_tReportGuiGetListServerModels);
+
+    gui_vf.reg("UpdateMainLocal",Create_tUpdateMainLocal);
 }
 //-----------------------------------------------------------------
 tConveyor::~tConveyor()
@@ -104,11 +106,12 @@ void tConveyor::OnCommand(QByteArray _block)
     connect(gui_comm, SIGNAL(OkAutoriz(bool)), this, SLOT(OnStart(bool)));
     connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
     connect(gui_comm, SIGNAL(SendCommand(QByteArray)), client_th, SLOT(OnCommandToSocket(QByteArray)));
+    connect(gui_comm, SIGNAL(FinalBlockTransactions()), this, SLOT(OnEndTransactions()));
 
     gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
     gui_comm->ExeCommand(out);
-    delete gui_comm;
+    if(!gui_comm) {delete gui_comm;}
     gui_comm=NULL;
 }
 //-----------------------------------------------------------------
@@ -129,9 +132,11 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
 
     connect(gui_comm, SIGNAL(SendCommand(QByteArray)), client_th, SLOT(OnCommandToSocket(QByteArray)));
     connect(gui_comm, SIGNAL(VerifyMoveDelete(QString&)), this, SLOT(VerifyMoveDelete(QString&)));
+    connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
+//    connect(gui_comm, SIGNAL(EndTransactions()), this, SIGNAL(OnEndTransactions()));
 
     gui_comm->Initialize(ui);
-
+    gui_comm->SetLink(link);
     gui_comm->ExeCommand(out);
 
     delete gui_comm;
@@ -207,8 +212,22 @@ void tConveyor::StartExecution()
     NextCommand();
 }
 //--------------------------------------------------------------------------------
+void tConveyor::GetServerModels()
+{
+    QByteArray block1;
+    QDataStream out1(&block1, QIODevice::WriteOnly);
+
+    out1 << tr("GetListModels");
+    out1 << tr("GetListModels");
+
+    AddCommand(block1);
+    NextCommand();
+}
+
+//--------------------------------------------------------------------------------
 void tConveyor::AddCommitTransaction(const bool _send)
 {
+//    Transaction=true;
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
@@ -271,6 +290,14 @@ void tConveyor::AddCommitTransaction(const bool _send)
 //        out << model_struct;
 
         AddCommand(block);
+
+        QByteArray block1;
+        QDataStream out1(&block1, QIODevice::WriteOnly);
+
+        gui_command="UpdateMainLocal";
+        out1 <<gui_command;
+
+        AddCommand(block1);
     }
 }
 //--------------------------------------------------------------------------------
@@ -485,8 +512,9 @@ bool tConveyor::SendFile(const QString &_file_name)
     return ret;
 }
 //--------------------------------------------------------------------------------
-void tConveyor::AddReceiveCommand()
+bool tConveyor::AddReceiveCommand()
 {
+    bool ret=false;
     for(int i=0; i<file_list.size(); i++)
     {
         QByteArray block;
@@ -499,8 +527,19 @@ void tConveyor::AddReceiveCommand()
         out << socket_command;
         out << file_list[i].file_name;
 
+        bool sending=false;
+        bool receiving=false;
+        QString H=db_op->GetLocalHash(file_list[i].file_name, sending, receiving);
+        if(!receiving)
+        {
+            ret=true;
+            break;
+        }
+
+
     AddCommand(block);
     }
+    return ret;
 }
 //--------------------------------------------------------------------------------
 bool tConveyor::ReceiveFile(const QString &_file_name)
@@ -941,15 +980,20 @@ void tConveyor::CorrectLastSynch()
         //Перебирая модели добавить или обновить записи в таблице файлов по каждому файлу (хэш-суммы можно брать из таблицы локальных данных)
         //После окончания пройтить по всем моделям LastSynch и пересчитать сумму хэш-сумм
         //(это уже отдельной процедурой запускаемой когда весь список транзакций будет завершен)
-        for(int i=0; i<file_list.size(); i++)
+        QList<tFileList>summ_list=SummList(file_list, file_list1);
+        for(int i=0; i<summ_list.size(); i++)
         {
-            db_op->UpdateLastSynch(file_list[i].file_name);
+
+
+            db_op->UpdateLastSynch(summ_list[i].file_name);
+
+//            db_op->UpdateServerTable(summ_list[i].file_name);
         }
 
-        for(int i=0; i<file_list1.size(); i++)
-        {
-            db_op->UpdateLastSynch(file_list1[i].file_name);
-        }
+//        for(int i=0; i<file_list1.size(); i++)
+//        {
+//            db_op->UpdateLastSynch(file_list1[i].file_name);
+//        }
 
         break;
     }
@@ -962,4 +1006,31 @@ void tConveyor::CorrectLastSynch()
 
 }
 //----------------------------------------------------------
+QList<tFileList> tConveyor::SummList(QList<tFileList> _l1, QList<tFileList> _l2)
+{
+    QList<tFileList> summ=_l1;
 
+    for(int i=0; i<summ.size(); i++)
+    {
+        bool find=false;
+        for(int j=0; j<_l2.size();j++)
+        {
+            if(summ[i].file_name==_l2[j].file_name)
+            {
+                find=true;
+                break;
+            }
+            if(!find)
+            {
+                summ.push_back(_l2[j]);
+            }
+        }
+    }
+
+    return summ;
+}
+//----------------------------------------------------------
+void tConveyor::OnEndTransactions()
+{
+    emit EndTransactions();
+}
