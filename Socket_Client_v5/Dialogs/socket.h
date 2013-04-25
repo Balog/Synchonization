@@ -6,6 +6,7 @@
 #include "ClassFactory.h"
 #include "tAbstractStreamCommand.h"
 #include "tClientStreamCommands.h"
+#include "tLog.h"
 
 class tSocket : public QObject
 {
@@ -28,6 +29,9 @@ private:
 
     bool WaitPackage();
     quint16 next_block_size;
+
+    QString l;
+    tLog log;
     
 signals:
     void DisconnectSocket();

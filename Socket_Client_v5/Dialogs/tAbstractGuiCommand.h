@@ -4,7 +4,7 @@
 #include <QtCore>
 #include <QDialog>
 #include "ui_MainForm.h"
-
+#include "tLog.h"
 
 
 class tAbstractGuiCommand : public QObject
@@ -21,6 +21,10 @@ protected:
 //    MainForm *form;
 QObject* link;
 
+QString l;
+tLog log;
+
+
 signals:
     void SendCommand(QByteArray block);
     void RunGui(QByteArray& block);
@@ -29,6 +33,7 @@ signals:
     void NextCommand();
     void FinalBlockTransactions();
     void VerifyMoveDelete(QString&);
+    void EndConveyor();
 };
 
 #endif // TABSTRACTGUICOMMAND_H

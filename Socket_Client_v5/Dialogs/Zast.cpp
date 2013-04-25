@@ -36,6 +36,10 @@ void Zast::OnTimerTrue()
 
         delete timer1;
         timer1=NULL;
+
+        l="Zast \tOnTimerTrue\tНачало авторизации ";
+        log.Write(l);
+
     dAutoriz->show();
     }
 }
@@ -49,6 +53,10 @@ void Zast::OnTimerFalse()
     timer2=NULL;
      this->setVisible(false);
     this->setModal(false);
+
+    l="Zast \tOnTimerFalse\tНе обнаружен сервер ";
+    log.Write(l);
+
     QMessageBox mb;
     mb.setText(QString::fromUtf8("Не обнаружен сервер"));
     mb.setWindowTitle(QString::fromUtf8("Подключение"));
@@ -69,6 +77,8 @@ void Zast::mousePressEvent(QMouseEvent* event)
 void Zast::AutorizStart()
 {
 //    this->setVisible(true);
+    l="Zast \tAutorizStart\tСервер найден ";
+    log.Write(l);
 
     timer1=new QTimer();
     connect(timer1, SIGNAL(timeout()), this, SLOT(OnTimerTrue()));
@@ -78,6 +88,9 @@ void Zast::AutorizStart()
 //---------------------------------------------------------------------
 void Zast::FindServer()
 {
+    l="Zast \tFindServer\tНачало поиска сервера ";
+    log.Write(l);
+
     connect_ok=false;
     this->setVisible(true);
     this->setModal(true);

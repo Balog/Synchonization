@@ -55,13 +55,18 @@ void tConveyor::AddCommand(QByteArray _block)
 {
     v_conv.push_back(_block);
 
+
 }
 //-----------------------------------------------------------------
 void tConveyor::NextCommand()
 {
+
+
     qDebug() << v_conv.size();
     if(v_conv.size()>0)
     {
+        l="tConveyor \tNextCommand\tСледующая команда списка команд";
+        log.Write(l);
 
         QByteArray block_comm;
         it_conv=v_conv.begin();
@@ -76,6 +81,9 @@ void tConveyor::NextCommand()
     }
     else
     {
+        l="tConveyor \tNextCommand\tКонец списка команд ";
+        log.Write(l);
+
         ClearTempFolder();
         emit EndCommands();
     }
@@ -84,6 +92,9 @@ void tConveyor::NextCommand()
 //-----------------------------------------------------------------
 void tConveyor::Clear()
 {
+    l="tConveyor \tClear\tСброс списка команд транзакции";
+    log.Write(l);
+
     file_list.clear();
     file_list1.clear();
     send_mode=0;
@@ -99,6 +110,9 @@ void tConveyor::OnCommand(QByteArray _block)
 
     out >> command;
 
+    l="tConveyor \tOnCommand\tВыполнение команды из сокета "+command;
+    log.Write(l);
+
     gui_comm=gui_vf.create(command);
 
     connect(gui_comm, SIGNAL(RunGui(QByteArray&)), this, SLOT(OnRunGuiCommand(QByteArray&)));
@@ -107,6 +121,7 @@ void tConveyor::OnCommand(QByteArray _block)
     connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
     connect(gui_comm, SIGNAL(SendCommand(QByteArray)), client_th, SLOT(OnCommandToSocket(QByteArray)));
     connect(gui_comm, SIGNAL(FinalBlockTransactions()), this, SLOT(OnEndTransactions()));
+    connect(gui_comm, SIGNAL(EndConveyor()), this, SLOT(OnEndConveyor()));
 
     gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
@@ -123,6 +138,9 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
 
     out >> command;
 
+    l="tConveyor \tOnCommand\tВыполнение команды из GUI "+command;
+    log.Write(l);
+
     qDebug() << command;
 
     delete gui_comm;
@@ -133,6 +151,7 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
     connect(gui_comm, SIGNAL(SendCommand(QByteArray)), client_th, SLOT(OnCommandToSocket(QByteArray)));
     connect(gui_comm, SIGNAL(VerifyMoveDelete(QString&)), this, SLOT(VerifyMoveDelete(QString&)));
     connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
+    connect(gui_comm, SIGNAL(EndConveyor()), this, SLOT(OnEndConveyor()));
 //    connect(gui_comm, SIGNAL(EndTransactions()), this, SIGNAL(OnEndTransactions()));
 
     gui_comm->Initialize(ui);
@@ -189,6 +208,10 @@ void tConveyor::OnStart(const bool _res)
 //--------------------------------------------------------------------------------
 void tConveyor::AddDelCommand()
 {
+
+    l="tConveyor \tAddDelCommand\tФормирование команды удаления файлов ";
+    log.Write(l);
+
     QString gui_command="DeleteFile";
     QString socket_command="DeleteFile";
 
@@ -209,11 +232,17 @@ void tConveyor::AddDelCommand()
 //--------------------------------------------------------------------------------
 void tConveyor::StartExecution()
 {
+    l="tConveyor \tStartExecution\tНачало выполнения списка команд ";
+    log.Write(l);
+
     NextCommand();
 }
 //--------------------------------------------------------------------------------
 void tConveyor::GetServerModels()
 {
+    l="tConveyor \tGetServerModels\tЗапрос списка моделей ";
+    log.Write(l);
+
     QByteArray block1;
     QDataStream out1(&block1, QIODevice::WriteOnly);
 
@@ -227,15 +256,23 @@ void tConveyor::GetServerModels()
 //--------------------------------------------------------------------------------
 void tConveyor::AddCommitTransaction(const bool _send)
 {
+
+
+
     //    Transaction=true;
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
     if(_send || file_list.size()!=0)
     {
+
+
         QString gui_command="CommitTransaction";
 
         out << gui_command;
+
+        l="tConveyor \tAddCommitTransaction\tФормирование команды коммита транзакции отправки "+gui_command;
+        log.Write(l);
 
         //    QString hash="";
         int s=-1;
@@ -291,6 +328,9 @@ void tConveyor::AddCommitTransaction(const bool _send)
         out << gui_command;
         //        out << model_struct;
 
+        l="tConveyor \tAddCommitTransaction\tФормирование команды коммита транзакции получения "+gui_command;
+        log.Write(l);
+
         AddCommand(block);
 
         QByteArray block1;
@@ -298,6 +338,9 @@ void tConveyor::AddCommitTransaction(const bool _send)
 
         gui_command="UpdateMainLocal";
         out1 <<gui_command;
+
+        l="tConveyor \tAddCommitTransaction\tКоманда обновления локальных таблиц "+gui_command;
+        log.Write(l);
 
         AddCommand(block1);
     }
@@ -311,6 +354,9 @@ void tConveyor::AddCommitTransactionDel()
     QString gui_command="VerifyMoveDelete";
 
     out << gui_command;
+
+    l="tConveyor \tAddCommitTransactionDel\tФормирование команды коммита транзакции удаления "+gui_command;
+    log.Write(l);
 
     AddCommand(block);
 }
@@ -362,6 +408,8 @@ void tConveyor::VerifyMoveDelete(QString &m_struct)
                     }
                     else
                     {
+                        l="tConveyor \tVerifyMoveDelete\tСбой удаления локальных файлов ";
+                        log.Write(l);
                         ret=false;
                     }
                 }
@@ -372,16 +420,22 @@ void tConveyor::VerifyMoveDelete(QString &m_struct)
             }
             else
             {
+                l="tConveyor \tVerifyMoveDelete\tСбой перемещения локальных файлов ";
+                log.Write(l);
                 ret=false;
             }
         }
         else
         {
+            l="tConveyor \tVerifyMoveDelete\tСбой проверки возможности записи локальных файлов ";
+            log.Write(l);
             ret=false;
         }
     }
     else
     {
+        l="tConveyor \tVerifyMoveDelete\tСбой проверки неизменности заменяемых локальных файлов ";
+        log.Write(l);
         ret=false;
     }
 
@@ -413,6 +467,9 @@ void tConveyor::AddStartTransaction(const bool _send)
 
     if(_send)
     {
+        l="tConveyor \tAddStartTransaction\tДобавление команды начала транзакции (отправка) ";
+        log.Write(l);
+
         if(file_list.size()!=0 || file_list1.size()!=0)
         {
             QString gui_command="StartTransaction";
@@ -451,6 +508,8 @@ void tConveyor::AddStartTransaction(const bool _send)
     }
     else
     {
+        l="tConveyor \tAddStartTransaction\tДобавление команды начала транзакции (получение) ";
+        log.Write(l);
         if(file_list.size()!=0)
         {
             QString gui_command="StartTransaction";
@@ -487,10 +546,16 @@ bool tConveyor::AddSendCommand()
     QString gui_command="SendFile";
     QString socket_command="SendFile";
 
+
+
     out << gui_command;
     out << socket_command;
     out << tr("Ошибка на стороне клиента. Невозможно передать файл.");
     out << file_list[i].file_name;
+
+    l="tConveyor \tAddSendCommand\tДобавление команды отправки файлов "+ gui_command+" Файл "+file_list[i].file_name.toUtf8();
+    log.Write(l);
+
     bool sending=false;
     bool receiving=false;
     QString H=db_op->GetLocalHash(file_list[i].file_name, sending, receiving);
@@ -499,6 +564,9 @@ bool tConveyor::AddSendCommand()
     //если файла нет на диске то каков хеш и не важно, команду надо прерывать
     if(!sending)
     {
+        l="tConveyor \tAddSendCommand\tФайла "+ file_list[i].file_name+ " нет на диске. Прерывание команды";
+        log.Write(l);
+
         ret=true;
         break;
     }
@@ -510,6 +578,7 @@ bool tConveyor::AddSendCommand()
 //--------------------------------------------------------------------------------
 bool tConveyor::SendFile(const QString &_file_name, QStringList& _all_files)
 {
+
     bool ret=false;
     bool is_find=false;
     for(int i=0; i<file_list.size(); i++)
@@ -523,6 +592,9 @@ bool tConveyor::SendFile(const QString &_file_name, QStringList& _all_files)
 
     if(!is_find)
     {
+        l="tConveyor \tSendFile\tПодготовка команды отправки файла "+_file_name.toUtf8();
+        log.Write(l);
+
     _all_files.push_back(_file_name);
 
     bool sending=false;
@@ -537,6 +609,8 @@ bool tConveyor::SendFile(const QString &_file_name, QStringList& _all_files)
     //при отправке файла важно что бы файл был на диске
     if(!sending)
     {
+        l="tConveyor \tSendFile\tФайла "+_file_name + " нет на диске. Прерывание команды";
+        log.Write(l);
         ret=true;
     }
     }
@@ -545,6 +619,8 @@ bool tConveyor::SendFile(const QString &_file_name, QStringList& _all_files)
 //--------------------------------------------------------------------------------
 bool tConveyor::AddReceiveCommand()
 {
+
+
     bool ret=false;
     for(int i=0; i<file_list.size(); i++)
     {
@@ -554,15 +630,22 @@ bool tConveyor::AddReceiveCommand()
         QString gui_command="PrepareReceiveFile";
         QString socket_command="PrepareReceiveFile";
 
+
+
         out << gui_command;
         out << socket_command;
         out << file_list[i].file_name;
+
+        l="tConveyor \tAddReceiveCommand\tДобавление команды получения файлов "+ gui_command+" Файл "+file_list[i].file_name.toUtf8();
+        log.Write(l);
 
         bool sending=false;
         bool receiving=false;
         QString H=db_op->GetLocalHash(file_list[i].file_name, sending, receiving);
         if(!receiving)
         {
+            l="tConveyor \tAddReceiveCommand\tФайла "+ file_list[i].file_name+ " на диске изменился. Прерывание команды";
+            log.Write(l);
             ret=true;
             break;
         }
@@ -588,6 +671,9 @@ for(int i=0; i<file_list.size(); i++)
 
 if(!is_find)
 {
+    l="tConveyor \tReceiveFile\tПодготовка команды получения файла "+_file_name.toUtf8();
+    log.Write(l);
+
     _all_files.push_back(_file_name);
     bool sending=false;
     bool receiving=false;
@@ -599,6 +685,8 @@ file_list << fl;
 
 if(!receiving)
 {
+    l="tConveyor \tReceiveFile\tФайла "+ _file_name+ " на диске изменился. Прерывание команды";
+    log.Write(l);
     ret=true;
 }
 }
@@ -632,6 +720,9 @@ bool tConveyor::DeletingFile(const QString &_file_name, QStringList &_all_files,
 
         if(!is_find)
         {
+            l="tConveyor \tDeletingFile\tПодготовка команды удаления файла на сервере "+_file_name;
+            log.Write(l);
+
             _all_files.push_back(_file_name);
             QString server_hash=db_op->GetServerHash(_file_name);
 
@@ -668,6 +759,9 @@ bool tConveyor::DeletingFile(const QString &_file_name, QStringList &_all_files,
 
         if(!is_find)
         {
+            l="tConveyor \tDeletingFile\tПодготовка команды удаления файла на клиенте "+_file_name;
+            log.Write(l);
+
             tFileList fl;
             fl.file_name=_file_name;
             if(_send)
@@ -689,6 +783,9 @@ return ret;
 //--------------------------------------------------------------------------------
 void tConveyor::ClearTempFolder()
 {
+    l="tConveyor \tClearTempFolder\tОчистка временной папки";
+    log.Write(l);
+
     QString path=my_settings.GetTemp();
     //удаление временной папки если она есть
     //делаем рекурсивный обход папок временной папки с удалением всех файлов
@@ -934,6 +1031,9 @@ bool tConveyor::DeleteEmptyFolders(const QString &_root) const
 //----------------------------------------------------------
 void tConveyor::CancelOperations()
 {
+    l="tConveyor \tCancelOperations\tОтмена операции ";
+    log.Write(l);
+
     file_list.clear();
     v_conv.clear();
 }
@@ -1027,6 +1127,10 @@ void tConveyor::CorrectLastSynch(QStringList &_all_files, bool _server)
 //    }
 //    }
 //        QList<tFileList>summ_list=SummList(file_list, file_list1);
+
+    l="tConveyor \tCorrectLastSynch\tКорректировка таблиц Last ";
+    log.Write(l);
+
         for(int i=0; i<_all_files.size(); i++)
         {
             db_op->UpdateLastSynch(_all_files[i], _server);
@@ -1062,5 +1166,14 @@ void tConveyor::CorrectLastSynch(QStringList &_all_files, bool _server)
 //----------------------------------------------------------
 void tConveyor::OnEndTransactions()
 {
+    l="tConveyor \tOnEndTransactions\tКонец списка транзакций  ";
+    log.Write(l);
     emit EndTransactions();
+}
+//----------------------------------------------------------
+void tConveyor::OnEndConveyor()
+{
+    l="tConveyor \tOnEndTransactions\tКонец списка команд  ";
+    log.Write(l);
+    emit EndConveyor();
 }

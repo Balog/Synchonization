@@ -9,6 +9,8 @@
 tSettings my_settings;
 int main(int argc, char *argv[])
 {
+
+
     QApplication a(argc, argv);
     QString S=a.applicationDirPath()+QDir::separator()+"Settings.ini";
     my_settings.SetFilePath(S);

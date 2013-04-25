@@ -4,6 +4,7 @@
 #include <QStringListModel>
 
 
+
 class tGuiReceiveFile : public tAbstractGuiCommand
 {
     Q_OBJECT

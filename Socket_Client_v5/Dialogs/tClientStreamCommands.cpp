@@ -23,7 +23,8 @@ bool tStreamReceiveFile::Initialize(QDataStream& _in)
     _in >> permission;
     _in >> hash;
 
-
+//    l="tStreamReceiveFile \tInitialize\t Инициализация приема файла "+file_name.toUtf8();
+//    log.Write(l);
 
     root=my_settings.GetTemp();
 
@@ -75,6 +76,8 @@ bool tStreamReceiveFile::ExeCommand(QDataStream& _in)
         delete[] buff;
         if(read_size==file_size)
         {
+            l="tStreamReceiveFile \tExeCommand\t Прием файла "+file_name.toUtf8()+" завершен";
+            log.Write(l);
 
             ret=true;
             qDebug() << "File transfer complete";
@@ -136,6 +139,9 @@ void tStreamReceiveFile::ProcessError(QDataStream &)
     in << error;
     in << detail;
     in << client_detail;
+
+    l="tStreamReceiveFile \tProcessError\t Ошибка приема файла "+detail.toUtf8();
+    log.Write(l);
 
     emit Result(block);
     emit EndCommand();
@@ -220,6 +226,9 @@ bool tPrepareReceiveFile::Initialize(QDataStream &_in)
 
     error_detected=file.exists() && !file.isOpen();
 
+//    l="tPrepareReceiveFile \tInitialize\t Инициализация подготовки приема файла "+f.toUtf8();
+//    log.Write(l);
+
     return true;
 }
 //-----------------------------------------------------------------
@@ -227,6 +236,9 @@ bool tPrepareReceiveFile::ExeCommand(QDataStream &_in)
 {
     if(!error_detected)
     {
+        l="tPrepareReceiveFile \tExeCommand\t Отправление команды приема файла на сервер ";
+        log.Write(l);
+
         QString comm="Command:";
         int num_comm=1;
 
@@ -255,6 +267,9 @@ void tPrepareReceiveFile::ProcessError(QDataStream & )
     QString detail="File name: "+file_name+"\nFile is open ";
 
     QString client_detail="Ошибка на стороне клиента \nWrite file error ";
+
+    l="tPrepareReceiveFile \tProcessError\t Ошибка в подготовке приема файла "+detail.toUtf8();
+    log.Write(l);
 
     QByteArray block;
     QDataStream in(&block, QIODevice::WriteOnly);
@@ -307,6 +322,10 @@ bool tSendFile::Initialize(QDataStream &_in)
     file.open(QIODevice::ReadOnly);
 
     Continue=false;
+
+    QString s=root+file_name;
+
+
     return file.isOpen();
 }
 //-----------------------------------------------------------------
@@ -326,7 +345,8 @@ bool tSendFile::ExeCommand(QDataStream &_out)
         _out << file_name;
         _out << file.size();
 
-
+        l="tSendFile \tExeCommand\t Отправка на сервер команды передачи файла "+file_name.toUtf8();
+        log.Write(l);
 
         //остальные параметры передаваемого файла
         //скрытость, дата создания, дата модификации, права, хэш-сумма
@@ -389,6 +409,9 @@ bool tReportSendFile::ExeCommand(QDataStream &_out)
     _out >> file_size;
     QString command="SendReport";
 
+    l="tReportSendFile \tExeCommand\t Отчет о передаче файла "+file_name.toUtf8();
+    log.Write(l);
+
     out << command;
     out << file_name;
     out << file_size;
@@ -408,6 +431,9 @@ void tReportSendFile::ProcessError(QDataStream &_in)
 
     _in >> error;
     _in >> detail;
+
+    l="tReportSendFile \tProcessError\t Ошибка в передаче файла "+detail.toUtf8();
+    log.Write(l);
 
     QByteArray block;
     QDataStream in(&block, QIODevice::WriteOnly);
@@ -444,6 +470,9 @@ void tProcessingError::ProcessError(QDataStream &_in)
     in << detail;
     in << client_detail;
 
+    l="tProcessingError \tProcessError\t Ошибка на сервере "+detail.toUtf8();
+    log.Write(l);
+
     emit Result(block);
 }
 //-----------------------------------------------------------------
@@ -461,6 +490,9 @@ bool tConnectConfirmReport::ExeCommand(QDataStream &_in)
     in << tr("ConnectConfirmReport");
     in << ok;
 
+    l="tConnectConfirmReport \tExeCommand\t Подтверждение соединения ";
+    log.Write(l);
+
     emit Result(block);
     return true;
 }
@@ -472,6 +504,10 @@ bool tStreamPrepareSendFile::Initialize(QDataStream &_in)
     file_name="";
 
     _in >> file_name;
+
+//    l="tStreamPrepareSendFile \tInitialize\t Инициализация подготовки передачи файла "+file_name.toUtf8();
+//    log.Write(l);
+
     return true;
 }
 //-----------------------------------------------------------------
@@ -480,6 +516,9 @@ bool tStreamPrepareSendFile::ExeCommand(QDataStream &_out)
     root=my_settings.GetRoot();
     QString Comm="Command:";
     int num_comm=4;
+
+    l="tStreamPrepareSendFile \tExeCommand\t Отправка на сервер команды подготовки к передаче файла  "+file_name.toUtf8();
+    log.Write(l);
 
     _out << quint16(0);
 
@@ -514,6 +553,9 @@ bool tStreamReportPrepareSendFile::ExeCommand(QDataStream &)
     in << tr("ReportPrepareSendFile");
     in << file_name;
 
+    l="tStreamReportPrepareSendFile \tExeCommand\t Отчет о команде подготовки к передаче файла  "+file_name.toUtf8();
+    log.Write(l);
+
     emit Result(block);
     return true;
 }
@@ -529,6 +571,9 @@ void tStreamReportPrepareSendFile::ProcessError(QDataStream &_out)
     QString client_detail="Ошибка на стороне сервера. \nФайл "+file_name+" занят";
     QString error="Error in send file";
     int num_error=4;
+
+    l="tStreamReportPrepareSendFile \tProcessError\t Ошибка подготовки к передаче файла  "+server_detail.toUtf8();
+    log.Write(l);
 
     QByteArray block;
     QDataStream in(&block, QIODevice::WriteOnly);
@@ -559,6 +604,9 @@ bool tStreamSendAutorization::ExeCommand(QDataStream &_out)
     QString Comm="Command:";
     int num_comm=5;
 
+    l="tStreamSendAutorization \tExeCommand\t Отправка авторизации  "+login.toUtf8();
+    log.Write(l);
+
     _out << quint16(0);
 
     _out << Comm;
@@ -584,6 +632,9 @@ void tStreamSendAutorization::ProcessError(QDataStream &_in)
     QString detail="Login: "+login+"\nPassword: "+password;
 
     QString client_detail="Ошибка на стороне клиента \nотсутствует логин или пароль ";
+
+    l="tStreamSendAutorization \tProcessError\t Ошибка отправки авторизации "+client_detail.toUtf8();
+    log.Write(l);
 
     QByteArray block;
     QDataStream in(&block, QIODevice::WriteOnly);
@@ -616,6 +667,9 @@ bool tStreamReportAutorization::ExeCommand(QDataStream &)
     in << tr("ReportAutorization");
     in << ret;
 
+    l="tStreamReportAutorization \tExeCommand\t Авторизация успешна ";
+    log.Write(l);
+
     emit Result(block);
 
 return true;
@@ -630,6 +684,9 @@ void tStreamReportAutorization::ProcessError(QDataStream &)
     //готовим команду для прекращения работы
     in << tr("ReportAutorization");
     in << ret;
+
+    l="tStreamReportAutorization \tProcessError\t Авторизация неудачна ";
+    log.Write(l);
 
         emit Result(block);
 }
@@ -660,6 +717,10 @@ bool tStreamStartTransaction::Initialize(QDataStream &_in)
 //-----------------------------------------------------------------
 bool tStreamStartTransaction::ExeCommand(QDataStream &_out)
 {
+
+    l="tStreamStartTransactionn \tExeCommand\t Передача команды начала транзакции ";
+    log.Write(l);
+
     QString Comm="Command:";
     int num_comm=6;
 
@@ -703,6 +764,9 @@ bool tStreamReportStartTransaction::ExeCommand(QDataStream &)
 
     in << tr("ReportStartTransaction");
 
+    l="tStreamReportStartTransaction \tExeCommand\t Транзакция начата успешно ";
+    log.Write(l);
+
     emit Result(block);
 
     return true;
@@ -719,6 +783,9 @@ void tStreamReportStartTransaction::ProcessError(QDataStream &_in)
     QString detail="Коллизия в транзакции";
 
     QString client_detail="Ошибка на стороне сервера \nнеобходимо заново прочитать список файлов \nи повторно отправить файлы ";
+
+    l="tStreamReportStartTransaction \tProcessError\t Коллизия в транзакции "+client_detail.toUtf8();
+    log.Write(l);
 
     QByteArray block;
     QDataStream in(&block, QIODevice::WriteOnly);
@@ -758,18 +825,7 @@ bool tStreamCommitTransaction::Initialize(QDataStream &_in)
         tFileList fl;
         fl.file_name=file_name;
 
-//        if(send)
-//        {
-//            //передача файла
-//            fl.client_hash=hash;
-//            fl.server_hash="";
-//        }
-//        else
-//        {
-//            //прием файла
-//            fl.client_hash="";
-//            fl.server_hash=hash;
-//        }
+
         fl.client_hash=loc_hash;
         fl.server_hash=serv_hash;
 
@@ -783,6 +839,9 @@ bool tStreamCommitTransaction::ExeCommand(QDataStream &_out)
 {
     QString Comm="Command:";
     int num_comm=7;
+
+    l="tStreamCommitTransaction \tExeCommand\t Отправка команды коммита транзакции ";
+    log.Write(l);
 
     _out << quint16(0);
 
@@ -840,6 +899,9 @@ bool tStreamReportCommitTransaction::ExeCommand(QDataStream &)
 
     in << tr("ReportCommitTransaction");
 
+    l="tStreamReportCommitTransaction \tExeCommand\t Коммит завершился успешно ";
+    log.Write(l);
+
     emit Result(block);
 
     return true;
@@ -859,6 +921,9 @@ void tStreamReportCommitTransaction::ProcessError(QDataStream &_in)
     QString client_detail=QString::fromUtf8("Ошибка на стороне сервера \nТранзакция завершилась неудачей ");
     int num_error=7;
 
+    l="tStreamReportCommitTransaction \tProcessError\t Ошибка коммита транзакции "+detail;
+    log.Write(l);
+
     QByteArray block;
     QDataStream in(&block, QIODevice::WriteOnly);
 
@@ -875,6 +940,9 @@ void tStreamReportCommitTransaction::ProcessError(QDataStream &_in)
 //-----------------------------------------------------------------
 bool tStreamCancelTransaction::ExeCommand(QDataStream &_out)
 {
+    l="tStreamCancelTransaction \tExeCommand\t Отмена транзакции ";
+    log.Write(l);
+
     QString Comm="Command:";
     int num_comm=8;
 
@@ -897,6 +965,9 @@ void tStreamCancelTransaction::ProcessError(QDataStream &)
 
     in << tr("ReportCancelTransaction");
 
+    l="tStreamCancelTransaction \tProcessError\t Ошибка отмены транзакции ";
+    log.Write(l);
+
     emit Result(block);
 
 //    return true;
@@ -907,6 +978,9 @@ void tStreamCancelTransaction::ProcessError(QDataStream &)
 //-----------------------------------------------------------------
 bool tStreamReportCancelTransaction::ExeCommand(QDataStream &)
 {
+    l="tStreamReportCancelTransaction \tExeCommand\t Отчет об отмене транзакции ";
+    log.Write(l);
+
     QByteArray block;
     QDataStream in(&block, QIODevice::WriteOnly);
 
@@ -938,6 +1012,9 @@ bool tDeleteFile::ExeCommand(QDataStream &_out)
         _out << file_name;
         _out << hash;
 
+        l="tDeleteFile \tExeCommand\t Отправка команды удаления файла с сервера "+file_name.toUtf8();
+        log.Write(l);
+
         _out.device()->seek(0);
         quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
         _out << bs;
@@ -950,6 +1027,8 @@ bool tDeleteFile::ExeCommand(QDataStream &_out)
 //-----------------------------------------------------------------
 bool tReportDeleteFile::ExeCommand(QDataStream &_out)
 {
+
+
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_4_8);
@@ -961,6 +1040,9 @@ bool tReportDeleteFile::ExeCommand(QDataStream &_out)
     out << command;
     out << file_name;
 
+    l="tReportDeleteFile \tExeCommand\t Отчет об удалении файла с сервера "+file_name.toUtf8();
+    log.Write(l);
+
     emit Result(block);
 
     return true;
@@ -970,6 +1052,9 @@ bool tReportDeleteFile::ExeCommand(QDataStream &_out)
 //-----------------------------------------------------------------
 bool tGetListFiles::ExeCommand(QDataStream &_out)
 {
+    l="tGetListFiles \tExeCommand\t Запрос списка файлов с сервера ";
+    log.Write(l);
+
     QString Comm="Command:";
     int num_comm=10;
 
@@ -993,6 +1078,8 @@ bool tReportGetListFiles::Initialize(QDataStream &_in)
     num_files=-1;
     _in >> num_files;
 
+
+
     return true;
 }
 //-----------------------------------------------------------------
@@ -1003,6 +1090,9 @@ bool tReportGetListFiles::ExeCommand(QDataStream &_in)
 
     out << tr("ReportGetListFiles");
     out << num_files;
+
+    l="tReportGetListFiles \tExeCommand\t Список файлов в "+QString::number(num_files)+" шт";
+    log.Write(l);
 
     for(int i=0; i<num_files; i++)
     {
@@ -1019,6 +1109,9 @@ bool tReportGetListFiles::ExeCommand(QDataStream &_in)
 //-----------------------------------------------------------------
 bool tGetServerListModels::ExeCommand(QDataStream &_out)
 {
+    l="tGetServerListModels \tExeCommand\t Запрос списка моделей с сервера ";
+    log.Write(l);
+
     QString Comm="Command:";
     int num_comm=11;
 
@@ -1046,6 +1139,9 @@ bool tReportGetListServerModels::Initialize(QDataStream &_in)
 //-----------------------------------------------------------------
 bool tReportGetListServerModels::ExeCommand(QDataStream &)
 {
+    l="tReportGetListServerModels \tExeCommand\t Получение списка моделей с сервера ";
+    log.Write(l);
+
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 

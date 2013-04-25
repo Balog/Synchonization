@@ -1,6 +1,7 @@
 #include "MainForm.h"
 #include "ui_MainForm.h"
 #include <QFileDialog>
+#include "tLog.h"
 
 extern tSettings my_settings;
 
@@ -12,10 +13,7 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
     sLM_DelLoc=new QStringListModel;
 
 //    QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
-    QTextCodec *codec =QTextCodec::codecForName("UTF-8");
-    QTextCodec::setCodecForTr(codec);
-    QTextCodec::setCodecForCStrings(codec);
-    QTextCodec::setCodecForLocale(codec);
+
 
 
     ui->setupUi(this);
@@ -50,6 +48,10 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
 
 
 //    conv->SetDatabaseOperator(db_op);
+
+    tLog log;
+
+    log.Write(tr("Начало работы клиента"));
 }
 //--------------------------------------------------------------------------------
 MainForm::~MainForm()
@@ -69,6 +71,9 @@ MainForm::~MainForm()
     db_op=NULL;
 
     delete ui;
+
+    tLog log;
+    log.Write(tr("Конец работы клиента"));
 }
 //---------------------------------------------------------------------
 void MainForm::Autorization(QString& _login, QString& _password)
@@ -119,6 +124,9 @@ void MainForm::EndTransactions()
 
 //    OnListFilesLocal();
     mod_conv->SetTransactionFlag(false);
+
+    tLog log;
+    log.Write(tr("Пакет транзакций выполнен"));
 
     QMessageBox MB;
     MB.setText(QString::fromUtf8("Пакет транзакций выполнен"));
@@ -323,74 +331,7 @@ void MainForm::OnStartReceive()
     }
 
     mod_conv->StartReceiveDeleteFiles();
-//    bool stop=false;
-//    QModelIndex MI=ui->lwLocalListModels->currentIndex();
 
-//    int N=MI.row();
-//    if(N<0)
-//    {
-//        QMessageBox MB;
-//        MB.setText(QString::fromUtf8("Выделите клиентскую модель"));
-//        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-//        MB.exec();
-//    }
-//    else
-//    {
-//    QStringListModel *M=new QStringListModel;
-//    M=(QStringListModel *)MI.model();
-
-//    QString S=M->stringList().value(N);
-
-//    conv->Clear();
-
-//    if(listRec.size()>0)
-//    {
-//        for(int i=0; i<listRec.size(); i++)
-//        {
-//            QString S=listRec[i];
-//            stop=conv->ReceiveFile(S);
-//            if(stop)
-//            {
-//                break;
-//            }
-//        }
-//        conv->AddStartTransaction(false);
-
-//        conv->AddReceiveCommand();
-
-//        conv->AddCommitTransaction(false, S);
-
-
-//    }
-////    conv->Clear();
-
-//    if(listDelLoc.size()>0)
-//    {
-//        for(int i=0;i<listDelLoc.size(); i++)
-//        {
-//            QString S=listDelLoc[i];
-//            stop=conv->DeletingFile(S, false);
-//            if(stop)
-//            {
-//                break;
-//            }
-//        }
-
-//        conv->AddCommitTransactionDel();
-//    }
-
-//    if(!stop)
-//    {
-//    conv->StartExecution();
-//    }
-//    else
-//    {
-//        QMessageBox MB;
-//        MB.setText(QString::fromUtf8("Локальный файл изменился. Операция прервана."));
-//        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-//        MB.exec();
-//    }
-//    }
 
 }
 //---------------------------------------------------------------------

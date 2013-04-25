@@ -5,6 +5,7 @@
 #include "ui_MainForm.h"
 #include "tDatabaseOp.h"
 #include "tConveyor.h"
+#include "tLog.h"
 
 class tModelsConveyor : public QObject
 {
@@ -40,6 +41,9 @@ private:
     bool Transaction;
     bool send;
     QStringList all_files;
+
+    QString l;
+    tLog log;
     
 signals:
     void NextCommand();
@@ -59,6 +63,9 @@ private slots:
 //    void OnSetVisible(const bool vis);
     void ErrorConveyor();
     void OnEndTransactions();
+
+
+
 };
 
 #endif // TMODELSCONVEYOR_H

@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QtSql>
+#include "tLog.h"
 
 
 class tDatabaseOp
@@ -54,6 +55,8 @@ private:
     void CheckInfoFiles(const qlonglong _num, const QString &_folder_mod);
     void UpdateLocalHash(const QString &_name_file, const QDateTime _disk_date_time, const QString &_hash);
 
+    QString l;
+    tLog log;
 
 };
 

@@ -15,6 +15,7 @@
 #include "tDatabaseOp.h"
 
 #include <vector>
+#include "tLog.h"
 
 using namespace std;
 
@@ -65,7 +66,7 @@ public:
 //            return Transaction;
 //        }
         void GetServerModels();
-
+    void ClearTempFolder();
 
 private:
     QObject *link;
@@ -90,7 +91,7 @@ private:
                     //2 -- Receive
                     //0 -- ничего не производилось
 
-    void ClearTempFolder();
+
     bool removeFolder(const QDir &_dir, const bool _del_dir);
     bool FolderOperation(const QDir &_dir, const int _mode);
     void Move(const QString &_entry_abs_path, const QString &_new_abs_path, bool &_stopped, QString &_error_file);
@@ -112,7 +113,8 @@ private:
     void VerifyDeletedFiles();
 //    QList<tFileList> SummList(QList<tFileList> _l1, QList<tFileList> _l2);
 //    bool Transaction;
-
+    QString l;
+    tLog log;
 
 signals:
     void EndCommands();
@@ -123,6 +125,7 @@ signals:
     void DisconnectFromServer();
     void ErrorCommands();
     void EndTransactions();
+    void EndConveyor();
 
     
 public slots:
@@ -135,6 +138,7 @@ public slots:
     void OnDisconnecting();
     void VerifyMoveDelete(QString &m_struct);
     void OnEndTransactions();
+    void OnEndConveyor();
 };
 
 #endif // TCONVEYOR_H

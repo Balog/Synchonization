@@ -7,6 +7,13 @@ extern tSettings my_settings;
 //----------------------------------------------------------------------
 tDatabaseOp::tDatabaseOp()
 {
+    QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+
+    QTextCodec::setCodecForTr(codec);
+    QTextCodec::setCodecForCStrings(codec);
+//codec->toUnicode
+    log.Write(codec->toUnicode("tDatabaseOp \tDatabaseOp\tПодключение базы данных  "));
+
     root=my_settings.GetRoot();
     db=QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("Database.db");
@@ -15,11 +22,16 @@ tDatabaseOp::tDatabaseOp()
 //----------------------------------------------------------------------
 tDatabaseOp::~tDatabaseOp()
 {
+    l="tDatabaseOp \tDatabaseOp\tОтключение базы данных  ";
+     log.Write(l);
     db.close();
 }
 //----------------------------------------------------------------------
 void tDatabaseOp::RefreshModelsFiles()
 {
+    l="tDatabaseOp \tRefreshModelsFiles\tОбновление локальных таблиц по файлам на диске  ";
+    log.Write(l);
+
     QString root=my_settings.GetRoot();
 
     //Начало работы с базой данных
@@ -716,6 +728,9 @@ void tDatabaseOp::GetLocalModelFiles(QString &_str, QStringList &_list)
 //----------------------------------------------------------
 void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
 {
+    l="tDatabaseOp \tSaveServerModelFiles\tОбновление серверных таблиц по информации с сервера  ";
+    log.Write(l);
+
     //- Число моделей
 
     //----- Цикл по моделям
@@ -1194,8 +1209,11 @@ void tDatabaseOp::GetDeleteServerModelFiles(const QString& _name_model, QStringL
 void tDatabaseOp::UpdateLastSynch(const QString& _file_name, bool _server)
 {
 
+
     if(_server)
     {
+        l="tDatabaseOp \tUpdateLastSynch\tОбновление Last таблиц по серверным таблицам  ";
+        log.Write(l);
         //Синхронизация таблиц последнего состояния из серверных, тоесть после передачи файлов
 
         QSqlQuery is_not_file(db);
@@ -1283,6 +1301,9 @@ void tDatabaseOp::UpdateLastSynch(const QString& _file_name, bool _server)
     }
     else
     {
+        l="tDatabaseOp \tUpdateLastSynch\tОбновление Last таблиц по локальным таблицам  ";
+        log.Write(l);
+
         //Синхронизация таблиц последнего состояния из локальных, тоесть после приема файлов
 
         QSqlQuery is_not_file(db);
@@ -1418,6 +1439,8 @@ void tDatabaseOp::GetReceiveModelFiles(const QString& _name_model, QStringList& 
 //----------------------------------------------------------
 void tDatabaseOp::UpdateServerTable(const QString &_name)
 {
+    l="tDatabaseOp \tUpdateLastSynch\tОбновление серверных таблиц  ";
+    log.Write(l);
 
     //найти из локальных файлов время модификации и хеш по имени файла
     QSqlQuery select_loc_date_hash(db);

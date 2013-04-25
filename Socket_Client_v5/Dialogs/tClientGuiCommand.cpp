@@ -30,6 +30,9 @@ void tGuiReceiveFile::ExeCommand(QDataStream& _in)
     out << detail;
     out << client_detail;
 
+    l="tClientGuiCommand \tGuiReceiveFile\tКоманда приема файла "+file_name.toUtf8();
+    log.Write(l);
+
     emit SendCommand(block);
 }
 //************************************************************************************************
@@ -65,6 +68,9 @@ void tGuiSendFile::ExeCommand(QDataStream& _in)
     out << client_detail;
     out << Hash;
 
+    l="tClientGuiCommand \tGuiSendFile\tКоманда передачи файла "+file_name.toUtf8();
+    log.Write(l);
+
     emit SendCommand(block);
 }
 //************************************************************************************************
@@ -76,6 +82,9 @@ void tGuiReportReceiveFile::ExeCommand(QDataStream& _in)
     _in >> file_name;
     _in >> file_size;
 
+    l="tClientGuiCommand \tGuiReportReceiveFile\tОтчет о приеме файла "+file_name.toUtf8();
+    log.Write(l);
+
     emit NextCommand();
 }
 //************************************************************************************************
@@ -86,6 +95,9 @@ void tGuiReportSendFile::ExeCommand(QDataStream& _in)
 
     _in >> file_name;
     _in >> file_size;
+
+    l="tClientGuiCommand \tGuiReportSendFile\tОтчет о передаче файла "+file_name.toUtf8();
+    log.Write(l);
 
     emit NextCommand();
 }
@@ -102,6 +114,8 @@ void tGuiError::ExeCommand(QDataStream& _in)
     _in >> detail;
     _in >> client_detail;
 
+    if(((MainForm*)link)->GetIsTransaction())
+    {
     //Отмена транзакции из-за ошибки
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
@@ -111,30 +125,58 @@ void tGuiError::ExeCommand(QDataStream& _in)
     QString command="CancelTransaction";
 
     out << command;
+
+    qDebug() << QString::fromUtf8("Ошибка ") << num_error << " " << detail << " " << client_detail;
+
+    l="tClientGuiCommand \tGuiError\tОшибка на сервере "+detail.toUtf8()+" "+client_detail.toUtf8();
+    log.Write(l);
+
+    l="tClientGuiCommand \tGuiError\tКоманда серверу на отмену транзакции ";
+    log.Write(l);
+
     emit SendCommand(block);
+    }
+    else
+    {
+       QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
 
-/*
-         QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
-//        QTextCodec *codec =QTextCodec::codecForName("UTF-8");
-        QTextCodec::setCodecForTr(codec);
-        QTextCodec::setCodecForCStrings(codec);
+       QTextCodec::setCodecForTr(codec);
+       QTextCodec::setCodecForCStrings(codec);
+        QMessageBox MB;
+//        QString S=QString::fromUtf8("Ошибка в команде ")+QString::number(num_error)+"\n"+client_detail;
+//        QString S1=codec->toUnicode(S.toAscii())+"\n"+detail;
 
-    QString before="\\";
-    QString after="/";
-    QString ret=codec->toUnicode(_path.replace(before, after).toAscii());
-    */
+        QString text="";
+        QString title="";
+        switch(num_error)
+        {
+        case 0:
+        {
+            title=QString::fromUtf8("Авторизация");
+            text=QString::fromUtf8("Авторизация не удалась");
+            break;
+        }
+        }
+        MB.setText(text);
+        MB.setWindowTitle(title);
+MB.exec();
+        emit OkAutoriz(false);
+    }
 
-   QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
 
-   QTextCodec::setCodecForTr(codec);
-   QTextCodec::setCodecForCStrings(codec);
 
-    QMessageBox MB;
-    QString S=QString::fromUtf8("Ошибка в команде ")+QString::number(num_error)+"\n"+client_detail;
-    QString S1=codec->toUnicode(S.toAscii())+"\n"+detail;
-    MB.setText(S1);
-    MB.setWindowTitle(error);
-    MB.exec();
+
+//   QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+
+//   QTextCodec::setCodecForTr(codec);
+//   QTextCodec::setCodecForCStrings(codec);
+
+//    QMessageBox MB;
+//    QString S=QString::fromUtf8("Ошибка в команде ")+QString::number(num_error)+"\n"+client_detail;
+//    QString S1=codec->toUnicode(S.toAscii())+"\n"+detail;
+//    MB.setText(S1);
+//    MB.setWindowTitle(error);
+//    MB.exec();
 
 }
 //************************************************************************************************
@@ -146,10 +188,18 @@ void tGuiConnectConfirmReport::ExeCommand(QDataStream& _in)
 
     if(!ok)
     {
+        l="tClientGuiCommand \tGuiConnectConfirmReport\tВ подключении отказано";
+        log.Write(l);
+
         QMessageBox mb;
         mb.setText(QString::fromUtf8("В подключении отказано"));
         mb.setWindowTitle(QString::fromUtf8("Подключение"));
         mb.exec();
+    }
+    else
+    {
+        l="tClientGuiCommand \tGuiConnectConfirmReport\tПодключение разрешено";
+        log.Write(l);
     }
 
     emit StartStop(ok);
@@ -172,7 +222,12 @@ void tGuiPrepareSendFile::ExeCommand(QDataStream &_in)
     out << command;
     out << file_name;
 
+    l="tClientGuiCommand \tGuiPrepareSendFile\tПодготовка к передаче файла "+file_name.toUtf8();
+    log.Write(l);
+
     emit SendCommand(block);
+
+
 }
 //************************************************************************************************
 void tGuiReportPrepareSendFile::ExeCommand(QDataStream &_in)
@@ -189,7 +244,12 @@ void tGuiReportPrepareSendFile::ExeCommand(QDataStream &_in)
     out << tr("Ошибка на стороне клиента. Невозможно передать файл.");
     out << file_name;
 
+    l="tClientGuiCommand \tGuiReportPrepareSendFile\tОтчет о подготовке к передаче файла "+file_name.toUtf8();
+    log.Write(l);
+
     emit RunGui(block);
+
+
 }
 //************************************************************************************************
 void tGuiSendAutorization::ExeCommand(QDataStream &_in)
@@ -211,7 +271,11 @@ void tGuiSendAutorization::ExeCommand(QDataStream &_in)
     out << login;
     out << password;
 
+    l="tClientGuiCommand \tGuiSendAutorization\tОтправка логина и пароля Логин: "+login.toUtf8();
+    log.Write(l);
+
     emit SendCommand(block);
+
 
 
 }
@@ -224,12 +288,19 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
 
     if(ret)
     {
+        l="tClientGuiCommand \tGuiReportAutorization\tОтчет об авторизации. Авторизация принята ";
+        log.Write(l);
+
         //продолжить работу
         emit OkAutoriz(true);
     }
     else
     {
         //завершить работу
+
+        l="tClientGuiCommand \tGuiReportAutorization\tОтчет об авторизации. В авторизации отказано ";
+        log.Write(l);
+
         QMessageBox mb;
         mb.setText(QString::fromUtf8("Неверный логин или пароль\nВ авторизации отказано"));
         mb.setWindowTitle(QString::fromUtf8("Авторизация"));
@@ -241,6 +312,8 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tGuiStartTransaction::ExeCommand(QDataStream &_in)
 {
+    l="tClientGuiCommand \tGuiStartTransaction\tНачало транзакции ";
+    log.Write(l);
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
@@ -277,11 +350,17 @@ void tGuiStartTransaction::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tGuiReportStartTransaction::ExeCommand(QDataStream &)
 {
+    l="tClientGuiCommand \tGuiReportStartTransaction\tОтчет о начале транзакции ";
+    log.Write(l);
+
     emit NextCommand();
 }
 //************************************************************************************************
 void tGuiCommitTransaction::ExeCommand(QDataStream &_in)
 {
+    l="tClientGuiCommand \tGuiCommitTransaction\tКоммит транзакции ";
+    log.Write(l);
+
     int send=-1;
     _in >> send;
 
@@ -325,6 +404,9 @@ void tGuiCommitTransaction::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tGuiReportCommitTransaction::ExeCommand(QDataStream &)
 {
+    l="tClientGuiCommand \tGuiCommitTransaction\tотчет о коммите транзакции ";
+    log.Write(l);
+
     //для синхронизации последнего состояния нужно использовать разные процедуры при отправке и при приеме файлов
     //И при этом проводить ее нужно после того как состояние докальных и серверных таблиц будет обновлено
     //Значит делать это нужно в конце всех транзакций, после обновления локальныз таблиц (при приеме файлов и локальном удалении)
@@ -340,18 +422,29 @@ void tGuiCancelTransaction::ExeCommand(QDataStream &)
     QDataStream out(&block, QIODevice::WriteOnly);
 
     out << tr("CancelTransaction");
-
+qDebug() << QString::fromUtf8("отмена транзакции из ГУИ");
+l="tClientGuiCommand \tGuiCancelTransaction\tОтмена транзакции из GUI";
+log.Write(l);
 
     emit SendCommand(block);
+
+
 }
 //************************************************************************************************
 void tGuiReportCancelTransaction::ExeCommand(QDataStream &)
 {
+    l="tClientGuiCommand \tGuiReportCancelTransaction\tОтчет об отмене транзакции с сервера";
+    log.Write(l);
+
     ((MainForm*)link)->CancelAllOperations();
-    QMessageBox mb;
-    mb.setText(QString::fromUtf8("Транзакция отменена"));
-    mb.setWindowTitle(QString::fromUtf8("Transaction"));
-    mb.exec();
+//    QMessageBox mb;
+//    mb.setText(QString::fromUtf8("Транзакция отменена"));
+//    mb.setWindowTitle(QString::fromUtf8("Transaction"));
+//    mb.exec();
+
+    qDebug() << QString::fromUtf8("Отмена транзакции с сервера ");
+
+    emit EndConveyor();
 }
 //************************************************************************************************
 void tGuiDeleteFile::ExeCommand(QDataStream &_in)
@@ -383,7 +476,12 @@ void tGuiDeleteFile::ExeCommand(QDataStream &_in)
     out << detail;
     out << client_detail;
 
+    l="tClientGuiCommand \tGuiDeleteFile\tУдаление файла на сервере "+file_name.toUtf8();
+    log.Write(l);
+
     emit SendCommand(block);
+
+
 }
 //************************************************************************************************
 void tGuiReportDeleteFile::ExeCommand(QDataStream &_in)
@@ -392,11 +490,20 @@ void tGuiReportDeleteFile::ExeCommand(QDataStream &_in)
 
     _in >> file_name;
 
+    QString l="tClientGuiCommand \tGuiReportDeleteFile\tОтчет об удалении файла на сервере ";
+//    l=l1.toUtf8()+file_name.toUtf8();
+    log.Write(l);
+
     emit NextCommand();
+
+
 }
 //************************************************************************************************
 void tGuiGetListFiles::ExeCommand(QDataStream &_in)
 {
+    l="tClientGuiCommand \tGuiGetListFiles\tЗапрос списка файлов с сервера ";
+    log.Write(l);
+
     QString comm="";
 
     _in >> comm;
@@ -413,6 +520,8 @@ void tGuiGetListFiles::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tReportGuiGetListFiles::ExeCommand(QDataStream &_in)
 {
+    l="tClientGuiCommand \tReportGuiGetListFiles\tОтчет запроса списка файлов с сервера ";
+    log.Write(l);
 //    slm_list=NULL;
     QStringList list;
 
@@ -443,19 +552,35 @@ void tGuiPrepareReceiveFile::ExeCommand(QDataStream &_in)
     out << comm;
     out << file_name;
 
+    l="tClientGuiCommand \tGuiPrepareReceiveFile\tПодготовка к приему файла ";
+    l=l+file_name.toUtf8();
+    log.Write(l);
+
+
     emit SendCommand(block);
+
+
 }
 //************************************************************************************************
 void tGuiBreakReceiveFile::ExeCommand(QDataStream &)
 {
-    QMessageBox mb;
-    mb.setText(QString::fromUtf8("Транзакция отменена\nОдин из локальных файлов нельзя открыть для записи"));
-    mb.setWindowTitle(QString::fromUtf8("Break transaction"));
-    mb.exec();
+//    QMessageBox mb;
+//    mb.setText(QString::fromUtf8("Транзакция отменена\nОдин из локальных файлов нельзя открыть для записи"));
+//    mb.setWindowTitle(QString::fromUtf8("Break transaction"));
+//    mb.exec();
+
+    l="tClientGuiCommand \tGuiBreakReceiveFile\t Транзакция отменена. Один из локальных файлов нельзя открыть для записи";
+    log.Write(l);
+
+    qDebug() << QString::fromUtf8("Транзакция отменена\nОдин из локальных файлов нельзя открыть для записи");
+    emit EndConveyor();
 }
 //************************************************************************************************
 void tVerifyMoveDelete::ExeCommand(QDataStream &_out)
 {
+    l="tClientGuiCommand \tVerifyMoveDelete\t Команда проверки, замены и удаления локальных файлов";
+    log.Write(l);
+
     QString m_struct="";
     _out >> m_struct;
     emit VerifyMoveDelete(m_struct);
@@ -463,6 +588,9 @@ void tVerifyMoveDelete::ExeCommand(QDataStream &_out)
 //************************************************************************************************
 void tGetListModels::ExeCommand(QDataStream &_in)
 {
+    l="tClientGuiCommand \tGetListModels\t Запрос списка моделей с сервера";
+    log.Write(l);
+
     QString comm="";
 
     _in >> comm;
@@ -479,6 +607,9 @@ void tGetListModels::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
 {
+    l="tClientGuiCommand \tGetListModels\t Отчет запроса списка моделей с сервера";
+    log.Write(l);
+
     _in.device()->seek(0);
     _in.device()->seek(54);
 
@@ -501,6 +632,9 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tUpdateMainLocal::ExeCommand(QDataStream &)
 {
+    l="tClientGuiCommand \tUpdateMainLocal\t Обновление локальных и Last таблиц ";
+    log.Write(l);
+
     ((MainForm*)link)->OnListFilesLocal();
     ((MainForm*)link)->CorrectLastSynch(false);
     emit NextCommand();

@@ -4,12 +4,10 @@
 tModelsConveyor::tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
     QObject(parent), ui(_ui), db_op(_db_op), link(_link),Transaction(false)
 {
-//    db_op=new tDatabaseOp();
 
-//    db_op->RefreshModelsFiles();
 
     conv=new tConveyor(ui, link, db_op, 0);
-//    conv->SetLink(link);
+
 
     connect(_link, SIGNAL(NextCommand()), conv, SLOT(NextCommand()));
     connect(conv, SIGNAL(EndCommands()), this, SLOT(EndConveyor()));
@@ -20,14 +18,12 @@ tModelsConveyor::tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp 
     connect(conv, SIGNAL(AutorizStart()), _link, SLOT(OnAutorizStart()));
     connect(conv, SIGNAL(SetVisible(bool)),_link, SLOT(OnSetVisible(bool)));
     connect(_link, SIGNAL(Disconnecting()), conv, SLOT(OnDisconnecting()));
-//    connect(conv, SIGNAL(ErrorCommands()),_link, SLOT(ErrorConveyor()));
 
-//    connect(conv, SIGNAL(EndTransactions()), this, SLOT(EndTransactions()));
-//    connect(this, SIGNAL(EndTransactionsMain()), _link, SLOT(EndTransactions()));
 connect(conv, SIGNAL(EndTransactions()), _link, SLOT(EndTransactions()));
 connect(this, SIGNAL(EndTransactions()), _link, SLOT(EndTransactions()));
+connect(conv, SIGNAL(EndConveyor()), this, SLOT(EndConveyor()));
 
-//    conv->SetDatabaseOperator(db_op);
+
 
 }
 //-------------------------------------------------------------------------
@@ -66,6 +62,7 @@ void tModelsConveyor::EndConveyor()
 //    MB.setWindowTitle(QString::fromUtf8("Транзакция"));
 //    MB.exec();
 
+    conv->ClearTempFolder();
     conv->Clear();
     if(send)
     {
@@ -91,17 +88,23 @@ void tModelsConveyor::OnAutorizStart()
 //-------------------------------------------------------------------------
 void tModelsConveyor::ErrorConveyor()
 {
-    QMessageBox MB;
-    MB.setText(QString::fromUtf8("Выполнение пакета команд прервано"));
-    MB.setWindowTitle(QString::fromUtf8("Пакет команд"));
-    MB.exec();
+//    QMessageBox MB;
+//    MB.setText(QString::fromUtf8("Выполнение пакета команд прервано"));
+//    MB.setWindowTitle(QString::fromUtf8("Пакет команд"));
+//    MB.exec();
 
-    conv->Clear();
-    StartSendDeleteFiles();
+    qDebug() << QString::fromUtf8("Выполнение пакета команд прервано");
+    l="tModelsConveyor \tErrorConveyor\tВыполнение пакета команд прервано";
+    log.Write(l);
+
+    EndConveyor();
 }
 //-------------------------------------------------------------------------
 void tModelsConveyor::Autorization(QString& _login, QString& _password)
 {
+    l="tModelsConveyor \tAutorization\tОтправка команды авторизации";
+    log.Write(l);
+
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
@@ -115,6 +118,9 @@ void tModelsConveyor::Autorization(QString& _login, QString& _password)
 //-------------------------------------------------------------------------
 void tModelsConveyor::OnListFiles()
 {
+    l="tModelsConveyor \tOnListFiles\tОтправка команды запроса списка файлов";
+    log.Write(l);
+
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
@@ -136,6 +142,8 @@ void tModelsConveyor::DeletingLocalFile(const QString& _file_name)
 //-------------------------------------------------------------------------
 void tModelsConveyor::StartSendDeleteFiles()
 {
+    l="tModelsConveyor \tStartSendDeleteFiles\tФормирование списка команд транзакции передачи и удаления файлов на сервере";
+    log.Write(l);
 
     send=true;
 //    Transaction=true;
@@ -177,8 +185,16 @@ void tModelsConveyor::StartSendDeleteFiles()
 
 
         conv->AddStartTransaction(send);
+
+        if(SendModelFiles.size()!=0)
+        {
         stop=conv->AddSendCommand();
+        }
+
+        if(DeleteServerModelFiles.size()!=0)
+        {
         conv->AddDelCommand();
+        }
 
         conv->AddCommitTransaction(send);
 
@@ -190,17 +206,25 @@ void tModelsConveyor::StartSendDeleteFiles()
         }
         else
         {
-            QMessageBox MB;
-            MB.setText(QString::fromUtf8("Локальный файл изменился. Операция прервана."));
-            MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-            MB.exec();
+//            QMessageBox MB;
+//            MB.setText(QString::fromUtf8("Локальный файл изменился. Операция прервана."));
+//            MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+//            MB.exec();
 
-            conv->Clear();
+            qDebug() << QString::fromUtf8("Локальный файл изменился. Операция прервана. ");
+
+            l="tModelsConveyor \tStartSendDeleteFiles\tЛокальный файл изменился. Выполнение списка отменено";
+            log.Write(l);
+
+//            conv->Clear();
             EndConveyor();
         }
     }
     else
     {
+        l="tModelsConveyor \tStartSendDeleteFiles\tВсе модели отправлены";
+        log.Write(l);
+
         conv->GetServerModels();
 //        emit EndTransactions();
     }
@@ -208,7 +232,10 @@ void tModelsConveyor::StartSendDeleteFiles()
 //-------------------------------------------------------------------------
 void tModelsConveyor::StartReceiveDeleteFiles()
 {
+    l="tModelsConveyor \tStartReceiveDeleteFiles\tФормирование списка команд транзакции приема и удаления файлов на клиенте";
+    log.Write(l);
 
+conv->ClearTempFolder();
     send=false;
 //    Transaction=true;
     bool stop=false;
@@ -257,17 +284,24 @@ void tModelsConveyor::StartReceiveDeleteFiles()
         }
         else
         {
-            QMessageBox MB;
-            MB.setText(QString::fromUtf8("Локальный файл изменился. Операция прервана."));
-            MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-            MB.exec();
+//            QMessageBox MB;
+//            MB.setText(QString::fromUtf8("Локальный файл изменился. Операция прервана."));
+//            MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+//            MB.exec();
 
-            conv->Clear();
+            qDebug() << QString::fromUtf8("Локальный файл изменился. Операция прервана. ");
+
+            l="tModelsConveyor \tStartReceiveDeleteFiles\tЛокальный файл изменился. Выполнение списка отменено";
+            log.Write(l);
+
+//            conv->Clear();
             EndConveyor();
         }
     }
     else
     {
+        l="tModelsConveyor \tStartReceiveDeleteFiles\tВсе модели приняты";
+        log.Write(l);
 
         //нужна команда GetListModels
 //        emit EndTransactions();

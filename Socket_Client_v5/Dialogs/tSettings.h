@@ -1,6 +1,7 @@
 #ifndef TSETTINGS_H
 #define TSETTINGS_H
 #include <QSettings>
+#include "tLog.h"
 
 struct ServerSetting
 {
@@ -36,6 +37,9 @@ private:
     int port;
 
     QString ini_path;
+
+    QString l;
+    tLog log;
 };
 
 #endif // TSETTINGS_H

@@ -3,6 +3,9 @@
 #include <QMessageBox>
 #include <QFile>
 
+
+
+
 //-------------------------------------------------------------------------------
 tSocket::tSocket(const QString &_address, const int _port, const QString &_root, QThread *_owner) :
     comm(NULL), socket(NULL), next_block_size(0)
@@ -14,11 +17,11 @@ tSocket::tSocket(const QString &_address, const int _port, const QString &_root,
     port=_port;
     owner=_owner;
 
+    vf.reg("Error:0",Create_tProcessingError);
     vf.reg("Report:1",Create_tReceiveFile);
     vf.reg("Report:2",Create_tReportSendFile);
     vf.reg("PrepareReceiveFile", Create_tPrepareReceiveFile);
     vf.reg("SendFile", Create_tSendFile);
-    vf.reg("Error:0",Create_tProcessingError);
     vf.reg("Report:3",Create_tConnectConfirmReport);
     vf.reg("PrepareSendFile",Create_tStreamPrepareSendFile);
     vf.reg("Report:4",Create_tStreamReportPrepareSendFile);
@@ -42,12 +45,19 @@ tSocket::~tSocket()
 {
     delete comm;
     comm=NULL;
+
+    l="socket \tInitialize\tОтключение и удаление сокета ";
+    log.Write(l);
+
     socket->disconnectFromHost();
     delete socket;
 }
 //-------------------------------------------------------------------------------
 void tSocket::Initialize()
 {
+    l="socket \tInitialize\tСоздание сокета ";
+    log.Write(l);
+
     socket=new QTcpSocket();
 
     QHostAddress addr(address);
@@ -60,6 +70,7 @@ void tSocket::Initialize()
 //-------------------------------------------------------------------------------
 void tSocket::ReadReport()
 {
+
     int num_com=-1;
     QByteArray block;
     QDataStream in(&block, QIODevice::ReadOnly);
@@ -81,6 +92,10 @@ void tSocket::ReadReport()
             {
                 in >> num_com;
 
+
+                l="socket \tReadReport\tReport: "+QString::number(num_com);
+                log.Write(l);
+
                 delete comm;
                 comm=NULL;
                 comm=vf.create(begin+QString::number(num_com));
@@ -91,9 +106,13 @@ void tSocket::ReadReport()
                 if(comm->Initialize(in))
                 {
                     comm->ExeCommand(in);
+                    l="socket \tReadReport\tКоманда выполнена";
+                    log.Write(l);
                 }
                 else
                 {
+                    l="socket \tReadReport\tАльтернатива в выполнении команды";
+                    log.Write(l);
                     comm->ProcessError(in);
                 }
             }
@@ -101,9 +120,14 @@ void tSocket::ReadReport()
             {
                 if(begin=="Error:")
                 {
+
                     //если команда после Error больше нуля то обработка ведется методом соответствующего Command
                     //если номер ноль или меньше то для этого будут использоваться отдельные команды Error
                     in >> num_com;
+
+                    l="socket \tReadReport\tПринято сообщение об ошибке"+QString::number(num_com);
+                    log.Write(l);
+
                     delete comm;
                     comm=NULL;
 
@@ -134,6 +158,9 @@ void tSocket::ReadReport()
                     //Неправильный репорт
                     //Мусор в сокете
                     qDebug() << "Мусор в сокете";
+
+                    l="socket \tReadReport\tМусор в сокете"+QString::number(num_com);
+                    log.Write(l);
 
                     int num_error=-1;
                     QString error="";
@@ -195,11 +222,16 @@ void tSocket::OnEndCommand()
 //---------------------------------------------------------------------------------------
 void tSocket::OnDisconnected()
 {
+    l="socket \tOnDisconnected\tОтключение сервером ";
+    log.Write(l);
+
     emit DisconnectSocket();
 }
 //---------------------------------------------------------------------------------------
 void tSocket::OnCommand(QByteArray _block)
 {
+
+
     QDataStream in(&_block, QIODevice::ReadOnly);
     in.setVersion(QDataStream::Qt_4_8);
 
@@ -207,6 +239,9 @@ void tSocket::OnCommand(QByteArray _block)
 
 
     in >> command;
+
+    l=tr("socket \tOnCommand\tПолучена команда ")+command;
+    log.Write(l);
 
     delete comm;
     comm=NULL;
@@ -236,6 +271,9 @@ void tSocket::OnCommand(QByteArray _block)
     }
     else
     {
+        l="socket \tOnCommand\tОшибка выполнения команды "+command;
+        log.Write(l);
+
         QString comm="";
         int num_error=-1;
         QString error="";
@@ -268,5 +306,9 @@ void tSocket::OnCommand(QByteArray _block)
 //---------------------------------------------------------------------------------------
 void tSocket::OnDisconnectedFromServer()
 {
+
+    l="socket \tОтключение от сервера ";
+    log.Write(l);
+
     socket->disconnectFromHost();
 }

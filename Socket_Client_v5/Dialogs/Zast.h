@@ -7,7 +7,7 @@
 #include "Autoriz.h"
 #include <QMouseEvent>
 #include "MainForm.h"
-
+#include "tLog.h"
 
 
 
@@ -30,6 +30,9 @@ private:
     QTimer *timer2;
     Autoriz *dAutoriz;
     bool connect_ok;
+
+    QString l;
+    tLog log;
 
 protected:
     virtual void mousePressEvent(QMouseEvent* event);
