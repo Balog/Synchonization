@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QtSql>
+#include "tLog.h"
 
 
 class tDatabaseOp
@@ -29,6 +30,8 @@ private:
 
     void CheckFile(const qlonglong _num, const QString &_path_file);
     void CheckInfoFiles(const qlonglong _num, const QString &_folder_mod);
+
+    tLog log;
 };
 
 #endif // TDATABASEOP_H

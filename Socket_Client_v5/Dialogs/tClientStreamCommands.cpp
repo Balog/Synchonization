@@ -784,7 +784,7 @@ void tStreamReportStartTransaction::ProcessError(QDataStream &_in)
 
     QString client_detail="Ошибка на стороне сервера \nнеобходимо заново прочитать список файлов \nи повторно отправить файлы ";
 
-    l="tStreamReportStartTransaction \tProcessError\t Коллизия в транзакции "+client_detail.toUtf8();
+    l="tStreamReportStartTransaction \tProcessError\t Коллизия в транзакции "+client_detail;
     log.Write(l);
 
     QByteArray block;

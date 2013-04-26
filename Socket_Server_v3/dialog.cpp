@@ -7,6 +7,9 @@ extern tSettings my_settings;
 Dialog::Dialog(QWidget *_parent) :
     QDialog(_parent), ui(new Ui::Dialog), server(NULL), base_op(NULL)
 {
+    tLog log1("GUI");
+    log=log1;
+    log.Write("Dialog \t Dialog \t Начало работы ");
 
 
 
@@ -39,10 +42,14 @@ Dialog::~Dialog()
     base_op=NULL;
 
     delete ui;
+
+    log.Write("Dialog \t Dialog \t Конец работы ");
 }
 //---------------------------------------------------------------------
 void Dialog::OnConnect()
 {
+
+
     my_settings.SetServerAddr(ui->leAddres->text());
     my_settings.SetServerPort(ui->sbPort->value());
     my_settings.SetRoot(ui->leRoot->text());
@@ -56,6 +63,8 @@ void Dialog::OnConnect()
     ui->sbPort->setEnabled(false);
     ui->leRoot->setEnabled(false);
     ui->leTemp->setEnabled(false);
+
+    log.Write("Dialog \t Dialog \t Сервер подключен ");
 
     connect(server, SIGNAL(ConnectClient(int,int)), this, SLOT(OnConnectClient(int,int)));
     connect(server, SIGNAL(DisconnectClient(int ,int)), this, SLOT(OnConnectClient(int ,int)));
@@ -75,6 +84,8 @@ void Dialog::OnDisconnect()
     ui->sbPort->setEnabled(true);
     ui->leRoot->setEnabled(true);
     ui->leTemp->setEnabled(true);
+
+    log.Write("Dialog \t Dialog \t Сервер отключен вручную");
 }
 //---------------------------------------------------------------------
 void Dialog::OnConnectClient(int , int _count_client)

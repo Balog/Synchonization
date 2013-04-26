@@ -6,6 +6,7 @@
 #include <QFile>
 #include <QStringList>
 #include "ClassFactory.h"
+#include "tLog.h"
 //#include "tDatabaseOp.h"
 
 
@@ -33,6 +34,8 @@ public:
     QSqlDatabase GetDB() const;
 
     QTcpSocket* socket;
+    bool IsTransaction();
+    void SetTransaction(bool _trans);
 
 private:
     bool WaitPackage();
@@ -52,6 +55,10 @@ private:
     int handle;
     QSqlDatabase db;
     quint16 next_block_size;
+
+    tLog log;
+
+    bool Transaction;
 
 signals:
     void DisconnectClient(int);

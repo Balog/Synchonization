@@ -128,7 +128,7 @@ void tGuiError::ExeCommand(QDataStream& _in)
 
     qDebug() << QString::fromUtf8("Ошибка ") << num_error << " " << detail << " " << client_detail;
 
-    l="tClientGuiCommand \tGuiError\tОшибка на сервере "+detail.toUtf8()+" "+client_detail.toUtf8();
+    l="tClientGuiCommand \tGuiError\tОшибка на сервере "+detail+" "+client_detail;
     log.Write(l);
 
     l="tClientGuiCommand \tGuiError\tКоманда серверу на отмену транзакции ";

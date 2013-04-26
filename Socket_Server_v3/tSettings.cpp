@@ -3,16 +3,26 @@
 //-----------------------------------------------------------------
 tSettings::tSettings()
 {
-
+    tLog log1("GUI");
+    log=log1;
 }
 //-----------------------------------------------------------------
 tSettings::~tSettings()
 {
     sync();
+
+
+    log.Write("----------------------------------------------------", false);
+
 }
 //-----------------------------------------------------------------
 void tSettings::SetFilePath(const QString &_ini_file)
 {
+
+    log.Write("----------------------------------------------------", false);
+
+    log.Write("tSettings \tSetFilePath\t Чтение параметров ");
+
     ini_path=_ini_file;
     QSettings s(ini_path, QSettings::IniFormat);
     s.beginGroup("net");
@@ -29,6 +39,8 @@ void tSettings::SetFilePath(const QString &_ini_file)
 //-----------------------------------------------------------------
 void tSettings::sync()
 {
+    log.Write("tSettings \t SetFilePath \t Запись параметров ");
+
     QSettings s(ini_path, QSettings::IniFormat);
     s.beginGroup("net");
     s.setValue("ip", ip);

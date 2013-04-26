@@ -7,6 +7,11 @@ tFileBlocker blocker;
 //------------------------------------------------------------------------------
 tServer::tServer(const QString& _adr, const int _port, QObject *_parent) : QTcpServer(_parent)
 {
+    tLog log1("GUI");
+    log=log1;
+
+
+
 blocker.SetMaxReaders(my_settings.GetMaxReaders());
     QHostAddress addr(_adr);
     if(listen(addr, _port))
@@ -51,6 +56,8 @@ tServer::~tServer()
 //------------------------------------------------------------------------------
 void tServer::incomingConnection(int _socket_descriptor)
 {
+    QString l=QString::fromUtf8("tServer \t incomingConnection \t Входящее соединение. Дескриптор: ")+QString::number(_socket_descriptor);
+    log.Write(l);
     my_thread=new tThreadClient(_socket_descriptor, db);
 
     if(my_thread->Start())
@@ -84,6 +91,11 @@ void tServer::OnDisconnectClient(const int _handle)
         It++;
     }
     int Count=clients.size();
+
+    QString l=QString::fromUtf8("tServer \t OnDisconnectClient \t Клиент. Дескриптор: ")+QString::number(_handle)+QString::fromUtf8(" отключен. Осталось ") + QString::number(Count) + QString::fromUtf8(" клиентов");
+
+    log.Write(l);
+
     emit DisconnectClient(_handle, Count);
 }
 //------------------------------------------------------------------------------
@@ -95,10 +107,14 @@ void tServer::DisconnectAll()
         delete i;
     }
     clients.clear();
+
+
+    log.Write(QString::fromUtf8("tServer \t DisconnectAll \t Отключены все клиенты "));
 }
 //------------------------------------------------------------------------------
 void tServer::RefreshDatabase()
 {
+    log.Write(QString::fromUtf8("tServer \t RefreshDatabase \t Проверка и обновление базы данных файлов "));
     tDatabaseOp db_op(db);
         db_op.RefreshModelsFiles();
 }

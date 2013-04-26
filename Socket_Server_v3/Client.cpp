@@ -3,8 +3,12 @@
 
 extern tFileBlocker blocker;
 
-tClient::tClient(const int _handle, const QSqlDatabase &_db): QObject(NULL), login(""), socket(NULL), next_block_size(0)
+tClient::tClient(const int _handle, const QSqlDatabase &_db): QObject(NULL), login(""), socket(NULL), next_block_size(0), Transaction(false)
 {
+    QString s="Client "+QString::number(_handle);
+    tLog log1(s);
+    log=log1;
+
     comm=NULL;
 
     handle=_handle;
@@ -23,6 +27,8 @@ tClient::tClient(const int _handle, const QSqlDatabase &_db): QObject(NULL), log
 
 
     db=_db;
+
+    log.Write(QString::fromUtf8("tClient \t tClient \t Клиент создан "));
 }
 //----------------------------------------------------------------------------
 tClient::~tClient()
@@ -46,6 +52,8 @@ bool tClient::Initialize()
     connect(socket, SIGNAL(disconnected()),this, SLOT(OnDisconnect()));
     connect(socket, SIGNAL(readyRead()), this, SLOT(OnReadyRead()));
     connect(socket, SIGNAL(connected()), this, SLOT(OnConnected()));
+
+    log.Write(QString::fromUtf8(QString("("+login+") tClient \t Initialize \t Клиент подключен ").toAscii()));
 
     return b;
 }
@@ -87,6 +95,10 @@ void tClient::OnReadyRead()
             if(begin=="Command:")
             {
                 in >> num_com;
+
+                QString l=QString::fromUtf8(QString("("+login+") tClient \t OnReadyRead \t Получена команда номер "+QString::number(num_com)).toAscii());
+                log.Write(l);
+
                 delete comm;
                 comm=NULL;
                 comm=vf.create(begin+QString::number(num_com));
@@ -121,6 +133,9 @@ void tClient::OnReadyRead()
                 }
                 else
                 {
+                    QString l=QString::fromUtf8(QString("("+login+") tClient \t OnReadyRead \t Ошибка при выполнении команды номер "+QString::number(num_com)).toAscii());
+                    log.Write(l);
+
                     QByteArray block2;
                     QDataStream in_out(&block2, QIODevice::ReadWrite);
 
@@ -137,6 +152,9 @@ void tClient::OnReadyRead()
             {
                 //Неправильный комманд
                 //Мусор в сокете
+
+                log.Write(QString::fromUtf8(QString("("+login+") tClient \t OnReadyRead \t Мусор в сокете. Команда не начинается на 'Command:' ").toAscii()));
+
                 qDebug() << QString::fromUtf8("Мусор в сокете");
 
                 QByteArray block3;
@@ -166,6 +184,9 @@ void tClient::OnReadyRead()
 //---------------------------------------------------------------------------------------
 void tClient::OnDisconnect()
 {
+    QString l=QString::fromUtf8(QString("("+login+") tClient \t OnDisconnect \t Клиент "+QString::number(handle)+" Логин "+login+" отключен ").toAscii());
+    log.Write(l);
+
     emit DisconnectClient(handle);
 }
 //---------------------------------------------------------------------------------------
@@ -207,6 +228,8 @@ void tClient::OnEndCommand()
 //---------------------------------------------------------------------------------------
 void tClient::OnConnected()
 {
+    log.Write(QString::fromUtf8(QString("("+login+") tClient \t OnConnected \t Формирование отчета о подключении ").toAscii()));
+
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
@@ -227,6 +250,10 @@ void tClient::SetName(const QString& _login)
 {
     login=_login;
     qDebug() << "Client name is " << login;
+
+    QString l=QString::fromUtf8(QString("("+login+") tClient \t SetName \t Присвоение логина "+login+" клиенту "+QString::number(handle)).toAscii());
+    log.Write(l);
+
 }
 //---------------------------------------------------------------------------------------
 void tClient::AddDelList(QString &_file_name, QString &_hash)
@@ -256,4 +283,14 @@ QSqlDatabase tClient::GetDB() const
 QString tClient::GetDelHash(const int _num) const
 {
     return del_list[_num].server_hash;
+}
+//---------------------------------------------------------------------------------------
+bool tClient::IsTransaction()
+{
+    return Transaction;
+}
+//---------------------------------------------------------------------------------------
+void tClient::SetTransaction(bool _trans)
+{
+    Transaction=_trans;
 }

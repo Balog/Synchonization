@@ -9,6 +9,7 @@
 #include "tFileBlocker.h"
 #include <QtSql>
 #include "tDatabaseOp.h"
+#include "tLog.h"
 
 using namespace std;
 
@@ -27,6 +28,8 @@ private:
     tThreadClient* my_thread;
     vector <tThreadClient*> clients;
     QSqlDatabase db;
+
+    tLog log;
 
 
 protected:

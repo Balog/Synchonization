@@ -37,9 +37,6 @@ void Zast::OnTimerTrue()
         delete timer1;
         timer1=NULL;
 
-        l="Zast \tOnTimerTrue\tНачало авторизации ";
-        log.Write(l);
-
     dAutoriz->show();
     }
 }

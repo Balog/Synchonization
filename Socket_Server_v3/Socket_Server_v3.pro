@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     tReadWriteMutex.cpp \
     tFileBlocker.cpp \
     tSettings.cpp \
-    tDatabaseOp.cpp
+    tDatabaseOp.cpp \
+    tLog.cpp
 
 HEADERS  += dialog.h \
     Server.h \
@@ -39,6 +40,7 @@ HEADERS  += dialog.h \
     tFileBlocker.h \
     tSettings.h \
     tDatabaseOp.h \
-    tDatabaseStreamCommand.h
+    tDatabaseStreamCommand.h \
+    tLog.h
 
 FORMS    += dialog.ui

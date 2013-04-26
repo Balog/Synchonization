@@ -4,6 +4,7 @@
 #include <QtCore>
 #include <QDialog>
 #include "Server.h"
+#include "tLog.h"
 //#include "tDatabaseOp.h"
 
 
@@ -23,6 +24,8 @@ private:
     Ui::Dialog *ui;
     tServer* server;
     tDatabaseOp* base_op;
+
+    tLog log;
 
 
 private slots:

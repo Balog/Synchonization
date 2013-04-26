@@ -7,6 +7,9 @@ extern tSettings my_settings;
 //----------------------------------------------------------------------
 tDatabaseOp::tDatabaseOp(const QSqlDatabase &_db)
 {
+    tLog log1("DB");
+    log=log1;
+
     db=_db;
     root=my_settings.GetRoot();
 //    db=QSqlDatabase::addDatabase("QSQLITE");
@@ -21,11 +24,13 @@ tDatabaseOp::~tDatabaseOp()
 //----------------------------------------------------------------------
 void tDatabaseOp::RefreshModelsFiles()
 {
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Проверка и обновление серверной базы данных ")));
+
     QString root=my_settings.GetRoot();
 
     //Начало работы с базой данных
     //Начало транзакции
-//    bool b=db.transaction();
+    bool b=db.transaction();
 
     QSqlQuery unset_found_models(db);
     unset_found_models.prepare("UPDATE StructModels SET Found=0");
@@ -51,7 +56,7 @@ void tDatabaseOp::RefreshModelsFiles()
 
     //Окончание работы с базой данных
     //Коммит изменений
-//    b=db.commit();
+    b=db.commit();
 
 //    QMessageBox mb;
 //    mb.setText(QString::fromUtf8("Обновление завершено"));
@@ -709,6 +714,8 @@ void tDatabaseOp::ClearModels()
 //----------------------------------------------------------
 void tDatabaseOp::GetListModels(QDataStream &_out)
 {
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Формирование списка моделей ")));
+    db.transaction();
     //Необходимо сформировать и передать структуру данных следующего вида:
 
     //- Число моделей
@@ -806,10 +813,13 @@ void tDatabaseOp::GetListModels(QDataStream &_out)
         }
 
     }
+    db.commit();
 }
 //----------------------------------------------------------
 void tDatabaseOp::GetLocalModelFiles(const QString &_str, QStringList &_list)
 {
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Выборка файлов модели ")));
+    db.transaction();
     _list.clear();
     QSqlQuery list_model_structs(db);
     QString s="SELECT Files.File FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num WHERE StructModels.Struct='"+_str+"'";
@@ -821,6 +831,7 @@ void tDatabaseOp::GetLocalModelFiles(const QString &_str, QStringList &_list)
         QString File=list_model_structs.value(0).toString();
         _list.push_back(File);
     }
+    db.commit();
 }
 //----------------------------------------------------------
 QString tDatabaseOp::GetHash(const QString& name_file) const

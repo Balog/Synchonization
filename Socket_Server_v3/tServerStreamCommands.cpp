@@ -9,6 +9,8 @@ extern tFileBlocker blocker;
 //----------------------------------------------------------
 bool tSendStreamFile::Initialize(QDataStream &_in)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
     _in.device()->reset();
     _in >> file_name;
     root=my_settings.GetRoot();
@@ -17,14 +19,19 @@ bool tSendStreamFile::Initialize(QDataStream &_in)
 
     qDebug() << file_name << file.size();
     cont=false;
-    return file.isOpen();
+    return file.isOpen() && ((tClient*)link)->IsTransaction();
 }
 //----------------------------------------------------------
 bool tSendStreamFile::ExeCommand(QDataStream&, QDataStream &_out)
 {
+
+
     bool ret=false;
     if(!cont)
     {
+
+        log.Write(QString(QString::fromUtf8("tSendStreamFile \t ExeCommand \t ****** ОТПРАВКА ФАЙЛА ****** ")+file_name));
+
         cont=true;
         QString comm="Report:";
         int num_comm=1;
@@ -79,6 +86,8 @@ bool tSendStreamFile::ExeCommand(QDataStream&, QDataStream &_out)
         {
             file.close();
             ret=true;
+            log.Write(QString(QString::fromUtf8("tSendStreamFile \t ExeCommand \t Отправка файла ")+file_name+QString::fromUtf8(" завершена")));
+
             emit EndCommand();
         }
         _out.device()->write(buff,n);
@@ -90,6 +99,8 @@ bool tSendStreamFile::ExeCommand(QDataStream&, QDataStream &_out)
 //----------------------------------------------------------
 void tSendStreamFile::SendErrorReport(QDataStream &_in)
 {
+
+    log.Write(QString(QString::fromUtf8("tSendStreamFile \t SendErrorReport \t Ошибка при передаче файла ")+file_name));
     //если возникла ошибка при передаче то дальнейшее выполнение транзакции
     //будет прервано и надо отменить транзакцию
     QString login=((tClient*)link)->GetName();
@@ -124,12 +135,18 @@ void tSendStreamFile::SendErrorReport(QDataStream &_in)
 //----------------------------------------------------------
 bool tReceiveStreamFile::Initialize(QDataStream& _in)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
+
+
     error_reason="Reason: ";
     error_detected=false;
     _in.device()->reset();
     _in >> file_name;
     _in >> file_size;
 
+    log.Write(QString(QString::fromUtf8("tReceiveStreamFile \t Initialize \t ****** ПРИЕМ ФАЙЛА ****** ")+file_name));
     root=my_settings.GetTemp();
     login=((tClient*)link)->GetName();
     root=root+login+"/";
@@ -149,7 +166,6 @@ bool tReceiveStreamFile::Initialize(QDataStream& _in)
 
     SetFileAttributes((LPCWSTR)(root+file_name).data(), !FILE_ATTRIBUTE_HIDDEN);
 
-    file.open(QIODevice::WriteOnly);
 
     _in >> hidden;
     _in >> create_date_time;
@@ -159,14 +175,22 @@ bool tReceiveStreamFile::Initialize(QDataStream& _in)
 
     enabled=true;
     read_size=0;
-    error_detected=!file.isOpen();
+//    error_detected=!file.isOpen();
     calc_hash=new tCalcHash();
 
-    if(!file.isWritable())
+    if(!file.open(QIODevice::WriteOnly | QFile::Append) && ((tClient*)link)->IsTransaction())
     {
+        log.Write(QString(QString::fromUtf8("tReceiveStreamFile \t Initialize \t Файл ")+file_name+" невозможно открыть для записи"));
         error_reason=error_reason+"Write file error ";
+        error_detected=true;
+
     }
-    return true;
+    else
+    {
+        error_detected=false;
+
+    }
+    return !error_detected;
 }
 //----------------------------------------------------------
 bool tReceiveStreamFile::ExeCommand(QDataStream& _in, QDataStream& _out)
@@ -199,6 +223,7 @@ bool tReceiveStreamFile::ExeCommand(QDataStream& _in, QDataStream& _out)
             qDebug() << "File size " << file_size << " saved size " << file.size() << " now " << num;
             if(read_size==file_size)
             {
+                log.Write(QString(QString::fromUtf8("tReceiveStreamFile \t ExeCommand \t Прием файла ")+file_name+QString::fromUtf8(" завершен")));
                 ret=false;
                 file.close();
 
@@ -220,10 +245,12 @@ bool tReceiveStreamFile::ExeCommand(QDataStream& _in, QDataStream& _out)
         }
         else
         {
+            log.Write(QString(QString::fromUtf8("tReceiveStreamFile \t ExeCommand \t ошибка при приеме файла ")+file_name));
             delete[] buff;
             ret=true;
             if(read_size==file_size)
             {
+
                 ret=false;
             }
         }
@@ -247,6 +274,8 @@ if(read_size==file_size)
 //----------------------------------------------------------
 void tReceiveStreamFile::SendErrorReport(QDataStream &_in)
 {
+    log.Write(QString(QString::fromUtf8("tReceiveStreamFile \t SendErrorReport \t При приеме файла ")+file_name+" произошла ошибка"));
+
     //если возникла ошибка при приеме то дальнейшее выполнение транзакции
     //будет прервано и надо отменить транзакцию
     QString login=((tClient*)link)->GetName();
@@ -277,6 +306,8 @@ void tReceiveStreamFile::SendReport(QDataStream &_out)
 {
     if(!error_detected)
     {
+        log.Write(QString(QString::fromUtf8("tReceiveStreamFile \t SendReport \t Посылка отчета о приеме файла ")+file_name));
+
         QString comm="Report:";
         int num_comm=2;
 
@@ -378,6 +409,11 @@ tReceiveStreamFile::~tReceiveStreamFile()
 //----------------------------------------------------------
 void tError::SendErrorReport(QDataStream &_in)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
+    ((tClient*)link)->SetTransaction(false);
+
     //если возникла ошибка то дальнейшее выполнение транзакции
     //будет прервано и надо отменить транзакцию
     QString login=((tClient*)link)->GetName();
@@ -399,6 +435,8 @@ void tError::SendErrorReport(QDataStream &_in)
     _in << error;
     _in << detail;
 
+    log.Write(QString(QString::fromUtf8("tError \t SendErrorReport \t Произошла ошибка ")+error));
+
     emit EndCommand();
 }
 //----------------------------------------------------------
@@ -406,6 +444,9 @@ void tError::SendErrorReport(QDataStream &_in)
 //----------------------------------------------------------
 bool tConnectionReport::ExeCommand(QDataStream& _in, QDataStream&)
 {
+    tLog log1(QString("(Login: неопределен)"));
+    log=log1;
+
     QString comm="Report:";
     int num_com=3;
     bool ok=true;
@@ -418,6 +459,15 @@ bool tConnectionReport::ExeCommand(QDataStream& _in, QDataStream&)
     quint16 bs=(quint16)(_in.device()->size() - sizeof(quint16));
     _in << bs;
 
+    if(ok)
+    {
+        log.Write(QString(QString::fromUtf8("tConnectionReport \t ExeCommand \t Отправка отчета о соединении (успех)")));
+    }
+    else
+    {
+        log.Write(QString(QString::fromUtf8("tConnectionReport \t ExeCommand \t Отправка отчета о соединении (неудача)")));
+    }
+
     emit EndCommand();
     return true;
 }
@@ -426,15 +476,20 @@ bool tConnectionReport::ExeCommand(QDataStream& _in, QDataStream&)
 //----------------------------------------------------------
 bool tPrepareReceiveFile::Initialize(QDataStream &_in)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
     root=my_settings.GetRoot();
     _in >> file_name;
     file.setFileName(root+file_name);
 
+    if(((tClient*)link)->IsTransaction())
+    {
     if(file.exists())
     {
-        file.open(QFile::WriteOnly);
-        if(file.isWritable())
+        if(!file.open(QFile::WriteOnly | QFile::Append))
         {
+            log.Write(QString(QString::fromUtf8("tPrepareReceiveFile \t Initialize \t Файл в процессе редактирования???")));
             return true;
         }
         else
@@ -444,6 +499,13 @@ bool tPrepareReceiveFile::Initialize(QDataStream &_in)
     }
     else
     {
+        log.Write(QString(QString::fromUtf8("tPrepareReceiveFile \t Initialize \t Файл отсутствует на диске")));
+        return true;
+    }
+    }
+    else
+    {
+        log.Write(QString(QString::fromUtf8("tPrepareReceiveFile \t Initialize \t Не начата транзакция")));
         return true;
     }
 
@@ -451,6 +513,9 @@ bool tPrepareReceiveFile::Initialize(QDataStream &_in)
 //----------------------------------------------------------
 bool tPrepareReceiveFile::ExeCommand(QDataStream &, QDataStream &_out)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
     bool ret=true;
     QString comm="Report:";
     int num_com=4;
@@ -466,11 +531,16 @@ bool tPrepareReceiveFile::ExeCommand(QDataStream &, QDataStream &_out)
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
 
+    log.Write(QString(QString::fromUtf8(QString("tPrepareReceiveFile \t ExeCommand \t Отправка отчета о подготовке файла "+file_name+" к передаче").toAscii())));
+
     return false;
 }
 //----------------------------------------------------------
 void tPrepareReceiveFile::SendErrorReport(QDataStream &_in)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
     //если возникла ошибка при приеме то дальнейшее выполнение транзакции
     //будет прервано и надо отменить транзакцию
     QString login=((tClient*)link)->GetName();
@@ -499,12 +569,17 @@ void tPrepareReceiveFile::SendErrorReport(QDataStream &_in)
     _in.device()->seek(0);
     quint16 bs=(quint16)(_in.device()->size() - sizeof(quint16));
     _in << bs;
+
+    log.Write(QString(QString::fromUtf8(QString("tPrepareReceiveFile \t SendErrorReport \t Ошибка при подготовке файла "+file_name+" к передаче").toAscii())));
 }
 //----------------------------------------------------------
 //**********************************************************
 //----------------------------------------------------------
 bool tAutorization::Initialize(QDataStream &_in)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
     login="";
     password="";
 
@@ -516,6 +591,7 @@ return true;
 //----------------------------------------------------------
 bool tAutorization::ExeCommand(QDataStream &, QDataStream &_out)
 {
+
     //Тут будет подключение к базе данных, проверка логина и пароля но пока
     //буду пропускать если логин равен паролю
     //работа по подготовке временно папки этого пользователя если он авторизовался
@@ -537,7 +613,13 @@ bool tAutorization::ExeCommand(QDataStream &, QDataStream &_out)
 
     if(ret)
     {
+
         ((tClient*)link)->SetName(login);
+        log.Write(QString(QString::fromUtf8(QString("tAutorization \t ExeCommand \t Авторизация прошла успешно Login: "+login).toAscii())));
+    }
+    else
+    {
+        log.Write(QString(QString::fromUtf8(QString("tAutorization \t ExeCommand \t Авторизация не удалась Login: "+login+" Password: "+password).toAscii())));
     }
 
     return false;
@@ -547,6 +629,9 @@ bool tAutorization::ExeCommand(QDataStream &, QDataStream &_out)
 //----------------------------------------------------------
 bool tStartTransaction::Initialize(QDataStream &_in)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
 login=((tClient*)link)->GetName();
 temp_path=my_settings.GetTemp();
 root=my_settings.GetRoot();
@@ -578,8 +663,11 @@ return VerifyCollisions();
 //----------------------------------------------------------
 bool tStartTransaction::ExeCommand(QDataStream &, QDataStream &_out)
 {
+    ((tClient*)link)->SetTransaction(true);
+
     if(send_mode)
     {
+        log.Write(QString(QString::fromUtf8("tStartTransaction \t ExeCommand \t СТАРТ ТРАНЗАКЦИИ НА ЗАПИСЬ ")));
         qDebug() << QString::fromUtf8("Старт транзакции на запись");
         //***********************************************
         //***********************************************
@@ -607,6 +695,7 @@ bool tStartTransaction::ExeCommand(QDataStream &, QDataStream &_out)
     }
     else
     {
+        log.Write(QString(QString::fromUtf8("tStartTransaction \t ExeCommand \t СТАРТ ТРАНЗАКЦИИ НА ЧТЕНИЕ ")));
         qDebug() << QString::fromUtf8("Старт транзакции на чтение");
         for(int i=0; i<file_list.size(); i++)
         {
@@ -729,6 +818,8 @@ bool tStartTransaction::VerifyCollisions()
 //----------------------------------------------------------
 void tStartTransaction::SendErrorReport(QDataStream &_out)
 {
+    log.Write(QString(QString::fromUtf8("tStartTransaction \t SendErrorReport \t Ошибка при старте коммита КОЛЛИЗИЯ ")));
+
     //если возникла ошибка при начале транзакции то дальнейшее выполнение транзакции
     //будет прервано и надо отменить транзакцию
     QString login=((tClient*)link)->GetName();
@@ -751,6 +842,9 @@ void tStartTransaction::SendErrorReport(QDataStream &_out)
 //----------------------------------------------------------
 bool tCommitTransaction::Initialize(QDataStream &_in)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
     send_mode=-1;
 root=my_settings.GetRoot();
 
@@ -786,6 +880,8 @@ return true;
 //----------------------------------------------------------
 bool tCommitTransaction::ExeCommand(QDataStream &, QDataStream &_out)
 {
+    log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов ")));
+
     QString login=((tClient*)link)->GetName();
     InitDB(((tClient*)link)->GetDB());
     if(send_mode==1)
@@ -839,6 +935,7 @@ bool tCommitTransaction::ExeCommand(QDataStream &, QDataStream &_out)
                         }
                         else
                         {
+                            log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t Ошибка при удалении файла ")));
                             SendError(_out);
                         }
                     }
@@ -849,20 +946,25 @@ bool tCommitTransaction::ExeCommand(QDataStream &, QDataStream &_out)
                 }
                 else
                 {
+                    log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t Ошибка при перемещении файла ")));
                     SendError(_out);
                 }
             }
             else
             {
+                log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t Ошибка при проверке файла ")));
                 SendError(_out);
             }
         }
         else
         {
+            log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t Неожидданое изменение целевого файла ")));
             SendError(_out);
         }
 
         db_op->RefreshModelsFiles();
+
+        log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t Разблокировка от записи файла ")));
 
         for(int i=0; i<file_list.size(); i++)
         {
@@ -874,6 +976,8 @@ bool tCommitTransaction::ExeCommand(QDataStream &, QDataStream &_out)
     }
     else
     {
+        log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t Разблокировка от чтения файла ")));
+
         for(int i=0; i<file_list.size(); i++)
         {
             blocker.FinishReadFile(file_list[i].file_name, login);
@@ -886,8 +990,9 @@ bool tCommitTransaction::ExeCommand(QDataStream &, QDataStream &_out)
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
 
+    ((tClient*)link)->SetTransaction(false);
 
-
+    log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ ")));
     return false;
 }
 //----------------------------------------------------------
@@ -926,6 +1031,7 @@ void  tCommitTransaction::VerifyReplacedFiles()
         stopped=(file_list[i].server_hash!=hash && file_list[i].client_hash!=hash);
         if(stopped)
         {
+            log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t Заменяемый файл неожиданно изменен ")));
             error_file=file_list[i].file_name;
         }
         }
@@ -969,6 +1075,7 @@ for(int i=0; i<((tClient*)link)->GetSizeDelFileList(); i++)
     stopped=((tClient*)link)->GetDelHash(i)!=hash;
     if(stopped)
     {
+        log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t Удаляемый файл неожиданно изменен ")));
         error_file=((tClient*)link)->GetDelFile(i);
     }
     }
@@ -1046,6 +1153,7 @@ bool tCommitTransaction::FolderOperation(const QDir & _dir, const int _mode)
 //----------------------------------------------------------
 void tCommitTransaction::Move(const QString &_entry_abs_path, const QString &_new_abs_path, bool &_stopped, QString &_error_file)
 {
+    log.Write(QString(QString::fromUtf8("tCommitTransaction \t Move \t Замена файла ")+_new_abs_path));
     //В процессе перемещения файлов обновлять данные в базе данных (или добавлять новые записи если такой еще нет)
     QFile file_real(_new_abs_path);
     if(!file_real.exists() || file_real.remove())
@@ -1061,18 +1169,21 @@ void tCommitTransaction::Move(const QString &_entry_abs_path, const QString &_ne
 
             if(!file_temp.remove())
             {
+                log.Write(QString(QString::fromUtf8(QString("tCommitTransaction \t Move \t Временный файл "+_entry_abs_path+" не может быть удален ").toAscii())));
                 _error_file=file_temp.fileName();
                 _stopped=true;
             }
         }
         else
         {
+            log.Write(QString(QString::fromUtf8(QString("tCommitTransaction \t Move \t Временный файл "+_entry_abs_path+" не может быть скопирован ").toAscii())));
             _error_file=file_temp.fileName();
             _stopped=true;
         }
     }
     else
     {
+        log.Write(QString(QString::fromUtf8(QString("tCommitTransaction \t Move \t Файл "+_new_abs_path+" отсутствует или не может быть удален ").toAscii())));
         _error_file=file_real.fileName();
         _stopped=true;
     }
@@ -1080,22 +1191,26 @@ void tCommitTransaction::Move(const QString &_entry_abs_path, const QString &_ne
 //----------------------------------------------------------
 void tCommitTransaction::Verify(const QString &_new_abs_path, bool &_stopped, QString &_error_file)
 {
+    log.Write(QString(QString::fromUtf8("tCommitTransaction \t Move \t Проверка файла ")+_new_abs_path));
     QFile file_real(_new_abs_path);
     if(file_real.exists())
     {
         if(file_real.open(QIODevice::Append))
         {
+
             _stopped=false;
             _error_file="";
         }
         else
         {
+            log.Write(QString(QString::fromUtf8(QString("tCommitTransaction \t Verify \t Файл "+_new_abs_path+" не может быть перезаписан ").toAscii())));
             _stopped=true;
             _error_file=file_real.fileName();
         }
     }
     else
     {
+        log.Write(QString(QString::fromUtf8(QString("tCommitTransaction \t Verify \t Файл "+_new_abs_path+" отсутствует ").toAscii())));
         _stopped=false;
         _error_file="";
     }
@@ -1103,6 +1218,7 @@ void tCommitTransaction::Verify(const QString &_new_abs_path, bool &_stopped, QS
 //----------------------------------------------------------
 bool tCommitTransaction::Delete(const QString &_new_abs_path, QString &_error_file)
 {
+    log.Write(QString(QString::fromUtf8(QString("tCommitTransaction \t Move \t Удаление файла "+_new_abs_path).toAscii())));
     //удаляем информацию о файле из базы
 //    db_op->DeleteingFile(_new_abs_path);
     bool stopped=false;
@@ -1117,6 +1233,7 @@ bool tCommitTransaction::Delete(const QString &_new_abs_path, QString &_error_fi
     }
     if(stopped)
     {
+        log.Write(QString(QString::fromUtf8(QString("tCommitTransaction \t Verify \t Файл "+_new_abs_path+" не может быть удален ").toAscii())));
         _error_file=file_real.fileName();
     }
     return !stopped;
@@ -1197,6 +1314,12 @@ bool tCommitTransaction::DeleteEmptyFolders(const QString &_root)
 //----------------------------------------------------------
 bool tCancelTransaction::ExeCommand(QDataStream &, QDataStream &_out)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
+    log.Write(QString(QString::fromUtf8("tCancelTransaction \t ExeCommand \t ОТМЕНА ТРАНЗАКЦИИ ")));
+    ((tClient*)link)->SetTransaction(false);
+
     //Отмена транзакции
 
     temp=my_settings.GetTemp()+((tClient*)link)->GetName()+"/";
@@ -1218,6 +1341,8 @@ bool tCancelTransaction::ExeCommand(QDataStream &, QDataStream &_out)
     _out.device()->seek(0);
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
+
+    log.Write(QString(QString::fromUtf8("tCancelTransaction \t ExeCommand \t Отмена транзакции ")));
 
   return false;
 }
@@ -1277,6 +1402,9 @@ bool tCancelTransaction::removeFolder(const QDir & _dir)
 //----------------------------------------------------------
 bool tDeleteFile::ExeCommand(QDataStream &_in, QDataStream &_out)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
     QString del_file="";
 
     _in >> del_file;
@@ -1299,6 +1427,8 @@ bool tDeleteFile::ExeCommand(QDataStream &_in, QDataStream &_out)
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
 
+    log.Write(QString(QString::fromUtf8(QString("tDeleteFile \t ExeCommand \t Отчет об удалении файла "+del_file).toAscii())));
+
     return false;
 }
 //----------------------------------------------------------
@@ -1306,6 +1436,9 @@ bool tDeleteFile::ExeCommand(QDataStream &_in, QDataStream &_out)
 //----------------------------------------------------------
 bool tGetFileList::ExeCommand(QDataStream &, QDataStream &_out)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
     QString root=my_settings.GetRoot();
     QStringList list;
     CreateFileList(root, list);
@@ -1328,6 +1461,8 @@ bool tGetFileList::ExeCommand(QDataStream &, QDataStream &_out)
     _out.device()->seek(0);
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
+
+    log.Write(QString(QString::fromUtf8("tGetFileList \t ExeCommand \t Передача списка файлов ")));
 
     return false;
 }
@@ -1366,6 +1501,9 @@ void tGetFileList::SearchFiles(const QDir & _dir, QStringList &_list)
 //----------------------------------------------------------
 bool tGetListModels::ExeCommand(QDataStream &, QDataStream &_out)
 {
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
     //Передача всех данных о моделях и файлах клиенту во временную таблицу
     //для анализа списка обновляемых файлов
 
@@ -1413,6 +1551,8 @@ bool tGetListModels::ExeCommand(QDataStream &, QDataStream &_out)
     _out.device()->seek(0);
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
+
+    log.Write(QString(QString::fromUtf8("tGetListModels \t ExeCommand \t Передача списка моделей ")));
 
     return false;
 }

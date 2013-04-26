@@ -2,6 +2,7 @@
 #define TFILEBLOCKER_H
 #include "tReadWriteMutex.h"
 #include <map>
+#include "tLog.h"
 
 using namespace std;
 
@@ -28,6 +29,8 @@ private:
 
     block_file bf;
     int max_readers;
+
+    tLog log;
 };
 
 #endif // TFILEBLOCKER_H

@@ -1,6 +1,8 @@
 #ifndef TSETTINGS_H
 #define TSETTINGS_H
 #include <QSettings>
+#include<QObject>
+#include "tLog.h"
 
 struct ServerSetting
 {
@@ -39,6 +41,9 @@ private:
     int max_readers;
 
     QString ini_path;
+
+//    QString l;
+    tLog log;
 };
 
 #endif // TSETTINGS_H

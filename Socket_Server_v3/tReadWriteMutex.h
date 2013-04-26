@@ -5,6 +5,7 @@
 #include <QMutex>
 #include <vector>
 #include<QDebug>
+#include "tLog.h"
 
 using namespace std;
 
@@ -31,6 +32,8 @@ private:
 
     typedef vector<QString>user_semaphore; //список логинов клиентов занявших семафор. Для возвращения при неожиданном завершении клиента
     user_semaphore us;
+
+    tLog log;
 };
 
 #endif // TREADWRITEMUTEX_H

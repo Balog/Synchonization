@@ -3,6 +3,10 @@
 tReadWriteMutex::tReadWriteMutex(const int _max):semaphore(_max), write_user_login("")
 {
     max=_max;
+
+    QString s="Blocker ";
+    tLog log1(s);
+    log=log1;
 }
 //------------------------------------------------------------------------------
 tReadWriteMutex::~tReadWriteMutex()
@@ -14,6 +18,8 @@ tReadWriteMutex::~tReadWriteMutex()
 
 void tReadWriteMutex::lockRead(const QString &_login)
 {
+    QString l=QString::fromUtf8("tReadWriteMutex \t lockRead \t --- Блокировка на чтение. --- Логин: ")+_login;
+    log.Write(l);
     //занимается семафор и записывается логин того кто его взял
 
     //если этот логин уже взял один семафор, другие брать не нужно
@@ -37,6 +43,9 @@ void tReadWriteMutex::lockRead(const QString &_login)
 
 void tReadWriteMutex::unlockRead(const QString &_login)
 {
+    QString l=QString::fromUtf8("tReadWriteMutex \t unlockRead \t --- Снятие блокировки на чтение. --- Логин: ")+_login;
+    log.Write(l);
+
     //освобождение семафора, поиск и удаление логина из списка логинов
     semaphore.release();
     user_semaphore::const_iterator it;
@@ -54,6 +63,8 @@ void tReadWriteMutex::unlockRead(const QString &_login)
 
 void tReadWriteMutex::lockWrite(const QString &_login)
 {
+    QString l=QString::fromUtf8("tReadWriteMutex \t lockWrite \t --- Блокировка на запись. --- Логин: ")+_login;
+    log.Write(l);
     //установка временного мьютекса на время занятия всех семафоров
     if(write_user_login!=_login)//если объект заблокирован тем же логином что и текущий то ничего не делаем
     {
@@ -71,6 +82,9 @@ void tReadWriteMutex::lockWrite(const QString &_login)
 
 void tReadWriteMutex::unlockWrite()
 {
+    QString l=QString::fromUtf8("tReadWriteMutex \t unlockWrite \t --- Снятие блокировки на запись. ---");
+    log.Write(l);
+
 //возвращение всех семафоров, что были забраны (если все правильно  то максимальное количество)
     semaphore.release(maxReaders()-semaphore.available());
 //Очистка сохраненного логина того кто брал блокировку на запись
@@ -98,6 +112,9 @@ bool tReadWriteMutex::isWriteBlock()
 
 void tReadWriteMutex::unlockReadWrite(const QString &_login)
 {
+    QString l=QString::fromUtf8("tReadWriteMutex \t unlockReadWrite \t --- Снятие всех блокировок на чтение и запись ---. Логин: ")+_login;
+    log.Write(l);
+
     if(write_user_login==_login)
     {
         write_user_login="";
