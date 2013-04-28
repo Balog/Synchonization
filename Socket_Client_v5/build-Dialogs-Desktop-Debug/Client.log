@@ -5536,3 +5536,144 @@
 2013-04-28 11:51:12 tConveyor 	ClearTempFolder	Очистка временной папки
 2013-04-28 11:51:12 tModelsConveyor 	StartReceiveDeleteFiles	Все модели приняты
 2013-04-28 11:51:12 Пакет транзакций выполнен
+----------------------------------------------------
+2013-04-28 16:51:41 tSettings 	SetFilePath	Read parameters 
+2013-04-28 16:51:41 tSettings 	sync	Save parameters 
+2013-04-28 16:51:41 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-04-28 16:51:42 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-04-28 16:51:44 Начало работы клиента
+2013-04-28 16:51:44 socket 	Initialize	Создание сокета 
+2013-04-28 16:51:44 Zast 	FindServer	Начало поиска сервера 
+2013-04-28 16:51:46 socket 	ReadReport	Report: 3
+2013-04-28 16:51:46 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-04-28 16:51:46 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-04-28 16:51:46 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-04-28 16:51:46 Zast 	AutorizStart	Сервер найден 
+2013-04-28 16:51:52 Отправка авторизации Логин: 1
+2013-04-28 16:51:52 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-04-28 16:51:52 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-04-28 16:51:52 socket 	OnCommand	Получена команда SendAutorization
+2013-04-28 16:51:52 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-04-28 16:51:52 socket 	ReadReport	Report: 5
+2013-04-28 16:51:52 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-04-28 16:51:52 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-04-28 16:51:52 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-04-28 16:51:53 tConveyor 	OnCommand	Выполнение команды из GUI GetListModels
+2013-04-28 16:51:53 tClientGuiCommand 	GetListModels	 Запрос списка моделей с сервера
+2013-04-28 16:51:53 socket 	OnCommand	Получена команда GetListModels
+2013-04-28 16:51:53 tGetServerListModels 	ExeCommand	 Запрос списка моделей с сервера 
+2013-04-28 16:51:53 socket 	ReadReport	Report: 11
+2013-04-28 16:51:53 tReportGetListServerModels 	ExeCommand	 Получение списка моделей с сервера 
+2013-04-28 16:51:53 tConveyor 	OnCommand	Выполнение команды из сокета ReportGetListServerModels
+2013-04-28 16:51:53 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-04-28 16:51:53 tDatabaseOp 	SaveServerModelFiles	Обновление серверных таблиц по информации с сервера  
+2013-04-28 16:51:59 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-04-28 16:52:04 tConveyor 	Clear	Сброс списка команд транзакции
+2013-04-28 16:52:05 tModelsConveyor 	StartSendDeleteFiles	Формирование списка команд транзакции передачи и удаления файлов на сервере
+2013-04-28 16:52:05 tConveyor 	SendFile	Подготовка команды отправки файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 tConveyor 	AddStartTransaction	Добавление команды начала транзакции (отправка) 
+2013-04-28 16:52:05 tConveyor 	AddSendCommand	Добавление команды отправки файлов SendFile Файл objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 tConveyor 	AddCommitTransaction	Формирование команды коммита транзакции отправки CommitTransaction
+2013-04-28 16:52:05 tConveyor 	StartExecution	Начало выполнения списка команд 
+2013-04-28 16:52:05 tConveyor 	NextCommand	Следующая команда списка команд
+2013-04-28 16:52:05 tConveyor 	OnCommand	Выполнение команды из GUI StartTransaction
+2013-04-28 16:52:05 tClientGuiCommand 	GuiStartTransaction	Начало транзакции 
+2013-04-28 16:52:05 socket 	OnCommand	Получена команда StartTransaction
+2013-04-28 16:52:05 tStreamStartTransactionn 	ExeCommand	 Передача команды начала транзакции 
+2013-04-28 16:52:05 socket 	ReadReport	Report: 6
+2013-04-28 16:52:05 tStreamReportStartTransaction 	ExeCommand	 Транзакция начата успешно 
+2013-04-28 16:52:05 tConveyor 	OnCommand	Выполнение команды из сокета ReportStartTransaction
+2013-04-28 16:52:05 tClientGuiCommand 	GuiReportStartTransaction	Отчет о начале транзакции 
+2013-04-28 16:52:05 tConveyor 	NextCommand	Следующая команда списка команд
+2013-04-28 16:52:05 tConveyor 	OnCommand	Выполнение команды из GUI SendFile
+2013-04-28 16:52:05 tClientGuiCommand 	GuiSendFile	Команда передачи файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 socket 	OnCommand	Получена команда SendFile
+2013-04-28 16:52:05 tSendFile 	ExeCommand	 Отправка на сервер команды передачи файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 socket 	ReadReport	Report: 2
+2013-04-28 16:52:05 tReportSendFile 	ExeCommand	 Отчет о передаче файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 tConveyor 	OnCommand	Выполнение команды из сокета SendReport
+2013-04-28 16:52:05 tClientGuiCommand 	GuiReportSendFile	Отчет о передаче файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 tConveyor 	NextCommand	Следующая команда списка команд
+2013-04-28 16:52:05 tConveyor 	OnCommand	Выполнение команды из GUI CommitTransaction
+2013-04-28 16:52:05 tClientGuiCommand 	GuiCommitTransaction	Коммит транзакции 
+2013-04-28 16:52:05 socket 	OnCommand	Получена команда CommitTransaction
+2013-04-28 16:52:05 tStreamCommitTransaction 	ExeCommand	 Отправка команды коммита транзакции 
+2013-04-28 16:52:05 socket 	ReadReport	Report: 7
+2013-04-28 16:52:05 tStreamReportCommitTransaction 	ExeCommand	 Коммит завершился успешно 
+2013-04-28 16:52:05 tConveyor 	OnCommand	Выполнение команды из сокета ReportCommitTransaction
+2013-04-28 16:52:05 tClientGuiCommand 	GuiCommitTransaction	отчет о коммите транзакции 
+2013-04-28 16:52:05 tConveyor 	NextCommand	Конец списка команд 
+2013-04-28 16:52:05 tConveyor 	ClearTempFolder	Очистка временной папки
+2013-04-28 16:52:05 tConveyor 	ClearTempFolder	Очистка временной папки
+2013-04-28 16:52:05 tConveyor 	Clear	Сброс списка команд транзакции
+2013-04-28 16:52:05 tModelsConveyor 	StartSendDeleteFiles	Формирование списка команд транзакции передачи и удаления файлов на сервере
+2013-04-28 16:52:05 tModelsConveyor 	StartSendDeleteFiles	Все модели отправлены
+2013-04-28 16:52:05 tConveyor 	GetServerModels	Запрос списка моделей 
+2013-04-28 16:52:05 tConveyor 	NextCommand	Следующая команда списка команд
+2013-04-28 16:52:05 tConveyor 	OnCommand	Выполнение команды из GUI GetListModels
+2013-04-28 16:52:05 tClientGuiCommand 	GetListModels	 Запрос списка моделей с сервера
+2013-04-28 16:52:05 socket 	OnCommand	Получена команда GetListModels
+2013-04-28 16:52:05 tGetServerListModels 	ExeCommand	 Запрос списка моделей с сервера 
+2013-04-28 16:52:05 socket 	ReadReport	Report: 11
+2013-04-28 16:52:05 tReportGetListServerModels 	ExeCommand	 Получение списка моделей с сервера 
+2013-04-28 16:52:05 tConveyor 	OnCommand	Выполнение команды из сокета ReportGetListServerModels
+2013-04-28 16:52:05 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-04-28 16:52:05 tDatabaseOp 	SaveServerModelFiles	Обновление серверных таблиц по информации с сервера  
+2013-04-28 16:52:05 tConveyor 	CorrectLastSynch	Корректировка таблиц Last 
+2013-04-28 16:52:05 tDatabaseOp 	UpdateLastSynch	Обновление Last таблиц по серверным таблицам  
+2013-04-28 16:52:05 tConveyor 	OnEndTransactions	Конец списка транзакций  
+2013-04-28 16:52:05 Пакет транзакций выполнен
+2013-04-28 16:52:08 tConveyor 	Clear	Сброс списка команд транзакции
+2013-04-28 16:52:08 tModelsConveyor 	StartReceiveDeleteFiles	Формирование списка команд транзакции приема и удаления файлов на клиенте
+2013-04-28 16:52:08 tConveyor 	ClearTempFolder	Очистка временной папки
+2013-04-28 16:52:08 tConveyor 	ReceiveFile	Подготовка команды получения файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:08 tConveyor 	AddStartTransaction	Добавление команды начала транзакции (получение) 
+2013-04-28 16:52:08 tConveyor 	AddReceiveCommand	Добавление команды получения файлов PrepareReceiveFile Файл objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:08 tConveyor 	AddCommitTransaction	Формирование команды коммита транзакции отправки CommitTransaction
+2013-04-28 16:52:08 tConveyor 	AddCommitTransaction	Формирование команды коммита транзакции получения VerifyMoveDelete
+2013-04-28 16:52:08 tConveyor 	AddCommitTransaction	Команда обновления локальных таблиц UpdateMainLocal
+2013-04-28 16:52:08 tConveyor 	StartExecution	Начало выполнения списка команд 
+2013-04-28 16:52:08 tConveyor 	NextCommand	Следующая команда списка команд
+2013-04-28 16:52:08 tConveyor 	OnCommand	Выполнение команды из GUI StartTransaction
+2013-04-28 16:52:08 tClientGuiCommand 	GuiStartTransaction	Начало транзакции 
+2013-04-28 16:52:08 socket 	OnCommand	Получена команда StartTransaction
+2013-04-28 16:52:08 tStreamStartTransactionn 	ExeCommand	 Передача команды начала транзакции 
+2013-04-28 16:52:08 socket 	ReadReport	Report: 6
+2013-04-28 16:52:08 tStreamReportStartTransaction 	ExeCommand	 Транзакция начата успешно 
+2013-04-28 16:52:08 tConveyor 	OnCommand	Выполнение команды из сокета ReportStartTransaction
+2013-04-28 16:52:08 tClientGuiCommand 	GuiReportStartTransaction	Отчет о начале транзакции 
+2013-04-28 16:52:08 tConveyor 	NextCommand	Следующая команда списка команд
+2013-04-28 16:52:08 tConveyor 	OnCommand	Выполнение команды из GUI PrepareReceiveFile
+2013-04-28 16:52:08 tClientGuiCommand 	GuiPrepareReceiveFile	Подготовка к приему файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:08 socket 	OnCommand	Получена команда PrepareReceiveFile
+2013-04-28 16:52:08 tPrepareReceiveFile 	ExeCommand	 Отправление команды приема файла на сервер 
+2013-04-28 16:52:08 socket 	ReadReport	Report: 1
+2013-04-28 16:52:08 tStreamReceiveFile 	ExeCommand	 Прием файла objects/vhc_t-90/Русскоязычный файл.txt завершен
+2013-04-28 16:52:08 tConveyor 	OnCommand	Выполнение команды из сокета ReceiveReport
+2013-04-28 16:52:08 tClientGuiCommand 	GuiReportReceiveFile	Отчет о приеме файла D:/Temp/objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:08 tConveyor 	NextCommand	Следующая команда списка команд
+2013-04-28 16:52:08 tConveyor 	OnCommand	Выполнение команды из GUI CommitTransaction
+2013-04-28 16:52:08 tClientGuiCommand 	GuiCommitTransaction	Коммит транзакции 
+2013-04-28 16:52:08 socket 	OnCommand	Получена команда CommitTransaction
+2013-04-28 16:52:08 tStreamCommitTransaction 	ExeCommand	 Отправка команды коммита транзакции 
+2013-04-28 16:52:08 socket 	ReadReport	Report: 7
+2013-04-28 16:52:08 tStreamReportCommitTransaction 	ExeCommand	 Коммит завершился успешно 
+2013-04-28 16:52:08 tConveyor 	OnCommand	Выполнение команды из сокета ReportCommitTransaction
+2013-04-28 16:52:08 tClientGuiCommand 	GuiCommitTransaction	отчет о коммите транзакции 
+2013-04-28 16:52:08 tConveyor 	NextCommand	Следующая команда списка команд
+2013-04-28 16:52:08 tConveyor 	OnCommand	Выполнение команды из GUI VerifyMoveDelete
+2013-04-28 16:52:08 tClientGuiCommand 	VerifyMoveDelete	 Команда проверки, замены и удаления локальных файлов
+2013-04-28 16:52:08 tConveyor 	NextCommand	Следующая команда списка команд
+2013-04-28 16:52:08 tConveyor 	OnCommand	Выполнение команды из GUI UpdateMainLocal
+2013-04-28 16:52:08 tClientGuiCommand 	UpdateMainLocal	 Обновление локальных и Last таблиц 
+2013-04-28 16:52:08 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-04-28 16:52:08 tConveyor 	CorrectLastSynch	Корректировка таблиц Last 
+2013-04-28 16:52:08 tDatabaseOp 	UpdateLastSynch	Обновление Last таблиц по локальным таблицам  
+2013-04-28 16:52:08 tConveyor 	NextCommand	Конец списка команд 
+2013-04-28 16:52:08 tConveyor 	ClearTempFolder	Очистка временной папки
+2013-04-28 16:52:08 tConveyor 	ClearTempFolder	Очистка временной папки
+2013-04-28 16:52:08 tConveyor 	Clear	Сброс списка команд транзакции
+2013-04-28 16:52:08 tModelsConveyor 	StartReceiveDeleteFiles	Формирование списка команд транзакции приема и удаления файлов на клиенте
+2013-04-28 16:52:08 tConveyor 	ClearTempFolder	Очистка временной папки
+2013-04-28 16:52:08 tModelsConveyor 	StartReceiveDeleteFiles	Все модели приняты
+2013-04-28 16:52:08 Пакет транзакций выполнен

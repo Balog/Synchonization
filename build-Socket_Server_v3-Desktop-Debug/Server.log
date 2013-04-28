@@ -4022,3 +4022,551 @@
 2013-04-28 12:01:21 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
 2013-04-28 12:01:21 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
 2013-04-28 12:01:21 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 804 отключен. Осталось 0 клиентов
+----------------------------------------------------
+2013-04-28 12:24:17 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-04-28 12:24:17 GUI Dialog 	 Dialog 	 Начало работы 
+2013-04-28 12:24:17 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-04-28 12:24:17 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-04-28 12:24:17 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-28 12:24:17 DB tDatabaseOp 	 RefreshModelsFiles 	 РћС€РёР±РєР° РїСЂРё СЃР±СЂРѕСЃРµ Found РјРѕРґРµР»РµР№ 
+2013-04-28 12:24:17 GUI Dialog 	 Dialog 	 Сервер подключен 
+----------------------------------------------------
+2013-04-28 12:26:13 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-04-28 12:26:13 GUI Dialog 	 Dialog 	 Начало работы 
+2013-04-28 12:26:13 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-04-28 12:26:13 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-04-28 12:26:13 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-28 12:26:13 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-28 12:26:14 GUI Dialog 	 Dialog 	 Сервер подключен 
+----------------------------------------------------
+2013-04-28 12:30:12 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-04-28 12:30:12 GUI Dialog 	 Dialog 	 Начало работы 
+2013-04-28 12:30:12 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-04-28 12:30:12 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-04-28 12:30:12 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-28 12:30:12 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при сбросе Found моделей 
+2013-04-28 12:30:12 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при сбросе Found и Del файлов 
+2013-04-28 12:30:12 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 12:30:12 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 12:30:12 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 12:30:12 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 12:30:12 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка удалении не найденых на диске моделей 
+2013-04-28 12:30:12 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка удалении не найденых на диске файлов 
+2013-04-28 12:30:12 GUI Dialog 	 Dialog 	 Сервер подключен 
+----------------------------------------------------
+2013-04-28 12:31:38 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-04-28 12:31:38 GUI Dialog 	 Dialog 	 Начало работы 
+2013-04-28 12:31:38 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-04-28 12:31:38 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-04-28 12:31:38 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-28 12:31:38 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при сбросе Found моделей 
+2013-04-28 12:31:38 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при сбросе Found и Del файлов 
+2013-04-28 12:31:38 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 12:31:38 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 12:31:38 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.cabin.info/cabin - копия.info
+2013-04-28 12:31:39 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 12:31:39 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 12:31:39 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка удалении не найденых на диске моделей 
+2013-04-28 12:31:39 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка удалении не найденых на диске файлов 
+2013-04-28 12:31:39 GUI Dialog 	 Dialog 	 Сервер подключен 
+----------------------------------------------------
+2013-04-28 16:49:15 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-04-28 16:49:15 GUI Dialog 	 Dialog 	 Начало работы 
+2013-04-28 16:49:15 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-04-28 16:49:15 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при сбросе Found моделей 
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при сбросе Found и Del файлов 
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.info 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.info 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.info 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/gun_30mm/.gun_30mm.info 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/gun_30mm/.gun_30mm.info 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/gun_30mm/.gun_30mm.info/Desert.jpg 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/gun_30mm/.gun_30mm.info 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/gun_30mm/.gun_30mm.info 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.files 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.files 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.files 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Не удалось открыть файл списка (обновление) C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/30mm.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/gun_30mm.mat
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/gun_30mm.mesh
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/gun_30mm.node
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/gun_30mm.xml
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления common/Pinguins.jpg
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления common/Desert.jpg
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/proba.txt
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка выборки подсчета суммарного хеша модели 450
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при обновлении имеющихся данных objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/msl_fab-100/.msl_fab-100.info 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/msl_fab-100/.msl_fab-100.info 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/msl_fab-100/.msl_fab-100.info 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/msl_fab-100/.msl_fab-100.info 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Не удалось открыть файл списка (обновление) C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100.mat
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100.mesh
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100.node
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100.xml
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100_d.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100_n.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка выборки подсчета суммарного хеша модели 455
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при обновлении имеющихся данных objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/vhc_t-90/.cabin.info/cabin.info 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/vhc_t-90/.cabin.info/cabin.info 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/vhc_t-90/.cabin.info/cabin.info 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/vhc_t-90/.cabin.info/Lighthouse.jpg 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/vhc_t-90/.cabin.info 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/vhc_t-90/.cabin.info 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/vhc_t-90/.cabin.info/cabin.files 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/vhc_t-90/.cabin.info/cabin.files 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/vhc_t-90/.cabin.info/cabin.files 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Не удалось открыть файл списка (обновление) C:/Server/Project 1/objects/vhc_t-90/.cabin.info/cabin.files
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления Common/Jellyfish.jpg
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка выборки подсчета суммарного хеша модели 458
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при обновлении имеющихся данных objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/vhc_t-90/.t-90.info/t-90.info 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/vhc_t-90/.t-90.info/t-90.info 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/vhc_t-90/.t-90.info/t-90.info 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/vhc_t-90/.t-90.info/Lighthouse.jpg 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/vhc_t-90/.t-90.info 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/vhc_t-90/.t-90.info 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/vhc_t-90/.t-90.info/t-90.files 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/vhc_t-90/.t-90.info/t-90.files 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/vhc_t-90/.t-90.info/t-90.files 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Не удалось открыть файл списка (обновление) C:/Server/Project 1/objects/vhc_t-90/.t-90.info/t-90.files
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/mask.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/t-90_d.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/t-90_n.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/t-90_s.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/t-90kill_d.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/tracks_d.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/tracks_n.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.bullet
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.mat
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.node
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.smesh
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.xml
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/white.dds
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/Т-90.docx
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления Common/Chrysanthemum.jpg
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления Common/DXSDK_Jun10.exe
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка выборки подсчета суммарного хеша модели 453
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при обновлении имеющихся данных objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка удалении не найденых на диске моделей 
+2013-04-28 16:49:15 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка удалении не найденых на диске файлов 
+2013-04-28 16:49:16 GUI Dialog 	 Dialog 	 Сервер подключен 
+2013-04-28 16:51:44 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 980
+2013-04-28 16:51:44 Client 980 tClient 	 tClient 	 Клиент создан 
+2013-04-28 16:51:46 Client 980 () tClient 	 Initialize 	 Клиент подключен 
+2013-04-28 16:51:46 Client 980 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-04-28 16:51:46 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-04-28 16:51:52 Client 980 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-04-28 16:51:52 Client 980 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 980
+2013-04-28 16:51:52 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-04-28 16:51:53 Client 980 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка определения числа передаваемых моделей 
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения данных передаваемых моделей 
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения количества файлов модели 450
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения списка файлов модели 450
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения количества файлов модели 453
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения списка файлов модели 453
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения количества файлов модели 455
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения списка файлов модели 455
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения количества файлов модели 458
+2013-04-28 16:51:53 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения списка файлов модели 458
+2013-04-28 16:51:53 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-04-28 16:52:05 Client 980 (1) tClient 	 OnReadyRead 	 Получена команда номер 6
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-28 16:52:05 (Login: 1) tStartTransaction 	 ExeCommand 	 СТАРТ ТРАНЗАКЦИИ НА ЗАПИСЬ 
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 StartWriteFile 	 ==== Блокировка файла на запись ==== objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на запись логином 1
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 StartWriteFile 	 Файл objects/vhc_t-90/Русскоязычный файл.txt добавление в список и блокировка на запись логином 1
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на запись логином 1
+2013-04-28 16:52:05 Client 980 (1) tClient 	 OnReadyRead 	 Получена команда номер 2
+2013-04-28 16:52:05 (Login: 1) tReceiveStreamFile 	 Initialize 	 ****** ПРИЕМ ФАЙЛА ****** objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 (Login: 1) tReceiveStreamFile 	 ExeCommand 	 Прием файла objects/vhc_t-90/Русскоязычный файл.txt завершен
+2013-04-28 16:52:05 (Login: 1) tReceiveStreamFile 	 SendReport 	 Посылка отчета о приеме файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 Client 980 (1) tClient 	 OnReadyRead 	 Получена команда номер 7
+2013-04-28 16:52:05 (Login: 1) tCommitTransaction 	 ExeCommand 	 ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов 
+2013-04-28 16:52:05 (Login: 1) tCommitTransaction 	 Move 	 Проверка файла C:/Server/Project 1/objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 (Login: 1) tCommitTransaction 	 Move 	 Замена файла C:/Server/Project 1/objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при сбросе Found моделей 
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при сбросе Found и Del файлов 
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.info 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.info 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.info 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/gun_30mm/.gun_30mm.info 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/gun_30mm/.gun_30mm.info 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/gun_30mm/.gun_30mm.info/Desert.jpg 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/gun_30mm/.gun_30mm.info 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/gun_30mm/.gun_30mm.info 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.files 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.files 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/gun_30mm/.gun_30mm.info/gun_30mm.files 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Не удалось открыть файл списка (обновление) C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/30mm.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/gun_30mm.mat
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/gun_30mm.mesh
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/gun_30mm.node
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/gun_30mm.xml
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления common/Pinguins.jpg
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления common/Desert.jpg
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/gun_30mm/proba.txt
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка выборки подсчета суммарного хеша модели 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при обновлении имеющихся данных objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/msl_fab-100/.msl_fab-100.info 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/msl_fab-100/.msl_fab-100.info 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/msl_fab-100/.msl_fab-100.info 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/msl_fab-100/.msl_fab-100.info 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Не удалось открыть файл списка (обновление) C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100.mat
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100.mesh
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100.node
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100.xml
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100_d.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/msl_fab-100/msl_fab-100_n.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка выборки подсчета суммарного хеша модели 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при обновлении имеющихся данных objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/vhc_t-90/.cabin.info/cabin.info 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/vhc_t-90/.cabin.info/cabin.info 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/vhc_t-90/.cabin.info/cabin.info 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/vhc_t-90/.cabin.info/Lighthouse.jpg 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/vhc_t-90/.cabin.info 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/vhc_t-90/.cabin.info 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/vhc_t-90/.cabin.info/cabin.files 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/vhc_t-90/.cabin.info/cabin.files 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/vhc_t-90/.cabin.info/cabin.files 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Не удалось открыть файл списка (обновление) C:/Server/Project 1/objects/vhc_t-90/.cabin.info/cabin.files
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления Common/Jellyfish.jpg
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка выборки подсчета суммарного хеша модели 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при обновлении имеющихся данных objects/vhc_t-90/.cabin.info/cabin.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при поиске objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/vhc_t-90/.t-90.info/t-90.info 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/vhc_t-90/.t-90.info/t-90.info 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/vhc_t-90/.t-90.info/t-90.info 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла в папке .info objects/vhc_t-90/.t-90.info/Lighthouse.jpg 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла в папке .info objects/vhc_t-90/.t-90.info 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла в папке .info objects/vhc_t-90/.t-90.info 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска файла модели objects/vhc_t-90/.t-90.info/t-90.files 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка поиска даты-времени модификации файла модели objects/vhc_t-90/.t-90.info/t-90.files 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка пометки Found=1 файла модели objects/vhc_t-90/.t-90.info/t-90.files 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Не удалось открыть файл списка (обновление) C:/Server/Project 1/objects/vhc_t-90/.t-90.info/t-90.files
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/mask.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/t-90_d.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/t-90_n.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/t-90_s.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/t-90kill_d.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/tracks_d.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/tracks_n.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.bullet
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.mat
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.node
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.smesh
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/vhc_t-90.xml
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/white.dds
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/Т-90.docx
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления даты-времени модификации и хеш-суммы файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления Common/Chrysanthemum.jpg
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения даты-времени модификации файла для обновления objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения хеш-суммы файла из базы objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка обновления наличия файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка отпределения наличия файла для обновления Common/DXSDK_Jun10.exe
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка выборки подсчета суммарного хеша модели 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка при обновлении имеющихся данных objects/vhc_t-90/.t-90.info/t-90.info
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка удалении не найденых на диске моделей 
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка удалении не найденых на диске файлов 
+2013-04-28 16:52:05 (Login: 1) tCommitTransaction 	 ExeCommand 	 Разблокировка от записи файла 
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 FinishWriteFile 	 ==== Снятие блокировки на запись ==== objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-28 16:52:05 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Файл objects/vhc_t-90/Русскоязычный файл.txt найден в списке и снята блокировка на запись логином 1
+2013-04-28 16:52:05 FileBlocker  tFileBlocker 	 SearchBlockFile 	 Файлobjects/vhc_t-90/Русскоязычный файл.txt ничем не блокирован и удаляется из таблицы файлов
+2013-04-28 16:52:05 (Login: 1) tCommitTransaction 	 ExeCommand 	 ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ 
+2013-04-28 16:52:05 Client 980 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка определения числа передаваемых моделей 
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения данных передаваемых моделей 
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения количества файлов модели 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения списка файлов модели 450
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения количества файлов модели 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения списка файлов модели 453
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения количества файлов модели 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения списка файлов модели 455
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения количества файлов модели 458
+2013-04-28 16:52:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Ошибка получения списка файлов модели 458
+2013-04-28 16:52:05 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-04-28 16:52:08 Client 980 (1) tClient 	 OnReadyRead 	 Получена команда номер 6
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-28 16:52:08 (Login: 1) tStartTransaction 	 ExeCommand 	 СТАРТ ТРАНЗАКЦИИ НА ЧТЕНИЕ 
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 StartReadFile 	 ==== Блокировка файла на чтение ==== objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 StartReadFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 StartReadFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 StartReadFile 	 Таблица файлов заблокирована на запись логином 1
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 StartReadFile 	 Файл objects/vhc_t-90/Русскоязычный файл.txt добавление в список и блокировка на чтение логином 1
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 StartReadFile 	 Таблица файлов разблокирована на запись логином 1
+2013-04-28 16:52:08 Client 980 (1) tClient 	 OnReadyRead 	 Получена команда номер 1
+2013-04-28 16:52:08 (Login: 1) tSendStreamFile 	 ExeCommand 	 ****** ОТПРАВКА ФАЙЛА ****** objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:08 (Login: 1) tSendStreamFile 	 ExeCommand 	 Отправка файла objects/vhc_t-90/Русскоязычный файл.txt завершена
+2013-04-28 16:52:08 Client 980 (1) tClient 	 OnReadyRead 	 Получена команда номер 7
+2013-04-28 16:52:08 (Login: 1) tCommitTransaction 	 ExeCommand 	 ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов 
+2013-04-28 16:52:08 (Login: 1) tCommitTransaction 	 ExeCommand 	 Разблокировка от чтения файла 
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 FinishReadFile 	 ==== Снятие блокировки на чтение ==== objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 FinishReadFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 FinishReadFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-28 16:52:08 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 FinishReadFile 	 Файл objects/vhc_t-90/Русскоязычный файл.txt найден в списке и снята блокировка на чтение логином 1
+2013-04-28 16:52:08 FileBlocker  tFileBlocker 	 SearchBlockFile 	 Файлobjects/vhc_t-90/Русскоязычный файл.txt ничем не блокирован и удаляется из таблицы файлов
+2013-04-28 16:52:08 (Login: 1) tCommitTransaction 	 ExeCommand 	 ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ 
+2013-04-28 16:53:14 Client 980 (1) tClient 	 OnDisconnect 	 Клиент 980 Логин 1 отключен 
+2013-04-28 16:53:14 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-04-28 16:53:14 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-28 16:53:14 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-04-28 16:53:14 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-04-28 16:53:14 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-04-28 16:53:14 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 980 отключен. Осталось 0 клиентов

@@ -36,11 +36,13 @@ void tDatabaseOp::RefreshModelsFiles()
     unset_found_models.prepare("UPDATE StructModels SET Found=0");
 
     if(!unset_found_models.exec()){qDebug() << QString::fromUtf8("Ошибка при сбросе Found моделей ");}
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при сбросе Found моделей ")));
 
     QSqlQuery unset_found_files(db);
     unset_found_files.prepare("UPDATE Files SET Found=0, Del=0");
 
     if(!unset_found_files.exec()){qDebug() << QString::fromUtf8("Ошибка при сбросе Found и Del файлов ");}
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при сбросе Found и Del файлов ")));
 
     SearchInfo(root);
 
@@ -48,11 +50,12 @@ void tDatabaseOp::RefreshModelsFiles()
     QSqlQuery delete_unfound_models(db);
     delete_unfound_models.prepare("DELETE FROM StructModels WHERE Found=0");
     if(!delete_unfound_models.exec()){qDebug() << QString::fromUtf8("Ошибка удалении не найденых на диске моделей ");}
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка удалении не найденых на диске моделей ")));
 
     QSqlQuery delete_unfound_files(db);
     delete_unfound_files.prepare("DELETE FROM Files WHERE Found=0 OR Del=1");
     if(!delete_unfound_files.exec()){qDebug() << QString::fromUtf8("Ошибка удалении не найденых на диске файлов ");}
-
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка удалении не найденых на диске файлов ")));
 
     //Окончание работы с базой данных
     //Коммит изменений
@@ -92,6 +95,8 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
             search_file.prepare(S);
 
             if(!search_file.exec()){qDebug() << QString::fromUtf8("Ошибка при поиске ") << NormalizePathFiles(relat+"/"+entry);}
+            log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при поиске ")+NormalizePathFiles(relat+"/"+entry)));
+
             search_file.next();
 
             QFileInfo info(_folder+"/"+entry);
@@ -128,6 +133,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                 QString summ_list_hash="";
 
                 if(!struct_models.exec()){qDebug() << QString::fromUtf8("Ошибка при добавлении данных ") << relat+"/"+entry;}
+                log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при добавлении данных ")+NormalizePathFiles(relat+"/"+entry)));
 
                 //добавление списка файлов модели
                 //передаем значение автоинкрементного ключа
@@ -143,6 +149,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                 update_struct_models.prepare(sql);
 
                 if(!update_struct_models.exec()){qDebug() << QString::fromUtf8("Ошибка при обновлении новых данных ") << relat+"/"+entry;}
+                log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при обновлении новых данных ")+NormalizePathFiles(relat+"/"+entry)));
             }
             else
             {
@@ -161,6 +168,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                     search_file.prepare(S);
 
                     if(!search_file.exec()){qDebug() << QString::fromUtf8("Ошибка при поиске ") << NormalizePathFiles(relat+"/"+entry);}
+                    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при поиске ")+NormalizePathFiles(relat+"/"+entry)));
                     search_file.next();
 
                     QDateTime base_date_time=search_file.value(0).toDateTime();
@@ -194,6 +202,8 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                         search_file.bindValue(":desc_mod", desc);
 
                         if(!search_file.exec()){qDebug() << QString::fromUtf8("Ошибка при редактировании ") << NormalizePathFiles(relat+"/"+entry);}
+                        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при редактировании ")+NormalizePathFiles(relat+"/"+entry)));
+
                     }
                     //Если такая модель в базе есть то независимо от того менялся ли список файлов
                     //нужно проверить их наличие и не изменились ли они
@@ -226,6 +236,8 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                     update_struct_models.prepare(sql);
 
                     if(!update_struct_models.exec()){qDebug() << QString::fromUtf8("Ошибка при обновлении имеющихся данных ") << relat+"/"+entry;}
+                    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при обновлении имеющихся данных ")+NormalizePathFiles(relat+"/"+entry)));
+
 
                 }
                 else
@@ -235,6 +247,8 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                     QSqlQuery update_found_false(db);
                     update_found_false.prepare("UPDATE StructModels SET Found=0 Where DiskFile='"+NormalizePathFiles(relat+"/"+entry)+"'");
                     if(!update_found_false.exec()){qDebug() << QString::fromUtf8("Ошибка при пометки на удаление модели ") << NormalizePathFiles(relat+"/"+entry);}
+                    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при пометки на удаление модели ")+NormalizePathFiles(relat+"/"+entry)));
+
 
                 }
             }
@@ -277,6 +291,8 @@ void tDatabaseOp::AddModelFiles(const qlonglong _num, const QString _path, QStri
         qDebug() << QString::fromUtf8("Не удалось открыть файл списка ") << model_structs;
         return;
     }
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Не удалось открыть файл списка ")+model_structs));
+
     tCalcHash calc_summ_hash;
     while(!list_files.atEnd())
     {
@@ -309,6 +325,8 @@ void tDatabaseOp::AddModelFiles(const qlonglong _num, const QString _path, QStri
             files_model.bindValue(6, info_file.size());
 
             if(!files_model.exec()){qDebug() << QString::fromUtf8("Ошибка при записи файла списка ") << root+file_path;}
+            log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка при записи файла списка ")+root+file_path));
+
         }
     }
 
@@ -321,6 +339,7 @@ void tDatabaseOp::AddModelFiles(const qlonglong _num, const QString _path, QStri
     QSqlQuery summ_hash(db);
     summ_hash.prepare("SELECT Hash FROM Files WHERE Model="+QString::number(_num)+" ORDER BY File");
     if(!summ_hash.exec()){qDebug() << QString::fromUtf8("Ошибка выборки подсчета суммарного хеша модели ") << _num;}
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка выборки подсчета суммарного хеша модели ")+QString::number(_num)));
     while(summ_hash.next())
     {
         QString hash=summ_hash.value(0).toString();
@@ -375,6 +394,8 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, QS
             qDebug() << QString::fromUtf8("Не удалось открыть файл списка (обновление) ") << model_structs;
             return;
         }
+        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Не удалось открыть файл списка (обновление) ")+model_structs));
+
         while(!list_files.atEnd())
         {
             QString fp=NormalizePathFiles(list_files.readLine());
@@ -399,6 +420,8 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, QS
             QSqlQuery search_file(db);
             search_file.prepare("SELECT count(*) FROM Files WHERE File='"+file_path+"' AND Model="+QString::number(_num));
             if(!search_file.exec()){qDebug() << QString::fromUtf8("Ошибка отпределения наличия файла для обновления ") << file_path;}
+            log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка отпределения наличия файла для обновления ")+file_path));
+
             search_file.next();
             QString hash="";
             int c=search_file.value(0).toInt();
@@ -409,6 +432,8 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, QS
                 QSqlQuery dt_file(db);
                 dt_file.prepare("SELECT LastMod FROM Files WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                 if(!dt_file.exec()){qDebug() << QString::fromUtf8("Ошибка получения даты-времени модификации файла для обновления ") << relat_path;}
+                log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка получения даты-времени модификации файла для обновления ")+relat_path));
+
                 dt_file.next();
                 QDateTime base_dt=dt_file.value(0).toDateTime();
 
@@ -430,6 +455,8 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, QS
                         QSqlQuery update_file(db);
                         update_file.prepare("UPDATE Files SET LastMod='"+rount_dt.toString(Qt::ISODate)+"', Hash='"+file_hash+"', Size="+QString::number(info.size())+",Found=1 WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                         if(!update_file.exec()){qDebug() << QString::fromUtf8("Ошибка обновления даты-времени модификации и хеш-суммы файла ") << relat_path;}
+                        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка обновления даты-времени модификации и хеш-суммы файла ")+relat_path));
+
 
                     }
                     else
@@ -438,6 +465,8 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, QS
                         QSqlQuery search_hash(db);
                         search_hash.prepare("SELECT Hash FROM Files WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                         if(!search_hash.exec()){qDebug() << QString::fromUtf8("Ошибка получения хеш-суммы файла из базы ") << relat_path;}
+                        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка получения хеш-суммы файла из базы ")+relat_path));
+
                         search_hash.next();
 
                         hash=search_hash.value(0).toString();
@@ -446,6 +475,8 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, QS
                         QSqlQuery check_found_file(db);
                         check_found_file.prepare("UPDATE Files SET Found=1 WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                         if(!check_found_file.exec()){qDebug() << QString::fromUtf8("Ошибка обновления наличия файла ") << relat_path;}
+                        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка обновления наличия файла ")+relat_path));
+
                     }
                 }
                 else
@@ -455,6 +486,8 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, QS
                     QSqlQuery del_check(db);
                     del_check.prepare("UPDATE Files SET Del=1 WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                     if(!del_check.exec()){qDebug() << QString::fromUtf8("Ошибка пометки на удаление ") << file_path;}
+                    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка пометки на удаление ")+file_path));
+
                 }
             }
             else
@@ -487,6 +520,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, QS
                     insert_file.bindValue(5, info.size());
 
                     if(!insert_file.exec()){qDebug() << QString::fromUtf8("Ошибка добавления нового файла ") << file_path;}
+                    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка добавления нового файла ")+file_path));
 
 
 
@@ -502,6 +536,8 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, QS
         QSqlQuery summ_hash(db);
         summ_hash.prepare("SELECT Hash FROM Files WHERE Model="+QString::number(_num)+" AND Found=1 ORDER BY File");
         if(!summ_hash.exec()){qDebug() << QString::fromUtf8("Ошибка выборки подсчета суммарного хеша модели ") << _num;}
+        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка выборки подсчета суммарного хеша модели ")+QString::number(_num)));
+
         while(summ_hash.next())
         {
             QString hash=summ_hash.value(0).toString();
@@ -532,6 +568,8 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
     QSqlQuery mod_select(db);
     mod_select.prepare("SELECT count(*) FROM Files WHERE File='"+relat+"' AND Model="+QString::number(_num));
     if(!mod_select.exec()){qDebug() << QString::fromUtf8("Ошибка поиска файла модели  ") << relat << _num;}
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка поиска файла модели ")+relat+" "+QString::number(_num)));
+
     mod_select.next();
     int s=mod_select.value(0).toInt();
     if(s!=0)
@@ -547,6 +585,7 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
             QSqlQuery select_date(db);
             select_date.prepare("SELECT LastMod FROM Files WHERE File='"+relat+"' AND Model="+QString::number(_num));
             if(!select_date.exec()){qDebug() << QString::fromUtf8("Ошибка поиска даты-времени модификации файла модели  ") << relat << _num;}
+            log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка поиска даты-времени модификации файла модели ")+relat+" "+QString::number(_num)));
             select_date.next();
             QDateTime db_last_mod=select_date.value(0).toDateTime();
             //дата время файла на диске
@@ -559,6 +598,8 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
                 QSqlQuery mod_check(db);
                 mod_check.prepare("UPDATE Files SET Found=1 WHERE File='"+relat+"' AND Model="+QString::number(_num));
                 if(!mod_check.exec()){qDebug() << QString::fromUtf8("Ошибка пометки Found=1 файла модели  ") << relat << _num;}
+                log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка пометки Found=1 файла модели ")+relat+" "+QString::number(_num)));
+
             }
             else
             {
@@ -571,6 +612,8 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
                 QSqlQuery update_dt_hash(db);
                 update_dt_hash.prepare("UPDATE Files SET LastMod='"+RoundDateTime(disk_last_mod).toString(Qt::ISODate)+"', Hash='"+hash+"', Size="+QString::number(info.size())+", Found=1 WHERE File='"+relat+"' AND Model="+QString::number(_num));
                 if(!update_dt_hash.exec()){qDebug() << QString::fromUtf8("Ошибка обновления даты-времени и хеша файла модели  ") << relat << _num;}
+                log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка обновления даты-времени и хеша файла модели ")+relat+" "+QString::number(_num)));
+
             }
 
         }
@@ -581,6 +624,8 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
             QSqlQuery set_unfound(db);
             set_unfound.prepare("UPDATE Files SET Found=0 WHERE File='"+relat+"' AND Model="+QString::number(_num));
             if(!set_unfound.exec()){qDebug() << QString::fromUtf8("Ошибка отметки как несуществующего файла модели  ") << relat << _num;}
+            log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка отметки как несуществующего файла модели ")+relat+" "+QString::number(_num)));
+
         }
 
 
@@ -612,6 +657,8 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
             insert_file.bindValue(5, info.size());
 
             if(!insert_file.exec()){qDebug() << QString::fromUtf8("Ошибка добавления нового файла модели ") << relat << _num;}
+            log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка добавления нового файла модели ")+relat+" "+QString::number(_num)));
+
         }
     }
 }
@@ -632,6 +679,8 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
             QSqlQuery select_info_files(db);
             select_info_files.prepare("SELECT count(*) FROM Files WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
             if(!select_info_files.exec()){qDebug() << QString::fromUtf8("Ошибка поиска файла в папке .info ") << relat+"/"+entry << _num;}
+            log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка поиска файла в папке .info ")+relat+"/"+entry+" "+QString::number(_num)));
+
             select_info_files.next();
             int s=select_info_files.value(0).toInt();
             if(s!=0)
@@ -645,6 +694,8 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
                     QSqlQuery select_date(db);
                     select_date.prepare("SELECT LastMod FROM Files WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
                     if(!select_date.exec()){qDebug() << QString::fromUtf8("Ошибка поиска даты-времени модификации файла в папке .info  ") << relat << _num;}
+                    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка поиска даты-времени модификации файла в папке .info ")+relat+" "+QString::number(_num)));
+
                     select_date.next();
                     QDateTime db_last_mod=select_date.value(0).toDateTime();
 
@@ -659,6 +710,8 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
                         QSqlQuery mod_check(db);
                         mod_check.prepare("UPDATE Files SET Found=1 WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
                         if(!mod_check.exec()){qDebug() << QString::fromUtf8("Ошибка пометки Found=1 файла в папке .info  ") << relat << _num;}
+                        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка пометки Found=1 файла в папке .info ")+relat+" "+QString::number(_num)));
+
                     }
                     else
                     {
@@ -671,6 +724,8 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
 
                         update_dt_hash.prepare("UPDATE Files SET LastMod='"+disk_last_mod.toString(Qt::ISODate)+"', Hash='"+hash+"', Found=1, Size="+QString::number(info.size())+" WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
                         if(!update_dt_hash.exec()){qDebug() << QString::fromUtf8("Ошибка обновления даты-времени и хеша файла в папке .info  ") << relat << _num;}
+                        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка обновления даты-времени и хеша файла в папке .info ")+relat+" "+QString::number(_num)));
+
                     }
                 }
                 else
@@ -681,6 +736,8 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
                     QSqlQuery set_unfound(db);
                     set_unfound.prepare("UPDATE Files SET Found=0 WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
                     if(!set_unfound.exec()){qDebug() << QString::fromUtf8("Ошибка отметки как несуществующего файла в папке .info  ") << relat << _num;}
+                    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка отметки как несуществующего файла в папке .info ")+relat+" "+QString::number(_num)));
+
                 }
             }
             else
@@ -700,6 +757,8 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
                 insert_info_files.bindValue(5, info.size());
 
                 if(!insert_info_files.exec()){qDebug() << QString::fromUtf8("Ошибка добавления графических инфо-файлов ") << _folder_mod+"/"+entry;}
+                log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка добавления графических инфо-файлов ")+_folder_mod+"/"+entry));
+
             }
         }
     }
@@ -710,6 +769,7 @@ void tDatabaseOp::ClearModels()
     QSqlQuery delete_unfound_models(db);
     delete_unfound_models.prepare("DELETE FROM StructModels WHERE Found=0");
     if(!delete_unfound_models.exec()){qDebug() << QString::fromUtf8("Ошибка удалении не найденых на диске моделей ");}
+    log.Write(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка удалении не найденых на диске моделей "));
 }
 //----------------------------------------------------------
 void tDatabaseOp::GetListModels(QDataStream &_out)
@@ -750,6 +810,8 @@ void tDatabaseOp::GetListModels(QDataStream &_out)
     QSqlQuery count_mod(db);
     count_mod.prepare("SELECT Count(*) FROM StructModels");
     if(!count_mod.exec()){qDebug() << QString::fromUtf8("Ошибка определения числа передаваемых моделей ");}
+    log.Write(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка определения числа передаваемых моделей "));
+
     count_mod.next();
     int cm=count_mod.value(0).toInt();
     _out << cm;
@@ -757,6 +819,8 @@ void tDatabaseOp::GetListModels(QDataStream &_out)
     QSqlQuery models(db);
     models.prepare("SELECT DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, Num FROM StructModels");
     if(!models.exec()){qDebug() << QString::fromUtf8("Ошибка получения данных передаваемых моделей ");}
+    log.Write(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка получения данных передаваемых моделей "));
+
 //    models.next();
     while(models.next())
     {
@@ -787,6 +851,8 @@ void tDatabaseOp::GetListModels(QDataStream &_out)
         QSqlQuery count_files(db);
         count_files.prepare("SELECT Count(*) FROM Files WHERE Model="+QString::number(Num_S));
         if(!count_files.exec()){qDebug() << QString::fromUtf8("Ошибка получения количества файлов модели ") << Num_S;}
+        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка получения количества файлов модели ")+QString::number(Num_S)));
+
         count_files.next();
         int cf=count_files.value(0).toInt();
 
@@ -796,6 +862,8 @@ void tDatabaseOp::GetListModels(QDataStream &_out)
         QSqlQuery files(db);
         files.prepare("SELECT File, Size, LastMod, Hash, Num FROM Files WHERE Model="+QString::number(Num_S));
         if(!files.exec()){qDebug() << QString::fromUtf8("Ошибка получения списка файлов модели ") << Num_S;}
+        log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка получения списка файлов модели ")+QString::number(Num_S)));
+
 //        files.next();
         while(files.next())
         {
@@ -825,6 +893,8 @@ void tDatabaseOp::GetLocalModelFiles(const QString &_str, QStringList &_list)
     QString s="SELECT Files.File FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num WHERE StructModels.Struct='"+_str+"'";
             list_model_structs.prepare(s);
     if(!list_model_structs.exec()){qDebug() << QString::fromUtf8("Ошибка выборки файлов модели ") << _str;}
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка выборки файлов модели ")+_str));
+
 //    list_model_structs.next();
     while(list_model_structs.next())
     {
@@ -839,6 +909,8 @@ QString tDatabaseOp::GetHash(const QString& name_file) const
     QSqlQuery file(db);
     file.prepare("SELECT Hash, Count(*) FROM Files WHERE File='"+name_file+"'");
     if(!file.exec()){qDebug() << QString::fromUtf8("Ошибка получения хеша файла ") << name_file;}
+//    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка получения хеша файла ")+name_file));
+
 
     file.next();
 //    int N=file.value(1).toInt();
@@ -850,6 +922,8 @@ QDateTime tDatabaseOp::GetLastMod(const QString& name_file) const
     QSqlQuery file(db);
     file.prepare("SELECT LastMod, Count(*) FROM Files WHERE File='"+name_file+"'");
     if(!file.exec()){qDebug() << QString::fromUtf8("Ошибка получения даты-времени модификации файла ") << name_file;}
+//    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка получения даты-времени модификации файла ")+name_file));
+
 
     file.next();
 //    int N=file.value(1).toInt();
@@ -862,6 +936,8 @@ void tDatabaseOp::Update_LastMod_Hash(const QString& _file_name, const QDateTime
     QSqlQuery update_lm_hash(db);
     update_lm_hash.prepare("UPDATE Files SET LastMod='"+_last_mod.toString(Qt::ISODate)+"', Hash='"+_hash+"' WHERE File='"+_file_name+"'");
     if(!update_lm_hash.exec()){qDebug() << QString::fromUtf8("Ошибка обновления даты-времени модификации файла и хеша ") << _file_name;}
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Ошибка обновления даты-времени модификации файла и хеша ")+_file_name));
+
 }
 //----------------------------------------------------------
 
