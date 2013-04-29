@@ -623,8 +623,12 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     bool tr=((MainForm*)link)->GetIsTransaction();
     if(tr)
     {
-    //Сюда процедуру обновления Last таблиц с серверных данных (true)
-    ((MainForm*)link)->CorrectLastSynch(true);
+    //СЮДА ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST
+    //НАЧАЛО В void tModelsConveyor::StartSendDeleteFiles()
+
+//    ((MainForm*)link)->CorrectLastSynch(true);
+        ((MainForm*)link)->CorrectLastSynch(true);
+
     emit FinalBlockTransactions();
     }
 

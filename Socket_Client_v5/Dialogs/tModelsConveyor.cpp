@@ -62,6 +62,8 @@ void tModelsConveyor::EndConveyor()
 //    MB.setWindowTitle(QString::fromUtf8("Транзакция"));
 //    MB.exec();
 
+//    db_op->PrepareUpdateLastSynch();
+
     conv->ClearTempFolder();
     conv->Clear();
     if(send)
@@ -225,10 +227,26 @@ void tModelsConveyor::StartSendDeleteFiles()
         l="tModelsConveyor \tStartSendDeleteFiles\tВсе модели отправлены";
         log.Write(l);
 
+
+        //СЮДА НАЧАЛО ПРОЦЕДУРЫ ОБНОВЛЕНИЯ LAST
+        //ДО ОБНОВЛЕНИЯ СЕРВЕРНЫХ ТАБЛИЦ (ОКОНЧАНИЕ В void tReportGuiGetListServerModels::ExeCommand)
+
+        db_op->PrepareUpdateLastSynch();
+
+        MarkLastTables(true);
         conv->GetServerModels();
 //        emit EndTransactions();
     }
 }
+//-------------------------------------------------------------------------
+void tModelsConveyor::MarkLastTables(bool _send)
+{
+    for(int i=0; i<all_files.size(); i++)
+    {
+        db_op->UpdateLastSynchMark(all_files[i], true);
+    }
+}
+
 //-------------------------------------------------------------------------
 void tModelsConveyor::StartReceiveDeleteFiles()
 {

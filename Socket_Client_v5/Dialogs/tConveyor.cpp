@@ -1133,7 +1133,7 @@ void tConveyor::CorrectLastSynch(QStringList &_all_files, bool _server)
 
         for(int i=0; i<_all_files.size(); i++)
         {
-            db_op->UpdateLastSynch(_all_files[i], _server);
+            db_op->UpdateLastSynchMark(_all_files[i], _server);
         }
 
 }

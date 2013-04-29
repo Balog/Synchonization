@@ -4760,3 +4760,208 @@
 2013-04-28 18:51:17 GUI Dialog 	 Dialog 	 Конец работы 
 2013-04-28 18:51:17 GUI tSettings 	 SetFilePath 	 Запись параметров 
 ----------------------------------------------------
+----------------------------------------------------
+2013-04-29 17:38:34 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-04-29 17:38:34 GUI Dialog 	 Dialog 	 Начало работы 
+2013-04-29 17:38:34 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-04-29 17:38:35 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-04-29 17:38:35 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-29 17:38:35 GUI Dialog 	 Dialog 	 Сервер подключен 
+2013-04-29 17:39:11 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 740
+2013-04-29 17:39:11 Client 740 tClient 	 tClient 	 Клиент создан 
+2013-04-29 17:39:13 Client 740 () tClient 	 Initialize 	 Клиент подключен 
+2013-04-29 17:39:13 Client 740 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-04-29 17:39:13 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-04-29 21:36:53 Client 740 () tClient 	 OnDisconnect 	 Клиент 740 Логин  отключен 
+2013-04-29 21:36:53 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 
+2013-04-29 21:36:53 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-29 21:36:53 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись снята. Логин: 
+2013-04-29 21:36:53 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 
+2013-04-29 21:36:53 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 
+2013-04-29 21:36:53 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 
+2013-04-29 21:36:53 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 
+2013-04-29 21:36:53 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 740 отключен. Осталось 0 клиентов
+2013-04-29 22:11:48 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 752
+2013-04-29 22:11:48 Client 752 tClient 	 tClient 	 Клиент создан 
+2013-04-29 22:11:48 Client 752 () tClient 	 Initialize 	 Клиент подключен 
+2013-04-29 22:11:48 Client 752 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-04-29 22:11:48 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-04-29 22:11:52 Client 752 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-04-29 22:11:52 Client 752 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 752
+2013-04-29 22:11:52 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-04-29 22:12:02 Client 752 (1) tClient 	 OnReadyRead 	 Получена команда номер 6
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-29 22:12:02 (Login: 1) tStartTransaction 	 ExeCommand 	 СТАРТ ТРАНЗАКЦИИ НА ЗАПИСЬ 
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 StartWriteFile 	 ==== Блокировка файла на запись ==== objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на запись логином 1
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 StartWriteFile 	 Файл objects/vhc_t-90/Русскоязычный файл.txt добавление в список и блокировка на запись логином 1
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на запись логином 1
+2013-04-29 22:12:02 Client 752 (1) tClient 	 OnReadyRead 	 Получена команда номер 2
+2013-04-29 22:12:02 (Login: 1) tReceiveStreamFile 	 Initialize 	 ****** ПРИЕМ ФАЙЛА ****** objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:12:02 (Login: 1) tReceiveStreamFile 	 ExeCommand 	 Прием файла objects/vhc_t-90/Русскоязычный файл.txt завершен
+2013-04-29 22:12:02 (Login: 1) tReceiveStreamFile 	 SendReport 	 Посылка отчета о приеме файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:12:02 Client 752 (1) tClient 	 OnReadyRead 	 Получена команда номер 7
+2013-04-29 22:12:02 (Login: 1) tCommitTransaction 	 ExeCommand 	 ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов 
+2013-04-29 22:12:02 (Login: 1) tCommitTransaction 	 Move 	 Проверка файла C:/Server/Project 1/objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:12:02 (Login: 1) tCommitTransaction 	 Move 	 Замена файла C:/Server/Project 1/objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:12:02 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-29 22:12:02 (Login: 1) tCommitTransaction 	 ExeCommand 	 Разблокировка от записи файла 
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 FinishWriteFile 	 ==== Снятие блокировки на запись ==== objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-29 22:12:02 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Файл objects/vhc_t-90/Русскоязычный файл.txt найден в списке и снята блокировка на запись логином 1
+2013-04-29 22:12:02 FileBlocker  tFileBlocker 	 SearchBlockFile 	 Файлobjects/vhc_t-90/Русскоязычный файл.txt ничем не блокирован и удаляется из таблицы файлов
+2013-04-29 22:12:02 (Login: 1) tCommitTransaction 	 ExeCommand 	 ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ 
+2013-04-29 22:14:47 Client 752 (1) tClient 	 OnDisconnect 	 Клиент 752 Логин 1 отключен 
+2013-04-29 22:14:47 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-04-29 22:14:47 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-29 22:14:47 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-04-29 22:14:47 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-04-29 22:14:47 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-04-29 22:14:47 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 752 отключен. Осталось 0 клиентов
+2013-04-29 22:15:59 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 780
+2013-04-29 22:15:59 Client 780 tClient 	 tClient 	 Клиент создан 
+2013-04-29 22:15:59 Client 780 () tClient 	 Initialize 	 Клиент подключен 
+2013-04-29 22:15:59 Client 780 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-04-29 22:15:59 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-04-29 22:16:02 Client 780 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-04-29 22:16:02 Client 780 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 780
+2013-04-29 22:16:02 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-04-29 22:16:09 Client 780 (1) tClient 	 OnReadyRead 	 Получена команда номер 6
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-29 22:16:09 (Login: 1) tStartTransaction 	 ExeCommand 	 СТАРТ ТРАНЗАКЦИИ НА ЗАПИСЬ 
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 StartWriteFile 	 ==== Блокировка файла на запись ==== objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на запись логином 1
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 StartWriteFile 	 Файл objects/vhc_t-90/Русскоязычный файл.txt добавление в список и блокировка на запись логином 1
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на запись логином 1
+2013-04-29 22:16:09 Client 780 (1) tClient 	 OnReadyRead 	 Получена команда номер 2
+2013-04-29 22:16:09 (Login: 1) tReceiveStreamFile 	 Initialize 	 ****** ПРИЕМ ФАЙЛА ****** objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:16:09 (Login: 1) tReceiveStreamFile 	 ExeCommand 	 Прием файла objects/vhc_t-90/Русскоязычный файл.txt завершен
+2013-04-29 22:16:09 (Login: 1) tReceiveStreamFile 	 SendReport 	 Посылка отчета о приеме файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:16:09 Client 780 (1) tClient 	 OnReadyRead 	 Получена команда номер 7
+2013-04-29 22:16:09 (Login: 1) tCommitTransaction 	 ExeCommand 	 ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов 
+2013-04-29 22:16:09 (Login: 1) tCommitTransaction 	 Move 	 Проверка файла C:/Server/Project 1/objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:16:09 (Login: 1) tCommitTransaction 	 Move 	 Замена файла C:/Server/Project 1/objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:16:09 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-29 22:16:09 (Login: 1) tCommitTransaction 	 ExeCommand 	 Разблокировка от записи файла 
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 FinishWriteFile 	 ==== Снятие блокировки на запись ==== objects/vhc_t-90/Русскоязычный файл.txt
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-29 22:16:09 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Файл objects/vhc_t-90/Русскоязычный файл.txt найден в списке и снята блокировка на запись логином 1
+2013-04-29 22:16:09 FileBlocker  tFileBlocker 	 SearchBlockFile 	 Файлobjects/vhc_t-90/Русскоязычный файл.txt ничем не блокирован и удаляется из таблицы файлов
+2013-04-29 22:16:09 (Login: 1) tCommitTransaction 	 ExeCommand 	 ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ 
+2013-04-29 22:59:02 Client 780 (1) tClient 	 OnDisconnect 	 Клиент 780 Логин 1 отключен 
+2013-04-29 22:59:02 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-04-29 22:59:02 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-29 22:59:02 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-04-29 22:59:02 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-04-29 22:59:02 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-04-29 22:59:02 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 780 отключен. Осталось 0 клиентов
+2013-04-30 00:11:25 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 812
+2013-04-30 00:11:25 Client 812 tClient 	 tClient 	 Клиент создан 
+2013-04-30 00:11:25 Client 812 () tClient 	 Initialize 	 Клиент подключен 
+2013-04-30 00:11:25 Client 812 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-04-30 00:11:25 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-04-30 00:11:28 Client 812 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-04-30 00:11:28 Client 812 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 812
+2013-04-30 00:11:28 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-04-30 00:11:41 Client 812 (1) tClient 	 OnReadyRead 	 Получена команда номер 6
+2013-04-30 00:11:41 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-30 00:11:41 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-30 00:11:41 (Login: 1) tStartTransaction 	 ExeCommand 	 СТАРТ ТРАНЗАКЦИИ НА ЗАПИСЬ 
+2013-04-30 00:11:41 FileBlocker  tFileBlocker 	 StartWriteFile 	 ==== Блокировка файла на запись ==== objects/gun_30mm/30mm.dds
+2013-04-30 00:11:41 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-30 00:11:41 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-30 00:11:41 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-30 00:11:41 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-30 00:11:41 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на запись логином 1
+2013-04-30 00:11:41 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-30 00:11:41 FileBlocker  tFileBlocker 	 StartWriteFile 	 Файл objects/gun_30mm/30mm.dds добавление в список и блокировка на запись логином 1
+2013-04-30 00:11:41 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-30 00:11:41 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-30 00:11:41 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на запись логином 1
+2013-04-30 00:11:41 Client 812 (1) tClient 	 OnReadyRead 	 Получена команда номер 2
+2013-04-30 00:11:41 (Login: 1) tReceiveStreamFile 	 Initialize 	 ****** ПРИЕМ ФАЙЛА ****** objects/gun_30mm/30mm.dds
+2013-04-30 00:11:41 (Login: 1) tReceiveStreamFile 	 ExeCommand 	 Прием файла objects/gun_30mm/30mm.dds завершен
+2013-04-30 00:11:41 (Login: 1) tReceiveStreamFile 	 SendReport 	 Посылка отчета о приеме файла objects/gun_30mm/30mm.dds
+2013-04-30 00:11:41 Client 812 (1) tClient 	 OnReadyRead 	 Получена команда номер 7
+2013-04-30 00:11:41 (Login: 1) tCommitTransaction 	 ExeCommand 	 ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов 
+2013-04-30 00:11:41 (Login: 1) tCommitTransaction 	 Move 	 Проверка файла C:/Server/Project 1/objects/gun_30mm/30mm.dds
+2013-04-30 00:11:41 (Login: 1) tCommitTransaction 	 Move 	 Замена файла C:/Server/Project 1/objects/gun_30mm/30mm.dds
+2013-04-30 00:11:42 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-30 00:11:42 (Login: 1) tCommitTransaction 	 ExeCommand 	 Разблокировка от записи файла 
+2013-04-30 00:11:42 FileBlocker  tFileBlocker 	 FinishWriteFile 	 ==== Снятие блокировки на запись ==== objects/gun_30mm/30mm.dds
+2013-04-30 00:11:42 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-30 00:11:42 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-30 00:11:42 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-30 00:11:42 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-30 00:11:42 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-30 00:11:42 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Файл objects/gun_30mm/30mm.dds найден в списке и снята блокировка на запись логином 1
+2013-04-30 00:11:42 FileBlocker  tFileBlocker 	 SearchBlockFile 	 Файлobjects/gun_30mm/30mm.dds ничем не блокирован и удаляется из таблицы файлов
+2013-04-30 00:11:42 (Login: 1) tCommitTransaction 	 ExeCommand 	 ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ 
+2013-04-30 00:11:51 Client 812 (1) tClient 	 OnReadyRead 	 Получена команда номер 6
+2013-04-30 00:11:51 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-30 00:11:51 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-30 00:11:51 (Login: 1) tStartTransaction 	 ExeCommand 	 СТАРТ ТРАНЗАКЦИИ НА ЗАПИСЬ 
+2013-04-30 00:11:51 FileBlocker  tFileBlocker 	 StartWriteFile 	 ==== Блокировка файла на запись ==== objects/vhc_t-90/t-90_s.dds
+2013-04-30 00:11:51 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-30 00:11:51 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-30 00:11:51 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-30 00:11:51 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-30 00:11:51 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на запись логином 1
+2013-04-30 00:11:51 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-30 00:11:51 FileBlocker  tFileBlocker 	 StartWriteFile 	 Файл objects/vhc_t-90/t-90_s.dds добавление в список и блокировка на запись логином 1
+2013-04-30 00:11:51 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-30 00:11:51 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-30 00:11:51 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на запись логином 1
+2013-04-30 00:11:51 Client 812 (1) tClient 	 OnReadyRead 	 Получена команда номер 2
+2013-04-30 00:11:51 (Login: 1) tReceiveStreamFile 	 Initialize 	 ****** ПРИЕМ ФАЙЛА ****** objects/vhc_t-90/t-90_s.dds
+2013-04-30 00:11:52 (Login: 1) tReceiveStreamFile 	 ExeCommand 	 Прием файла objects/vhc_t-90/t-90_s.dds завершен
+2013-04-30 00:11:52 (Login: 1) tReceiveStreamFile 	 SendReport 	 Посылка отчета о приеме файла objects/vhc_t-90/t-90_s.dds
+2013-04-30 00:11:52 Client 812 (1) tClient 	 OnReadyRead 	 Получена команда номер 7
+2013-04-30 00:11:52 (Login: 1) tCommitTransaction 	 ExeCommand 	 ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов 
+2013-04-30 00:11:52 (Login: 1) tCommitTransaction 	 Move 	 Проверка файла C:/Server/Project 1/objects/vhc_t-90/t-90_s.dds
+2013-04-30 00:11:52 (Login: 1) tCommitTransaction 	 Move 	 Замена файла C:/Server/Project 1/objects/vhc_t-90/t-90_s.dds
+2013-04-30 00:11:52 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-04-30 00:11:52 (Login: 1) tCommitTransaction 	 ExeCommand 	 Разблокировка от записи файла 
+2013-04-30 00:11:52 FileBlocker  tFileBlocker 	 FinishWriteFile 	 ==== Снятие блокировки на запись ==== objects/vhc_t-90/t-90_s.dds
+2013-04-30 00:11:52 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов заблокирована на чтение логином 1
+2013-04-30 00:11:52 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: 1
+2013-04-30 00:11:52 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: 1
+2013-04-30 00:11:52 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов разблокирована на чтение логином 1
+2013-04-30 00:11:52 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-04-30 00:11:52 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Файл objects/vhc_t-90/t-90_s.dds найден в списке и снята блокировка на запись логином 1
+2013-04-30 00:11:52 FileBlocker  tFileBlocker 	 SearchBlockFile 	 Файлobjects/vhc_t-90/t-90_s.dds ничем не блокирован и удаляется из таблицы файлов
+2013-04-30 00:11:52 (Login: 1) tCommitTransaction 	 ExeCommand 	 ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ 
+2013-04-30 00:12:16 Client 812 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-04-30 00:12:16 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-04-30 00:12:16 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-04-30 00:12:42 Client 812 (1) tClient 	 OnDisconnect 	 Клиент 812 Логин 1 отключен 
+2013-04-30 00:12:42 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-04-30 00:12:42 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-04-30 00:12:42 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-04-30 00:12:42 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-04-30 00:12:42 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-04-30 00:12:42 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 812 отключен. Осталось 0 клиентов

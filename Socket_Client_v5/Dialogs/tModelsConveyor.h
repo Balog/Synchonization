@@ -32,6 +32,7 @@ public:
     }
 
     void SetTransactionFlag(bool _flag);
+    void MarkLastTables(bool _send);
 
 private:
     QObject *link;

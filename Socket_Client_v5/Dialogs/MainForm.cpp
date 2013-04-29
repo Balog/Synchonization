@@ -456,7 +456,9 @@ void MainForm::OnServerModelClick(const QModelIndex Ind)
 void MainForm::CorrectLastSynch(bool _server)
 {
 
-    mod_conv->CorrectLastSynch(_server);
+    mod_conv->MarkLastTables(_server);
+
+    db_op->ExecUpdateLastSynch(_server);
 
 }
 //----------------------------------------------------------

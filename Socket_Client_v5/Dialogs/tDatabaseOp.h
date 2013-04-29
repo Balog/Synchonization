@@ -36,7 +36,11 @@ public:
 //    void GetSendModeles(QStringList &_list_models);
     void GetSendModelFiles(const QString &_name_model, QStringList& _list_files);
     void GetDeleteServerModelFiles(const QString &_name_model, QStringList& _list_files);
-    void UpdateLastSynch(const QString& _file_name_, bool _server);
+
+    void PrepareUpdateLastSynch();
+    void UpdateLastSynchMark(const QString& _file_name_, bool _server);
+    void ExecUpdateLastSynch(bool _server);
+
     bool GetNextReceiveDelModel(QString& _name_model);
     void GetReceiveModelFiles(const QString& _name_model_, QStringList& _list_files);
     void UpdateServerTable(const QString &_name);

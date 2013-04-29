@@ -42,6 +42,8 @@ public:
             bool tr=mod_conv->GetIsTransaction();
             return tr;
         }
+
+
     
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей

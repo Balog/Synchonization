@@ -1224,8 +1224,16 @@ void tDatabaseOp::GetDeleteServerModelFiles(const QString& _name_model, QStringL
     }
 }
 //----------------------------------------------------------
-void tDatabaseOp::UpdateLastSynch(const QString& _file_name, bool _server)
+void tDatabaseOp::PrepareUpdateLastSynch()
 {
+//НАЧАЛО ОБНОВЛЕНИЯ ТАБЛИЦ LAST
+}
+//----------------------------------------------------------
+void tDatabaseOp::UpdateLastSynchMark(const QString& _file_name, bool _server)
+{
+
+    //ПРОДОЛЖЕНИЕ ОБНОВЛЕНИЯ ТАБЛИЦ ДФЫЕ
+
     //Вначале сбросить отметки Found у всех моделей той группы таблиц что нужно, серверной или локальной.
     //сбросить отметки Found у всех Last моделей
     //Выбрать и установить отметки у тех моделей что содержат указаный файл
@@ -1431,6 +1439,11 @@ void tDatabaseOp::UpdateLastSynch(const QString& _file_name, bool _server)
 //        }
 //    }
 
+}
+//----------------------------------------------------------
+void tDatabaseOp::ExecUpdateLastSynch(bool _server)
+{
+//окончание механизма обновления таблиц LAST
 }
 //----------------------------------------------------------
 bool tDatabaseOp::GetNextReceiveDelModel(QString& _name_model)
