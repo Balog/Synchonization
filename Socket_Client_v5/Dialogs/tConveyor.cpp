@@ -364,6 +364,19 @@ void tConveyor::AddCommitTransactionDel()
 //--------------------------------------------------------------------------------
 void tConveyor::VerifyMoveDelete(QString &m_struct)
 {
+    db_op->PrepareUpdateLastSynch(false);
+
+//    MarkLastTables(false);
+    for(int i=0; i<file_list.size();i++)
+    {
+    db_op->UpdateLastSynchMark(file_list[i].file_name, false);
+    }
+
+    for(int i=0; i<file_list1.size();i++)
+    {
+    db_op->UpdateLastSynchMark(file_list1[i].file_name, false);
+    }
+
     model_file=m_struct;
     bool ret=true;
     temp=my_settings.GetTemp();
@@ -761,6 +774,8 @@ bool tConveyor::DeletingFile(const QString &_file_name, QStringList &_all_files,
         {
             l="tConveyor \tDeletingFile\tПодготовка команды удаления файла на клиенте "+_file_name;
             log.Write(l);
+
+            _all_files.push_back(_file_name);
 
             tFileList fl;
             fl.file_name=_file_name;

@@ -312,7 +312,7 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tGuiStartTransaction::ExeCommand(QDataStream &_in)
 {
-    l="tClientGuiCommand \tGuiStartTransaction\tНачало транзакции ";
+    l="tClientGuiCommand \tGuiStartTransaction\tНАЧАЛО ТРАНЗАКЦИИ ";
     log.Write(l);
 
     QByteArray block;
@@ -625,6 +625,9 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     {
     //СЮДА ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST
     //НАЧАЛО В void tModelsConveyor::StartSendDeleteFiles()
+        l="tClientGuiCommand \tGetListModels\t ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST";
+        log.Write(l);
+
 
 //    ((MainForm*)link)->CorrectLastSynch(true);
         ((MainForm*)link)->CorrectLastSynch(true);
@@ -640,7 +643,7 @@ void tUpdateMainLocal::ExeCommand(QDataStream &)
     log.Write(l);
 
     ((MainForm*)link)->OnListFilesLocal();
-    ((MainForm*)link)->CorrectLastSynch(false);
+//    ((MainForm*)link)->CorrectLastSynch(false);
     emit NextCommand();
 
 }

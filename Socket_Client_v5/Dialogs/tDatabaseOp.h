@@ -37,7 +37,7 @@ public:
     void GetSendModelFiles(const QString &_name_model, QStringList& _list_files);
     void GetDeleteServerModelFiles(const QString &_name_model, QStringList& _list_files);
 
-    void PrepareUpdateLastSynch();
+    void PrepareUpdateLastSynch(bool _send);
     void UpdateLastSynchMark(const QString& _file_name_, bool _server);
     void ExecUpdateLastSynch(bool _server);
 

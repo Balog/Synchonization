@@ -231,10 +231,15 @@ void tModelsConveyor::StartSendDeleteFiles()
         //СЮДА НАЧАЛО ПРОЦЕДУРЫ ОБНОВЛЕНИЯ LAST
         //ДО ОБНОВЛЕНИЯ СЕРВЕРНЫХ ТАБЛИЦ (ОКОНЧАНИЕ В void tReportGuiGetListServerModels::ExeCommand)
 
-        db_op->PrepareUpdateLastSynch();
+        l="tModelsConveyor \tStartSendDeleteFiles\t НАЧАЛО ПРОЦЕДУРЫ ОБНОВЛЕНИЯ LAST";
+        log.Write(l);
+
+        db_op->PrepareUpdateLastSynch(true);
 
         MarkLastTables(true);
         conv->GetServerModels();
+
+        all_files.clear();
 //        emit EndTransactions();
     }
 }
@@ -243,7 +248,7 @@ void tModelsConveyor::MarkLastTables(bool _send)
 {
     for(int i=0; i<all_files.size(); i++)
     {
-        db_op->UpdateLastSynchMark(all_files[i], true);
+        db_op->UpdateLastSynchMark(all_files[i], _send);
     }
 }
 
@@ -324,6 +329,17 @@ conv->ClearTempFolder();
         //нужна команда GetListModels
 //        emit EndTransactions();
 //        db_op->RefreshModelsFiles();
+
+
+
+        db_op->RefreshModelsFiles();
+
+        MarkLastTables(false);
+
+        db_op->ExecUpdateLastSynch(false);
+
+        all_files.clear();
+
         emit EndTransactions();
     }
 }
