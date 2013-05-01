@@ -239,7 +239,7 @@ void tModelsConveyor::StartSendDeleteFiles()
         MarkLastTables(true);
         conv->GetServerModels();
 
-        all_files.clear();
+//        all_files.clear();
 //        emit EndTransactions();
     }
 }

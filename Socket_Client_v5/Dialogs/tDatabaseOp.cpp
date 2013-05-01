@@ -840,39 +840,125 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
     out >> num_models;
 
     db.transaction();
-    QSqlQuery del_all_server_models(db);
-    del_all_server_models.prepare("DELETE FROM ServerStructModels");
-    if(!del_all_server_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления всех серверных моделей ");
-    log.Write(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ удаления всех серверных моделей "));}
+//    QSqlQuery del_all_server_models(db);
+//    del_all_server_models.prepare("DELETE FROM ServerStructModels");
+//    if(!del_all_server_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления всех серверных моделей ");
+//    log.Write(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ удаления всех серверных моделей "));}
 
 
-    for(int i=0; i<num_models; i++)
+//    for(int i=0; i<num_models; i++)
+//    {
+//        QString DiskFile="";
+//        QString Title="";
+//        QString Description="";
+//        QString Struct="";
+//        QDateTime LastMod;
+//        QString Hash="";
+//        QDateTime ListFilesLastMod;
+//        QString ListFilesHash="";
+//        QString SummListHash="";
+//        qlonglong Num=0;
+
+//        out >> DiskFile;
+//        out >> Title;
+//        out >> Description;
+//        out >> Struct;
+//        out >> LastMod;
+//        out >> Hash;
+//        out >> ListFilesLastMod;
+//        out >> ListFilesHash;
+//        out >> SummListHash;
+//        out >> Num;
+
+////        files_model.prepare("INSERT INTO Files (Model, File, LastMod, Hash, Found, Del, Size)"
+////                            "VALUES(?, ?, ?, ?, ?, ?, ?);");
+
+//        QSqlQuery insert_server_model(db);
+//        insert_server_model.prepare("INSERT INTO ServerStructModels (DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, ServerNum) "
+//                                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+//        insert_server_model.bindValue(0, DiskFile);
+//        insert_server_model.bindValue(1, Title);
+//        insert_server_model.bindValue(2,Description );
+//        insert_server_model.bindValue(3, Struct);
+//        insert_server_model.bindValue(4, LastMod);
+//        insert_server_model.bindValue(5, Hash);
+//        insert_server_model.bindValue(6, ListFilesLastMod);
+//        insert_server_model.bindValue(7, ListFilesHash);
+//        insert_server_model.bindValue(8, SummListHash);
+//        insert_server_model.bindValue(9, Num);
+
+//        if(!insert_server_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления серверной модели ") << DiskFile;
+//        log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления серверной модели ")+DiskFile.toUtf8()));}
+
+//        qlonglong num_server_model=insert_server_model.lastInsertId().toLongLong();
+
+//        int num_files=-1;
+
+//        out >> num_files;
+
+//        for(int j=0;j<num_files; j++)
+//        {
+//            QString File="";
+//            qlonglong Size=0;
+//            QDateTime LastMod_F;
+//            QString Hash_F="";
+//            qlonglong Num_F=0;
+
+//            out >> File;
+//            out >> Size;
+//            out >> LastMod_F;
+//            out >> Hash_F;
+//            out >> Num_F;
+
+//            QSqlQuery insert_server_files(db);
+//            insert_server_files.prepare("INSERT INTO ServerFiles (Model, File, Size, lastMod, Hash, ServerNum) VALUES (?, ?, ?, ?, ?, ?);");
+
+//            insert_server_files.bindValue(0, num_server_model);
+//            insert_server_files.bindValue(1, File);
+//            insert_server_files.bindValue(2, Size);
+//            insert_server_files.bindValue(3, LastMod_F);
+//            insert_server_files.bindValue(4, Hash_F);
+//            insert_server_files.bindValue(5, Num_F);
+//            if(!insert_server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления файлов серверной модели ") << num_server_model;
+//            log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления файлов серверной модели ")+QString::number(num_server_model)));}
+
+//        }
+//    }
+
+for(int i=0; i<num_models; i++)
+{
+    QString DiskFile="";
+    QString Title="";
+    QString Description="";
+    QString Struct="";
+    QDateTime LastMod;
+    QString Hash="";
+    QDateTime ListFilesLastMod;
+    QString ListFilesHash="";
+    QString SummListHash="";
+    qlonglong Num=0;
+
+    out >> DiskFile;
+    out >> Title;
+    out >> Description;
+    out >> Struct;
+    out >> LastMod;
+    out >> Hash;
+    out >> ListFilesLastMod;
+    out >> ListFilesHash;
+    out >> SummListHash;
+    out >> Num;
+
+    QSqlQuery is_found_mod(db);
+    is_found_mod.prepare("SELECT Count(*), Num FROM ServerStructModels WHERE DiskFile='"+DiskFile+"'");
+    if(!is_found_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия серверной модели ") << DiskFile;
+    log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ проверки наличия серверной модели  ")+DiskFile));}
+    is_found_mod.next();
+    int c=is_found_mod.value(0).toInt();
+
+    qlonglong num_server_model=0;
+    if(c=0)
     {
-        QString DiskFile="";
-        QString Title="";
-        QString Description="";
-        QString Struct="";
-        QDateTime LastMod;
-        QString Hash="";
-        QDateTime ListFilesLastMod;
-        QString ListFilesHash="";
-        QString SummListHash="";
-        qlonglong Num=0;
-
-        out >> DiskFile;
-        out >> Title;
-        out >> Description;
-        out >> Struct;
-        out >> LastMod;
-        out >> Hash;
-        out >> ListFilesLastMod;
-        out >> ListFilesHash;
-        out >> SummListHash;
-        out >> Num;
-
-//        files_model.prepare("INSERT INTO Files (Model, File, LastMod, Hash, Found, Del, Size)"
-//                            "VALUES(?, ?, ?, ?, ?, ?, ?);");
-
         QSqlQuery insert_server_model(db);
         insert_server_model.prepare("INSERT INTO ServerStructModels (DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, ServerNum) "
                                     "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
@@ -890,42 +976,57 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
         if(!insert_server_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления серверной модели ") << DiskFile;
         log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления серверной модели ")+DiskFile.toUtf8()));}
 
-        qlonglong num_server_model=insert_server_model.lastInsertId().toLongLong();
+        num_server_model=insert_server_model.lastInsertId().toLongLong();
+    }
+    else
+    {
+    QSqlQuery update_s_mod(db);
+    update_s_mod.prepare("UPDATE ServerStructModels SET Title='"+Title+"', Description='"+Description+"', Struct='"+Struct+"', LastMod='"+LastMod.toString(Qt::ISODate)+"', Hash='"+Hash+"', ListFilesLastMod='"+ListFilesLastMod.toString(Qt::ISODate)+"', ListFilesHash='"+ListFilesHash+"', SummListHash='"+SummListHash+"', ServerNum="+QString::number(Num)+"  WHERE DiskFile='"+DiskFile+"'");
+    if(!update_s_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления серверной модели ") << DiskFile;
+    log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ обновления серверной модели  ")+DiskFile));}
 
-        int num_files=-1;
+    num_server_model=is_found_mod.value(1).toInt();
 
-        out >> num_files;
+    QSqlQuery del_model_files(db);
+    del_model_files.prepare("DELETE FROM ServerFiles WHERE Model="+QString::number(num_server_model));
+    if(!del_model_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки файлов серверной модели ") << num_server_model;
+    log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ очистки файлов серверной модели ")+QString::number(num_server_model)));}
 
-        for(int j=0;j<num_files; j++)
-        {
-            QString File="";
-            qlonglong Size=0;
-            QDateTime LastMod_F;
-            QString Hash_F="";
-            qlonglong Num_F=0;
 
-            out >> File;
-            out >> Size;
-            out >> LastMod_F;
-            out >> Hash_F;
-            out >> Num_F;
-
-            QSqlQuery insert_server_files(db);
-            insert_server_files.prepare("INSERT INTO ServerFiles (Model, File, Size, lastMod, Hash, ServerNum) VALUES (?, ?, ?, ?, ?, ?);");
-
-            insert_server_files.bindValue(0, num_server_model);
-            insert_server_files.bindValue(1, File);
-            insert_server_files.bindValue(2, Size);
-            insert_server_files.bindValue(3, LastMod_F);
-            insert_server_files.bindValue(4, Hash_F);
-            insert_server_files.bindValue(5, Num_F);
-            if(!insert_server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления файлов серверной модели ") << num_server_model;
-            log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления файлов серверной модели ")+QString::number(num_server_model)));}
-
-        }
     }
 
+    int num_files=-1;
 
+    out >> num_files;
+
+    for(int j=0;j<num_files; j++)
+    {
+        QString File="";
+        qlonglong Size=0;
+        QDateTime LastMod_F;
+        QString Hash_F="";
+        qlonglong Num_F=0;
+
+        out >> File;
+        out >> Size;
+        out >> LastMod_F;
+        out >> Hash_F;
+        out >> Num_F;
+
+        QSqlQuery insert_server_files(db);
+        insert_server_files.prepare("INSERT INTO ServerFiles (Model, File, Size, lastMod, Hash, ServerNum) VALUES (?, ?, ?, ?, ?, ?);");
+
+        insert_server_files.bindValue(0, num_server_model);
+        insert_server_files.bindValue(1, File);
+        insert_server_files.bindValue(2, Size);
+        insert_server_files.bindValue(3, LastMod_F);
+        insert_server_files.bindValue(4, Hash_F);
+        insert_server_files.bindValue(5, Num_F);
+        if(!insert_server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления файлов серверной модели ") << num_server_model;
+        log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления файлов серверной модели ")+QString::number(num_server_model)));}
+
+    }
+}
 
 
 
@@ -1310,7 +1411,7 @@ void tDatabaseOp::UpdateLastSynchMark(const QString& _file_name, bool _server)
             log.Write(QString(QString("tDatabaseOp \t UpdateLastSynch \t ++ ОШИБКА ++ установки отметок Found=1 на серверные модели содержащих файл ")+_file_name.toUtf8()));}
 
             QSqlQuery sel_models_file1(db);
-            sel_models_file1.prepare("SELECT DISTINCT DiskFile FROM ServerFiles  WHERE File='"+_file_name+"'");
+            sel_models_file1.prepare("SELECT DISTINCT DiskFile FROM ServerStructModels  WHERE Num="+QString::number(model));
             if(!sel_models_file1.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения DiskFile серверных моделей содержащих файл ") << _file_name;
             log.Write(QString(QString("tDatabaseOp \t UpdateLastSynch \t ++ ОШИБКА ++ получения DiskFile серверных моделей содержащих файл ")+_file_name.toUtf8()));}
             sel_models_file1.next();
@@ -1563,7 +1664,7 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server)
     if(_server)
     {
         QSqlQuery is_not_file(db);
-        is_not_file.prepare("SELECT Count(*) FROM ServerStructModels WHERE Found=1");
+        is_not_file.prepare("SELECT Count(*) FROM ServerStructModels WHERE Modified=1");
         if(!is_not_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия файлов для передачи");}
         is_not_file.next();
         int c=is_not_file.value(0).toInt();
@@ -1571,7 +1672,7 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server)
         if(c!=0)
         {
             QSqlQuery ls_model(db);
-            ls_model.prepare("SELECT Num, DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash FROM ServerStructModels WHERE Found=1");
+            ls_model.prepare("SELECT Num, DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash FROM ServerStructModels WHERE Modified=1");
             if(!ls_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки модели для передачи");}
 
             while(ls_model.next())
