@@ -7624,3 +7624,21 @@
 2013-05-02 20:21:29 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
 2013-05-02 20:21:29 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
 2013-05-02 20:21:30 GUI Dialog 	 Dialog 	 Сервер подключен 
+2013-05-02 20:53:10 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 684
+2013-05-02 20:53:10 Client 684 tClient 	 tClient 	 Клиент создан 
+2013-05-02 20:53:10 Client 684 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-02 20:53:10 Client 684 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-02 20:53:10 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-02 20:53:13 Client 684 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-02 20:53:13 Client 684 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 684
+2013-05-02 20:53:13 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-02 20:53:14 Client 684 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-02 20:53:14 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-02 20:53:14 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-02 20:53:19 Client 684 (1) tClient 	 OnDisconnect 	 Клиент 684 Логин 1 отключен 
+2013-05-02 20:53:19 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-02 20:53:19 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-02 20:53:19 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-02 20:53:19 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-02 20:53:19 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-02 20:53:19 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 684 отключен. Осталось 0 клиентов

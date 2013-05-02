@@ -1692,3 +1692,39 @@
 2013-05-02 01:38:10 Конец работы клиента
 2013-05-02 01:38:10 tSettings 	sync	Save parameters 
 ----------------------------------------------------
+----------------------------------------------------
+2013-05-02 20:53:07 tSettings 	SetFilePath	Read parameters 
+2013-05-02 20:53:08 tSettings 	sync	Save parameters 
+2013-05-02 20:53:08 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-02 20:53:08 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-02 20:53:10 Начало работы клиента
+2013-05-02 20:53:10 socket 	Initialize	Создание сокета 
+2013-05-02 20:53:10 Zast 	FindServer	Начало поиска сервера 
+2013-05-02 20:53:10 socket 	ReadReport	Report: 3
+2013-05-02 20:53:10 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-02 20:53:10 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-02 20:53:10 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-02 20:53:10 Zast 	AutorizStart	Сервер найден 
+2013-05-02 20:53:13 Отправка авторизации Логин: 1
+2013-05-02 20:53:13 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-02 20:53:13 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-02 20:53:13 socket 	OnCommand	Получена команда SendAutorization
+2013-05-02 20:53:13 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-02 20:53:13 socket 	ReadReport	Report: 5
+2013-05-02 20:53:13 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-02 20:53:13 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-02 20:53:13 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-02 20:53:14 tConveyor 	OnCommand	Выполнение команды из GUI GetListModels
+2013-05-02 20:53:14 tClientGuiCommand 	GetListModels	 Запрос списка моделей с сервера
+2013-05-02 20:53:14 socket 	OnCommand	Получена команда GetListModels
+2013-05-02 20:53:14 tGetServerListModels 	ExeCommand	 Запрос списка моделей с сервера 
+2013-05-02 20:53:14 socket 	ReadReport	Report: 11
+2013-05-02 20:53:14 tReportGetListServerModels 	ExeCommand	 Получение списка моделей с сервера 
+2013-05-02 20:53:14 tConveyor 	OnCommand	Выполнение команды из сокета ReportGetListServerModels
+2013-05-02 20:53:14 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-02 20:53:14 tDatabaseOp 	SaveServerModelFiles	Обновление серверных таблиц по информации с сервера  
+2013-05-02 20:53:16 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-02 20:53:19 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-02 20:53:19 Конец работы клиента
+2013-05-02 20:53:19 tSettings 	sync	Save parameters 
+----------------------------------------------------
