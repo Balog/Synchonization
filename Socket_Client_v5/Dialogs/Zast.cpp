@@ -30,14 +30,14 @@ void Zast::OnTimerTrue()
 
     delete timer2;
     timer2=NULL;
-     this->setVisible(false);
+    this->setVisible(false);
     if(connect_ok)
     {
 
         delete timer1;
         timer1=NULL;
 
-    dAutoriz->show();
+        dAutoriz->show();
     }
 }
 //---------------------------------------------------------------------
@@ -48,7 +48,7 @@ void Zast::OnTimerFalse()
 
     delete timer2;
     timer2=NULL;
-     this->setVisible(false);
+    this->setVisible(false);
     this->setModal(false);
 
     l="Zast \tOnTimerFalse\tНе обнаружен сервер ";
@@ -63,7 +63,7 @@ void Zast::OnTimerFalse()
 //---------------------------------------------------------------------
 void Zast::mousePressEvent(QMouseEvent* event)
 {
-     this->setVisible(false);
+    this->setVisible(false);
     if(event->button()==Qt::LeftButton && connect_ok)
     {
         OnTimerTrue();
@@ -73,7 +73,7 @@ void Zast::mousePressEvent(QMouseEvent* event)
 //---------------------------------------------------------------------
 void Zast::AutorizStart()
 {
-//    this->setVisible(true);
+    //    this->setVisible(true);
     l="Zast \tAutorizStart\tСервер найден ";
     log.Write(l);
 

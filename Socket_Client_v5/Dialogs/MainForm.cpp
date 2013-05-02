@@ -12,13 +12,9 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
     sLM_Rec=new QStringListModel;
     sLM_DelLoc=new QStringListModel;
 
-//    QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
-
-
-
     ui->setupUi(this);
 
-//    connect(ui->lvListFiles, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(OnClickListFiles(QModelIndex)));
+    //    connect(ui->lvListFiles, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(OnClickListFiles(QModelIndex)));
 
     ui->leRoot->setText(my_settings.GetRoot());
     ui->leTemp->setText(my_settings.GetTemp());
@@ -34,9 +30,6 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
     my_settings.SetServerPort(ui->sbPort->value());
     my_settings.sync();
 
-
-//    conv=new tConveyor(ui);
-//    conv->SetLink(this);
     db_op=new tDatabaseOp();
 
     db_op->RefreshModelsFiles();
@@ -45,9 +38,6 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
 
     mod_conv->StartServer(ui->leAddr->text(), ui->sbPort->value());
 
-
-
-//    conv->SetDatabaseOperator(db_op);
 
     tLog log;
 
@@ -119,10 +109,6 @@ void MainForm::OnDisconnect()
 //---------------------------------------------------------------------
 void MainForm::EndTransactions()
 {
-//    NumCelServModel=ui->lwListModels->currentIndex().row();
-//    OnListFiles();
-
-//    OnListFilesLocal();
     mod_conv->SetTransactionFlag(false);
 
     tLog log;
@@ -133,14 +119,6 @@ void MainForm::EndTransactions()
     MB.setWindowTitle(QString::fromUtf8("Пакет транзакций"));
     MB.exec();
 }
-//---------------------------------------------------------------------
-//void MainForm::ErrorConveyor()
-//{
-//    QMessageBox MB;
-//    MB.setText(QString::fromUtf8("Выполнение пакета команд прервано"));
-//    MB.setWindowTitle(QString::fromUtf8("Пакет команд"));
-//    MB.exec();
-//}
 //---------------------------------------------------------------------
 void MainForm::OnAutorizStart()
 {
@@ -171,14 +149,14 @@ void MainForm::OnAddSend()
     }
     else
     {
-    QStringListModel *M=new QStringListModel;
-    M=(QStringListModel *)MI.model();
+        QStringListModel *M=new QStringListModel;
+        M=(QStringListModel *)MI.model();
 
-    QString S=M->stringList().value(N);
+        QString S=M->stringList().value(N);
 
-    listSend.push_back(S);
-    sLM_Send->setStringList(listSend);
-    ui->lvSendingFiles->setModel(sLM_Send);
+        listSend.push_back(S);
+        sLM_Send->setStringList(listSend);
+        ui->lvSendingFiles->setModel(sLM_Send);
     }
 }
 //---------------------------------------------------------------------
@@ -238,13 +216,6 @@ void MainForm::OnClearDelete()
 //---------------------------------------------------------------------
 void MainForm::OnListFiles()
 {
-//    QByteArray block;
-//    QDataStream out(&block, QIODevice::WriteOnly);
-
-//    out << tr("GetListFiles");
-//    out << tr("GetListFiles");
-
-//    emit RunGui(block);
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
@@ -269,14 +240,14 @@ void MainForm::OnAddReceive()
     }
     else
     {
-    QStringListModel *M=new QStringListModel;
-    M=(QStringListModel *)MI.model();
+        QStringListModel *M=new QStringListModel;
+        M=(QStringListModel *)MI.model();
 
-    QString S=M->stringList().value(N);
+        QString S=M->stringList().value(N);
 
-    listRec.push_back(S);
-    sLM_Rec->setStringList(listRec);
-    ui->lvReceiveFiles->setModel(sLM_Rec);
+        listRec.push_back(S);
+        sLM_Rec->setStringList(listRec);
+        ui->lvReceiveFiles->setModel(sLM_Rec);
     }
 }
 //---------------------------------------------------------------------
@@ -292,7 +263,7 @@ void MainForm::OnDeleteLocal()
 
     int N=MI.row();
     QStringListModel *M=new QStringListModel;
-     M=(QStringListModel *)MI.model();
+    M=(QStringListModel *)MI.model();
 
     QString S=M->stringList().value(N);
 
@@ -339,7 +310,6 @@ void MainForm::OnListFilesLocal()
 {
     QString root=my_settings.GetRoot();
     QStringList list;
-//    CreateFileList(root, list);
     db_op->RefreshModelsFiles();
     SearchModelsOnDatabase(list);
 
@@ -385,7 +355,7 @@ void MainForm::SearchModelsOnDatabase(QStringList &_list)
 //----------------------------------------------------------
 void MainForm::OnUpdateStruct()
 {
-//    db_op->RefreshModelsFiles();
+    //    db_op->RefreshModelsFiles();
 }
 //----------------------------------------------------------
 void MainForm::LocalListFile(const QStringList &list)

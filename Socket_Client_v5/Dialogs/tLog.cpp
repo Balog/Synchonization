@@ -25,10 +25,10 @@ void tLog::Write(QString &_text, bool flag)
 
         if(flag)
         {
-        QDate now_date=QDate::currentDate();
-        QTime now_time=QTime::currentTime();
+            QDate now_date=QDate::currentDate();
+            QTime now_time=QTime::currentTime();
 
-        out << now_date.toString(Qt::ISODate) << " " << now_time.toString(Qt::ISODate) << " " << _text << "\r\n";
+            out << now_date.toString(Qt::ISODate) << " " << now_time.toString(Qt::ISODate) << " " << _text << "\r\n";
         }
         else
         {

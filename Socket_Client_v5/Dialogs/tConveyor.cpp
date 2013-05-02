@@ -44,7 +44,7 @@ tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QOb
 //-----------------------------------------------------------------
 tConveyor::~tConveyor()
 {
-//    Db.close();
+    //    Db.close();
 
 
     delete client_th;
@@ -152,7 +152,7 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
     connect(gui_comm, SIGNAL(VerifyMoveDelete(QString&)), this, SLOT(VerifyMoveDelete(QString&)));
     connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
     connect(gui_comm, SIGNAL(EndConveyor()), this, SLOT(OnEndConveyor()));
-//    connect(gui_comm, SIGNAL(EndTransactions()), this, SIGNAL(OnEndTransactions()));
+    //    connect(gui_comm, SIGNAL(EndTransactions()), this, SIGNAL(OnEndTransactions()));
 
     gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
@@ -274,7 +274,6 @@ void tConveyor::AddCommitTransaction(const bool _send)
         l="tConveyor \tAddCommitTransaction\tФормирование команды коммита транзакции отправки "+gui_command;
         log.Write(l);
 
-        //    QString hash="";
         int s=-1;
         if(_send)
         {
@@ -286,8 +285,6 @@ void tConveyor::AddCommitTransaction(const bool _send)
             s=0;
         }
         out << s;
-
-        //     out << model_struct;
 
         int num_files=file_list.size()+file_list1.size();
 
@@ -366,15 +363,15 @@ void tConveyor::VerifyMoveDelete(QString &m_struct)
 {
     db_op->PrepareUpdateLastSynch(false);
 
-//    MarkLastTables(false);
+    //    MarkLastTables(false);
     for(int i=0; i<file_list.size();i++)
     {
-    db_op->UpdateLastSynchMark(file_list[i].file_name, false);
+        db_op->UpdateLastSynchMark(file_list[i].file_name, false);
     }
 
     for(int i=0; i<file_list1.size();i++)
     {
-    db_op->UpdateLastSynchMark(file_list1[i].file_name, false);
+        db_op->UpdateLastSynchMark(file_list1[i].file_name, false);
     }
 
     model_file=m_struct;
@@ -516,7 +513,7 @@ void tConveyor::AddStartTransaction(const bool _send)
 
             out << _send;
 
-        AddCommand(block);
+            AddCommand(block);
         }
     }
     else
@@ -556,35 +553,35 @@ bool tConveyor::AddSendCommand()
         QByteArray block;
         QDataStream out(&block, QIODevice::WriteOnly);
 
-    QString gui_command="SendFile";
-    QString socket_command="SendFile";
+        QString gui_command="SendFile";
+        QString socket_command="SendFile";
 
 
 
-    out << gui_command;
-    out << socket_command;
-    out << tr("Ошибка на стороне клиента. Невозможно передать файл.");
-    out << file_list[i].file_name;
+        out << gui_command;
+        out << socket_command;
+        out << tr("Ошибка на стороне клиента. Невозможно передать файл.");
+        out << file_list[i].file_name;
 
-    l="tConveyor \tAddSendCommand\tДобавление команды отправки файлов "+ gui_command+" Файл "+file_list[i].file_name.toUtf8();
-    log.Write(l);
-
-    bool sending=false;
-    bool receiving=false;
-    QString H=db_op->GetLocalHash(file_list[i].file_name, sending, receiving);
-    out << H;
-
-    //если файла нет на диске то каков хеш и не важно, команду надо прерывать
-    if(!sending)
-    {
-        l="tConveyor \tAddSendCommand\tФайла "+ file_list[i].file_name+ " нет на диске. Прерывание команды";
+        l="tConveyor \tAddSendCommand\tДобавление команды отправки файлов "+ gui_command+" Файл "+file_list[i].file_name.toUtf8();
         log.Write(l);
 
-        ret=true;
-        break;
-    }
+        bool sending=false;
+        bool receiving=false;
+        QString H=db_op->GetLocalHash(file_list[i].file_name, sending, receiving);
+        out << H;
 
-    AddCommand(block);
+        //если файла нет на диске то каков хеш и не важно, команду надо прерывать
+        if(!sending)
+        {
+            l="tConveyor \tAddSendCommand\tФайла "+ file_list[i].file_name+ " нет на диске. Прерывание команды";
+            log.Write(l);
+
+            ret=true;
+            break;
+        }
+
+        AddCommand(block);
     }
     return ret;
 }
@@ -608,24 +605,24 @@ bool tConveyor::SendFile(const QString &_file_name, QStringList& _all_files)
         l="tConveyor \tSendFile\tПодготовка команды отправки файла "+_file_name.toUtf8();
         log.Write(l);
 
-    _all_files.push_back(_file_name);
+        _all_files.push_back(_file_name);
 
-    bool sending=false;
-    bool receiving=false;
+        bool sending=false;
+        bool receiving=false;
 
-    tFileList fl;
-    fl.file_name=_file_name;
-    fl.client_hash=db_op->GetLocalHash(_file_name, sending, receiving);//"_client_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
-    fl.server_hash=db_op->GetServerHash(_file_name);//"_server_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
-    file_list << fl;
+        tFileList fl;
+        fl.file_name=_file_name;
+        fl.client_hash=db_op->GetLocalHash(_file_name, sending, receiving);//"_client_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
+        fl.server_hash=db_op->GetServerHash(_file_name);//"_server_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
+        file_list << fl;
 
-    //при отправке файла важно что бы файл был на диске
-    if(!sending)
-    {
-        l="tConveyor \tSendFile\tФайла "+_file_name + " нет на диске. Прерывание команды";
-        log.Write(l);
-        ret=true;
-    }
+        //при отправке файла важно что бы файл был на диске
+        if(!sending)
+        {
+            l="tConveyor \tSendFile\tФайла "+_file_name + " нет на диске. Прерывание команды";
+            log.Write(l);
+            ret=true;
+        }
     }
     return ret;
 }
@@ -664,7 +661,7 @@ bool tConveyor::AddReceiveCommand()
         }
 
 
-    AddCommand(block);
+        AddCommand(block);
     }
     return ret;
 }
@@ -672,38 +669,38 @@ bool tConveyor::AddReceiveCommand()
 bool tConveyor::ReceiveFile(const QString &_file_name, QStringList &_all_files)
 {
     bool ret=false;
-bool is_find=false;
-for(int i=0; i<file_list.size(); i++)
-{
-    if(file_list[i].file_name==_file_name)
+    bool is_find=false;
+    for(int i=0; i<file_list.size(); i++)
     {
-        is_find=true;
-        break;
+        if(file_list[i].file_name==_file_name)
+        {
+            is_find=true;
+            break;
+        }
     }
-}
 
-if(!is_find)
-{
-    l="tConveyor \tReceiveFile\tПодготовка команды получения файла "+_file_name.toUtf8();
-    log.Write(l);
+    if(!is_find)
+    {
+        l="tConveyor \tReceiveFile\tПодготовка команды получения файла "+_file_name.toUtf8();
+        log.Write(l);
 
-    _all_files.push_back(_file_name);
-    bool sending=false;
-    bool receiving=false;
-tFileList fl;
-fl.file_name=_file_name;
-fl.client_hash=db_op->GetLocalHash(_file_name, sending, receiving);//"_client_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
-fl.server_hash=db_op->GetServerHash(_file_name);//"_server_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
-file_list << fl;
+        _all_files.push_back(_file_name);
+        bool sending=false;
+        bool receiving=false;
+        tFileList fl;
+        fl.file_name=_file_name;
+        fl.client_hash=db_op->GetLocalHash(_file_name, sending, receiving);//"_client_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
+        fl.server_hash=db_op->GetServerHash(_file_name);//"_server_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
+        file_list << fl;
 
-if(!receiving)
-{
-    l="tConveyor \tReceiveFile\tФайла "+ _file_name+ " на диске изменился. Прерывание команды";
-    log.Write(l);
-    ret=true;
-}
-}
-return ret;
+        if(!receiving)
+        {
+            l="tConveyor \tReceiveFile\tФайла "+ _file_name+ " на диске изменился. Прерывание команды";
+            log.Write(l);
+            ret=true;
+        }
+    }
+    return ret;
 }
 
 //--------------------------------------------------------------------------------
@@ -740,11 +737,11 @@ bool tConveyor::DeletingFile(const QString &_file_name, QStringList &_all_files,
             QString server_hash=db_op->GetServerHash(_file_name);
 
 
-        tFileList fl;
-        fl.file_name=_file_name;
-        fl.client_hash="";
-        fl.server_hash=server_hash;
-        file_list1 << fl;
+            tFileList fl;
+            fl.file_name=_file_name;
+            fl.client_hash="";
+            fl.server_hash=server_hash;
+            file_list1 << fl;
         }
     }
     else
@@ -757,43 +754,43 @@ bool tConveyor::DeletingFile(const QString &_file_name, QStringList &_all_files,
         }
         else
         {
-        bool is_find=false;
-        for(int i=0; i<file_list1.size(); i++)
-        {
-            if(file_list1[i].file_name==_file_name)
+            bool is_find=false;
+            for(int i=0; i<file_list1.size(); i++)
             {
-                if(file_list1[i].client_hash=="" || file_list[i].server_hash=="")
+                if(file_list1[i].file_name==_file_name)
                 {
-                    is_find=true;
-                    break;
+                    if(file_list1[i].client_hash=="" || file_list[i].server_hash=="")
+                    {
+                        is_find=true;
+                        break;
+                    }
                 }
             }
-        }
 
-        if(!is_find)
-        {
-            l="tConveyor \tDeletingFile\tПодготовка команды удаления файла на клиенте "+_file_name;
-            log.Write(l);
-
-            _all_files.push_back(_file_name);
-
-            tFileList fl;
-            fl.file_name=_file_name;
-            if(_send)
+            if(!is_find)
             {
-                fl.client_hash="";
-                fl.server_hash=db_op->GetServerHash(_file_name);//"_server_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
+                l="tConveyor \tDeletingFile\tПодготовка команды удаления файла на клиенте "+_file_name;
+                log.Write(l);
+
+                _all_files.push_back(_file_name);
+
+                tFileList fl;
+                fl.file_name=_file_name;
+                if(_send)
+                {
+                    fl.client_hash="";
+                    fl.server_hash=db_op->GetServerHash(_file_name);//"_server_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
+                }
+                else
+                {
+                    fl.client_hash=cl_hash;//"_client_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
+                    fl.server_hash="";
+                }
+                file_list1 << fl;
             }
-            else
-            {
-                fl.client_hash=cl_hash;//"_client_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
-                fl.server_hash="";
-            }
-            file_list1 << fl;
-        }
         }
     }
-return ret;
+    return ret;
 }
 //--------------------------------------------------------------------------------
 void tConveyor::ClearTempFolder()
@@ -813,57 +810,57 @@ void tConveyor::ClearTempFolder()
 //--------------------------------------------------------------------------------
 bool tConveyor::removeFolder(const QDir & _dir, const bool _del_dir)
 {
-  bool res = false;
-  //Получаем список каталогов
-  QStringList lst_dirs = _dir.entryList(QDir::Dirs |
-                  QDir::AllDirs |
-                  QDir::NoDotAndDotDot | QDir::Hidden);
-  //Получаем список файлов
-  QStringList lst_files = _dir.entryList(QDir::Files | QDir::Hidden);
+    bool res = false;
+    //Получаем список каталогов
+    QStringList lst_dirs = _dir.entryList(QDir::Dirs |
+                                          QDir::AllDirs |
+                                          QDir::NoDotAndDotDot | QDir::Hidden);
+    //Получаем список файлов
+    QStringList lst_files = _dir.entryList(QDir::Files | QDir::Hidden);
 
-  //Удаляем файлы
-  foreach (QString entry, lst_files)
-  {
-   QString entry_abs_path = _dir.absolutePath() + "/" + entry;
-   QFile::setPermissions(entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
-   QFile::remove(entry_abs_path);
-  }
-
-  //Для папок делаем рекурсивный вызов
-  foreach (QString entry, lst_dirs)
-  {
-   QString entry_abs_path = _dir.absolutePath() + "/" + entry;
-   QDir dr(entry_abs_path);
-   removeFolder(dr, true);
-  }
-
-  //Удаляем обрабатываемую папку
-  if(_del_dir)
-  {
-    SetFileAttributes((LPCWSTR)(_dir.path()).data(), !FILE_ATTRIBUTE_HIDDEN);
-      QFile::setPermissions(_dir.absolutePath(), QFile::ReadOwner | QFile::WriteOwner);
-    if (!QDir().rmdir(_dir.absolutePath()))
+    //Удаляем файлы
+    foreach (QString entry, lst_files)
     {
-      res = true;
+        QString entry_abs_path = _dir.absolutePath() + "/" + entry;
+        QFile::setPermissions(entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
+        QFile::remove(entry_abs_path);
+    }
+
+    //Для папок делаем рекурсивный вызов
+    foreach (QString entry, lst_dirs)
+    {
+        QString entry_abs_path = _dir.absolutePath() + "/" + entry;
+        QDir dr(entry_abs_path);
+        removeFolder(dr, true);
+    }
+
+    //Удаляем обрабатываемую папку
+    if(_del_dir)
+    {
+        SetFileAttributes((LPCWSTR)(_dir.path()).data(), !FILE_ATTRIBUTE_HIDDEN);
+        QFile::setPermissions(_dir.absolutePath(), QFile::ReadOwner | QFile::WriteOwner);
+        if (!QDir().rmdir(_dir.absolutePath()))
+        {
+            res = true;
+        }
+        else
+        {
+            res=false;
+        }
     }
     else
     {
-        res=false;
+        res = true;
     }
-  }
-  else
-  {
-res = true;
-  }
-  return res;
+    return res;
 }
 //----------------------------------------------------------
 bool tConveyor::FolderOperation(const QDir & _dir, const int _mode)
 {
     //Получаем список каталогов
     QStringList lst_dirs = _dir.entryList(QDir::Dirs |
-                                        QDir::AllDirs |
-                                        QDir::NoDotAndDotDot | QDir::Hidden);
+                                          QDir::AllDirs |
+                                          QDir::NoDotAndDotDot | QDir::Hidden);
     //Получаем список файлов
     QStringList lst_files = _dir.entryList(QDir::Files | QDir::Hidden);
 
@@ -880,16 +877,16 @@ bool tConveyor::FolderOperation(const QDir & _dir, const int _mode)
 
         switch (_mode)
         {
-            case 0:
-            {
+        case 0:
+        {
             Verify(new_abs_path, stopped, error_file);
-                break;
-            }
-            case 1:
-            {
+            break;
+        }
+        case 1:
+        {
             Move(entry_abs_path, new_abs_path, stopped, error_file);
-                break;
-            }
+            break;
+        }
 
         }
     }
@@ -915,7 +912,7 @@ bool tConveyor::FolderOperation(const QDir & _dir, const int _mode)
     }
 
 
-      return !stopped;
+    return !stopped;
 }
 //----------------------------------------------------------
 void tConveyor::Move(const QString &_entry_abs_path, const QString &_new_abs_path, bool &_stopped, QString &_error_file)
@@ -926,7 +923,7 @@ void tConveyor::Move(const QString &_entry_abs_path, const QString &_new_abs_pat
         QFile file_temp(_entry_abs_path);
         if(file_temp.copy(_new_abs_path))
         {
-//            db_op->UpdateFileInfo(_new_abs_path, model_file);//возможно не нужна, в конце провести проверку базы и все
+            //            db_op->UpdateFileInfo(_new_abs_path, model_file);//возможно не нужна, в конце провести проверку базы и все
 
             QFile::setPermissions(_entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
             tFileList fl;
@@ -983,7 +980,7 @@ bool tConveyor::Delete(const QString &_new_abs_path, QString &_error_file) const
     QFile file_real(_new_abs_path);
     if(file_real.exists())
     {
-    stopped=!file_real.remove();
+        stopped=!file_real.remove();
     }
     else
     {
@@ -1000,12 +997,12 @@ bool tConveyor::Delete(const QString &_new_abs_path, QString &_error_file) const
 //----------------------------------------------------------
 bool tConveyor::DeleteEmptyFolders(const QString &_root) const
 {
-//    bool res = false;
+    //    bool res = false;
     QDir dir(_root);
     //Получаем список каталогов
     QStringList lst_dirs = dir.entryList(QDir::Dirs |
-                                          QDir::AllDirs |
-                                          QDir::NoDotAndDotDot | QDir::Hidden);
+                                         QDir::AllDirs |
+                                         QDir::NoDotAndDotDot | QDir::Hidden);
     //Получаем список файлов
     QStringList lst_files = dir.entryList(QDir::Files | QDir::Hidden);
 
@@ -1029,8 +1026,8 @@ bool tConveyor::DeleteEmptyFolders(const QString &_root) const
             QDir dir(_root);
 
             QStringList lst_dirs = dir.entryList(QDir::Dirs |
-                                                  QDir::AllDirs |
-                                                  QDir::NoDotAndDotDot | QDir::Hidden);
+                                                 QDir::AllDirs |
+                                                 QDir::NoDotAndDotDot | QDir::Hidden);
             //Получаем список файлов
             QStringList lst_files = dir.entryList(QDir::Files | QDir::Hidden);
             if(lst_dirs.size()==0 && lst_files.size()==0)
@@ -1052,11 +1049,6 @@ void tConveyor::CancelOperations()
     file_list.clear();
     v_conv.clear();
 }
-//----------------------------------------------------------
-//void tConveyor::SetDatabaseOperator(tDatabaseOp* _db_op)
-//{
-//    db_op=_db_op;
-//}
 //----------------------------------------------------------
 void tConveyor::VerifyReplacedFiles()
 {
@@ -1118,66 +1110,16 @@ void tConveyor::VerifyDeletedFiles()
 //----------------------------------------------------------
 void tConveyor::CorrectLastSynch(QStringList &_all_files, bool _server)
 {
-//    switch (_server)
-//    {
-//    case 1:
-//    {
-//        //ПЛАН:
-
-//        //По спискам file_list и file_list1 для каждого файла найти модель или модели, в которых он участвует (локальные таблицы)
-//        //Перебирая модели добавить или обновить записи в таблице файлов по каждому файлу (хэш-суммы можно брать из таблицы локальных данных)
-//        //После окончания пройтить по всем моделям LastSynch и пересчитать сумму хэш-сумм
-//        //(это уже отдельной процедурой запускаемой когда весь список транзакций будет завершен)
-
-//        break;
-//    }
-//    case 2:
-//    {
-//        QList<tFileList>summ_list=SummList(file_list, file_list1);
-//        for(int i=0; i<summ_list.size(); i++)
-//        {
-//            db_op->UpdateLastSynch(summ_list[i].file_name);
-//        }
-//        break;
-//    }
-//    }
-//        QList<tFileList>summ_list=SummList(file_list, file_list1);
 
     l="tConveyor \tCorrectLastSynch\tКорректировка таблиц Last ";
     log.Write(l);
 
-        for(int i=0; i<_all_files.size(); i++)
-        {
-            db_op->UpdateLastSynchMark(_all_files[i], _server);
-        }
+    for(int i=0; i<_all_files.size(); i++)
+    {
+        db_op->UpdateLastSynchMark(_all_files[i], _server);
+    }
 
 }
-//----------------------------------------------------------
-//QList<tFileList> tConveyor::SummList(QList<tFileList> _l1, QList<tFileList> _l2)
-//{
-//    QList<tFileList> summ=_l1;
-//    for(int j=0; j<_l2.size();j++)
-//    {
-//        bool find=false;
-//        for(int i=0; i<summ.size(); i++)
-//        {
-
-
-//            if(summ[i].file_name==_l2[j].file_name)
-//            {
-//                find=true;
-//                break;
-//            }
-
-//        }
-//        if(!find)
-//        {
-//            summ.push_back(_l2[j]);
-//        }
-//    }
-
-//    return summ;
-//}
 //----------------------------------------------------------
 void tConveyor::OnEndTransactions()
 {

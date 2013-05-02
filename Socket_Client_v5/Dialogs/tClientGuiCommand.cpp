@@ -116,35 +116,35 @@ void tGuiError::ExeCommand(QDataStream& _in)
 
     if(((MainForm*)link)->GetIsTransaction())
     {
-    //Отмена транзакции из-за ошибки
-    QByteArray block;
-    QDataStream out(&block, QIODevice::WriteOnly);
+        //Отмена транзакции из-за ошибки
+        QByteArray block;
+        QDataStream out(&block, QIODevice::WriteOnly);
 
-    block.clear();
+        block.clear();
 
-    QString command="CancelTransaction";
+        QString command="CancelTransaction";
 
-    out << command;
+        out << command;
 
-    qDebug() << QString::fromUtf8("Ошибка ") << num_error << " " << detail << " " << client_detail;
+        qDebug() << QString::fromUtf8("Ошибка ") << num_error << " " << detail << " " << client_detail;
 
-    l="tClientGuiCommand \tGuiError\tОшибка на сервере "+detail+" "+client_detail;
-    log.Write(l);
+        l="tClientGuiCommand \tGuiError\tОшибка на сервере "+detail+" "+client_detail;
+        log.Write(l);
 
-    l="tClientGuiCommand \tGuiError\tКоманда серверу на отмену транзакции ";
-    log.Write(l);
+        l="tClientGuiCommand \tGuiError\tКоманда серверу на отмену транзакции ";
+        log.Write(l);
 
-    emit SendCommand(block);
+        emit SendCommand(block);
     }
     else
     {
-       QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+        QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
 
-       QTextCodec::setCodecForTr(codec);
-       QTextCodec::setCodecForCStrings(codec);
+        QTextCodec::setCodecForTr(codec);
+        QTextCodec::setCodecForCStrings(codec);
         QMessageBox MB;
-//        QString S=QString::fromUtf8("Ошибка в команде ")+QString::number(num_error)+"\n"+client_detail;
-//        QString S1=codec->toUnicode(S.toAscii())+"\n"+detail;
+        //        QString S=QString::fromUtf8("Ошибка в команде ")+QString::number(num_error)+"\n"+client_detail;
+        //        QString S1=codec->toUnicode(S.toAscii())+"\n"+detail;
 
         QString text="";
         QString title="";
@@ -159,24 +159,9 @@ void tGuiError::ExeCommand(QDataStream& _in)
         }
         MB.setText(text);
         MB.setWindowTitle(title);
-MB.exec();
+        MB.exec();
         emit OkAutoriz(false);
     }
-
-
-
-
-//   QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
-
-//   QTextCodec::setCodecForTr(codec);
-//   QTextCodec::setCodecForCStrings(codec);
-
-//    QMessageBox MB;
-//    QString S=QString::fromUtf8("Ошибка в команде ")+QString::number(num_error)+"\n"+client_detail;
-//    QString S1=codec->toUnicode(S.toAscii())+"\n"+detail;
-//    MB.setText(S1);
-//    MB.setWindowTitle(error);
-//    MB.exec();
 
 }
 //************************************************************************************************
@@ -374,8 +359,8 @@ void tGuiCommitTransaction::ExeCommand(QDataStream &_in)
 
     QString model_file="";
 
-//    _in >> model_file;
-//    out << model_file;
+    //    _in >> model_file;
+    //    out << model_file;
 
     int num_files=-1;
     _in >> num_files;
@@ -411,7 +396,7 @@ void tGuiReportCommitTransaction::ExeCommand(QDataStream &)
     //И при этом проводить ее нужно после того как состояние докальных и серверных таблиц будет обновлено
     //Значит делать это нужно в конце всех транзакций, после обновления локальныз таблиц (при приеме файлов и локальном удалении)
     //или после обновления серверных таблиц (при передаче и серверном удалении)
-//    ((MainForm*)link)->CorrectLastSynch();
+    //    ((MainForm*)link)->CorrectLastSynch();
     emit NextCommand();
 }
 //************************************************************************************************
@@ -422,9 +407,9 @@ void tGuiCancelTransaction::ExeCommand(QDataStream &)
     QDataStream out(&block, QIODevice::WriteOnly);
 
     out << tr("CancelTransaction");
-qDebug() << QString::fromUtf8("отмена транзакции из ГУИ");
-l="tClientGuiCommand \tGuiCancelTransaction\tОтмена транзакции из GUI";
-log.Write(l);
+    qDebug() << QString::fromUtf8("отмена транзакции из ГУИ");
+    l="tClientGuiCommand \tGuiCancelTransaction\tОтмена транзакции из GUI";
+    log.Write(l);
 
     emit SendCommand(block);
 
@@ -437,10 +422,6 @@ void tGuiReportCancelTransaction::ExeCommand(QDataStream &)
     log.Write(l);
 
     ((MainForm*)link)->CancelAllOperations();
-//    QMessageBox mb;
-//    mb.setText(QString::fromUtf8("Транзакция отменена"));
-//    mb.setWindowTitle(QString::fromUtf8("Transaction"));
-//    mb.exec();
 
     qDebug() << QString::fromUtf8("Отмена транзакции с сервера ");
 
@@ -491,7 +472,7 @@ void tGuiReportDeleteFile::ExeCommand(QDataStream &_in)
     _in >> file_name;
 
     QString l="tClientGuiCommand \tGuiReportDeleteFile\tОтчет об удалении файла на сервере ";
-//    l=l1.toUtf8()+file_name.toUtf8();
+    //    l=l1.toUtf8()+file_name.toUtf8();
     log.Write(l);
 
     emit NextCommand();
@@ -522,7 +503,7 @@ void tReportGuiGetListFiles::ExeCommand(QDataStream &_in)
 {
     l="tClientGuiCommand \tReportGuiGetListFiles\tОтчет запроса списка файлов с сервера ";
     log.Write(l);
-//    slm_list=NULL;
+    //    slm_list=NULL;
     QStringList list;
 
     int num=-1;
@@ -533,7 +514,7 @@ void tReportGuiGetListFiles::ExeCommand(QDataStream &_in)
         _in >> file;
         list.push_back(my_settings.GetRoot()+file);
     }
-//(tClient*)link)
+    //(tClient*)link)
     ((MainForm*)link)->LocalListFile(list);
 
 }
@@ -564,11 +545,6 @@ void tGuiPrepareReceiveFile::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tGuiBreakReceiveFile::ExeCommand(QDataStream &)
 {
-//    QMessageBox mb;
-//    mb.setText(QString::fromUtf8("Транзакция отменена\nОдин из локальных файлов нельзя открыть для записи"));
-//    mb.setWindowTitle(QString::fromUtf8("Break transaction"));
-//    mb.exec();
-
     l="tClientGuiCommand \tGuiBreakReceiveFile\t Транзакция отменена. Один из локальных файлов нельзя открыть для записи";
     log.Write(l);
 
@@ -623,16 +599,14 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     bool tr=((MainForm*)link)->GetIsTransaction();
     if(tr)
     {
-    //СЮДА ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST
-    //НАЧАЛО В void tModelsConveyor::StartSendDeleteFiles()
+        //СЮДА ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST
+        //НАЧАЛО В void tModelsConveyor::StartSendDeleteFiles()
         l="tClientGuiCommand \tGetListModels\t ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST";
         log.Write(l);
 
-
-//    ((MainForm*)link)->CorrectLastSynch(true);
         ((MainForm*)link)->CorrectLastSynch(true);
 
-    emit FinalBlockTransactions();
+        emit FinalBlockTransactions();
     }
 
 }
@@ -643,7 +617,6 @@ void tUpdateMainLocal::ExeCommand(QDataStream &)
     log.Write(l);
 
     ((MainForm*)link)->OnListFilesLocal();
-//    ((MainForm*)link)->CorrectLastSynch(false);
     emit NextCommand();
 
 }

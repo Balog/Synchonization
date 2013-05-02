@@ -30,18 +30,18 @@ public:
     ~MainForm();
     void LocalListFile(const QStringList &list);
     void CancelAllOperations();
-//    void ServerListModels(QStringList &list);
+    //    void ServerListModels(QStringList &list);
 
     void SaveServerModelFiles(QByteArray &_block);
     QStringListModel *slm_server_list_models;//модель списка серверных моделей
     int NumCelServModel;
 
-        void CorrectLastSynch(bool _server);
-        bool GetIsTransaction()
-        {
-            bool tr=mod_conv->GetIsTransaction();
-            return tr;
-        }
+    void CorrectLastSynch(bool _server);
+    bool GetIsTransaction()
+    {
+        bool tr=mod_conv->GetIsTransaction();
+        return tr;
+    }
 
 
     
@@ -58,7 +58,7 @@ private:
     void StartServer();
     vector <QByteArray> pr;
 
-//    tConveyor* conv;
+    //    tConveyor* conv;
     tModelsConveyor *mod_conv;
     tDatabaseOp* db_op;
 
@@ -89,9 +89,9 @@ private slots:
     void OnConnect();
     void OnDisconnect();
 
-//    void EndConveyor();
+    //    void EndConveyor();
     void EndTransactions();
-//    void ErrorConveyor();
+    //    void ErrorConveyor();
 
     void OnAutorizStart();
     void OnSetVisible(const bool vis);

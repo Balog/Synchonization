@@ -12,7 +12,7 @@ class tModelsConveyor : public QObject
     Q_OBJECT
 public:
     explicit tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp* _db_op, QObject *parent = 0);
-//    void SetLink(QObject* _link){link=_link;}
+    //    void SetLink(QObject* _link){link=_link;}
     void SetDatabaseOperator(tDatabaseOp *_db_op){ db_op=_db_op;}
     void StartServer(const QString &_addr, const int _port);//Пробросить к конвейру
     void Clear();
@@ -59,9 +59,7 @@ signals:
 private slots:
     void EndConveyor();
     void OnDisconnect();
-//    void OnClose();//пробросить в форму
     void OnAutorizStart();
-//    void OnSetVisible(const bool vis);
     void ErrorConveyor();
     void OnEndTransactions();
 

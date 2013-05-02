@@ -10,7 +10,7 @@
 tSocket::tSocket(const QString &_address, const int _port, const QString &_root, QThread *_owner) :
     comm(NULL), socket(NULL), next_block_size(0)
 {
-//    qDebug() << "Поток Socket в самом начале " << this->thread() ;
+    //    qDebug() << "Поток Socket в самом начале " << this->thread() ;
 
     root=_root;
     address=_address;
@@ -106,8 +106,8 @@ void tSocket::ReadReport()
                 if(comm->Initialize(in))
                 {
                     comm->ExeCommand(in);
-//                    l="socket \tReadReport\tКоманда выполнена";
-//                    log.Write(l);
+                    //                    l="socket \tReadReport\tКоманда выполнена";
+                    //                    log.Write(l);
                 }
                 else
                 {

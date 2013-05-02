@@ -54,18 +54,13 @@ public:
     void StartExecution();
 
     void SearchInfo(QString &_folder, QSqlQuery StructModels);
-//    void SetLink(QObject* _link){link=_link;}
+
     void CancelOperations();
 
     void GetListServerModels();
-//    void SetDatabaseOperator(tDatabaseOp *_db_op);
 
-        void CorrectLastSynch(QStringList &_all_files, bool _server);
-//        bool GetIsTransaction()
-//        {
-//            return Transaction;
-//        }
-        void GetServerModels();
+    void CorrectLastSynch(QStringList &_all_files, bool _server);
+    void GetServerModels();
     void ClearTempFolder();
 
 private:
@@ -88,8 +83,8 @@ private:
     QString temp;
 
     int send_mode;  //1 -- Send
-                    //2 -- Receive
-                    //0 -- ничего не производилось
+    //2 -- Receive
+    //0 -- ничего не производилось
 
 
     bool removeFolder(const QDir &_dir, const bool _del_dir);
@@ -111,8 +106,7 @@ private:
     QString NormalizePathFiles(QString Path);
     void VerifyReplacedFiles();
     void VerifyDeletedFiles();
-//    QList<tFileList> SummList(QList<tFileList> _l1, QList<tFileList> _l2);
-//    bool Transaction;
+
     QString l;
     tLog log;
 

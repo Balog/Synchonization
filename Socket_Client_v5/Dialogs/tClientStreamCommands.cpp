@@ -12,7 +12,7 @@ bool tStreamReceiveFile::Initialize(QDataStream& _in)
     enabled=true;
     read_size=0;
 
-//    _in.device()->reset();
+    //    _in.device()->reset();
     _in >> file_name;
     _in >> file_size;
 
@@ -23,8 +23,8 @@ bool tStreamReceiveFile::Initialize(QDataStream& _in)
     _in >> permission;
     _in >> hash;
 
-//    l="tStreamReceiveFile \tInitialize\t Инициализация приема файла "+file_name.toUtf8();
-//    log.Write(l);
+    //    l="tStreamReceiveFile \tInitialize\t Инициализация приема файла "+file_name.toUtf8();
+    //    log.Write(l);
 
     root=my_settings.GetTemp();
 
@@ -226,8 +226,8 @@ bool tPrepareReceiveFile::Initialize(QDataStream &_in)
 
     error_detected=file.exists() && !file.isOpen();
 
-//    l="tPrepareReceiveFile \tInitialize\t Инициализация подготовки приема файла "+f.toUtf8();
-//    log.Write(l);
+    //    l="tPrepareReceiveFile \tInitialize\t Инициализация подготовки приема файла "+f.toUtf8();
+    //    log.Write(l);
 
     return true;
 }
@@ -296,12 +296,12 @@ bool tSendFile::Initialize(QDataStream &_in)
     root=my_settings.GetRoot();
     _in >> file_name;
 
-//    out << file_name;
-//    out << num_err;
-//    out << error;
-//    out << detail;
-//    out << client_detail;
-//    out << Hash;
+    //    out << file_name;
+    //    out << num_err;
+    //    out << error;
+    //    out << detail;
+    //    out << client_detail;
+    //    out << Hash;
 
 
     num_err=0;
@@ -357,8 +357,8 @@ bool tSendFile::ExeCommand(QDataStream &_out)
         QDateTime create_date_time=info.created();
         QDateTime last_modified=info.lastModified();
         int permission=info.permissions();
-//        tCalcHash ch;
-//        QString hash=ch.GetFileHash(root+file_name);
+        //        tCalcHash ch;
+        //        QString hash=ch.GetFileHash(root+file_name);
 
         _out << hidden;
         _out << create_date_time;
@@ -505,8 +505,8 @@ bool tStreamPrepareSendFile::Initialize(QDataStream &_in)
 
     _in >> file_name;
 
-//    l="tStreamPrepareSendFile \tInitialize\t Инициализация подготовки передачи файла "+file_name.toUtf8();
-//    log.Write(l);
+    //    l="tStreamPrepareSendFile \tInitialize\t Инициализация подготовки передачи файла "+file_name.toUtf8();
+    //    log.Write(l);
 
     return true;
 }
@@ -672,7 +672,7 @@ bool tStreamReportAutorization::ExeCommand(QDataStream &)
 
     emit Result(block);
 
-return true;
+    return true;
 }
 //-----------------------------------------------------------------
 void tStreamReportAutorization::ProcessError(QDataStream &)
@@ -688,7 +688,7 @@ void tStreamReportAutorization::ProcessError(QDataStream &)
     l="tStreamReportAutorization \tProcessError\t Авторизация неудачна ";
     log.Write(l);
 
-        emit Result(block);
+    emit Result(block);
 }
 //-----------------------------------------------------------------
 //*****************************************************************
@@ -775,7 +775,7 @@ bool tStreamReportStartTransaction::ExeCommand(QDataStream &)
 //-----------------------------------------------------------------
 void tStreamReportStartTransaction::ProcessError(QDataStream &_in)
 {
-//Коллизия при записи файлов
+    //Коллизия при записи файлов
     QString error="";
     _in >> error;
     int num_error=6;
@@ -806,8 +806,8 @@ bool tStreamCommitTransaction::Initialize(QDataStream &_in)
     send=-1;
     _in >> send;
 
-//    model_file="";
-//    _in >> model_file;
+    //    model_file="";
+    //    _in >> model_file;
 
     int num_files=-1;
     _in >> num_files;
@@ -851,7 +851,7 @@ bool tStreamCommitTransaction::ExeCommand(QDataStream &_out)
 
     _out << send;
 
-//    _out << model_file;
+    //    _out << model_file;
 
     int num_files=file_list.size();
 
@@ -860,16 +860,16 @@ bool tStreamCommitTransaction::ExeCommand(QDataStream &_out)
     for(int i=0; i<num_files; i++)
     {
         _out << file_list[i].file_name;
-//        if(send)
-//        {
-//            //отправка файла
-//            _out << file_list[i].client_hash;
-//        }
-//        else
-//        {
-//            //прием файла
-//            _out << file_list[i].server_hash;
-//        }
+        //        if(send)
+        //        {
+        //            //отправка файла
+        //            _out << file_list[i].client_hash;
+        //        }
+        //        else
+        //        {
+        //            //прием файла
+        //            _out << file_list[i].server_hash;
+        //        }
         _out << file_list[i].client_hash;
         _out << file_list[i].server_hash;
     }
@@ -970,7 +970,7 @@ void tStreamCancelTransaction::ProcessError(QDataStream &)
 
     emit Result(block);
 
-//    return true;
+    //    return true;
 }
 
 //-----------------------------------------------------------------
@@ -1002,23 +1002,23 @@ bool tDeleteFile::Initialize(QDataStream &_in)
 //-----------------------------------------------------------------
 bool tDeleteFile::ExeCommand(QDataStream &_out)
 {
-        QString Comm="Command:";
-        int num_comm=9;
+    QString Comm="Command:";
+    int num_comm=9;
 
-        _out << quint16(0);
+    _out << quint16(0);
 
-        _out << Comm;
-        _out << num_comm;
-        _out << file_name;
-        _out << hash;
+    _out << Comm;
+    _out << num_comm;
+    _out << file_name;
+    _out << hash;
 
-        l="tDeleteFile \tExeCommand\t Отправка команды удаления файла с сервера "+file_name.toUtf8();
-        log.Write(l);
+    l="tDeleteFile \tExeCommand\t Отправка команды удаления файла с сервера "+file_name.toUtf8();
+    log.Write(l);
 
-        _out.device()->seek(0);
-        quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
-        _out << bs;
-        _out.device()->seek(_out.device()->size());
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+    _out.device()->seek(_out.device()->size());
 
     return false;
 }
@@ -1068,7 +1068,7 @@ bool tGetListFiles::ExeCommand(QDataStream &_out)
     _out << bs;
     _out.device()->seek(_out.device()->size());
 
-return false;
+    return false;
 }
 //-----------------------------------------------------------------
 //*****************************************************************
@@ -1125,7 +1125,7 @@ bool tGetServerListModels::ExeCommand(QDataStream &_out)
     _out << bs;
     _out.device()->seek(_out.device()->size());
 
-return false;
+    return false;
 }
 //-----------------------------------------------------------------
 //*****************************************************************

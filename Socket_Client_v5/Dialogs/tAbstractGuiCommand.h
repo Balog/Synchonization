@@ -18,11 +18,10 @@ public:
 protected:
 
     Ui::MainForm *ui;
-//    MainForm *form;
-QObject* link;
+    QObject* link;
 
-QString l;
-tLog log;
+    QString l;
+    tLog log;
 
 
 signals:
