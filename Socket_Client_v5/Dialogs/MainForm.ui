@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1059</width>
+    <width>1076</width>
     <height>906</height>
    </rect>
   </property>
@@ -151,13 +151,16 @@
     <rect>
      <x>10</x>
      <y>40</y>
-     <width>1041</width>
+     <width>1061</width>
      <height>801</height>
     </rect>
    </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
-     <string>Tab 1</string>
+     <string>Чтение</string>
     </attribute>
     <widget class="QPushButton" name="pbLocalListFiles">
      <property name="geometry">
@@ -528,7 +531,12 @@
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
-     <string>Tab 2</string>
+     <string>Запись</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Администрирование</string>
     </attribute>
    </widget>
   </widget>
@@ -575,7 +583,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1050</x>
-     <y>1393</y>
+     <y>613</y>
     </hint>
     <hint type="destinationlabel">
      <x>367</x>
@@ -591,7 +599,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>517</x>
-     <y>1591</y>
+     <y>811</y>
     </hint>
     <hint type="destinationlabel">
      <x>367</x>
@@ -607,7 +615,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>495</x>
-     <y>882</y>
+     <y>102</y>
     </hint>
     <hint type="destinationlabel">
      <x>367</x>
@@ -623,7 +631,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>487</x>
-     <y>1424</y>
+     <y>644</y>
     </hint>
     <hint type="destinationlabel">
      <x>276</x>
@@ -639,7 +647,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>477</x>
-     <y>1071</y>
+     <y>291</y>
     </hint>
     <hint type="destinationlabel">
      <x>291</x>
@@ -655,7 +663,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>449</x>
-     <y>1561</y>
+     <y>781</y>
     </hint>
     <hint type="destinationlabel">
      <x>210</x>
@@ -671,7 +679,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>479</x>
-     <y>1394</y>
+     <y>614</y>
     </hint>
     <hint type="destinationlabel">
      <x>946</x>
@@ -687,7 +695,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1035</x>
-     <y>887</y>
+     <y>107</y>
     </hint>
     <hint type="destinationlabel">
      <x>1010</x>
@@ -703,7 +711,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1005</x>
-     <y>1423</y>
+     <y>643</y>
     </hint>
     <hint type="destinationlabel">
      <x>982</x>
@@ -719,7 +727,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1036</x>
-     <y>1093</y>
+     <y>313</y>
     </hint>
     <hint type="destinationlabel">
      <x>996</x>
@@ -735,7 +743,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>1025</x>
-     <y>1591</y>
+     <y>811</y>
     </hint>
     <hint type="destinationlabel">
      <x>1004</x>
@@ -751,7 +759,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>979</x>
-     <y>1561</y>
+     <y>781</y>
     </hint>
     <hint type="destinationlabel">
      <x>928</x>
@@ -766,8 +774,8 @@
    <slot>OnUpdateStruct()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>582</y>
+     <x>77</x>
+     <y>860</y>
     </hint>
     <hint type="destinationlabel">
      <x>111</x>
@@ -782,8 +790,8 @@
    <slot>OnClearModels()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>136</x>
-     <y>591</y>
+     <x>146</x>
+     <y>860</y>
     </hint>
     <hint type="destinationlabel">
      <x>228</x>
@@ -799,7 +807,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>927</x>
-     <y>1290</y>
+     <y>510</y>
     </hint>
     <hint type="destinationlabel">
      <x>974</x>
@@ -815,7 +823,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>403</x>
-     <y>1301</y>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
      <x>466</x>

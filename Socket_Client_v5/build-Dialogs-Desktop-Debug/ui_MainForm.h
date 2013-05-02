@@ -71,12 +71,13 @@ public:
     QPushButton *pbClearReceiveAll;
     QLabel *label_6;
     QWidget *tab_2;
+    QWidget *tab_3;
 
     void setupUi(QDialog *MainForm)
     {
         if (MainForm->objectName().isEmpty())
             MainForm->setObjectName(QString::fromUtf8("MainForm"));
-        MainForm->resize(1059, 906);
+        MainForm->resize(1076, 906);
         leRoot = new QLineEdit(MainForm);
         leRoot->setObjectName(QString::fromUtf8("leRoot"));
         leRoot->setGeometry(QRect(610, 845, 141, 20));
@@ -111,7 +112,7 @@ public:
         pushButton->setGeometry(QRect(100, 860, 75, 23));
         tabWidget = new QTabWidget(MainForm);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 40, 1041, 801));
+        tabWidget->setGeometry(QRect(10, 40, 1061, 801));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         pbLocalListFiles = new QPushButton(tab);
@@ -208,6 +209,9 @@ public:
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         tabWidget->addTab(tab_2, QString());
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        tabWidget->addTab(tab_3, QString());
 
         retranslateUi(MainForm);
         QObject::connect(pbConnect, SIGNAL(clicked()), MainForm, SLOT(OnConnect()));
@@ -228,6 +232,9 @@ public:
         QObject::connect(pushButton, SIGNAL(clicked()), MainForm, SLOT(OnClearModels()));
         QObject::connect(lwLocalListModels, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLocalModelClick(QModelIndex)));
         QObject::connect(lwListModels, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnServerModelClick(QModelIndex)));
+
+        tabWidget->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(MainForm);
     } // setupUi
@@ -266,8 +273,9 @@ public:
         pbClearDeleteLocal->setText(QApplication::translate("MainForm", "Clear Delete", 0, QApplication::UnicodeUTF8));
         pbClearReceiveAll->setText(QApplication::translate("MainForm", "Clear All", 0, QApplication::UnicodeUTF8));
         label_6->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\321\207\320\270\321\202\320\260\321\202\321\214 \321\201 \321\201\320\265\321\200\320\262\320\265\321\200\320\260", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainForm", "Tab 1", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainForm", "Tab 2", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainForm", "\320\247\321\202\320\265\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainForm", "\320\227\320\260\320\277\320\270\321\201\321\214", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainForm", "\320\220\320\264\320\274\320\270\320\275\320\270\321\201\321\202\321\200\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
