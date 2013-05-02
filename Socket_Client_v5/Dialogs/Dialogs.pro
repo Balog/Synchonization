@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     tSettings.cpp \
     tDatabaseOp.cpp \
     tModelsConveyor.cpp \
-    tLog.cpp
+    tLog.cpp \
+    tEditLoginPass.cpp
 
 HEADERS  += Zast.h \
     Autoriz.h \
@@ -46,8 +47,10 @@ HEADERS  += Zast.h \
     socket.h \
     tDatabaseOp.h \
     tModelsConveyor.h \
-    tLog.h
+    tLog.h \
+    tEditLoginPass.h
 
 FORMS    += Zast.ui \
     Autoriz.ui \
-    MainForm.ui
+    MainForm.ui \
+    tEditLoginPass.ui

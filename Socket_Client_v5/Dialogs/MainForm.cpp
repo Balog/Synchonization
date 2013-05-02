@@ -2,10 +2,12 @@
 #include "ui_MainForm.h"
 #include <QFileDialog>
 #include "tLog.h"
+#include <QRegExp>
+
 
 extern tSettings my_settings;
 
-MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_conv(NULL), db_op(NULL), sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL)
+MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_conv(NULL), db_op(NULL), sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL), login_pass(new tEditLoginPass)
 {
     sLM_Send=new QStringListModel;
     sLM_Del=new QStringListModel;
@@ -38,6 +40,8 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
 
     mod_conv->StartServer(ui->leAddr->text(), ui->sbPort->value());
 
+    login_pass->setVisible(false);
+    connect(login_pass, SIGNAL(EndEditing(QString&,QString&)), this, SLOT(OnEndEditLoginPassword(QString&,QString&)));
 
     tLog log;
 
@@ -430,5 +434,51 @@ void MainForm::CorrectLastSynch(bool _server)
 
     db_op->ExecUpdateLastSynch(_server);
 
+}
+//----------------------------------------------------------
+void MainForm::OnNewLogin()
+{
+    login_pass->setModal(true);
+    login_pass->setVisible(true);
+}
+//----------------------------------------------------------
+void MainForm::OnEditLogin()
+{
+    login_pass->setModal(true);
+    login_pass->setVisible(true);
+}
+//----------------------------------------------------------
+void MainForm::OnDelLogin()
+{
+
+}
+//----------------------------------------------------------
+void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password)
+{
+    if(_login.length()>0 && _password.length()>0)
+    {
+        QRegExp exp;
+        exp.setPattern("^[a-zA-Z0-9]+$");
+
+        if(exp.indexIn(_login)>=0)
+        {
+            login_pass->setModal(false);
+            login_pass->setVisible(false);
+        }
+        else
+        {
+            QMessageBox MB;
+            MB.setText(QString::fromUtf8("Логин содержит недопустимые символы"));
+            MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+            MB.exec();
+        }
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Логин и пароль не могут быть пустыми"));
+        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+        MB.exec();
+    }
 }
 //----------------------------------------------------------

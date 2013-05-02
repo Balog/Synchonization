@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1076</width>
-    <height>906</height>
+    <height>846</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>610</x>
-     <y>845</y>
+     <y>820</y>
      <width>141</width>
      <height>20</height>
     </rect>
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>550</x>
-     <y>847</y>
+     <y>822</y>
      <width>51</width>
      <height>16</height>
     </rect>
@@ -97,8 +97,8 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>872</y>
+     <x>760</x>
+     <y>822</y>
      <width>51</width>
      <height>16</height>
     </rect>
@@ -110,8 +110,8 @@
   <widget class="QLineEdit" name="leTemp">
    <property name="geometry">
     <rect>
-     <x>610</x>
-     <y>870</y>
+     <x>820</x>
+     <y>820</y>
      <width>141</width>
      <height>20</height>
     </rect>
@@ -120,39 +120,13 @@
     <string/>
    </property>
   </widget>
-  <widget class="QPushButton" name="pbUpdateStruct">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>860</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Обновить</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>860</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Очистить</string>
-   </property>
-  </widget>
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>40</y>
      <width>1061</width>
-     <height>801</height>
+     <height>771</height>
     </rect>
    </property>
    <property name="currentIndex">
@@ -165,8 +139,8 @@
     <widget class="QPushButton" name="pbLocalListFiles">
      <property name="geometry">
       <rect>
-       <x>967</x>
-       <y>720</y>
+       <x>970</x>
+       <y>690</y>
        <width>81</width>
        <height>23</height>
       </rect>
@@ -207,7 +181,7 @@
        <x>537</x>
        <y>554</y>
        <width>421</width>
-       <height>161</height>
+       <height>141</height>
       </rect>
      </property>
     </widget>
@@ -237,8 +211,8 @@
     <widget class="QPushButton" name="pbListFiles">
      <property name="geometry">
       <rect>
-       <x>437</x>
-       <y>720</y>
+       <x>440</x>
+       <y>690</y>
        <width>81</width>
        <height>23</height>
       </rect>
@@ -361,8 +335,8 @@
     <widget class="QPushButton" name="pbStartReceive">
      <property name="geometry">
       <rect>
-       <x>967</x>
-       <y>750</y>
+       <x>970</x>
+       <y>720</y>
        <width>81</width>
        <height>23</height>
       </rect>
@@ -449,15 +423,15 @@
        <x>7</x>
        <y>554</y>
        <width>421</width>
-       <height>161</height>
+       <height>141</height>
       </rect>
      </property>
     </widget>
     <widget class="QPushButton" name="pbStartSend">
      <property name="geometry">
       <rect>
-       <x>437</x>
-       <y>750</y>
+       <x>440</x>
+       <y>720</y>
        <width>81</width>
        <height>23</height>
       </rect>
@@ -538,6 +512,101 @@
     <attribute name="title">
      <string>Администрирование</string>
     </attribute>
+    <widget class="QListView" name="listView">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>271</width>
+       <height>671</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>10</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_4">
+     <property name="geometry">
+      <rect>
+       <x>208</x>
+       <y>8</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Проверка</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>13</x>
+       <y>12</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Пароль</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_5">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>720</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Добавить</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_6">
+     <property name="geometry">
+      <rect>
+       <x>104</x>
+       <y>720</y>
+       <width>91</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Редактировать</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_7">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>720</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Удалить</string>
+     </property>
+    </widget>
+    <widget class="QTreeView" name="treeView">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>40</y>
+       <width>761</width>
+       <height>671</height>
+      </rect>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
@@ -768,38 +837,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>pbUpdateStruct</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnUpdateStruct()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>77</x>
-     <y>860</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>111</x>
-     <y>579</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnClearModels()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>146</x>
-     <y>860</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>228</x>
-     <y>582</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>lwLocalListModels</sender>
    <signal>clicked(QModelIndex)</signal>
    <receiver>MainForm</receiver>
@@ -831,6 +868,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnNewLogin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>42</x>
+     <y>818</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>22</x>
+     <y>847</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_6</sender>
+   <signal>clicked()</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnEditLogin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>166</x>
+     <y>819</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>105</x>
+     <y>846</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_7</sender>
+   <signal>clicked()</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnDelLogin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>267</x>
+     <y>821</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>289</x>
+     <y>845</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>OnConnect()</slot>
@@ -853,5 +938,8 @@
   <slot>OnClearModels()</slot>
   <slot>OnLocalModelClick(QModelIndex)</slot>
   <slot>OnServerModelClick(QModelIndex)</slot>
+  <slot>OnNewLogin()</slot>
+  <slot>OnEditLogin()</slot>
+  <slot>OnDelLogin()</slot>
  </slots>
 </ui>

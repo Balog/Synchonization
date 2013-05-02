@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QStringListModel>
 #include "tDatabaseOp.h"
+#include "tEditLoginPass.h"
 #include <vector>
 
 
@@ -81,6 +82,8 @@ private:
 
     void SearchModelsOnDatabase(QStringList &_list);
 
+    tEditLoginPass *login_pass;
+
 
 
 private slots:
@@ -118,7 +121,11 @@ private slots:
 
     void OnLocalModelClick(const QModelIndex Ind);
 
+    void OnNewLogin();
+    void OnEditLogin();
+    void OnDelLogin();
 
+    void OnEndEditLoginPassword(QString& _login, QString& _password);
 
 
 public slots:
