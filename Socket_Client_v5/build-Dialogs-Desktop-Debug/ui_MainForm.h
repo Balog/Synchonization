@@ -71,13 +71,13 @@ public:
     QLabel *label_6;
     QWidget *tab_2;
     QWidget *tab_3;
-    QListView *listView;
+    QListView *lvLogins;
     QLineEdit *lineEdit;
     QPushButton *pushButton_4;
     QLabel *label_11;
-    QPushButton *pushButton_5;
-    QPushButton *pushButton_6;
-    QPushButton *pushButton_7;
+    QPushButton *pbAddUser;
+    QPushButton *pbEditUser;
+    QPushButton *pbDelUser;
     QTreeView *treeView;
 
     void setupUi(QDialog *MainForm)
@@ -212,9 +212,9 @@ public:
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
-        listView = new QListView(tab_3);
-        listView->setObjectName(QString::fromUtf8("listView"));
-        listView->setGeometry(QRect(10, 40, 271, 671));
+        lvLogins = new QListView(tab_3);
+        lvLogins->setObjectName(QString::fromUtf8("lvLogins"));
+        lvLogins->setGeometry(QRect(10, 40, 271, 671));
         lineEdit = new QLineEdit(tab_3);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
         lineEdit->setGeometry(QRect(60, 10, 141, 20));
@@ -224,15 +224,17 @@ public:
         label_11 = new QLabel(tab_3);
         label_11->setObjectName(QString::fromUtf8("label_11"));
         label_11->setGeometry(QRect(13, 12, 46, 13));
-        pushButton_5 = new QPushButton(tab_3);
-        pushButton_5->setObjectName(QString::fromUtf8("pushButton_5"));
-        pushButton_5->setGeometry(QRect(10, 720, 75, 23));
-        pushButton_6 = new QPushButton(tab_3);
-        pushButton_6->setObjectName(QString::fromUtf8("pushButton_6"));
-        pushButton_6->setGeometry(QRect(104, 720, 91, 23));
-        pushButton_7 = new QPushButton(tab_3);
-        pushButton_7->setObjectName(QString::fromUtf8("pushButton_7"));
-        pushButton_7->setGeometry(QRect(210, 720, 75, 23));
+        pbAddUser = new QPushButton(tab_3);
+        pbAddUser->setObjectName(QString::fromUtf8("pbAddUser"));
+        pbAddUser->setGeometry(QRect(10, 720, 75, 23));
+        pbEditUser = new QPushButton(tab_3);
+        pbEditUser->setObjectName(QString::fromUtf8("pbEditUser"));
+        pbEditUser->setEnabled(false);
+        pbEditUser->setGeometry(QRect(104, 720, 91, 23));
+        pbDelUser = new QPushButton(tab_3);
+        pbDelUser->setObjectName(QString::fromUtf8("pbDelUser"));
+        pbDelUser->setEnabled(false);
+        pbDelUser->setGeometry(QRect(210, 720, 75, 23));
         treeView = new QTreeView(tab_3);
         treeView->setObjectName(QString::fromUtf8("treeView"));
         treeView->setGeometry(QRect(290, 40, 761, 671));
@@ -255,11 +257,12 @@ public:
         QObject::connect(pbLocalListFiles, SIGNAL(clicked()), MainForm, SLOT(OnListFilesLocal()));
         QObject::connect(lwLocalListModels, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLocalModelClick(QModelIndex)));
         QObject::connect(lwListModels, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnServerModelClick(QModelIndex)));
-        QObject::connect(pushButton_5, SIGNAL(clicked()), MainForm, SLOT(OnNewLogin()));
-        QObject::connect(pushButton_6, SIGNAL(clicked()), MainForm, SLOT(OnEditLogin()));
-        QObject::connect(pushButton_7, SIGNAL(clicked()), MainForm, SLOT(OnDelLogin()));
+        QObject::connect(pbAddUser, SIGNAL(clicked()), MainForm, SLOT(OnNewLogin()));
+        QObject::connect(pbEditUser, SIGNAL(clicked()), MainForm, SLOT(OnEditLogin()));
+        QObject::connect(pbDelUser, SIGNAL(clicked()), MainForm, SLOT(OnDelLogin()));
+        QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainForm);
@@ -301,9 +304,9 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainForm", "\320\227\320\260\320\277\320\270\321\201\321\214", 0, QApplication::UnicodeUTF8));
         pushButton_4->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\320\262\320\265\321\200\320\272\320\260", 0, QApplication::UnicodeUTF8));
         label_11->setText(QApplication::translate("MainForm", "\320\237\320\260\321\200\320\276\320\273\321\214", 0, QApplication::UnicodeUTF8));
-        pushButton_5->setText(QApplication::translate("MainForm", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
-        pushButton_6->setText(QApplication::translate("MainForm", "\320\240\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\321\202\321\214", 0, QApplication::UnicodeUTF8));
-        pushButton_7->setText(QApplication::translate("MainForm", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
+        pbAddUser->setText(QApplication::translate("MainForm", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
+        pbEditUser->setText(QApplication::translate("MainForm", "\320\240\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\321\202\321\214", 0, QApplication::UnicodeUTF8));
+        pbDelUser->setText(QApplication::translate("MainForm", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainForm", "\320\220\320\264\320\274\320\270\320\275\320\270\321\201\321\202\321\200\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

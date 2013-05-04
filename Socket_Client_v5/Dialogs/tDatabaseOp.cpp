@@ -1657,3 +1657,4 @@ void tDatabaseOp::GetDeleteLocalModelFiles(const QString& _name_model, QStringLi
     }
 }
 //----------------------------------------------------------
+

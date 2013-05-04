@@ -39,6 +39,9 @@ tSocket::tSocket(const QString &_address, const int _port, const QString &_root,
     vf.reg("Report:10",Create_tReportGetListFiles);
     vf.reg("GetListModels",Create_tGetServerListModels);
     vf.reg("Report:11",Create_tReportGetListServerModels);
+
+    vf.reg("SaveLoginPassword",Create_tStreamSaveLoginPassword);
+    vf.reg("Report:12",Create_tStreamReportSaveLoginPassword);
 }
 //-------------------------------------------------------------------------------
 tSocket::~tSocket()

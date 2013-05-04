@@ -125,7 +125,9 @@ private slots:
     void OnEditLogin();
     void OnDelLogin();
 
-    void OnEndEditLoginPassword(QString& _login, QString& _password);
+    void OnEndEditLoginPassword(QString& _login, QString& _password, bool _new_user);
+
+    void OnLoginsClicked(QModelIndex Ind);
 
 
 public slots:

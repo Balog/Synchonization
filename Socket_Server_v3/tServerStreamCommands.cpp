@@ -1558,3 +1558,69 @@ bool tGetListModels::ExeCommand(QDataStream &, QDataStream &_out)
 }
 //----------------------------------------------------------
 //**********************************************************
+//----------------------------------------------------------
+bool tSaveLoginPassword::Initialize(QDataStream &_in)
+{
+    login="";
+    password="";
+    new_user=false;
+
+    _in >> login;
+    _in >> password;
+    _in >> new_user;
+
+    return true;
+}
+//----------------------------------------------------------
+bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
+{
+    bool ret=false;
+    qlonglong s_num=0;
+
+    InitDB(((tClient*)link)->GetDB());
+    QString mess=db_op->SaveLoginPass(login, password, new_user, s_num);
+
+    if(mess.length()==0)
+    {
+        //Операция успешна
+        ret=false;
+
+        QString comm="Report:";
+        int num_com=12;
+
+        _out << quint16(0);
+        _out << comm;
+        _out << num_com;
+        _out << s_num;
+
+
+    }
+    else
+    {
+        //Ошибка
+        ret=true;
+
+        QString comm="Error:";
+        int num_com=12;
+
+        _out << quint16(0);
+        _out << comm;
+        _out << num_com;
+        _out << mess;
+
+    }
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+
+    return ret;
+}
+//----------------------------------------------------------
+void tSaveLoginPassword::SendReport(QDataStream &)
+{
+
+}
+//----------------------------------------------------------
+//**********************************************************
+//----------------------------------------------------------

@@ -389,4 +389,40 @@ inline tAbstractStreamCommand* Create_tReportGetListServerModels()
     return new tReportGetListServerModels;
 }
 //****************************************************************
+class tStreamSaveLoginPassword : public tAbstractStreamCommand
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &);
+    virtual bool ExeCommand(QDataStream &_out);
+    virtual void ProcessError(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+
+private:
+    QString login;
+    QString password;
+    bool new_user;
+};
+inline tAbstractStreamCommand* Create_tStreamSaveLoginPassword()
+{
+    return new tStreamSaveLoginPassword;
+}
+//****************************************************************
+class tStreamReportSaveLoginPassword : public tAbstractStreamCommand
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &_in);
+    virtual bool ExeCommand(QDataStream &);
+    virtual void ProcessError(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+
+private:
+    qlonglong s_num;
+};
+inline tAbstractStreamCommand* Create_tStreamReportSaveLoginPassword()
+{
+    return new tStreamReportSaveLoginPassword;
+}
+//****************************************************************
 #endif // TCLIENTSTREAMCOMMANDS_H

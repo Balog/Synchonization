@@ -34,6 +34,8 @@ public:
     void SetTransactionFlag(bool _flag);
     void MarkLastTables(bool _send);
 
+    void SendLoginPassword(QString &_login, QString &_password, bool _new_user);
+
 private:
     QObject *link;
     Ui::MainForm *ui;

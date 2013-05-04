@@ -40,6 +40,9 @@ tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QOb
     gui_vf.reg("ReportGetListServerModels",Create_tReportGuiGetListServerModels);
 
     gui_vf.reg("UpdateMainLocal",Create_tUpdateMainLocal);
+
+    gui_vf.reg("SaveLoginPassword",Create_tGUISaveLoginPassword);
+    gui_vf.reg("GUIReportSaveLoginPassword",Create_tGUIReportSaveLoginPassword);
 }
 //-----------------------------------------------------------------
 tConveyor::~tConveyor()

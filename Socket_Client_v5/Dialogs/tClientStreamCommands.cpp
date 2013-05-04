@@ -1154,3 +1154,67 @@ bool tReportGetListServerModels::ExeCommand(QDataStream &)
 //-----------------------------------------------------------------
 //*****************************************************************
 //-----------------------------------------------------------------
+bool tStreamSaveLoginPassword::Initialize(QDataStream &_in)
+{
+    login="";
+    password="";
+    new_user=false;
+
+    _in >> login;
+    _in >> password;
+    _in >> new_user;
+
+    return true;
+}
+//-----------------------------------------------------------------
+bool tStreamSaveLoginPassword::ExeCommand(QDataStream &_out)
+{
+    l="tSaveLoginPassword \tExeCommand\t Отправка на сервер данных о пользователе для регистрации ";
+    log.Write(l);
+
+    QString Comm="Command:";
+    int num_comm=12;
+
+    _out << quint16(0);
+
+    _out << Comm;
+    _out << num_comm;
+
+    _out << login;
+    _out << password;
+    _out << new_user;
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+    _out.device()->seek(_out.device()->size());
+
+    return false;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------
+bool tStreamReportSaveLoginPassword::Initialize(QDataStream &_in)
+{
+    s_num=0;
+    _in >> s_num;
+    return true;
+}
+//-----------------------------------------------------------------
+bool tStreamReportSaveLoginPassword::ExeCommand(QDataStream &)
+{
+    l="tReportGetListServerModels \tExeCommand\t Регистрация данных пользователя прошла успешно ";
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("GUIReportSaveLoginPassword");
+    out << s_num;
+
+    emit Result(block);
+    return true;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------

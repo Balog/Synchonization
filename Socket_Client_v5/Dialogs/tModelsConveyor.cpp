@@ -332,3 +332,21 @@ void tModelsConveyor::OnEndTransactions()
     db_op->RefreshModelsFiles();
     emit EndTransactionsMain();
 }
+//-------------------------------------------------------------------------
+void tModelsConveyor::SendLoginPassword(QString &_login, QString &_password, bool _new_user)
+{
+    l="tModelsConveyor \tAutorization\tПроверка и регистрация пользователя на сервере";
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("SaveLoginPassword");
+    out << tr("SaveLoginPassword");
+    out << _login;
+    out << _password;
+    out << _new_user;
+
+//    emit RunGui(block);
+    conv->OnRunGuiCommand(block);
+}

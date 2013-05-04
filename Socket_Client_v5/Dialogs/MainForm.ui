@@ -130,7 +130,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -512,7 +512,7 @@
     <attribute name="title">
      <string>Администрирование</string>
     </attribute>
-    <widget class="QListView" name="listView">
+    <widget class="QListView" name="lvLogins">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -558,7 +558,7 @@
       <string>Пароль</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="pbAddUser">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -571,7 +571,10 @@
       <string>Добавить</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_6">
+    <widget class="QPushButton" name="pbEditUser">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>104</x>
@@ -584,7 +587,10 @@
       <string>Редактировать</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_7">
+    <widget class="QPushButton" name="pbDelUser">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -667,8 +673,8 @@
    <slot>OnStartSend()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>517</x>
-     <y>811</y>
+     <x>519</x>
+     <y>803</y>
     </hint>
     <hint type="destinationlabel">
      <x>367</x>
@@ -731,8 +737,8 @@
    <slot>OnListFiles()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>449</x>
-     <y>781</y>
+     <x>452</x>
+     <y>773</y>
     </hint>
     <hint type="destinationlabel">
      <x>210</x>
@@ -811,8 +817,8 @@
    <slot>OnStartReceive()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1025</x>
-     <y>811</y>
+     <x>1027</x>
+     <y>803</y>
     </hint>
     <hint type="destinationlabel">
      <x>1004</x>
@@ -827,8 +833,8 @@
    <slot>OnListFilesLocal()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>979</x>
-     <y>781</y>
+     <x>982</x>
+     <y>773</y>
     </hint>
     <hint type="destinationlabel">
      <x>928</x>
@@ -869,14 +875,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_5</sender>
+   <sender>pbAddUser</sender>
    <signal>clicked()</signal>
    <receiver>MainForm</receiver>
    <slot>OnNewLogin()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>42</x>
-     <y>818</y>
+     <x>44</x>
+     <y>803</y>
     </hint>
     <hint type="destinationlabel">
      <x>22</x>
@@ -885,14 +891,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_6</sender>
+   <sender>pbEditUser</sender>
    <signal>clicked()</signal>
    <receiver>MainForm</receiver>
    <slot>OnEditLogin()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>166</x>
-     <y>819</y>
+     <x>168</x>
+     <y>803</y>
     </hint>
     <hint type="destinationlabel">
      <x>105</x>
@@ -901,18 +907,34 @@
    </hints>
   </connection>
   <connection>
-   <sender>pushButton_7</sender>
+   <sender>pbDelUser</sender>
    <signal>clicked()</signal>
    <receiver>MainForm</receiver>
    <slot>OnDelLogin()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>267</x>
-     <y>821</y>
+     <x>269</x>
+     <y>803</y>
     </hint>
     <hint type="destinationlabel">
      <x>289</x>
      <y>845</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lvLogins</sender>
+   <signal>clicked(QModelIndex)</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnLoginsClicked(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>280</x>
+     <y>713</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>821</y>
     </hint>
    </hints>
   </connection>
@@ -941,5 +963,6 @@
   <slot>OnNewLogin()</slot>
   <slot>OnEditLogin()</slot>
   <slot>OnDelLogin()</slot>
+  <slot>OnLoginsClicked(QModelIndex)</slot>
  </slots>
 </ui>

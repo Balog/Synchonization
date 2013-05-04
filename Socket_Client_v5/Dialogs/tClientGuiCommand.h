@@ -324,4 +324,30 @@ inline tAbstractGuiCommand* Create_tUpdateMainLocal()
     return new tUpdateMainLocal;
 }
 //**********************************************************************************
+class tGUISaveLoginPassword : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &_in);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUISaveLoginPassword()
+{
+    return new tGUISaveLoginPassword;
+}
+//**********************************************************************************
+class tGUIReportSaveLoginPassword : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUIReportSaveLoginPassword()
+{
+    return new tGUIReportSaveLoginPassword;
+}
+//**********************************************************************************
 #endif // TCLIENTGUICOMMAND_H

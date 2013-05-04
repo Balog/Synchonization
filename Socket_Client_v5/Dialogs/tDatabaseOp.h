@@ -44,6 +44,8 @@ public:
     void UpdateServerTable(const QString &_name);
     void GetDeleteLocalModelFiles(const QString& _name_model, QStringList& _list_files);
 
+
+
 private:
     QSqlDatabase db;
     QString root;

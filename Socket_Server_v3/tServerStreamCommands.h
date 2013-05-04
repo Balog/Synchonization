@@ -314,4 +314,25 @@ inline tAbstractStreamCommand* Create_tGetListModels()
     return new tGetListModels;
 }
 //*****************************************************************
+class tSaveLoginPassword : public tDatabaseStreamCommand
+
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &);
+    virtual bool ExeCommand(QDataStream &, QDataStream &_out);
+    virtual void SendErrorReport(QDataStream &){}
+    virtual void SendReport(QDataStream &);
+    virtual void ExternalExit() {emit EndCommand();}
+private:
+    QString login;
+    QString password;
+    bool new_user;
+
+};
+inline tAbstractStreamCommand* Create_tSaveLoginPassword()
+{
+    return new tSaveLoginPassword;
+}
+//*****************************************************************
 #endif // TSERVERSTREAMCOMMANDS_H

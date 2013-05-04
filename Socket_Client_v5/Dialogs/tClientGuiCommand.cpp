@@ -621,3 +621,39 @@ void tUpdateMainLocal::ExeCommand(QDataStream &)
 
 }
 //************************************************************************************************
+void tGUISaveLoginPassword::ExeCommand(QDataStream &_in)
+{
+    l="tClientGuiCommand \ttSaveLoginPassword\t Передача данных на сервер о пользователе для регистрации ";
+    log.Write(l);
+
+    QString comm="";
+    QString login="";
+    QString password="";
+    bool new_user=false;
+
+    _in >> comm;
+    _in >> login;
+    _in >> password;
+    _in >> new_user;
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    block.clear();
+
+    out << comm;
+    out << login;
+    out << password;
+    out << new_user;
+
+    emit SendCommand(block);
+
+}
+//************************************************************************************************
+void tGUIReportSaveLoginPassword::ExeCommand(QDataStream &_in)
+{
+qlonglong s_num=0;
+_in >> s_num;
+//((MainForm*)link)->RegisterUser(s_num);
+}
+//************************************************************************************************

@@ -41,7 +41,7 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
     mod_conv->StartServer(ui->leAddr->text(), ui->sbPort->value());
 
     login_pass->setVisible(false);
-    connect(login_pass, SIGNAL(EndEditing(QString&,QString&)), this, SLOT(OnEndEditLoginPassword(QString&,QString&)));
+    connect(login_pass, SIGNAL(EndEditing(QString&,QString&,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,bool)));
 
     tLog log;
 
@@ -440,12 +440,22 @@ void MainForm::OnNewLogin()
 {
     login_pass->setModal(true);
     login_pass->setVisible(true);
+    login_pass->new_user=true;
 }
 //----------------------------------------------------------
 void MainForm::OnEditLogin()
 {
+    QModelIndex MI=ui->lvLogins->currentIndex();
+    int N=MI.row();
+    QStringListModel *M=new QStringListModel;
+    M=(QStringListModel *)MI.model();
+    QString S=M->stringList().value(N);
+    delete M;
+
     login_pass->setModal(true);
     login_pass->setVisible(true);
+    login_pass->SetLogin(S);
+    login_pass->new_user=false;
 }
 //----------------------------------------------------------
 void MainForm::OnDelLogin()
@@ -453,7 +463,7 @@ void MainForm::OnDelLogin()
 
 }
 //----------------------------------------------------------
-void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password)
+void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password, bool _new_user)
 {
     if(_login.length()>0 && _password.length()>0)
     {
@@ -462,8 +472,13 @@ void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password)
 
         if(exp.indexIn(_login)>=0)
         {
-            login_pass->setModal(false);
-            login_pass->setVisible(false);
+            //Логин и пароль проверены на клиенте и отправляются на сервер для дальнейшей проверки в БД и регистрации
+
+            mod_conv->SendLoginPassword(_login, _password, _new_user);
+//            login_pass->setModal(false);
+//            login_pass->setVisible(false);
+
+
         }
         else
         {
@@ -482,3 +497,17 @@ void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password)
     }
 }
 //----------------------------------------------------------
+void MainForm::OnLoginsClicked(QModelIndex Ind)
+{
+    int N=Ind.row();
+    if(N>=0)
+    {
+        ui->pbEditUser->setEnabled(true);
+        ui->pbDelUser->setEnabled(true);
+    }
+    else
+    {
+        ui->pbEditUser->setEnabled(false);
+        ui->pbDelUser->setEnabled(false);
+    }
+}

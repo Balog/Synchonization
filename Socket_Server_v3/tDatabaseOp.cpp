@@ -955,4 +955,54 @@ void tDatabaseOp::Update_LastMod_Hash(const QString& _file_name, const QDateTime
 
 }
 //----------------------------------------------------------
+QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &s_num)
+{
+    //Если _new_user истина то нужно проверить не используется ли уже такой пароль
+    //если используется то вернуть ошибку (сообщение)
+    //если не используется - внести данные и вернуть пустую строку
 
+    //если _new_user ложь то найти такой логин
+    //если такого логина нет то вернуть ошибку (сообщение)
+    //если такой логин есть - отредактировать запись и вернуть пустую строку
+
+    QString ret="";
+
+    if(_new_user)
+    {
+        //создание нового пользователя
+        QSqlQuery is_log_present(db);
+        is_log_present.prepare("SELECT Count(*) FROM Logins WHERE Login='"+_login+"'");
+        if(!is_log_present.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки новизны нового логина ") << _login;
+        log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()));}
+        is_log_present.next();
+
+        int c=is_log_present.value(0).toInt();
+        if(c==0)
+        {
+            //логин новый
+            QSqlQuery insert_new_user(db);
+            insert_new_user.prepare("INSERT INTO Logins (Login, PassHash, NoDelete) VALUES (?, ?, ?)");
+
+            insert_new_user.bindValue(0, _login);
+            tCalcHash ch;
+            ch.AddToHash(_pass.toAscii());
+            insert_new_user.bindValue(1, ch.ResultHash());
+            insert_new_user.bindValue(2,0);
+
+            if(!insert_new_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления нового логина ") << _login;
+            log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ добавления нового логина ")+_login.toUtf8()));}
+            s_num=insert_new_user.lastInsertId().toLongLong();
+        }
+        else
+        {
+            //логин уже используется
+            ret="Пользователь с таким логином уже существует!\nРегистрация невозможна!";
+        }
+    }
+    else
+    {
+        //редактирование имеющегося пользователя
+    }
+
+    return ret;
+}
