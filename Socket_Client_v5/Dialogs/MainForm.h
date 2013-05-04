@@ -44,7 +44,7 @@ public:
         return tr;
     }
 
-
+    void RegisterUser(qlonglong _s_num);
     
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей

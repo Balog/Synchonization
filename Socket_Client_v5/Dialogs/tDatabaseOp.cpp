@@ -1657,4 +1657,16 @@ void tDatabaseOp::GetDeleteLocalModelFiles(const QString& _name_model, QStringLi
     }
 }
 //----------------------------------------------------------
+void tDatabaseOp::SaveLoginPassword(QString &_login, QString &_password, bool _new_user, qlonglong _s_num)
+{
+    if(_new_user)
+    {
+        //новый пользователь
 
+    }
+    else
+    {
+        //пользователь уже есть
+    }
+}
+//----------------------------------------------------------

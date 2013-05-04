@@ -654,6 +654,6 @@ void tGUIReportSaveLoginPassword::ExeCommand(QDataStream &_in)
 {
 qlonglong s_num=0;
 _in >> s_num;
-//((MainForm*)link)->RegisterUser(s_num);
+((MainForm*)link)->RegisterUser(s_num);
 }
 //************************************************************************************************

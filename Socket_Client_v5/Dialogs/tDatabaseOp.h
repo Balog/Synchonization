@@ -44,7 +44,7 @@ public:
     void UpdateServerTable(const QString &_name);
     void GetDeleteLocalModelFiles(const QString& _name_model, QStringList& _list_files);
 
-
+    void SaveLoginPassword(QString &_login, QString &_password, bool _new_user, qlonglong _s_num);
 
 private:
     QSqlDatabase db;

@@ -511,3 +511,11 @@ void MainForm::OnLoginsClicked(QModelIndex Ind)
         ui->pbDelUser->setEnabled(false);
     }
 }
+//----------------------------------------------------------
+void MainForm::RegisterUser(qlonglong _s_num)
+{
+    QString login=login_pass->GetLogin();
+    QString password=login_pass->GetPassword();
+    bool new_user=login_pass->new_user;
+    db_op->SaveLoginPassword(login, password, new_user, _s_num);
+}
