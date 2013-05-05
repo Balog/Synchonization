@@ -45,7 +45,8 @@ public:
     }
 
     void RegisterUser(qlonglong _s_num);
-    
+    void UpdateLogins();
+
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
     QStringListModel *sLM_loc_list_files;//модель локальных файлов
@@ -83,6 +84,9 @@ private:
     void SearchModelsOnDatabase(QStringList &_list);
 
     tEditLoginPass *login_pass;
+
+    QStringList listLogins;
+    QStringListModel *sLM_Logins;
 
 
 

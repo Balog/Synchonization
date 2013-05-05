@@ -13,6 +13,7 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
     sLM_Del=new QStringListModel;
     sLM_Rec=new QStringListModel;
     sLM_DelLoc=new QStringListModel;
+    sLM_Logins=new QStringListModel;
 
     ui->setupUi(this);
 
@@ -42,6 +43,8 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
 
     login_pass->setVisible(false);
     connect(login_pass, SIGNAL(EndEditing(QString&,QString&,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,bool)));
+
+    UpdateLogins();
 
     tLog log;
 
@@ -518,4 +521,17 @@ void MainForm::RegisterUser(qlonglong _s_num)
     QString password=login_pass->GetPassword();
     bool new_user=login_pass->new_user;
     db_op->SaveLoginPassword(login, password, new_user, _s_num);
+
+    login_pass->setModal(false);
+    login_pass->setVisible(false);
+    login_pass->ClearAll();
+
+    UpdateLogins();
+}
+//----------------------------------------------------------
+void MainForm::UpdateLogins()
+{
+    listLogins=db_op->GetLoginsList();
+    sLM_Logins->setStringList(listLogins);
+    ui->lvLogins->setModel(sLM_Logins);
 }

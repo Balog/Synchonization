@@ -2479,3 +2479,540 @@
 2013-05-05 01:12:44 Конец работы клиента
 2013-05-05 01:12:44 tSettings 	sync	Save parameters 
 ----------------------------------------------------
+----------------------------------------------------
+2013-05-05 21:59:21 tSettings 	SetFilePath	Read parameters 
+2013-05-05 21:59:21 tSettings 	sync	Save parameters 
+2013-05-05 21:59:21 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 21:59:21 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 21:59:23 Начало работы клиента
+2013-05-05 21:59:23 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 21:59:25 socket 	ReadReport	Report: 3
+2013-05-05 21:59:25 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 21:59:25 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 21:59:25 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 21:59:25 Zast 	AutorizStart	Сервер найден 
+2013-05-05 21:59:29 Отправка авторизации Логин: 1
+2013-05-05 21:59:29 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 21:59:29 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 21:59:29 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 21:59:29 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 21:59:29 socket 	ReadReport	Report: 5
+2013-05-05 21:59:29 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 21:59:29 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 21:59:29 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 21:59:39 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 21:59:39 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 21:59:39 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 21:59:39 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 21:59:39 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 21:59:51 socket 	ReadReport	Report: 12
+2013-05-05 22:00:00 tReportGetListServerModels 	ExeCommand	 Регистрация данных пользователя прошла успешно 
+2013-05-05 22:00:00 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportSaveLoginPassword
+2013-05-05 22:21:16 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-05 22:21:16 Конец работы клиента
+2013-05-05 22:21:16 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-05 23:18:26 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:18:26 tSettings 	sync	Save parameters 
+2013-05-05 23:18:26 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:18:26 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+----------------------------------------------------
+2013-05-05 23:19:56 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:19:56 tSettings 	sync	Save parameters 
+2013-05-05 23:19:56 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:19:56 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:19:57 socket 	Initialize	Создание сокета 
+2013-05-05 23:19:57 Начало работы клиента
+2013-05-05 23:19:57 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:19:57 socket 	ReadReport	Report: 3
+2013-05-05 23:19:57 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:19:57 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:19:57 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:19:57 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:20:01 Отправка авторизации Логин: 1
+2013-05-05 23:20:01 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:20:01 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:20:01 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:20:01 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:20:01 socket 	ReadReport	Report: 5
+2013-05-05 23:20:01 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:20:01 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:20:01 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:20:12 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:20:12 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:20:12 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:20:12 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:20:12 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:20:14 socket 	ReadReport	Report: 12
+2013-05-05 23:20:19 tReportGetListServerModels 	ExeCommand	 Регистрация данных пользователя прошла успешно 
+2013-05-05 23:20:19 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportSaveLoginPassword
+2013-05-05 23:20:44 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:20:44 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:20:44 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:20:44 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:20:44 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:20:45 socket 	ReadReport	Report: 12
+2013-05-05 23:20:45 tReportGetListServerModels 	ExeCommand	 Регистрация данных пользователя прошла успешно 
+2013-05-05 23:20:45 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportSaveLoginPassword
+2013-05-05 23:20:59 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:20:59 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:20:59 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:20:59 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:20:59 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:20:59 socket 	ReadReport	Report: 12
+2013-05-05 23:20:59 tReportGetListServerModels 	ExeCommand	 Регистрация данных пользователя прошла успешно 
+2013-05-05 23:20:59 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportSaveLoginPassword
+2013-05-05 23:21:08 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:21:08 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:21:08 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:21:08 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:21:08 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:21:08 socket 	ReadReport	Report: 12
+2013-05-05 23:21:08 tReportGetListServerModels 	ExeCommand	 Регистрация данных пользователя прошла успешно 
+2013-05-05 23:21:08 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportSaveLoginPassword
+2013-05-05 23:21:20 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:21:20 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:21:20 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:21:20 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:21:20 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:21:20 socket 	ReadReport	Report: 12
+2013-05-05 23:21:20 tReportGetListServerModels 	ExeCommand	 Регистрация данных пользователя прошла успешно 
+2013-05-05 23:21:20 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportSaveLoginPassword
+2013-05-05 23:22:17 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-05 23:22:17 Конец работы клиента
+2013-05-05 23:22:17 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-05 23:22:22 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:22:23 tSettings 	sync	Save parameters 
+2013-05-05 23:22:23 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:22:23 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:22:25 socket 	Initialize	Создание сокета 
+2013-05-05 23:22:25 Начало работы клиента
+2013-05-05 23:22:25 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:22:25 socket 	ReadReport	Report: 3
+2013-05-05 23:22:25 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:22:25 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:22:25 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:22:25 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:22:28 Отправка авторизации Логин: 1
+2013-05-05 23:22:28 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:22:28 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:22:28 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:22:28 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:22:28 socket 	ReadReport	Report: 5
+2013-05-05 23:22:28 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:22:28 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:22:28 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:22:36 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-05 23:22:36 Конец работы клиента
+2013-05-05 23:22:36 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-05 23:22:59 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:22:59 tSettings 	sync	Save parameters 
+2013-05-05 23:22:59 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:22:59 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:23:02 socket 	Initialize	Создание сокета 
+2013-05-05 23:23:02 Начало работы клиента
+2013-05-05 23:23:02 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:23:02 socket 	ReadReport	Report: 3
+2013-05-05 23:23:02 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:23:02 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:23:02 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:23:02 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:23:05 Отправка авторизации Логин: 1
+2013-05-05 23:23:05 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:23:05 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:23:05 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:23:05 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:23:05 socket 	ReadReport	Report: 5
+2013-05-05 23:23:05 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:23:05 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:23:05 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:23:14 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-05 23:23:14 Конец работы клиента
+2013-05-05 23:23:14 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-05 23:23:58 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:23:59 tSettings 	sync	Save parameters 
+2013-05-05 23:23:59 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:23:59 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:24:01 socket 	Initialize	Создание сокета 
+2013-05-05 23:24:01 Начало работы клиента
+2013-05-05 23:24:01 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:24:01 socket 	ReadReport	Report: 3
+2013-05-05 23:24:01 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:24:01 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:24:01 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:24:01 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:24:04 Отправка авторизации Логин: 1
+2013-05-05 23:24:04 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:24:04 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:24:04 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:24:04 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:24:04 socket 	ReadReport	Report: 5
+2013-05-05 23:24:04 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:24:04 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:24:04 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:24:29 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-05 23:24:29 Конец работы клиента
+2013-05-05 23:24:29 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-05 23:31:51 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:31:51 tSettings 	sync	Save parameters 
+2013-05-05 23:31:51 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:31:51 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:31:53 socket 	Initialize	Создание сокета 
+2013-05-05 23:31:53 Начало работы клиента
+2013-05-05 23:31:53 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:31:55 socket 	ReadReport	Report: 3
+2013-05-05 23:31:55 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:31:55 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:31:55 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:31:55 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:31:59 Отправка авторизации Логин: 1
+2013-05-05 23:31:59 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:31:59 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:31:59 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:31:59 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:31:59 socket 	ReadReport	Report: 5
+2013-05-05 23:31:59 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:31:59 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:31:59 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:32:07 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:32:07 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:32:07 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:32:07 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:32:07 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:32:13 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-05 23:32:13 Конец работы клиента
+2013-05-05 23:32:13 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-05 23:32:44 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:32:44 tSettings 	sync	Save parameters 
+2013-05-05 23:32:44 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:32:44 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:32:46 socket 	Initialize	Создание сокета 
+2013-05-05 23:32:46 Начало работы клиента
+2013-05-05 23:32:46 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:32:46 socket 	ReadReport	Report: 3
+2013-05-05 23:32:46 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:32:46 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:32:46 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:32:46 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:32:48 Отправка авторизации Логин: 1
+2013-05-05 23:32:48 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:32:48 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:32:48 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:32:48 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:32:48 socket 	ReadReport	Report: 5
+2013-05-05 23:32:48 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:32:48 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:32:48 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:32:54 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:32:54 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:32:54 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:32:54 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:32:54 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:33:18 socket 	OnDisconnected	Отключение сервером 
+2013-05-05 23:33:18 tConveyor 	Clear	Сброс списка команд транзакции
+2013-05-05 23:34:03 tSettings 	sync	Save parameters 
+2013-05-05 23:34:03 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:34:03 socket 	Initialize	Создание сокета 
+2013-05-05 23:34:04 socket 	ReadReport	Report: 3
+2013-05-05 23:34:04 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:34:04 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:34:04 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:34:04 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:34:08 Отправка авторизации Логин: 1
+2013-05-05 23:34:08 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:34:08 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:34:08 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:34:08 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:34:08 socket 	ReadReport	Report: 5
+2013-05-05 23:34:08 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:34:08 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:34:08 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:34:12 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:34:12 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:34:12 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:34:12 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:34:12 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:34:19 socket 	ReadReport	Принято сообщение об ошибке12
+2013-05-05 23:34:29 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-05 23:34:29 Конец работы клиента
+2013-05-05 23:34:29 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-05 23:34:43 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:34:43 tSettings 	sync	Save parameters 
+2013-05-05 23:34:43 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:34:43 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:34:45 socket 	Initialize	Создание сокета 
+2013-05-05 23:34:45 Начало работы клиента
+2013-05-05 23:34:45 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:34:45 socket 	ReadReport	Report: 3
+2013-05-05 23:34:45 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:34:45 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:34:45 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:34:45 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:34:47 Отправка авторизации Логин: 1
+2013-05-05 23:34:47 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:34:47 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:34:47 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:34:47 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:34:47 socket 	ReadReport	Report: 5
+2013-05-05 23:34:47 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:34:47 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:34:47 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:34:59 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:34:59 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:34:59 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:34:59 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:34:59 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:35:30 socket 	ReadReport	Принято сообщение об ошибке12
+----------------------------------------------------
+2013-05-05 23:45:16 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:45:16 tSettings 	sync	Save parameters 
+2013-05-05 23:45:16 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:45:16 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:45:17 socket 	Initialize	Создание сокета 
+2013-05-05 23:45:17 Начало работы клиента
+2013-05-05 23:45:17 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:45:24 socket 	ReadReport	Report: 3
+2013-05-05 23:45:24 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:45:24 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:45:24 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:45:24 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:45:30 Отправка авторизации Логин: 1
+2013-05-05 23:45:30 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:45:30 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:45:30 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:45:30 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:45:30 socket 	ReadReport	Report: 5
+2013-05-05 23:45:30 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:45:30 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:45:30 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:45:35 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:45:35 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:45:35 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:45:35 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:45:35 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:45:44 socket 	ReadReport	Принято сообщение об ошибке12
+2013-05-05 23:46:04 tStreamReportSaveLoginPassword 	ProcessError	 Login www не создан.
+Пользователь с таким логином уже существует!
+Регистрация невозможна!
+2013-05-05 23:46:53 tConveyor 	OnCommand	Выполнение команды из сокета Error
+2013-05-05 23:47:02 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-05 23:47:02 Конец работы клиента
+2013-05-05 23:47:02 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-05 23:47:28 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:47:28 tSettings 	sync	Save parameters 
+2013-05-05 23:47:28 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:47:28 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:47:30 socket 	Initialize	Создание сокета 
+2013-05-05 23:47:30 Начало работы клиента
+2013-05-05 23:47:30 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:47:30 socket 	ReadReport	Report: 3
+2013-05-05 23:47:30 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:47:30 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:47:30 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:47:30 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:47:32 Отправка авторизации Логин: 1
+2013-05-05 23:47:32 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:47:32 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:47:32 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:47:32 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:47:32 socket 	ReadReport	Report: 5
+2013-05-05 23:47:32 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:47:32 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:47:32 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:47:37 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:47:37 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:47:37 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:47:37 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:47:37 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:47:41 socket 	ReadReport	Принято сообщение об ошибке12
+2013-05-05 23:47:48 tStreamReportSaveLoginPassword 	ProcessError	 Login www не создан.
+Пользователь с таким логином уже существует!
+Регистрация невозможна!
+2013-05-05 23:47:48 tConveyor 	OnCommand	Выполнение команды из сокета Error
+----------------------------------------------------
+2013-05-05 23:50:12 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:50:12 tSettings 	sync	Save parameters 
+2013-05-05 23:50:12 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:50:12 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:50:14 socket 	Initialize	Создание сокета 
+2013-05-05 23:50:14 Начало работы клиента
+2013-05-05 23:50:14 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:50:14 socket 	ReadReport	Report: 3
+2013-05-05 23:50:14 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:50:14 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:50:14 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:50:14 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:50:17 Отправка авторизации Логин: 1
+2013-05-05 23:50:17 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:50:17 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:50:17 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:50:17 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:50:17 socket 	ReadReport	Report: 5
+2013-05-05 23:50:17 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:50:17 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:50:17 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:50:22 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:50:22 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:50:22 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:50:22 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:50:22 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:50:22 socket 	ReadReport	Принято сообщение об ошибке12
+2013-05-05 23:50:28 tStreamReportSaveLoginPassword 	ProcessError	 Login www не создан.
+Пользователь с таким логином уже существует!
+Регистрация невозможна!
+2013-05-05 23:50:28 tConveyor 	OnCommand	Выполнение команды из сокета Error
+2013-05-05 23:51:39 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:51:39 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:51:39 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:51:39 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:51:39 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:51:39 socket 	ReadReport	Принято сообщение об ошибке12
+2013-05-05 23:51:39 tStreamReportSaveLoginPassword 	ProcessError	 Login www не создан.
+Пользователь с таким логином уже существует!
+Регистрация невозможна!
+2013-05-05 23:51:39 tConveyor 	OnCommand	Выполнение команды из сокета Error
+----------------------------------------------------
+2013-05-05 23:52:54 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:52:54 tSettings 	sync	Save parameters 
+2013-05-05 23:52:54 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:52:54 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:52:55 Начало работы клиента
+ета 
+2013-05-05 23:52:55 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:52:55 socket 	ReadReport	Report: 3
+2013-05-05 23:52:55 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:52:55 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:52:55 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:52:55 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:52:59 Отправка авторизации Логин: 1
+2013-05-05 23:52:59 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:52:59 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:52:59 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:52:59 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:52:59 socket 	ReadReport	Report: 5
+2013-05-05 23:52:59 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:52:59 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:52:59 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:53:04 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:53:04 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:53:04 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:53:04 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:53:04 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:53:04 socket 	ReadReport	Принято сообщение об ошибке12
+2013-05-05 23:53:04 tStreamReportSaveLoginPassword 	ProcessError	 Login www не создан.
+Пользователь с таким логином уже существует!
+Регистрация невозможна!
+2013-05-05 23:53:04 tConveyor 	OnCommand	Выполнение команды из сокета Error
+2013-05-05 23:53:22 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:53:22 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:53:22 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:53:22 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:53:22 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:53:22 socket 	ReadReport	Принято сообщение об ошибке12
+2013-05-05 23:53:22 tStreamReportSaveLoginPassword 	ProcessError	 Login www не создан.
+Пользователь с таким логином уже существует!
+Регистрация невозможна!
+2013-05-05 23:53:22 tConveyor 	OnCommand	Выполнение команды из сокета Error
+----------------------------------------------------
+2013-05-05 23:56:38 tSettings 	SetFilePath	Read parameters 
+2013-05-05 23:56:38 tSettings 	sync	Save parameters 
+2013-05-05 23:56:38 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-05 23:56:38 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-05 23:56:40 socket 	Initialize	Создание сокета 
+2013-05-05 23:56:40 Начало работы клиента
+2013-05-05 23:56:40 Zast 	FindServer	Начало поиска сервера 
+2013-05-05 23:56:40 socket 	ReadReport	Report: 3
+2013-05-05 23:56:40 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-05 23:56:40 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-05 23:56:40 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-05 23:56:40 Zast 	AutorizStart	Сервер найден 
+2013-05-05 23:56:43 Отправка авторизации Логин: 1
+2013-05-05 23:56:43 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-05 23:56:43 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-05 23:56:43 socket 	OnCommand	Получена команда SendAutorization
+2013-05-05 23:56:43 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-05 23:56:43 socket 	ReadReport	Report: 5
+2013-05-05 23:56:43 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-05 23:56:43 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-05 23:56:43 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-05 23:56:48 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:56:48 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:56:48 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:56:48 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:56:48 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:56:48 socket 	ReadReport	Принято сообщение об ошибке12
+2013-05-05 23:56:48 tStreamReportSaveLoginPassword 	ProcessError	 Login www не создан.
+Пользователь с таким логином уже существует!
+Регистрация невозможна!
+2013-05-05 23:56:48 tConveyor 	OnCommand	Выполнение команды из сокета Error
+2013-05-05 23:57:02 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-05 23:57:02 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-05 23:57:02 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-05 23:57:02 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-05 23:57:02 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-05 23:57:02 socket 	ReadReport	Принято сообщение об ошибке12
+2013-05-05 23:57:02 tStreamReportSaveLoginPassword 	ProcessError	 Login www не создан.
+Пользователь с таким логином уже существует!
+Регистрация невозможна!
+2013-05-05 23:57:02 tConveyor 	OnCommand	Выполнение команды из сокета Error
+2013-05-05 23:58:16 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-05 23:58:16 Конец работы клиента
+2013-05-05 23:58:16 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-06 00:01:38 tSettings 	SetFilePath	Read parameters 
+2013-05-06 00:01:38 tSettings 	sync	Save parameters 
+2013-05-06 00:01:38 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-06 00:01:38 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-06 00:01:40 socket 	Initialize	Создание сокета 
+2013-05-06 00:01:40 Начало работы клиента
+2013-05-06 00:01:40 Zast 	FindServer	Начало поиска сервера 
+2013-05-06 00:01:42 socket 	ReadReport	Report: 3
+2013-05-06 00:01:42 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-06 00:01:42 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-06 00:01:42 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-06 00:01:42 Zast 	AutorizStart	Сервер найден 
+2013-05-06 00:01:44 Отправка авторизации Логин: 1
+2013-05-06 00:01:44 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-06 00:01:44 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-06 00:01:44 socket 	OnCommand	Получена команда SendAutorization
+2013-05-06 00:01:44 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-06 00:01:44 socket 	ReadReport	Report: 5
+2013-05-06 00:01:44 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-06 00:01:44 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-06 00:01:44 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-06 00:01:48 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-06 00:01:48 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-06 00:01:48 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-06 00:01:48 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-06 00:01:48 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-06 00:01:48 socket 	ReadReport	Report: 12
+2013-05-06 00:01:48 tReportGetListServerModels 	ExeCommand	 Регистрация данных пользователя прошла успешно 
+2013-05-06 00:01:48 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportSaveLoginPassword
+2013-05-06 00:01:55 tModelsConveyor 	Autorization	Проверка и регистрация пользователя на сервере
+2013-05-06 00:01:55 tConveyor 	OnCommand	Выполнение команды из GUI SaveLoginPassword
+2013-05-06 00:01:55 tClientGuiCommand 	tSaveLoginPassword	 Передача данных на сервер о пользователе для регистрации 
+2013-05-06 00:01:55 socket 	OnCommand	Получена команда SaveLoginPassword
+2013-05-06 00:01:55 tSaveLoginPassword 	ExeCommand	 Отправка на сервер данных о пользователе для регистрации 
+2013-05-06 00:01:55 socket 	ReadReport	Report: 12
+2013-05-06 00:01:55 tReportGetListServerModels 	ExeCommand	 Регистрация данных пользователя прошла успешно 
+2013-05-06 00:01:55 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportSaveLoginPassword
+2013-05-06 00:02:36 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-06 00:02:36 Конец работы клиента
+2013-05-06 00:02:36 tSettings 	sync	Save parameters 
+----------------------------------------------------

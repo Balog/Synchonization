@@ -414,7 +414,7 @@ class tStreamReportSaveLoginPassword : public tAbstractStreamCommand
 public:
     virtual bool Initialize(QDataStream &_in);
     virtual bool ExeCommand(QDataStream &);
-    virtual void ProcessError(QDataStream &){}
+    virtual void ProcessError(QDataStream &_in);
     virtual void ExternalExit() {emit EndCommand();}
 
 private:

@@ -1216,5 +1216,32 @@ bool tStreamReportSaveLoginPassword::ExeCommand(QDataStream &)
     return true;
 }
 //-----------------------------------------------------------------
+void tStreamReportSaveLoginPassword::ProcessError(QDataStream &_in)
+{
+    QString mess="";
+    _in >> mess;
+
+    int num_error=12;
+    QString error="Error in command 12";
+    QString detail=mess;
+
+    QString client_detail="Логин не удалось записать ";
+
+    l="tStreamReportSaveLoginPassword \tProcessError\t "+mess;
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("Error");
+    out << num_error;
+    out << error;
+    out << detail;
+    out << client_detail;
+
+    emit Result(block);
+    emit EndCommand();
+}
+//-----------------------------------------------------------------
 //*****************************************************************
 //-----------------------------------------------------------------

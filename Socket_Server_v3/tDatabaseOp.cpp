@@ -996,12 +996,32 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
         else
         {
             //логин уже используется
-            ret="Пользователь с таким логином уже существует!\nРегистрация невозможна!";
+            ret="Login "+_login+" не создан.\nПользователь с таким логином уже существует!\nРегистрация невозможна!";
         }
     }
     else
     {
         //редактирование имеющегося пользователя
+        QSqlQuery is_log_present(db);
+        is_log_present.prepare("SELECT Count(*) FROM Logins WHERE Login='"+_login+"'");
+        if(!is_log_present.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки новизны нового логина ") << _login;
+        log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()));}
+        is_log_present.next();
+
+        int c=is_log_present.value(0).toInt();
+        if(c==0)
+        {
+            //такого пользователя нет!
+            ret="Login "+_login+" не отредактирован.\nТакого пользователя нет!\nРедактирование невозможно!";
+        }
+        else
+        {
+            //пользователь есть
+//            tCalcHash ch;
+//            ch.AddToHash(_pass.toAscii());
+//            QSqlQuery update_user(db);
+//            update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"' WHERE ")
+        }
     }
 
     return ret;

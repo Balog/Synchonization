@@ -1574,7 +1574,7 @@ bool tSaveLoginPassword::Initialize(QDataStream &_in)
 //----------------------------------------------------------
 bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
 {
-    bool ret=false;
+
     qlonglong s_num=0;
 
     InitDB(((tClient*)link)->GetDB());
@@ -1583,7 +1583,7 @@ bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
     if(mess.length()==0)
     {
         //Операция успешна
-        ret=false;
+//        ret=false;
 
         QString comm="Report:";
         int num_com=12;
@@ -1598,7 +1598,7 @@ bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
     else
     {
         //Ошибка
-        ret=true;
+
 
         QString comm="Error:";
         int num_com=12;
@@ -1614,7 +1614,7 @@ bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
 
-    return ret;
+    return false;
 }
 //----------------------------------------------------------
 void tSaveLoginPassword::SendReport(QDataStream &)

@@ -154,13 +154,28 @@ void tGuiError::ExeCommand(QDataStream& _in)
         {
             title=QString::fromUtf8("Авторизация");
             text=QString::fromUtf8("Авторизация не удалась");
+
+            MB.setText(text);
+            MB.setWindowTitle(title);
+            MB.exec();
+            emit OkAutoriz(false);
+
+            break;
+        }
+        case 12:
+        {
+            title=QString::fromUtf8("Запись логина");
+            text=QString::fromUtf8(detail.toAscii());
+
+            MB.setText(text);
+            MB.setWindowTitle(title);
+            MB.exec();
+//            emit OkAutoriz(false);
+            ((MainForm*)link)->UpdateLogins();
             break;
         }
         }
-        MB.setText(text);
-        MB.setWindowTitle(title);
-        MB.exec();
-        emit OkAutoriz(false);
+
     }
 
 }

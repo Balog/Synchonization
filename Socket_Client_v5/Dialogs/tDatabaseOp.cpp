@@ -1662,11 +1662,44 @@ void tDatabaseOp::SaveLoginPassword(QString &_login, QString &_password, bool _n
     if(_new_user)
     {
         //новый пользователь
+        QSqlQuery insert_new_user(db);
+        insert_new_user.prepare("INSERT INTO Logins (Num, Login, PassHash, NoDelete) VALUES (?, ?, ?, ?)");
+
+        insert_new_user.bindValue(0, _s_num);
+        insert_new_user.bindValue(1, _login);
+
+        tCalcHash ch;
+        ch.AddToHash(_password.toAscii());
+        insert_new_user.bindValue(2, ch.ResultHash());
+        insert_new_user.bindValue(3, 0);
+
+        if(!insert_new_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления пользователя ") << _login;
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ добавления пользователя ")+_login.toUtf8()));}
+
 
     }
     else
     {
         //пользователь уже есть
+
     }
 }
 //----------------------------------------------------------
+QStringList tDatabaseOp::GetLoginsList()
+{
+    QStringList ret;
+
+    QSqlQuery get_logins(db);
+    get_logins.prepare("SELECT Login FROM Logins ORDER BY Num, Login");
+    if(!get_logins.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения списка логинов ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ получения списка логинов ")));}
+
+    while(get_logins.next())
+    {
+        QString login=get_logins.value(0).toString();
+        ret.push_back(login);
+    }
+
+
+    return ret;
+}
