@@ -335,7 +335,7 @@ void tModelsConveyor::OnEndTransactions()
 //-------------------------------------------------------------------------
 void tModelsConveyor::SendLoginPassword(QString &_login, QString &_password, int _row, bool _new_user)
 {
-    l="tModelsConveyor \tAutorization\tПроверка и регистрация пользователя на сервере";
+    l="tModelsConveyor \tSendLoginPassword\tПроверка и регистрация пользователя на сервере";
     log.Write(l);
 
     qlonglong num_log=0;
@@ -356,5 +356,22 @@ void tModelsConveyor::SendLoginPassword(QString &_login, QString &_password, int
     out << _row;
 
 //    emit RunGui(block);
+    conv->OnRunGuiCommand(block);
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::SendDeleteLogin(int _row)
+{
+    l="tModelsConveyor \tSendDeleteLogin\t Удаление пользователя с сервера";
+    log.Write(l);
+
+    qlonglong num_log=db_op->GetNumLogin(_row);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("DeleteLogin");
+    out << tr("DeleteLogin");
+    out << num_log;
+
     conv->OnRunGuiCommand(block);
 }

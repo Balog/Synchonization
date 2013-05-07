@@ -25,6 +25,7 @@ tClient::tClient(const int _handle, const QSqlDatabase &_db): QObject(NULL), log
     vf.reg("Command:10",Create_tGetFileList);
     vf.reg("Command:11",Create_tGetListModels);
     vf.reg("Command:12",Create_tSaveLoginPassword);
+    vf.reg("Command:13",Create_tDeleteLogin);
 
     db=_db;
 

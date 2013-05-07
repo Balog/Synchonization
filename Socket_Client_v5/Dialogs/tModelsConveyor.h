@@ -35,6 +35,7 @@ public:
     void MarkLastTables(bool _send);
 
     void SendLoginPassword(QString &_login, QString &_password, int _row, bool _new_user);
+    void SendDeleteLogin(int _row);
 
 private:
     QObject *link;

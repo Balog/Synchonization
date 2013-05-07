@@ -1251,3 +1251,31 @@ void tStreamReportSaveLoginPassword::ProcessError(QDataStream &_in)
 //-----------------------------------------------------------------
 //*****************************************************************
 //-----------------------------------------------------------------
+bool tStreamDeleteLogin::Initialize(QDataStream &_in)
+{
+    num_login=0;
+    _in >> num_login;
+    return true;
+}
+//-----------------------------------------------------------------
+bool tStreamDeleteLogin::ExeCommand(QDataStream &)
+{
+    l="tStreamDeleteLogin \tExeCommand\t Команда удаления пользователя ";
+    log.Write(l);
+
+    QString Comm="Command:";
+    int num_comm=13;
+
+    _out << quint16(0);
+
+    _out << Comm;
+    _out << num_comm;
+
+    _out << num_login;
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+    _out.device()->seek(_out.device()->size());
+    return true;
+}

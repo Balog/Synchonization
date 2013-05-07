@@ -466,7 +466,9 @@ void MainForm::OnEditLogin()
 //----------------------------------------------------------
 void MainForm::OnDelLogin()
 {
-
+    QModelIndex MI=ui->lvLogins->currentIndex();
+    int N=MI.row();
+    mod_conv->SendDeleteLogin(N);
 }
 //----------------------------------------------------------
 void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password, int _row, bool _new_user)

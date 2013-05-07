@@ -350,4 +350,17 @@ inline tAbstractGuiCommand* Create_tGUIReportSaveLoginPassword()
     return new tGUIReportSaveLoginPassword;
 }
 //**********************************************************************************
+class tGUIDeleteLogin : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUIDeleteLogin()
+{
+    return new tGUIDeleteLogin;
+}
+//**********************************************************************************
 #endif // TCLIENTGUICOMMAND_H

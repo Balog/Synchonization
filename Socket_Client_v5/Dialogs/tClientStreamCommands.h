@@ -427,4 +427,21 @@ inline tAbstractStreamCommand* Create_tStreamReportSaveLoginPassword()
     return new tStreamReportSaveLoginPassword;
 }
 //****************************************************************
+class tStreamDeleteLogin : public tAbstractStreamCommand
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &_in);
+    virtual bool ExeCommand(QDataStream &);
+    virtual void ProcessError(QDataStream &_in);
+    virtual void ExternalExit() {emit EndCommand();}
+
+private:
+    qlonglong num_login;
+};
+inline tAbstractStreamCommand* Create_tStreamDeleteLogin()
+{
+    return new tStreamDeleteLogin;
+}
+//****************************************************************
 #endif // TCLIENTSTREAMCOMMANDS_H

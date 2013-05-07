@@ -43,6 +43,7 @@ tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QOb
 
     gui_vf.reg("SaveLoginPassword",Create_tGUISaveLoginPassword);
     gui_vf.reg("GUIReportSaveLoginPassword",Create_tGUIReportSaveLoginPassword);
+    gui_vf.reg("GUIDeleteLogin",Create_tGUIDeleteLogin);
 }
 //-----------------------------------------------------------------
 tConveyor::~tConveyor()

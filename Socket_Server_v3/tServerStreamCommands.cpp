@@ -1621,9 +1621,51 @@ bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
     return false;
 }
 //----------------------------------------------------------
-void tSaveLoginPassword::SendReport(QDataStream &)
+//**********************************************************
+//----------------------------------------------------------
+bool tGetListModels::Initialize(QDataStream &_in)
 {
+    num_login=0;
+    _in >> num_login;
 
+    return true;
+}
+//----------------------------------------------------------
+bool tGetListModels::ExeCommand(QDataStream &, QDataStream &_out)
+{
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
+
+    InitDB(((tClient*)link)->GetDB());
+
+    QString mess=db_op->DeleteLogin(num_login);
+
+    if(mess.length()==0)
+    {
+        QString comm="Report:";
+        int num_com=13;
+
+        _out << quint16(0);
+        _out << comm;
+        _out << num_com;
+        _out << num_login;
+    }
+    else
+    {
+        _out << quint16(0);
+        _out << comm;
+        _out << num_com;
+        _out << mess;
+    }
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+
+    log.Write(QString(QString::fromUtf8("tGetListModels \t ExeCommand \t Передача списка моделей ")));
+
+    return false;
 }
 //----------------------------------------------------------
 //**********************************************************

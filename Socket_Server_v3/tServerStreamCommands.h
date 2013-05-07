@@ -322,7 +322,7 @@ public:
     virtual bool Initialize(QDataStream &);
     virtual bool ExeCommand(QDataStream &, QDataStream &_out);
     virtual void SendErrorReport(QDataStream &){}
-    virtual void SendReport(QDataStream &);
+    virtual void SendReport(QDataStream &){}
     virtual void ExternalExit() {emit EndCommand();}
 private:
     QString login;
@@ -335,6 +335,25 @@ private:
 inline tAbstractStreamCommand* Create_tSaveLoginPassword()
 {
     return new tSaveLoginPassword;
+}
+//*****************************************************************
+class tDeleteLogin : public tDatabaseStreamCommand
+
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &);
+    virtual bool ExeCommand(QDataStream &, QDataStream &_out);
+    virtual void SendErrorReport(QDataStream &){}
+    virtual void SendReport(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+private:
+    qlonglong num_login;
+
+};
+inline tAbstractStreamCommand* Create_tDeleteLogin()
+{
+    return new tDeleteLogin;
 }
 //*****************************************************************
 #endif // TSERVERSTREAMCOMMANDS_H

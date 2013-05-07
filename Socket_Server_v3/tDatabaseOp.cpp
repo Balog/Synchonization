@@ -1029,3 +1029,13 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
 
     return ret;
 }
+//----------------------------------------------------------
+QString tDatabaseOp::DeleteLogin(qlonglong num_login)
+{
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t DeleteLogin \t Удаление логина номер "))+QString::number(num_login));
+
+    //Проверить наличие такого номера
+    //если номер существует то удалить запись с этим номером
+
+
+}

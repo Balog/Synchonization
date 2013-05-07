@@ -678,3 +678,24 @@ _in >> s_num;
 ((MainForm*)link)->RegisterUser(s_num);
 }
 //************************************************************************************************
+void tGUIDeleteLogin::ExeCommand(QDataStream &_in)
+{
+    l="tClientGuiCommand \ttGUIDeleteLogin\t Передача команды удаления пользователя ";
+    log.Write(l);
+
+    QString comm;
+    qlonglong num_log=0;
+    _in >> comm;
+    _in >> num_log;
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    block.clear();
+
+    out << comm;
+    out << num_log;
+
+    emit SendCommand(block);
+}
+//************************************************************************************************
