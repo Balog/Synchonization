@@ -34,7 +34,7 @@ public:
     void SetTransactionFlag(bool _flag);
     void MarkLastTables(bool _send);
 
-    void SendLoginPassword(QString &_login, QString &_password, bool _new_user);
+    void SendLoginPassword(QString &_login, QString &_password, int _row, bool _new_user);
 
 private:
     QObject *link;

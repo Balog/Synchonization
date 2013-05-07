@@ -402,6 +402,8 @@ private:
     QString login;
     QString password;
     bool new_user;
+    qlonglong num_log;
+    int row;
 };
 inline tAbstractStreamCommand* Create_tStreamSaveLoginPassword()
 {

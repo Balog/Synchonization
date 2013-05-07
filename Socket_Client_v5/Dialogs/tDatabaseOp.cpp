@@ -1659,8 +1659,14 @@ void tDatabaseOp::GetDeleteLocalModelFiles(const QString& _name_model, QStringLi
 //----------------------------------------------------------
 void tDatabaseOp::SaveLoginPassword(QString &_login, QString &_password, bool _new_user, qlonglong _s_num)
 {
+    l="tDatabaseOp \tSaveLoginPassword\t Обработка логина "+_login.toUtf8();
+    log.Write(l);
+
     if(_new_user)
     {
+        l="tDatabaseOp \tSaveLoginPassword\t Новый логин ";
+        log.Write(l);
+
         //новый пользователь
         QSqlQuery insert_new_user(db);
         insert_new_user.prepare("INSERT INTO Logins (Num, Login, PassHash, NoDelete) VALUES (?, ?, ?, ?)");
@@ -1680,8 +1686,34 @@ void tDatabaseOp::SaveLoginPassword(QString &_login, QString &_password, bool _n
     }
     else
     {
-        //пользователь уже есть
+        l="tDatabaseOp \tSaveLoginPassword\t Имеющийся логин ";
+        log.Write(l);
 
+        //пользователь уже есть
+        QSqlQuery is_log_present(db);
+        is_log_present.prepare("SELECT Count(*) FROM Logins WHERE Num="+QString::number(_s_num));
+        if(!is_log_present.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки новизны нового логина ") << _login;
+        log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()));}
+        is_log_present.next();
+
+        int c=is_log_present.value(0).toInt();
+        if(c==0)
+        {
+            //такого пользователя нет!
+//            ret="Login "+_login+"(номер "+QString::number(s_num)+") не отредактирован.\nТакого пользователя нет!\nРедактирование невозможно!";
+            l="tDatabaseOp \tSaveLoginPassword\t Такого пользователя нет! ";
+            log.Write(l);
+        }
+        else
+        {
+            //пользователь есть
+            tCalcHash ch;
+            ch.AddToHash(_password.toAscii());
+            QSqlQuery update_user(db);
+            update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"', NoDelete=0 WHERE Num="+QString::number(_s_num));
+            if(!update_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления логина ") << _login;
+            log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ обновления логина ")+_login.toUtf8()));}
+        }
     }
 }
 //----------------------------------------------------------
@@ -1702,4 +1734,44 @@ QStringList tDatabaseOp::GetLoginsList()
 
 
     return ret;
+}
+//----------------------------------------------------------
+qlonglong tDatabaseOp::GetNumLogin(QString &_login)
+{
+    qlonglong num_log;
+
+    QSqlQuery search_login_num(db);
+    search_login_num.prepare("SELECT Count(*), Num FROM Logins WHERE Login='"+_login+"'");
+    if(!search_login_num.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения номера логина ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ получения номера логина ")));}
+
+    search_login_num.next();
+
+    int c=search_login_num.value(0).toInt();
+    if(c!=0)
+    {
+    num_log=search_login_num.value(1).toLongLong();
+    }
+
+    return num_log;
+}
+//----------------------------------------------------------
+qlonglong tDatabaseOp::GetNumLogin(int _row)
+{
+    qlonglong num_log;
+
+    QSqlQuery search_login_num(db);
+    search_login_num.prepare("SELECT Num FROM Logins ORDER BY Num, Login");
+    if(!search_login_num.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения номера логина ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ получения номера логина ")));}
+
+    for(int i=0; i<_row+1;i++)
+    {
+        search_login_num.next();
+    }
+
+    num_log=search_login_num.value(0).toLongLong();
+
+
+    return num_log;
 }

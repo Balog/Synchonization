@@ -1564,10 +1564,13 @@ bool tSaveLoginPassword::Initialize(QDataStream &_in)
     login="";
     password="";
     new_user=false;
+    num_log=0;
 
     _in >> login;
     _in >> password;
     _in >> new_user;
+    _in >> num_log;
+    _in >> row;
 
     return true;
 }
@@ -1575,10 +1578,10 @@ bool tSaveLoginPassword::Initialize(QDataStream &_in)
 bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
 {
 
-    qlonglong s_num=0;
+//    qlonglong s_num=0;
 
     InitDB(((tClient*)link)->GetDB());
-    QString mess=db_op->SaveLoginPass(login, password, new_user, s_num);
+    QString mess=db_op->SaveLoginPass(login, password, new_user, num_log, row);
 
     if(mess.length()==0)
     {
@@ -1591,7 +1594,8 @@ bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
         _out << quint16(0);
         _out << comm;
         _out << num_com;
-        _out << s_num;
+        _out << num_log;
+
 
 
     }

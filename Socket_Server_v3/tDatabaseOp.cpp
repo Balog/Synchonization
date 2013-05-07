@@ -955,7 +955,7 @@ void tDatabaseOp::Update_LastMod_Hash(const QString& _file_name, const QDateTime
 
 }
 //----------------------------------------------------------
-QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &s_num)
+QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &num_log, int _row)
 {
     //Если _new_user истина то нужно проверить не используется ли уже такой пароль
     //если используется то вернуть ошибку (сообщение)
@@ -991,7 +991,7 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
 
             if(!insert_new_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления нового логина ") << _login;
             log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ добавления нового логина ")+_login.toUtf8()));}
-            s_num=insert_new_user.lastInsertId().toLongLong();
+            num_log=insert_new_user.lastInsertId().toLongLong();
         }
         else
         {
@@ -1003,7 +1003,7 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
     {
         //редактирование имеющегося пользователя
         QSqlQuery is_log_present(db);
-        is_log_present.prepare("SELECT Count(*) FROM Logins WHERE Login='"+_login+"'");
+        is_log_present.prepare("SELECT Count(*) FROM Logins WHERE Num="+QString::number(num_log));
         if(!is_log_present.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки новизны нового логина ") << _login;
         log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()));}
         is_log_present.next();
@@ -1012,15 +1012,18 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
         if(c==0)
         {
             //такого пользователя нет!
-            ret="Login "+_login+" не отредактирован.\nТакого пользователя нет!\nРедактирование невозможно!";
+            ret="Login "+_login+"(номер "+QString::number(num_log)+") не отредактирован.\nТакого пользователя нет!\nРедактирование невозможно!";
         }
         else
         {
             //пользователь есть
-//            tCalcHash ch;
-//            ch.AddToHash(_pass.toAscii());
-//            QSqlQuery update_user(db);
-//            update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"' WHERE ")
+            tCalcHash ch;
+            ch.AddToHash(_pass.toAscii());
+            QSqlQuery update_user(db);
+            update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"', NoDelete=0 WHERE Num="+QString::number(num_log));
+            if(!update_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления логина ") << _login;
+            log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ обновления логина ")+_login.toUtf8()));}
+
         }
     }
 

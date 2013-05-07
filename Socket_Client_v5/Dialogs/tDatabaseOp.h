@@ -47,6 +47,9 @@ public:
     void SaveLoginPassword(QString &_login, QString &_password, bool _new_user, qlonglong _s_num);
     QStringList GetLoginsList();
 
+    qlonglong GetNumLogin(QString &_login);
+    qlonglong GetNumLogin(int _row);
+
 private:
     QSqlDatabase db;
     QString root;

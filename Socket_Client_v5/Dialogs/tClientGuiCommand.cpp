@@ -645,11 +645,15 @@ void tGUISaveLoginPassword::ExeCommand(QDataStream &_in)
     QString login="";
     QString password="";
     bool new_user=false;
+    qlonglong num_login=0;
+    int row=-1;
 
     _in >> comm;
     _in >> login;
     _in >> password;
     _in >> new_user;
+    _in >> num_login;
+    _in >> row;
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
@@ -660,6 +664,8 @@ void tGUISaveLoginPassword::ExeCommand(QDataStream &_in)
     out << login;
     out << password;
     out << new_user;
+    out << num_login;
+    out << row;
 
     emit SendCommand(block);
 

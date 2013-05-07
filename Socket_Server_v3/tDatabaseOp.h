@@ -19,7 +19,7 @@ public:
     QDateTime GetLastMod(const QString &name_file) const;
     QDateTime RoundDateTime(const QDateTime &_dt) const;
     void Update_LastMod_Hash(const QString &_file_name, const QDateTime &_last_mod, const QString &_hash);
-    QString SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &s_num);
+    QString SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &num_log, int _row);
 
 private:
     QSqlDatabase db;

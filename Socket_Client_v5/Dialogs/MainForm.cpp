@@ -42,7 +42,7 @@ MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_
     mod_conv->StartServer(ui->leAddr->text(), ui->sbPort->value());
 
     login_pass->setVisible(false);
-    connect(login_pass, SIGNAL(EndEditing(QString&,QString&,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,bool)));
+    connect(login_pass, SIGNAL(EndEditing(QString&,QString&,int,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,int,bool)));
 
     UpdateLogins();
 
@@ -60,6 +60,7 @@ MainForm::~MainForm()
     delete sLM_Del;
     delete sLM_Rec;
     delete sLM_DelLoc;
+    delete sLM_Logins;
 
     delete mod_conv;
     mod_conv=NULL;
@@ -444,21 +445,23 @@ void MainForm::OnNewLogin()
     login_pass->setModal(true);
     login_pass->setVisible(true);
     login_pass->new_user=true;
+    login_pass->row=-1;
 }
 //----------------------------------------------------------
 void MainForm::OnEditLogin()
 {
     QModelIndex MI=ui->lvLogins->currentIndex();
     int N=MI.row();
-    QStringListModel *M=new QStringListModel;
-    M=(QStringListModel *)MI.model();
-    QString S=M->stringList().value(N);
-    delete M;
+    QStringListModel *sLM_Logins=new QStringListModel;
+    sLM_Logins=(QStringListModel *)MI.model();
+    QString S=sLM_Logins->stringList().value(N);
+//    delete M;
 
     login_pass->setModal(true);
     login_pass->setVisible(true);
     login_pass->SetLogin(S);
     login_pass->new_user=false;
+    login_pass->row=N;
 }
 //----------------------------------------------------------
 void MainForm::OnDelLogin()
@@ -466,7 +469,7 @@ void MainForm::OnDelLogin()
 
 }
 //----------------------------------------------------------
-void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password, bool _new_user)
+void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password, int _row, bool _new_user)
 {
     if(_login.length()>0 && _password.length()>0)
     {
@@ -477,7 +480,7 @@ void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password, bool 
         {
             //Логин и пароль проверены на клиенте и отправляются на сервер для дальнейшей проверки в БД и регистрации
 
-            mod_conv->SendLoginPassword(_login, _password, _new_user);
+            mod_conv->SendLoginPassword(_login, _password, _row, _new_user);
 //            login_pass->setModal(false);
 //            login_pass->setVisible(false);
 

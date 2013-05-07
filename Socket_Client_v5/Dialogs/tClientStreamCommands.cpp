@@ -1159,10 +1159,14 @@ bool tStreamSaveLoginPassword::Initialize(QDataStream &_in)
     login="";
     password="";
     new_user=false;
+    num_log=0;
+    row=-1;
 
     _in >> login;
     _in >> password;
     _in >> new_user;
+    _in >> num_log;
+    _in >> row;
 
     return true;
 }
@@ -1183,6 +1187,8 @@ bool tStreamSaveLoginPassword::ExeCommand(QDataStream &_out)
     _out << login;
     _out << password;
     _out << new_user;
+    _out << num_log;
+    _out << row;
 
     _out.device()->seek(0);
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
