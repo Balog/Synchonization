@@ -973,7 +973,7 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
         QSqlQuery is_log_present(db);
         is_log_present.prepare("SELECT Count(*) FROM Logins WHERE Login='"+_login+"'");
         if(!is_log_present.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки новизны нового логина ") << _login;
-        log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginPass \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()));}
         is_log_present.next();
 
         int c=is_log_present.value(0).toInt();
@@ -990,7 +990,7 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
             insert_new_user.bindValue(2,0);
 
             if(!insert_new_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления нового логина ") << _login;
-            log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ добавления нового логина ")+_login.toUtf8()));}
+            log.Write(QString(QString("tDatabaseOp \t SaveLoginPass \t ++ ОШИБКА ++ добавления нового логина ")+_login.toUtf8()));}
             num_log=insert_new_user.lastInsertId().toLongLong();
         }
         else
@@ -1005,7 +1005,7 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
         QSqlQuery is_log_present(db);
         is_log_present.prepare("SELECT Count(*) FROM Logins WHERE Num="+QString::number(num_log));
         if(!is_log_present.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки новизны нового логина ") << _login;
-        log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginPass \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()));}
         is_log_present.next();
 
         int c=is_log_present.value(0).toInt();
@@ -1022,7 +1022,7 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
             QSqlQuery update_user(db);
             update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"', NoDelete=0 WHERE Num="+QString::number(num_log));
             if(!update_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления логина ") << _login;
-            log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ обновления логина ")+_login.toUtf8()));}
+            log.Write(QString(QString("tDatabaseOp \t SaveLoginPass \t ++ ОШИБКА ++ обновления логина ")+_login.toUtf8()));}
 
         }
     }
@@ -1032,10 +1032,34 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
 //----------------------------------------------------------
 QString tDatabaseOp::DeleteLogin(qlonglong num_login)
 {
-    log.Write(QString(QString::fromUtf8("tDatabaseOp \t DeleteLogin \t Удаление логина номер "))+QString::number(num_login));
+    QString ret="";
+    log.Write(QString(QString::fromUtf8("tDatabaseOp \t DeleteLogin \t Удаление логина номер ")+QString::number(num_login)));
 
     //Проверить наличие такого номера
     //если номер существует то удалить запись с этим номером
 
+    QSqlQuery select_delete_row(db);
+    select_delete_row.prepare("SELECT Count(*) FROM Logins WHERE Num="+QString::number(num_login));
+    if(!select_delete_row.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия логина для удаления ") << num_login;
+    log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ проверки наличия логина для удаления ")+QString::number(num_login)));}
 
+    select_delete_row.next();
+    int c=select_delete_row.value(0).toInt();
+
+    if(c!=0)
+    {
+        //логин найден
+        QSqlQuery del_login(db);
+        del_login.prepare("DELETE FROM Logins WHERE Num="+QString::number(num_login));
+        if(!del_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления логина ") << num_login;
+        log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ удаления логина ")+QString::number(num_login)));}
+
+    }
+    else
+    {
+        //логин не найден
+        ret="Логин под номером "+QString::number(num_login)+" не найден";
+    }
+
+    return ret;
 }

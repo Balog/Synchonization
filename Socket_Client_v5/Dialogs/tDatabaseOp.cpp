@@ -1775,3 +1775,11 @@ qlonglong tDatabaseOp::GetNumLogin(int _row)
 
     return num_log;
 }
+//----------------------------------------------------------
+void tDatabaseOp::DeleteLogin(qlonglong _num_log)
+{
+    QSqlQuery del_login(db);
+    del_login.prepare("DELETE FROM Logins WHERE Num="+QString::number(_num_log));
+    if(!del_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log);
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log)));}
+}

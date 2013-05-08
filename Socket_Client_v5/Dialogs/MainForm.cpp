@@ -540,3 +540,14 @@ void MainForm::UpdateLogins()
     sLM_Logins->setStringList(listLogins);
     ui->lvLogins->setModel(sLM_Logins);
 }
+//----------------------------------------------------------
+void MainForm::DeleteUser(qlonglong _s_num)
+{
+    db_op->DeleteLogin(_s_num);
+
+    login_pass->setModal(false);
+    login_pass->setVisible(false);
+    login_pass->ClearAll();
+
+    UpdateLogins();
+}

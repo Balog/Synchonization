@@ -50,6 +50,8 @@ public:
     qlonglong GetNumLogin(QString &_login);
     qlonglong GetNumLogin(int _row);
 
+    void DeleteLogin(qlonglong _num_log);
+
 private:
     QSqlDatabase db;
     QString root;

@@ -1623,7 +1623,7 @@ bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
 //----------------------------------------------------------
 //**********************************************************
 //----------------------------------------------------------
-bool tGetListModels::Initialize(QDataStream &_in)
+bool tDeleteLogin::Initialize(QDataStream &_in)
 {
     num_login=0;
     _in >> num_login;
@@ -1631,7 +1631,7 @@ bool tGetListModels::Initialize(QDataStream &_in)
     return true;
 }
 //----------------------------------------------------------
-bool tGetListModels::ExeCommand(QDataStream &, QDataStream &_out)
+bool tDeleteLogin::ExeCommand(QDataStream &, QDataStream &_out)
 {
     tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
     log=log1;
@@ -1653,6 +1653,9 @@ bool tGetListModels::ExeCommand(QDataStream &, QDataStream &_out)
     }
     else
     {
+        QString comm="Error:";
+        int num_com=13;
+
         _out << quint16(0);
         _out << comm;
         _out << num_com;

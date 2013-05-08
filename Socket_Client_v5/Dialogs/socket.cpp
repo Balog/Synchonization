@@ -44,6 +44,7 @@ tSocket::tSocket(const QString &_address, const int _port, const QString &_root,
     vf.reg("Report:12",Create_tStreamReportSaveLoginPassword);
 
     vf.reg("DeleteLogin",Create_tStreamDeleteLogin);
+    vf.reg("Report:13",Create_tStreamReportDeleteLogin);
 }
 //-------------------------------------------------------------------------------
 tSocket::~tSocket()

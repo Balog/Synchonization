@@ -699,3 +699,10 @@ void tGUIDeleteLogin::ExeCommand(QDataStream &_in)
     emit SendCommand(block);
 }
 //************************************************************************************************
+void tGUIReportDeleteLogin::ExeCommand(QDataStream &_in)
+{
+qlonglong s_num=0;
+_in >> s_num;
+((MainForm*)link)->DeleteUser(s_num);
+}
+//************************************************************************************************

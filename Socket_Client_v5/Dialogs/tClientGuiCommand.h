@@ -363,4 +363,17 @@ inline tAbstractGuiCommand* Create_tGUIDeleteLogin()
     return new tGUIDeleteLogin;
 }
 //**********************************************************************************
+class tGUIReportDeleteLogin : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUIReportDeleteLogin()
+{
+    return new tGUIReportDeleteLogin;
+}
+//**********************************************************************************
 #endif // TCLIENTGUICOMMAND_H

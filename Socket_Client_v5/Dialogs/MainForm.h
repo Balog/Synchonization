@@ -46,6 +46,7 @@ public:
 
     void RegisterUser(qlonglong _s_num);
     void UpdateLogins();
+    void DeleteUser(qlonglong _s_num);
 
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей

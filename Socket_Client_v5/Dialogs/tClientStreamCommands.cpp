@@ -1258,7 +1258,7 @@ bool tStreamDeleteLogin::Initialize(QDataStream &_in)
     return true;
 }
 //-----------------------------------------------------------------
-bool tStreamDeleteLogin::ExeCommand(QDataStream &)
+bool tStreamDeleteLogin::ExeCommand(QDataStream &_out)
 {
     l="tStreamDeleteLogin \tExeCommand\t Команда удаления пользователя ";
     log.Write(l);
@@ -1277,5 +1277,58 @@ bool tStreamDeleteLogin::ExeCommand(QDataStream &)
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
     _out.device()->seek(_out.device()->size());
+    return false;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------
+bool tStreamReportDeleteLogin::Initialize(QDataStream &_in)
+{
+    s_num=0;
+    _in >> s_num;
     return true;
 }
+//-----------------------------------------------------------------
+bool tStreamReportDeleteLogin::ExeCommand(QDataStream &)
+{
+    l="tStreamReportDeleteLogin \tExeCommand\t Удаление пользователя прошло успешно ";
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("GUIReportDeleteLogin");
+    out << s_num;
+
+    emit Result(block);
+    return true;
+}
+//-----------------------------------------------------------------
+void tStreamReportDeleteLogin::ProcessError(QDataStream &_in)
+{
+    QString mess="";
+    _in >> mess;
+
+    int num_error=12;
+    QString error="Error in command 13";
+    QString detail=mess;
+
+    QString client_detail="Пользователя не удалось удалить ";
+
+    l="tStreamReportDeleteLogin \tProcessError\t "+mess;
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("Error");
+    out << num_error;
+    out << error;
+    out << detail;
+    out << client_detail;
+
+    emit Result(block);
+    emit EndCommand();
+}
+//-----------------------------------------------------------------
+//*****************************************************************

@@ -369,7 +369,7 @@ void tModelsConveyor::SendDeleteLogin(int _row)
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
-    out << tr("DeleteLogin");
+    out << tr("GUIDeleteLogin");
     out << tr("DeleteLogin");
     out << num_log;
 
