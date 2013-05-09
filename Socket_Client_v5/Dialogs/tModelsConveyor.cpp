@@ -375,3 +375,17 @@ void tModelsConveyor::SendDeleteLogin(int _row)
 
     conv->OnRunGuiCommand(block);
 }
+//-------------------------------------------------------------------------
+void tModelsConveyor::ReceiveLoginsTable()
+{
+    l="tModelsConveyor \tReceiveLoginsTable\t Запрос таблицы логинов";
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("GUIReceiveLoginsTable");
+    out << tr("ReceiveLoginsTable");
+
+    conv->OnRunGuiCommand(block);
+}

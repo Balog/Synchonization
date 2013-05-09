@@ -45,6 +45,9 @@ tSocket::tSocket(const QString &_address, const int _port, const QString &_root,
 
     vf.reg("DeleteLogin",Create_tStreamDeleteLogin);
     vf.reg("Report:13",Create_tStreamReportDeleteLogin);
+
+    vf.reg("ReceiveLoginsTable",Create_tGetLoginsTable);
+    vf.reg("Report:14",Create_tStreamReportReceiveLoginsTable);
 }
 //-------------------------------------------------------------------------------
 tSocket::~tSocket()

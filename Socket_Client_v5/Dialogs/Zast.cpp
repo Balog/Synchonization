@@ -14,6 +14,7 @@ Zast::Zast(QWidget *_parent) :
     connect(dAutoriz, SIGNAL(SendAutorization(QString&, QString&)), main_form, SLOT(Autorization(QString&, QString&)));
     connect(main_form, SIGNAL(AutorizStart()), this, SLOT(AutorizStart()));
     connect(main_form, SIGNAL(FindServer()), this, SLOT(FindServer()));
+    connect(this, SIGNAL(ReceiveLoginsTable()), main_form, SLOT(OnReceiveLoginsTable()));
 
     FindServer();
 }
@@ -37,7 +38,10 @@ void Zast::OnTimerTrue()
         delete timer1;
         timer1=NULL;
 
-        dAutoriz->show();
+        //сюда встроить команду запроса списка логинов
+        emit ReceiveLoginsTable();
+        //эту команду вставить в конце обработки списка логинов
+//        dAutoriz->show();
     }
 }
 //---------------------------------------------------------------------

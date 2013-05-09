@@ -51,6 +51,7 @@ public:
     qlonglong GetNumLogin(int _row);
 
     void DeleteLogin(qlonglong _num_log);
+    void UpdateLogins(QByteArray &_block);
 
 private:
     QSqlDatabase db;

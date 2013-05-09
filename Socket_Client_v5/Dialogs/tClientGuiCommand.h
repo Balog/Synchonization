@@ -376,4 +376,30 @@ inline tAbstractGuiCommand* Create_tGUIReportDeleteLogin()
     return new tGUIReportDeleteLogin;
 }
 //**********************************************************************************
+class tGUIReceiveLoginsTable : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUIReceiveLoginsTable()
+{
+    return new tGUIReceiveLoginsTable;
+}
+//**********************************************************************************
+class tGUIReportReceiveLoginsTable : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUIReportReceiveLoginsTable()
+{
+    return new tGUIReportReceiveLoginsTable;
+}
+//**********************************************************************************
 #endif // TCLIENTGUICOMMAND_H

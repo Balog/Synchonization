@@ -21,6 +21,7 @@ public:
     void Update_LastMod_Hash(const QString &_file_name, const QDateTime &_last_mod, const QString &_hash);
     QString SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &num_log, int _row);
     QString DeleteLogin(qlonglong num_login);
+    void SendLoginTable(QDataStream &_out);
 
 private:
     QSqlDatabase db;

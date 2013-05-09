@@ -1783,3 +1783,24 @@ void tDatabaseOp::DeleteLogin(qlonglong _num_log)
     if(!del_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log);
     log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log)));}
 }
+//----------------------------------------------------------
+void tDatabaseOp::UpdateLogins(QByteArray &_block)
+{
+    l="tDatabaseOp \tUpdateLogins\tОбновление таблицы логинов  ";
+    log.Write(l);
+
+    QDataStream out(&_block, QIODevice::ReadOnly);
+
+    out.device()->seek(4);
+    int num_logins=-1;
+    out >> num_logins;
+
+    db.transaction();
+
+    for(int i=0; i<num_logins; i++)
+    {
+
+    }
+
+    db.commit();
+}

@@ -1666,7 +1666,76 @@ bool tDeleteLogin::ExeCommand(QDataStream &, QDataStream &_out)
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
     _out << bs;
 
-    log.Write(QString(QString::fromUtf8("tGetListModels \t ExeCommand \t Передача списка моделей ")));
+    log.Write(QString(QString::fromUtf8("tDeleteLogin \t ExeCommand \t Передача списка моделей ")));
+
+    return false;
+}
+//----------------------------------------------------------
+//**********************************************************
+//----------------------------------------------------------
+bool tSendLoginsTable::ExeCommand(QDataStream &, QDataStream &_out)
+{
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
+
+    InitDB(((tClient*)link)->GetDB());
+
+    QString comm="Report:";
+    int num_com=14;
+
+    _out << quint16(0);
+    _out << comm;
+    _out << num_com;
+
+    //вставить данные в порядке:
+    //число логинов
+
+    //номер
+    //логин
+    //хэш
+    //NoDelete
+    //Writable
+
+    db_op->SendLoginTable(_out);
+
+
+
+
+
+
+//        int count=0;
+//        out >> count;
+
+//        _out << count;
+
+//        for(int i=0; i<count; i++)
+//        {
+//            qlonglong Num=0;
+//            QString Login="";
+//            QString PassHash="";
+//            int NoDelete=0;
+//            int Writable=0;
+
+//            out >> Num;
+//            out >> Login;
+//            out >> PassHash;
+//            out >> NoDelete;
+//            out >> Writable;
+
+//            _out << Num;
+//            _out << Login;
+//            _out << PassHash;
+//            _out << NoDelete;
+//            _out << Writable;
+//        }
+
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+
+    log.Write(QString(QString::fromUtf8("tSendLoginsTable \t ExeCommand \t Передача таблицы логинов ")));
 
     return false;
 }

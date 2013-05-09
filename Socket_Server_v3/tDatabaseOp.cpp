@@ -981,13 +981,14 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
         {
             //логин новый
             QSqlQuery insert_new_user(db);
-            insert_new_user.prepare("INSERT INTO Logins (Login, PassHash, NoDelete) VALUES (?, ?, ?)");
+            insert_new_user.prepare("INSERT INTO Logins (Login, PassHash, NoDelete, Writable) VALUES (?, ?, ?)");
 
             insert_new_user.bindValue(0, _login);
             tCalcHash ch;
             ch.AddToHash(_pass.toAscii());
             insert_new_user.bindValue(1, ch.ResultHash());
             insert_new_user.bindValue(2,0);
+            insert_new_user.bindValue(3,0);
 
             if(!insert_new_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления нового логина ") << _login;
             log.Write(QString(QString("tDatabaseOp \t SaveLoginPass \t ++ ОШИБКА ++ добавления нового логина ")+_login.toUtf8()));}
@@ -1062,4 +1063,38 @@ QString tDatabaseOp::DeleteLogin(qlonglong num_login)
     }
 
     return ret;
+}
+//----------------------------------------------------------
+void tDatabaseOp::SendLoginTable(QDataStream &_out)
+{
+    QSqlQuery count_logins(db);
+    count_logins.prepare("SELECT Count(*) FROM Logins");
+    if(!count_logins.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета числа логинов ");
+    log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ подсчета числа логинов ")));}
+    count_logins.next();
+
+    int count=count_logins.value(0).toInt();
+
+    _out << count;
+
+    QSqlQuery select_logins(db);
+    select_logins.prepare("SELECT Num, Login, PassHash, NoDelete, Writable FROM Logins ORDER BY Num");
+    if(!select_logins.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки таблицы логинов ");
+    log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ выборки таблицы логинов ")));}
+    while(select_logins.next())
+    {
+        qlonglong Num=select_logins.value(0).toLongLong();
+        QString Login=select_logins.value(1).toString();
+        QString PassHash=select_logins.value(2).toString();
+        int NoDelete=select_logins.value(3).toInt();
+        int Writable=select_logins.value(4).toInt();
+
+        _out << Num;
+        _out << Login;
+        _out << PassHash;
+        _out << NoDelete;
+        _out << Writable;
+    }
+
+
 }

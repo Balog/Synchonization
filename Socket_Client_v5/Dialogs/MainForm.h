@@ -48,6 +48,8 @@ public:
     void UpdateLogins();
     void DeleteUser(qlonglong _s_num);
 
+    void UpfateLoginsTable(QByteArray &_block);
+
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
     QStringListModel *sLM_loc_list_files;//модель локальных файлов
@@ -138,6 +140,7 @@ private slots:
 public slots:
     void OnServerModelClick(const QModelIndex Ind);
     void OnListFilesLocal();
+    void OnReceiveLoginsTable();
 
 signals:
     void RunGui(QByteArray& block);

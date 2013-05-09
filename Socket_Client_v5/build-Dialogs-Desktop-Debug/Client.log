@@ -3961,3 +3961,239 @@
 2013-05-09 00:04:20 Конец работы клиента
 2013-05-09 00:04:20 tSettings 	sync	Save parameters 
 ----------------------------------------------------
+----------------------------------------------------
+2013-05-09 00:21:46 tSettings 	SetFilePath	Read parameters 
+2013-05-09 00:21:46 tSettings 	sync	Save parameters 
+2013-05-09 00:21:46 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 00:21:46 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 00:21:46 Начало работы клиента
+2013-05-09 00:21:48 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 00:21:48 socket 	Initialize	Создание сокета 
+2013-05-09 00:21:50 socket 	ReadReport	Report: 3
+2013-05-09 00:21:50 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 00:21:50 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 00:21:50 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 00:21:50 Zast 	AutorizStart	Сервер найден 
+2013-05-09 00:24:50 Отправка авторизации Логин: 1
+2013-05-09 00:24:50 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-09 00:24:50 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-09 00:24:50 socket 	OnCommand	Получена команда SendAutorization
+2013-05-09 00:24:50 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-09 00:24:50 socket 	ReadReport	Report: 5
+2013-05-09 00:24:50 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-09 00:24:50 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-09 00:24:50 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-09 00:24:53 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-09 00:24:53 Конец работы клиента
+2013-05-09 00:24:53 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-09 22:51:26 tSettings 	SetFilePath	Read parameters 
+2013-05-09 22:51:26 tSettings 	sync	Save parameters 
+2013-05-09 22:51:26 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 22:51:26 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 22:51:28 socket 	Initialize	Создание сокета 
+2013-05-09 22:51:29 Начало работы клиента
+2013-05-09 22:51:29 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 22:51:30 socket 	ReadReport	Report: 3
+2013-05-09 22:51:30 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 22:51:30 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 22:51:30 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 22:51:30 Zast 	AutorizStart	Сервер найден 
+2013-05-09 22:51:40 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-09 22:51:40 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-09 22:51:40 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-09 22:51:40 socket 	OnCommand	Получена команда ReceiveLoginsTable
+----------------------------------------------------
+2013-05-09 23:02:39 tSettings 	SetFilePath	Read parameters 
+2013-05-09 23:02:40 tSettings 	sync	Save parameters 
+2013-05-09 23:02:40 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 23:02:40 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 23:02:41 socket 	Initialize	Создание сокета 
+2013-05-09 23:02:41 Начало работы клиента
+2013-05-09 23:02:41 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 23:02:41 socket 	ReadReport	Report: 3
+2013-05-09 23:02:41 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 23:02:41 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 23:02:41 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 23:02:41 Zast 	AutorizStart	Сервер найден 
+2013-05-09 23:02:46 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-09 23:02:46 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-09 23:02:50 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+----------------------------------------------------
+2013-05-09 23:03:47 tSettings 	SetFilePath	Read parameters 
+2013-05-09 23:03:47 tSettings 	sync	Save parameters 
+2013-05-09 23:03:47 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 23:03:47 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 23:03:49 socket 	Initialize	Создание сокета 
+2013-05-09 23:03:49 Начало работы клиента
+2013-05-09 23:03:49 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 23:03:49 socket 	ReadReport	Report: 3
+2013-05-09 23:03:49 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 23:03:49 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 23:03:49 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 23:03:49 Zast 	AutorizStart	Сервер найден 
+2013-05-09 23:03:54 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-09 23:03:54 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-09 23:03:56 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-09 23:04:04 socket 	OnCommand	Получена команда ReceiveLoginsTable
+2013-05-09 23:04:08 tGetLoginsTable 	ExeCommand	 Команда запроса таблицы логинов 
+2013-05-09 23:04:45 socket 	OnDisconnected	Отключение сервером 
+2013-05-09 23:04:45 tConveyor 	Clear	Сброс списка команд транзакции
+----------------------------------------------------
+2013-05-09 23:07:39 tSettings 	SetFilePath	Read parameters 
+2013-05-09 23:07:39 tSettings 	sync	Save parameters 
+2013-05-09 23:07:39 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 23:07:39 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 23:07:41 socket 	Initialize	Создание сокета 
+2013-05-09 23:07:41 Начало работы клиента
+2013-05-09 23:07:41 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 23:08:07 socket 	ReadReport	Report: 3
+2013-05-09 23:08:07 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 23:08:07 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 23:08:07 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 23:08:07 Zast 	AutorizStart	Сервер найден 
+2013-05-09 23:08:07 Zast 	OnTimerFalse	Не обнаружен сервер 
+2013-05-09 23:08:15 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-09 23:08:15 Конец работы клиента
+2013-05-09 23:08:16 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-09 23:08:42 tSettings 	SetFilePath	Read parameters 
+2013-05-09 23:08:42 tSettings 	sync	Save parameters 
+2013-05-09 23:08:42 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 23:08:42 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 23:08:44 socket 	Initialize	Создание сокета 
+2013-05-09 23:08:44 Начало работы клиента
+2013-05-09 23:08:44 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 23:08:44 socket 	ReadReport	Report: 3
+2013-05-09 23:08:44 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 23:08:44 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 23:08:44 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 23:08:44 Zast 	AutorizStart	Сервер найден 
+2013-05-09 23:08:44 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-09 23:08:44 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-09 23:08:44 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-09 23:08:44 socket 	OnCommand	Получена команда ReceiveLoginsTable
+2013-05-09 23:08:44 tGetLoginsTable 	ExeCommand	 Команда запроса таблицы логинов 
+2013-05-09 23:10:29 socket 	OnDisconnected	Отключение сервером 
+2013-05-09 23:10:29 tConveyor 	Clear	Сброс списка команд транзакции
+----------------------------------------------------
+2013-05-09 23:15:10 tSettings 	SetFilePath	Read parameters 
+2013-05-09 23:15:10 tSettings 	sync	Save parameters 
+2013-05-09 23:15:10 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 23:15:10 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 23:15:11 Начало работы клиента
+2013-05-09 23:15:11 socket 	Initialize	Создание сокета 
+2013-05-09 23:15:11 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 23:15:13 socket 	ReadReport	Report: 3
+2013-05-09 23:15:13 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 23:15:13 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 23:15:13 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 23:15:13 Zast 	AutorizStart	Сервер найден 
+2013-05-09 23:15:15 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-09 23:15:15 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-09 23:15:15 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-09 23:15:15 socket 	OnCommand	Получена команда ReceiveLoginsTable
+2013-05-09 23:15:15 tGetLoginsTable 	ExeCommand	 Команда запроса таблицы логинов 
+2013-05-09 23:28:14 socket 	OnDisconnected	Отключение сервером 
+2013-05-09 23:28:14 tConveyor 	Clear	Сброс списка команд транзакции
+----------------------------------------------------
+2013-05-09 23:28:32 tSettings 	SetFilePath	Read parameters 
+2013-05-09 23:28:32 tSettings 	sync	Save parameters 
+2013-05-09 23:28:32 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 23:28:32 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 23:28:34 socket 	Initialize	Создание сокета 
+2013-05-09 23:28:34 Начало работы клиента
+2013-05-09 23:28:34 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 23:28:36 socket 	ReadReport	Report: 3
+2013-05-09 23:28:36 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 23:28:36 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 23:28:36 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 23:28:36 Zast 	AutorizStart	Сервер найден 
+2013-05-09 23:28:39 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-09 23:28:39 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-09 23:28:39 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-09 23:28:39 socket 	OnCommand	Получена команда ReceiveLoginsTable
+2013-05-09 23:28:39 tGetLoginsTable 	ExeCommand	 Команда запроса таблицы логинов 
+2013-05-09 23:32:15 socket 	ReadReport	Мусор в сокете-1
+2013-05-09 23:32:15 tConveyor 	OnCommand	Выполнение команды из сокета Error
+2013-05-09 23:32:21 socket 	OnDisconnected	Отключение сервером 
+2013-05-09 23:32:21 tConveyor 	Clear	Сброс списка команд транзакции
+----------------------------------------------------
+2013-05-09 23:33:33 tSettings 	SetFilePath	Read parameters 
+2013-05-09 23:33:33 tSettings 	sync	Save parameters 
+2013-05-09 23:33:33 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 23:33:33 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 23:33:34 socket 	Initialize	Создание сокета 
+2013-05-09 23:33:34 Начало работы клиента
+2013-05-09 23:33:34 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 23:33:42 socket 	ReadReport	Report: 3
+2013-05-09 23:33:42 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 23:33:42 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 23:33:42 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 23:33:42 Zast 	AutorizStart	Сервер найден 
+2013-05-09 23:33:44 Zast 	OnTimerFalse	Не обнаружен сервер 
+2013-05-09 23:33:46 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-09 23:33:46 Конец работы клиента
+2013-05-09 23:33:46 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-09 23:33:49 tSettings 	SetFilePath	Read parameters 
+2013-05-09 23:33:49 tSettings 	sync	Save parameters 
+2013-05-09 23:33:49 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-09 23:33:49 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-09 23:33:51 socket 	Initialize	Создание сокета 
+2013-05-09 23:33:51 Начало работы клиента
+2013-05-09 23:33:51 Zast 	FindServer	Начало поиска сервера 
+2013-05-09 23:33:51 socket 	ReadReport	Report: 3
+2013-05-09 23:33:51 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-09 23:33:51 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-09 23:33:51 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-09 23:33:51 Zast 	AutorizStart	Сервер найден 
+2013-05-09 23:33:52 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-09 23:33:52 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-09 23:33:52 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-09 23:33:52 socket 	OnCommand	Получена команда ReceiveLoginsTable
+2013-05-09 23:33:52 tGetLoginsTable 	ExeCommand	 Команда запроса таблицы логинов 
+----------------------------------------------------
+2013-05-10 01:51:16 tSettings 	SetFilePath	Read parameters 
+2013-05-10 01:51:16 tSettings 	sync	Save parameters 
+2013-05-10 01:51:16 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-10 01:51:16 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-10 01:51:18 socket 	Initialize	Создание сокета 
+2013-05-10 01:51:18 Начало работы клиента
+2013-05-10 01:51:18 Zast 	FindServer	Начало поиска сервера 
+2013-05-10 01:51:27 socket 	ReadReport	Report: 3
+2013-05-10 01:51:27 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-10 01:51:27 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-10 01:51:27 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-10 01:51:27 Zast 	AutorizStart	Сервер найден 
+2013-05-10 01:51:28 Zast 	OnTimerFalse	Не обнаружен сервер 
+2013-05-10 01:51:30 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-10 01:51:30 Конец работы клиента
+2013-05-10 01:51:30 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-10 01:51:39 tSettings 	SetFilePath	Read parameters 
+2013-05-10 01:51:39 tSettings 	sync	Save parameters 
+2013-05-10 01:51:39 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-10 01:51:39 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-10 01:51:40 socket 	Initialize	Создание сокета 
+2013-05-10 01:51:40 Начало работы клиента
+2013-05-10 01:51:40 Zast 	FindServer	Начало поиска сервера 
+2013-05-10 01:51:40 socket 	ReadReport	Report: 3
+2013-05-10 01:51:40 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-10 01:51:40 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-10 01:51:40 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-10 01:51:40 Zast 	AutorizStart	Сервер найден 
+2013-05-10 01:51:41 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-10 01:51:41 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-10 01:51:41 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-10 01:51:41 socket 	OnCommand	Получена команда ReceiveLoginsTable
+2013-05-10 01:51:41 tGetLoginsTable 	ExeCommand	 Команда запроса таблицы логинов 
+2013-05-10 01:51:57 socket 	ReadReport	Report: 14
+2013-05-10 01:51:57 tStreamReportReceiveLoginsTable 	ExeCommand	 Получение списка моделей с сервера 
+2013-05-10 01:51:57 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportReceiveLoginsTable
+2013-05-10 01:52:15 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-10 01:52:31 tDatabaseOp 	UpdateLogins	Обновление таблицы логинов  

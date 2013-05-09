@@ -706,3 +706,52 @@ _in >> s_num;
 ((MainForm*)link)->DeleteUser(s_num);
 }
 //************************************************************************************************
+void tGUIReceiveLoginsTable::ExeCommand(QDataStream &_in)
+{
+    l="tClientGuiCommand \ttGUIGetLoginsTable\t Передача команды запроса таблицы логинов ";
+    log.Write(l);
+
+    QString comm="";
+    _in >> comm;
+
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    block.clear();
+
+    out << comm;
+
+    emit SendCommand(block);
+}
+//************************************************************************************************
+void tGUIReportReceiveLoginsTable::ExeCommand(QDataStream &_in)
+{
+    l="tClientGuiCommand \tGetListModels\t Отчет запроса списка моделей с сервера";
+    log.Write(l);
+
+    _in.device()->seek(0);
+    _in.device()->seek(54);
+
+
+    QByteArray block;
+    block=_in.device()->readAll();
+
+
+    ((MainForm*)link)->UpfateLoginsTable(block);
+
+//    bool tr=((MainForm*)link)->GetIsTransaction();
+//    if(tr)
+//    {
+//        //СЮДА ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST
+//        //НАЧАЛО В void tModelsConveyor::StartSendDeleteFiles()
+//        l="tClientGuiCommand \tGetListModels\t ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST";
+//        log.Write(l);
+
+//        ((MainForm*)link)->CorrectLastSynch(true);
+
+//        emit FinalBlockTransactions();
+//    }
+
+}
+//************************************************************************************************

@@ -551,3 +551,22 @@ void MainForm::DeleteUser(qlonglong _s_num)
 
     UpdateLogins();
 }
+//----------------------------------------------------------
+void MainForm::OnReceiveLoginsTable()
+{
+    mod_conv->ReceiveLoginsTable();
+}
+//----------------------------------------------------------
+void MainForm::UpfateLoginsTable(QByteArray &_block)
+{
+    //распарсить переданый блок и записать в таблицу логинов
+    db_op->UpdateLogins(_block);
+//    QStringList list;
+//    //Получить из папки серверного состояния моделей список моделей
+//    db_op->GetServerListModels(list);
+
+//    //отобразить список
+//    slm_server_list_models=new QStringListModel;
+//    slm_server_list_models->setStringList(list);
+//    ui->lwListModels->setModel(slm_server_list_models);
+}

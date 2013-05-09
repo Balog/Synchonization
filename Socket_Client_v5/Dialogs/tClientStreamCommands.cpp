@@ -1332,3 +1332,48 @@ void tStreamReportDeleteLogin::ProcessError(QDataStream &_in)
 }
 //-----------------------------------------------------------------
 //*****************************************************************
+//-----------------------------------------------------------------
+bool tGetLoginsTable::ExeCommand(QDataStream &_out)
+{
+    l="tGetLoginsTable \tExeCommand\t Команда запроса таблицы логинов ";
+    log.Write(l);
+
+    QString Comm="Command:";
+    int num_comm=14;
+
+    _out << quint16(0);
+
+    _out << Comm;
+    _out << num_comm;
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+    _out.device()->seek(_out.device()->size());
+    return false;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------
+bool tStreamReportReceiveLoginsTable::Initialize(QDataStream &_in)
+{
+
+    block1=_in.device()->readAll();
+    return true;
+}
+//-----------------------------------------------------------------
+bool tStreamReportReceiveLoginsTable::ExeCommand(QDataStream &)
+{
+    l="tStreamReportReceiveLoginsTable \tExeCommand\t Получение списка моделей с сервера ";
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("GUIReportReceiveLoginsTable");
+    out << block1;
+
+    emit Result(block);
+    return true;
+}
+//-----------------------------------------------------------------

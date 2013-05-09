@@ -44,7 +44,8 @@ private slots:
     void FindServer();
 
 
-
+signals:
+    void ReceiveLoginsTable();
 };
 
 #endif // ZAST_H

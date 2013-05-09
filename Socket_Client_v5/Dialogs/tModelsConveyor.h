@@ -37,6 +37,8 @@ public:
     void SendLoginPassword(QString &_login, QString &_password, int _row, bool _new_user);
     void SendDeleteLogin(int _row);
 
+    void ReceiveLoginsTable();
+
 private:
     QObject *link;
     Ui::MainForm *ui;

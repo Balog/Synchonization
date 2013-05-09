@@ -461,4 +461,37 @@ inline tAbstractStreamCommand* Create_tStreamReportDeleteLogin()
     return new tStreamReportDeleteLogin;
 }
 //****************************************************************
+class tGetLoginsTable : public tAbstractStreamCommand
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &){return true;}
+    virtual bool ExeCommand(QDataStream &_out);
+    virtual void ProcessError(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+
+};
+inline tAbstractStreamCommand* Create_tGetLoginsTable()
+{
+    return new tGetLoginsTable;
+}
+//****************************************************************
+
+class tStreamReportReceiveLoginsTable : public tAbstractStreamCommand
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &_in);
+    virtual bool ExeCommand(QDataStream &);
+    virtual void ProcessError(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+
+private:
+    QByteArray block1;
+};
+inline tAbstractStreamCommand* Create_tStreamReportReceiveLoginsTable()
+{
+    return new tStreamReportReceiveLoginsTable;
+}
+//****************************************************************
 #endif // TCLIENTSTREAMCOMMANDS_H

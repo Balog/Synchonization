@@ -356,4 +356,23 @@ inline tAbstractStreamCommand* Create_tDeleteLogin()
     return new tDeleteLogin;
 }
 //*****************************************************************
+class tSendLoginsTable : public tDatabaseStreamCommand
+
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &){return true;}
+    virtual bool ExeCommand(QDataStream &, QDataStream &_out);
+    virtual void SendErrorReport(QDataStream &){}
+    virtual void SendReport(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+private:
+    qlonglong num_login;
+
+};
+inline tAbstractStreamCommand* Create_tSendLoginsTable()
+{
+    return new tSendLoginsTable;
+}
+//*****************************************************************
 #endif // TSERVERSTREAMCOMMANDS_H
