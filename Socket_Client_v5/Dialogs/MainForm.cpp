@@ -9,6 +9,8 @@ extern tSettings my_settings;
 
 MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_conv(NULL), db_op(NULL), sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL), login_pass(new tEditLoginPass)
 {
+
+
     sLM_Send=new QStringListModel;
     sLM_Del=new QStringListModel;
     sLM_Rec=new QStringListModel;
@@ -446,6 +448,8 @@ void MainForm::OnNewLogin()
     login_pass->setVisible(true);
     login_pass->new_user=true;
     login_pass->row=-1;
+
+
 }
 //----------------------------------------------------------
 void MainForm::OnEditLogin()
@@ -464,6 +468,8 @@ void MainForm::OnEditLogin()
     login_pass->SetLogin(S);
     login_pass->new_user=false;
     login_pass->row=N;
+
+    mi=ui->lvLogins->selectionModel()->currentIndex();
     }
     else
     {
@@ -559,6 +565,8 @@ void MainForm::UpdateLogins()
     listLogins=db_op->GetLoginsList();
     sLM_Logins->setStringList(listLogins);
     ui->lvLogins->setModel(sLM_Logins);
+
+    ui->lvLogins->selectionModel()->setCurrentIndex(mi, QItemSelectionModel::Select);
 }
 //----------------------------------------------------------
 void MainForm::DeleteUser(qlonglong _s_num)

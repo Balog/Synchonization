@@ -91,7 +91,7 @@ private:
     QStringList listLogins;
     QStringListModel *sLM_Logins;
 
-
+    QModelIndex mi;
 
 private slots:
     void Autorization(QString &_login, QString &_password);

@@ -1710,7 +1710,7 @@ void tDatabaseOp::SaveLoginPassword(QString &_login, QString &_password, bool _n
             tCalcHash ch;
             ch.AddToHash(_password.toAscii());
             QSqlQuery update_user(db);
-            update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"', NoDelete=0 WHERE Num="+QString::number(_s_num));
+            update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"' WHERE Num="+QString::number(_s_num));
             if(!update_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления логина ") << _login;
             log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ обновления логина ")+_login.toUtf8()));}
         }

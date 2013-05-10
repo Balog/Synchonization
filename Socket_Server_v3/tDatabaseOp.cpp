@@ -1021,7 +1021,7 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
             tCalcHash ch;
             ch.AddToHash(_pass.toAscii());
             QSqlQuery update_user(db);
-            update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"', NoDelete=0 WHERE Num="+QString::number(num_log));
+            update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"' WHERE Num="+QString::number(num_log));
             if(!update_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления логина ") << _login;
             log.Write(QString(QString("tDatabaseOp \t SaveLoginPass \t ++ ОШИБКА ++ обновления логина ")+_login.toUtf8()));}
 
