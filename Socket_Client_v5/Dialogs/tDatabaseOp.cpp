@@ -1791,7 +1791,7 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
 
     QDataStream out(&_block, QIODevice::ReadOnly);
 
-    out.device()->seek(4);
+//    out.device()->seek(4);
     int num_logins=-1;
     out >> num_logins;
 

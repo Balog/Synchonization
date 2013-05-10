@@ -9116,3 +9116,92 @@
 2013-05-10 01:52:39 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 
 2013-05-10 01:52:39 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 
 2013-05-10 01:52:39 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 764 отключен. Осталось 0 клиентов
+----------------------------------------------------
+2013-05-10 15:07:16 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-05-10 15:07:16 GUI Dialog 	 Dialog 	 Начало работы 
+2013-05-10 15:07:18 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-05-10 15:07:18 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-05-10 15:07:18 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-05-10 15:07:19 GUI Dialog 	 Dialog 	 Сервер подключен 
+2013-05-10 15:07:30 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 740
+2013-05-10 15:07:30 Client 740 tClient 	 tClient 	 Клиент создан 
+2013-05-10 15:07:32 Client 740 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-10 15:07:32 Client 740 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-10 15:07:32 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-10 15:07:35 Client 740 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-10 15:07:35 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+----------------------------------------------------
+2013-05-10 15:08:37 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-05-10 15:08:37 GUI Dialog 	 Dialog 	 Начало работы 
+2013-05-10 15:08:37 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-05-10 15:08:37 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-05-10 15:08:37 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-05-10 15:08:37 GUI Dialog 	 Dialog 	 Сервер подключен 
+2013-05-10 15:08:45 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 760
+2013-05-10 15:08:45 Client 760 tClient 	 tClient 	 Клиент создан 
+2013-05-10 15:08:46 Client 760 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-10 15:08:46 Client 760 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-10 15:08:46 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-10 15:08:49 Client 760 () tClient 	 OnReadyRead 	 Получена команда номер 14
+----------------------------------------------------
+2013-05-10 15:09:29 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-05-10 15:09:29 GUI Dialog 	 Dialog 	 Начало работы 
+2013-05-10 15:09:29 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-05-10 15:09:29 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-05-10 15:09:29 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-05-10 15:09:29 GUI Dialog 	 Dialog 	 Сервер подключен 
+2013-05-10 15:09:58 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 756
+2013-05-10 15:09:58 Client 756 tClient 	 tClient 	 Клиент создан 
+2013-05-10 15:09:59 Client 756 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-10 15:09:59 Client 756 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-10 15:09:59 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-10 15:10:00 Client 756 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-10 15:11:29 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-10 15:22:04 Client 756 () tClient 	 OnDisconnect 	 Клиент 756 Логин  отключен 
+2013-05-10 15:22:04 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 
+2013-05-10 15:22:04 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-05-10 15:22:04 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись снята. Логин: 
+2013-05-10 15:22:04 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 
+2013-05-10 15:22:04 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 
+2013-05-10 15:22:04 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 
+2013-05-10 15:22:04 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 
+2013-05-10 15:22:04 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 756 отключен. Осталось 0 клиентов
+----------------------------------------------------
+2013-05-10 15:22:11 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-05-10 15:22:11 GUI Dialog 	 Dialog 	 Начало работы 
+2013-05-10 15:22:11 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-05-10 15:22:11 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-05-10 15:22:11 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-05-10 15:22:12 GUI Dialog 	 Dialog 	 Сервер подключен 
+2013-05-10 15:22:39 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 740
+2013-05-10 15:22:39 Client 740 tClient 	 tClient 	 Клиент создан 
+2013-05-10 15:22:40 Client 740 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-10 15:22:40 Client 740 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-10 15:22:40 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-10 15:22:55 Client 740 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-10 15:23:16 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-10 15:24:11 Client 740 () tClient 	 OnDisconnect 	 Клиент 740 Логин  отключен 
+2013-05-10 15:24:11 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 
+2013-05-10 15:24:11 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-05-10 15:24:11 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись снята. Логин: 
+2013-05-10 15:24:11 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 
+2013-05-10 15:24:11 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 
+2013-05-10 15:24:11 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 
+2013-05-10 15:24:11 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 
+2013-05-10 15:24:11 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 740 отключен. Осталось 0 клиентов
+2013-05-10 15:24:21 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 756
+2013-05-10 15:24:21 Client 756 tClient 	 tClient 	 Клиент создан 
+2013-05-10 15:24:21 Client 756 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-10 15:24:21 Client 756 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-10 15:24:21 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-10 15:24:35 Client 756 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-10 15:24:41 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-10 15:25:01 Client 756 () tClient 	 OnDisconnect 	 Клиент 756 Логин  отключен 
+2013-05-10 15:25:01 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 
+2013-05-10 15:25:01 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-05-10 15:25:01 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись снята. Логин: 
+2013-05-10 15:25:01 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 
+2013-05-10 15:25:01 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 
+2013-05-10 15:25:01 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 
+2013-05-10 15:25:01 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 
+2013-05-10 15:25:01 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 756 отключен. Осталось 0 клиентов

@@ -731,7 +731,7 @@ void tGUIReportReceiveLoginsTable::ExeCommand(QDataStream &_in)
     log.Write(l);
 
     _in.device()->seek(0);
-    _in.device()->seek(54);
+    _in.device()->seek(62);
 
 
     QByteArray block;
