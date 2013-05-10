@@ -452,6 +452,8 @@ void MainForm::OnEditLogin()
 {
     QModelIndex MI=ui->lvLogins->currentIndex();
     int N=MI.row();
+    if(N>=0)
+    {
     QStringListModel *sLM_Logins=new QStringListModel;
     sLM_Logins=(QStringListModel *)MI.model();
     QString S=sLM_Logins->stringList().value(N);
@@ -462,13 +464,31 @@ void MainForm::OnEditLogin()
     login_pass->SetLogin(S);
     login_pass->new_user=false;
     login_pass->row=N;
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Выделите редактируемый логин"));
+        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+        MB.exec();
+    }
 }
 //----------------------------------------------------------
 void MainForm::OnDelLogin()
 {
     QModelIndex MI=ui->lvLogins->currentIndex();
     int N=MI.row();
+    if(N>=0)
+    {
     mod_conv->SendDeleteLogin(N);
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Выделите удаляемый логин"));
+        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+        MB.exec();
+    }
 }
 //----------------------------------------------------------
 void MainForm::OnEndEditLoginPassword(QString& _login, QString& _password, int _row, bool _new_user)
@@ -561,6 +581,10 @@ void MainForm::UpfateLoginsTable(QByteArray &_block)
 {
     //распарсить переданый блок и записать в таблицу логинов
     db_op->UpdateLogins(_block);
+
+    UpdateLogins();
+
+    emit StartAutorizForm();
 //    QStringList list;
 //    //Получить из папки серверного состояния моделей список моделей
 //    db_op->GetServerListModels(list);

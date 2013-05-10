@@ -16,6 +16,8 @@ Zast::Zast(QWidget *_parent) :
     connect(main_form, SIGNAL(FindServer()), this, SLOT(FindServer()));
     connect(this, SIGNAL(ReceiveLoginsTable()), main_form, SLOT(OnReceiveLoginsTable()));
 
+    connect(main_form, SIGNAL(StartAutorizForm()), this, SLOT(OnStartAutorizationForm()));
+
     FindServer();
 }
 //---------------------------------------------------------------------
@@ -100,3 +102,7 @@ void Zast::FindServer()
     timer2->start(10000);
 }
 //---------------------------------------------------------------------
+void Zast::OnStartAutorizationForm()
+{
+    dAutoriz->show();
+}

@@ -981,7 +981,7 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
         {
             //логин новый
             QSqlQuery insert_new_user(db);
-            insert_new_user.prepare("INSERT INTO Logins (Login, PassHash, NoDelete, Writable) VALUES (?, ?, ?)");
+            insert_new_user.prepare("INSERT INTO Logins (Login, PassHash, NoDelete, Writable) VALUES (?, ?, ?, ?)");
 
             insert_new_user.bindValue(0, _login);
             tCalcHash ch;

@@ -42,6 +42,7 @@ private slots:
     void OnTimerFalse();
     void AutorizStart();
     void FindServer();
+    void OnStartAutorizationForm();
 
 
 signals:

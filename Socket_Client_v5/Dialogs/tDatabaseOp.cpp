@@ -1797,10 +1797,70 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
 
     db.transaction();
 
+    QSqlQuery set_found(db);
+    set_found.prepare("UPDATE Logins SET Found=1");
+    if(!set_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found=1 ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ установки Found=1 ")));}
+
+
     for(int i=0; i<num_logins; i++)
     {
+        qlonglong Num=0;
+        QString Login="";
+        QString PassHash="";
+        int NoDelete=0;
+        int Writable=0;
 
+        out >> Num;
+        out >> Login;
+        out >> PassHash;
+        out >> NoDelete;
+        out >> Writable;
+
+        QSqlQuery select_num_login(db);
+        select_num_login.prepare("SELECT Count(*) FROM Logins WHERE Num="+QString::number(Num));
+        if(!select_num_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num);
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)));}
+
+        select_num_login.next();
+        int count=select_num_login.value(0).toInt();
+        if(count==0)
+        {
+            //новый пользователь
+            QSqlQuery insert_login(db);
+            insert_login.prepare("INSERT INTO Logins (Num, Login, PassHash, NoDelete, Writable, Found) VALUES (?, ?, ?, ?, ?, ?)");
+            insert_login.bindValue(0, Num);
+            insert_login.bindValue(1, Login);
+            insert_login.bindValue(2, PassHash);
+            insert_login.bindValue(3, NoDelete);
+            insert_login.bindValue(4, Writable);
+            insert_login.bindValue(5, 0);
+
+            if(!insert_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления нового логина ")+QString::number(Num);
+            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)));}
+        }
+        else
+        {
+            //имеющийся пользователь
+            QSqlQuery update_login(db);
+            update_login.prepare("UPDATE Logins SET Login='"+Login+"', PassHash='"+PassHash+"', NoDelete="+QString::number(NoDelete)+", Writable="+QString::number(Writable)+", Found=0 WHERE NUm="+QString::number(Num));
+            if(!update_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ редактирования логина ")+QString::number(Num);
+            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ редактирования логина ")+QString::number(Num)));}
+
+        }
     }
 
+    QSqlQuery delete_login(db);
+    delete_login.prepare("DELETE FROM Logins WHERE Found=1");
+    if(!delete_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления лишних логинов ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ удаления лишних логинов ")));}
+
+    QSqlQuery unset_found(db);
+    unset_found.prepare("UPDATE Logins SET Found=0");
+    if(!unset_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found=0 ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ установки Found=0 ")));}
+
     db.commit();
+
+
 }

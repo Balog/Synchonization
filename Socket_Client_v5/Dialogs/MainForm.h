@@ -150,6 +150,8 @@ signals:
     void AutorizStart();
     void Disconnecting();
 
+    void StartAutorizForm();
+
 };
 
 #endif // MAINFORM_H
