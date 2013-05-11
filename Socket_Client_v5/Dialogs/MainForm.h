@@ -141,6 +141,7 @@ public slots:
     void OnServerModelClick(const QModelIndex Ind);
     void OnListFilesLocal();
     void OnReceiveLoginsTable();
+    void OnVerPassword();
 
 signals:
     void RunGui(QByteArray& block);

@@ -521,8 +521,13 @@
        <height>671</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit">
+    <widget class="QLineEdit" name="le_ver_pass">
      <property name="geometry">
       <rect>
        <x>60</x>
@@ -532,7 +537,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="pbVerPassword">
      <property name="geometry">
       <rect>
        <x>208</x>
@@ -938,6 +943,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>pbVerPassword</sender>
+   <signal>clicked()</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnVerPassword()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>271</x>
+     <y>80</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>405</x>
+     <y>24</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>OnConnect()</slot>
@@ -964,5 +985,6 @@
   <slot>OnEditLogin()</slot>
   <slot>OnDelLogin()</slot>
   <slot>OnLoginsClicked(QModelIndex)</slot>
+  <slot>OnVerPassword()</slot>
  </slots>
 </ui>

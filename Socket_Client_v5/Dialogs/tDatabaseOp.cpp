@@ -1864,3 +1864,36 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
 
 
 }
+//----------------------------------------------------------
+bool tDatabaseOp::VerPassword(QString &_login, QString& _pass)
+{
+    QSqlQuery ver_pass(db);
+    ver_pass.prepare("SELECT Count(*), PassHash FROM Logins WHERE Login='"+_login+"'");
+    if(!ver_pass.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки логина и выборки пароля ") << _login;
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ проверки логина и выборки пароля ")+_login));}
+
+    ver_pass.next();
+
+    int c=ver_pass.value(0).toInt();
+    if(c!=0)
+    {
+    QString pass_hash=ver_pass.value(1).toString();
+
+    tCalcHash ch;
+    ch.AddToHash(_pass.toAscii());
+
+    if(ch.ResultHash()==pass_hash)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    }
+    else
+    {
+        return false;
+    }
+
+}

@@ -602,3 +602,21 @@ void MainForm::UpfateLoginsTable(QByteArray &_block)
 //    slm_server_list_models->setStringList(list);
 //    ui->lwListModels->setModel(slm_server_list_models);
 }
+//----------------------------------------------------------
+void MainForm::OnVerPassword()
+{
+    if(db_op->VerPassword(ui->lvLogins->currentIndex().data().toString(), ui->le_ver_pass->text()))
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Пароль указан верно"));
+        MB.setWindowTitle(QString::fromUtf8("Проверка пароля"));
+        MB.exec();
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Пароль указан неверно"));
+        MB.setWindowTitle(QString::fromUtf8("Проверка пароля"));
+        MB.exec();
+    }
+}

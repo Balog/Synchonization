@@ -53,6 +53,8 @@ public:
     void DeleteLogin(qlonglong _num_log);
     void UpdateLogins(QByteArray &_block);
 
+    bool VerPassword(QString &login, QString &_pass);
+
 private:
     QSqlDatabase db;
     QString root;

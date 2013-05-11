@@ -72,8 +72,8 @@ public:
     QWidget *tab_2;
     QWidget *tab_3;
     QListView *lvLogins;
-    QLineEdit *lineEdit;
-    QPushButton *pushButton_4;
+    QLineEdit *le_ver_pass;
+    QPushButton *pbVerPassword;
     QLabel *label_11;
     QPushButton *pbAddUser;
     QPushButton *pbEditUser;
@@ -215,12 +215,15 @@ public:
         lvLogins = new QListView(tab_3);
         lvLogins->setObjectName(QString::fromUtf8("lvLogins"));
         lvLogins->setGeometry(QRect(10, 40, 271, 671));
-        lineEdit = new QLineEdit(tab_3);
-        lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setGeometry(QRect(60, 10, 141, 20));
-        pushButton_4 = new QPushButton(tab_3);
-        pushButton_4->setObjectName(QString::fromUtf8("pushButton_4"));
-        pushButton_4->setGeometry(QRect(208, 8, 75, 23));
+        QFont font;
+        font.setPointSize(11);
+        lvLogins->setFont(font);
+        le_ver_pass = new QLineEdit(tab_3);
+        le_ver_pass->setObjectName(QString::fromUtf8("le_ver_pass"));
+        le_ver_pass->setGeometry(QRect(60, 10, 141, 20));
+        pbVerPassword = new QPushButton(tab_3);
+        pbVerPassword->setObjectName(QString::fromUtf8("pbVerPassword"));
+        pbVerPassword->setGeometry(QRect(208, 8, 75, 23));
         label_11 = new QLabel(tab_3);
         label_11->setObjectName(QString::fromUtf8("label_11"));
         label_11->setGeometry(QRect(13, 12, 46, 13));
@@ -261,6 +264,7 @@ public:
         QObject::connect(pbEditUser, SIGNAL(clicked()), MainForm, SLOT(OnEditLogin()));
         QObject::connect(pbDelUser, SIGNAL(clicked()), MainForm, SLOT(OnDelLogin()));
         QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
+        QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
 
         tabWidget->setCurrentIndex(2);
 
@@ -302,7 +306,7 @@ public:
         label_6->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\321\207\320\270\321\202\320\260\321\202\321\214 \321\201 \321\201\320\265\321\200\320\262\320\265\321\200\320\260", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainForm", "\320\247\321\202\320\265\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainForm", "\320\227\320\260\320\277\320\270\321\201\321\214", 0, QApplication::UnicodeUTF8));
-        pushButton_4->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\320\262\320\265\321\200\320\272\320\260", 0, QApplication::UnicodeUTF8));
+        pbVerPassword->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\320\262\320\265\321\200\320\272\320\260", 0, QApplication::UnicodeUTF8));
         label_11->setText(QApplication::translate("MainForm", "\320\237\320\260\321\200\320\276\320\273\321\214", 0, QApplication::UnicodeUTF8));
         pbAddUser->setText(QApplication::translate("MainForm", "\320\224\320\276\320\261\320\260\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         pbEditUser->setText(QApplication::translate("MainForm", "\320\240\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\321\202\321\214", 0, QApplication::UnicodeUTF8));
