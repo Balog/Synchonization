@@ -1897,3 +1897,12 @@ bool tDatabaseOp::VerPassword(QString &_login, QString& _pass)
     }
 
 }
+//----------------------------------------------------------
+QStringList tDatabaseOp::GetTreeHierarchyModel(int _table)
+{
+    QStringList list;
+
+
+
+    return list;
+}

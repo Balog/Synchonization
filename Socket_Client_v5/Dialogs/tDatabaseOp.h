@@ -55,6 +55,10 @@ public:
 
     bool VerPassword(QString &login, QString &_pass);
 
+    QStringList GetTreeHierarchyModel(int _table);   //_table = 0 - локальная таблица моделей
+                                                //_table = 1 - серверная таблица моделей
+                                                //_table = 2 - Last таблица моделей
+
 private:
     QSqlDatabase db;
     QString root;

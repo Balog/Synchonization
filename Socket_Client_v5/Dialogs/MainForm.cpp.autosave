@@ -621,7 +621,22 @@ void MainForm::OnVerPassword()
     }
 }
 //----------------------------------------------------------
+void MainForm::TreesBuildings()
+{
+    //Постороение деревьев моделей
+    log.Write(tr("Постороение деревьев моделей"));
+    
+//    connect(this, SIGNAL(NextModel(int)), constr_mod_tree, SLOT(OnNextModel(int)));
+    
+    constr_mod_tree.StartWork();
+    
+    //после окончания работы вызвать это
+    StartAutoriz();
+}
+//----------------------------------------------------------
 void MainForm::StartAutoriz()
 {
+    //показ формы авторизации
+    log.Write(tr("показ формы авторизации"));
     emit StartAutorizForm();
 }
