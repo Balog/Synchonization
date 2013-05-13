@@ -625,7 +625,7 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     }
     else
     {
-        ((MainForm*)link)->StartAutoriz();
+        ((MainForm*)link)->TreesBuildings();
     }
 
 }

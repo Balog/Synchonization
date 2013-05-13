@@ -9,7 +9,7 @@ extern tSettings my_settings;
 
 MainForm::MainForm(QWidget *parent) : ui(new Ui::MainForm), QDialog(parent),mod_conv(NULL), db_op(NULL), sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL), login_pass(new tEditLoginPass)
 {
-
+    constr_mod_tree=NULL;
 
     sLM_Send=new QStringListModel;
     sLM_Del=new QStringListModel;
@@ -621,7 +621,33 @@ void MainForm::OnVerPassword()
     }
 }
 //----------------------------------------------------------
+void MainForm::TreesBuildings()
+{
+    //Постороение деревьев моделей
+    log.Write(tr("Постороение деревьев моделей"));
+
+//    connect(this, SIGNAL(NextModel(int)), constr_mod_tree, SLOT(OnNextModel(int)));
+
+//    constr_mod_tree.StartWork();
+    tConstructModelTree *constr_mod_tree=new tConstructModelTree("Server");
+
+    while(constr_mod_tree->NextModel())
+    {
+        QStringList list_model=constr_mod_tree->List();
+
+        //добавить модель к дереву
+    }
+
+    delete constr_mod_tree;
+    constr_mod_tree=NULL;
+
+    //после окончания работы вызвать это
+    StartAutoriz();
+}
+//----------------------------------------------------------
 void MainForm::StartAutoriz()
 {
+    //показ формы авторизации
+    log.Write(tr("показ формы авторизации"));
     emit StartAutorizForm();
 }

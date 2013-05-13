@@ -50,6 +50,8 @@ public:
     void DeleteUser(qlonglong _s_num);
 
     void UpfateLoginsTable(QByteArray &_block);
+    void TreesBuildings();
+
     void StartAutoriz();
 
 private:
@@ -95,7 +97,7 @@ private:
 
     QModelIndex mi;
 
-    tConstructModelTree constr_mod_tree;
+//    tConstructModelTree *constr_mod_tree;
 
 private slots:
     void Autorization(QString &_login, QString &_password);

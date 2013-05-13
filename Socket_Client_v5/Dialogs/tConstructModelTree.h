@@ -4,6 +4,11 @@
 class tConstructModelTree
 {
 public:
+    tConstructModelTree(QString &table);
+    ~tConstructModelTree();
+    bool NextModel();
+
+private:
     tConstructModelTree();
 };
 
