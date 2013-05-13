@@ -78,7 +78,7 @@ public:
     QPushButton *pbAddUser;
     QPushButton *pbEditUser;
     QPushButton *pbDelUser;
-    QTreeView *treeView;
+    QTreeView *tvAdminTree;
 
     void setupUi(QDialog *MainForm)
     {
@@ -238,9 +238,9 @@ public:
         pbDelUser->setObjectName(QString::fromUtf8("pbDelUser"));
         pbDelUser->setEnabled(false);
         pbDelUser->setGeometry(QRect(210, 720, 75, 23));
-        treeView = new QTreeView(tab_3);
-        treeView->setObjectName(QString::fromUtf8("treeView"));
-        treeView->setGeometry(QRect(290, 40, 761, 671));
+        tvAdminTree = new QTreeView(tab_3);
+        tvAdminTree->setObjectName(QString::fromUtf8("tvAdminTree"));
+        tvAdminTree->setGeometry(QRect(290, 40, 761, 671));
         tabWidget->addTab(tab_3, QString());
 
         retranslateUi(MainForm);
@@ -266,7 +266,7 @@ public:
         QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
         QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainForm);

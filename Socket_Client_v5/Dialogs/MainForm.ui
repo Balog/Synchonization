@@ -130,7 +130,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -608,7 +608,7 @@
       <string>Удалить</string>
      </property>
     </widget>
-    <widget class="QTreeView" name="treeView">
+    <widget class="QTreeView" name="tvAdminTree">
      <property name="geometry">
       <rect>
        <x>290</x>

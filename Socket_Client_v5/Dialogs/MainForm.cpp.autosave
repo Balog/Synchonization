@@ -674,8 +674,8 @@ void MainForm::TreesBuildings()
                 new_item->setCheckState(Qt::Checked);
                 new_item->setEditable(false);
                 new_item->setSelectable(false);
-                QIcon icon(":/Icons/Tree/Del_sm.ico");
-                new_item->setIcon(icon);
+//                QIcon icon(":/Icons/Tree/Del_sm.ico");
+//                new_item->setIcon(icon);
 
                 item->appendRow(new_item);
                 item=new_item;
@@ -702,7 +702,7 @@ void MainForm::StartAutoriz()
     log.Write(tr("показ формы авторизации"));
     emit StartAutorizForm();
 }
-
+//----------------------------------------------------------
 void MainForm::on_tvAdminTree_clicked(const QModelIndex &index)
 {
 

@@ -56,3 +56,6 @@ FORMS    += Zast.ui \
     Autoriz.ui \
     MainForm.ui \
     tEditLoginPass.ui
+
+RESOURCES += \
+    Resources.qrc

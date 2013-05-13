@@ -11,6 +11,7 @@
 #include "tDatabaseOp.h"
 #include "tEditLoginPass.h"
 #include "tConstructModelTree.h"
+#include <QStandardItemModel>
 #include <vector>
 
 
@@ -22,6 +23,7 @@ using namespace std;
 namespace Ui {
 class MainForm;
 }
+
 
 class MainForm : public QDialog
 {
@@ -97,6 +99,8 @@ private:
 
     QModelIndex mi;
 
+    QStandardItemModel *adm_tree_model;
+
 //    tConstructModelTree *constr_mod_tree;
 
 private slots:
@@ -142,6 +146,8 @@ private slots:
 
     void OnLoginsClicked(QModelIndex Ind);
 
+
+    void on_tvAdminTree_clicked(const QModelIndex &index);
 
 public slots:
     void OnServerModelClick(const QModelIndex Ind);

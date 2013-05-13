@@ -1898,11 +1898,56 @@ bool tDatabaseOp::VerPassword(QString &_login, QString& _pass)
 
 }
 //----------------------------------------------------------
-QStringList tDatabaseOp::GetTreeHierarchyModel(int _table)
+//QStringList tDatabaseOp::GetTreeHierarchyModel(int _table)
+//{
+//    QStringList list;
+
+
+
+//    return list;
+//}
+//----------------------------------------------------------
+void tDatabaseOp::ResetFoundModel(QString& _table)
 {
-    QStringList list;
+    QSqlQuery reset_found(db);
+    reset_found.prepare("UPDATE "+_table+" SET Found=0");
+    if(!reset_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found у таблицы ") << _table;
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ")+_table));}
+}
+//----------------------------------------------------------
+bool tDatabaseOp::NextModel(QString &_table)
+{
+    QSqlQuery next_model(db);
+    next_model.prepare("SELECT Count(*) FROM "+_table+" WHERE Found=0");
+    if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ") << _table;
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ")+_table));}
 
+    next_model.next();
 
+    int c=next_model.value(0).toInt();
+    return c!=0;
+}
+//----------------------------------------------------------
+QStringList tDatabaseOp::NextStructListModel(QString& _table)
+{
+    QStringList ret;
 
-    return list;
+    QSqlQuery next_model(db);
+    next_model.prepare("SELECT Num, Struct FROM "+_table+" WHERE Found=0");
+    if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки очередной модели из таблицы ") << _table;
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ выборки очередной модели из таблицы ")+_table));}
+
+    next_model.next();
+    qlonglong num=next_model.value(0).toLongLong();
+    QString mod_struct=next_model.value(1).toString();
+
+    //синтаксический разбор пути и формирование списка ветвей дерева
+    ret=mod_struct.split("/");
+
+    QSqlQuery set_found(db);
+    set_found.prepare("UPDATE "+_table+" SET Found=1 WHERE Num="+QString::number(num));
+    if(!set_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ пометки Found=1 модели номер ") << num <<  QString::fromUtf8("из таблицы ") << _table;
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ пометки Found=1 модели номер ")+ QString::number(num)+ QString("из таблицы ") +_table));}
+
+    return ret;
 }

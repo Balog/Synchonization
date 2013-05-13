@@ -2155,3 +2155,108 @@
 2013-05-12 00:09:08 Конец работы клиента
 2013-05-12 00:09:08 tSettings 	sync	Save parameters 
 ----------------------------------------------------
+----------------------------------------------------
+2013-05-13 18:05:18 tSettings 	SetFilePath	Read parameters 
+2013-05-13 18:05:18 tSettings 	sync	Save parameters 
+2013-05-13 18:05:18 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-13 18:05:18 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-13 18:05:21 Начало работы клиента
+2013-05-13 18:05:21 socket 	Initialize	Создание сокета 
+2013-05-13 18:05:21 Zast 	FindServer	Начало поиска сервера 
+2013-05-13 18:05:23 socket 	ReadReport	Report: 3
+2013-05-13 18:05:23 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-13 18:05:23 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-13 18:05:23 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-13 18:05:23 Zast 	AutorizStart	Сервер найден 
+2013-05-13 18:05:24 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-13 18:05:24 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-13 18:05:24 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-13 18:05:24 socket 	OnCommand	Получена команда ReceiveLoginsTable
+2013-05-13 18:05:24 tGetLoginsTable 	ExeCommand	 Команда запроса таблицы логинов 
+2013-05-13 18:05:24 socket 	ReadReport	Report: 14
+2013-05-13 18:05:24 tStreamReportReceiveLoginsTable 	ExeCommand	 Получение списка моделей с сервера 
+2013-05-13 18:05:24 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportReceiveLoginsTable
+2013-05-13 18:05:24 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-13 18:05:24 tDatabaseOp 	UpdateLogins	Обновление таблицы логинов  
+2013-05-13 18:05:24 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-13 18:05:24 tConveyor 	OnCommand	Выполнение команды из GUI GetListModels
+2013-05-13 18:05:24 tClientGuiCommand 	GetListModels	 Запрос списка моделей с сервера
+2013-05-13 18:05:24 socket 	OnCommand	Получена команда GetListModels
+2013-05-13 18:05:24 tGetServerListModels 	ExeCommand	 Запрос списка моделей с сервера 
+2013-05-13 18:05:24 socket 	ReadReport	Report: 11
+2013-05-13 18:05:24 tReportGetListServerModels 	ExeCommand	 Получение списка моделей с сервера 
+2013-05-13 18:05:24 tConveyor 	OnCommand	Выполнение команды из сокета ReportGetListServerModels
+2013-05-13 18:05:24 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-13 18:05:24 tDatabaseOp 	SaveServerModelFiles	Обновление серверных таблиц по информации с сервера  
+2013-05-13 18:05:24 Постороение деревьев моделей
+2013-05-13 18:05:25 показ формы авторизации
+2013-05-13 18:05:35 Отправка авторизации Логин: 1
+2013-05-13 18:05:35 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-13 18:05:35 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-13 18:05:35 socket 	OnCommand	Получена команда SendAutorization
+2013-05-13 18:05:35 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-13 18:05:35 socket 	ReadReport	Report: 5
+2013-05-13 18:05:35 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-13 18:05:35 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-13 18:05:35 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-13 18:05:48 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-13 18:05:48 Конец работы клиента
+2013-05-13 18:05:48 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-13 23:05:29 tSettings 	SetFilePath	Read parameters 
+2013-05-13 23:05:29 tSettings 	sync	Save parameters 
+2013-05-13 23:05:29 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-13 23:05:29 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-13 23:05:31 Начало работы клиента
+2013-05-13 23:05:31 socket 	Initialize	Создание сокета 
+ера 
+2013-05-13 23:05:41 Zast 	OnTimerFalse	Не обнаружен сервер 
+2013-05-13 23:05:43 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-13 23:05:43 Конец работы клиента
+2013-05-13 23:05:43 tSettings 	sync	Save parameters 
+----------------------------------------------------
+----------------------------------------------------
+2013-05-13 23:05:56 tSettings 	SetFilePath	Read parameters 
+2013-05-13 23:05:56 tSettings 	sync	Save parameters 
+2013-05-13 23:05:56 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-13 23:05:56 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-13 23:05:58 Начало работы клиента
+2013-05-13 23:05:58 socket 	Initialize	Создание сокета 
+2013-05-13 23:05:58 Zast 	FindServer	Начало поиска сервера 
+2013-05-13 23:06:00 socket 	ReadReport	Report: 3
+2013-05-13 23:06:00 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-13 23:06:00 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-13 23:06:00 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-13 23:06:00 Zast 	AutorizStart	Сервер найден 
+2013-05-13 23:06:03 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-13 23:06:03 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-13 23:06:03 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-13 23:06:03 socket 	OnCommand	Получена команда ReceiveLoginsTable
+2013-05-13 23:06:03 tGetLoginsTable 	ExeCommand	 Команда запроса таблицы логинов 
+2013-05-13 23:06:03 socket 	ReadReport	Report: 14
+2013-05-13 23:06:03 tStreamReportReceiveLoginsTable 	ExeCommand	 Получение списка моделей с сервера 
+2013-05-13 23:06:03 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportReceiveLoginsTable
+2013-05-13 23:06:03 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-13 23:06:03 tDatabaseOp 	UpdateLogins	Обновление таблицы логинов  
+2013-05-13 23:06:03 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-13 23:06:03 tConveyor 	OnCommand	Выполнение команды из GUI GetListModels
+2013-05-13 23:06:03 tClientGuiCommand 	GetListModels	 Запрос списка моделей с сервера
+2013-05-13 23:06:03 socket 	OnCommand	Получена команда GetListModels
+2013-05-13 23:06:03 tGetServerListModels 	ExeCommand	 Запрос списка моделей с сервера 
+2013-05-13 23:06:03 socket 	ReadReport	Report: 11
+2013-05-13 23:06:03 tReportGetListServerModels 	ExeCommand	 Получение списка моделей с сервера 
+2013-05-13 23:06:03 tConveyor 	OnCommand	Выполнение команды из сокета ReportGetListServerModels
+2013-05-13 23:06:03 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-13 23:06:03 tDatabaseOp 	SaveServerModelFiles	Обновление серверных таблиц по информации с сервера  
+2013-05-13 23:06:03 Постороение деревьев моделей
+2013-05-13 23:06:04 показ формы авторизации
+2013-05-13 23:06:08 Отправка авторизации Логин: 1
+2013-05-13 23:06:08 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-13 23:06:08 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: 1
+2013-05-13 23:06:08 socket 	OnCommand	Получена команда SendAutorization
+2013-05-13 23:06:08 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  1
+2013-05-13 23:06:08 socket 	ReadReport	Report: 5
+2013-05-13 23:06:08 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-13 23:06:08 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-13 23:06:08 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
