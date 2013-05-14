@@ -580,6 +580,8 @@ bool tAutorization::Initialize(QDataStream &_in)
     tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
     log=log1;
 
+    InitDB(((tClient*)link)->GetDB());
+
     login="";
     password="";
 
@@ -594,7 +596,7 @@ bool tAutorization::ExeCommand(QDataStream &, QDataStream &_out)
 
     //Тут будет подключение к базе данных, проверка логина и пароля но пока
     //буду пропускать если логин равен паролю
-    //работа по подготовке временно папки этого пользователя если он авторизовался
+    //работа по подготовке временной папки этого пользователя если он авторизовался
 
 
     QString comm="Report:";
@@ -604,7 +606,8 @@ bool tAutorization::ExeCommand(QDataStream &, QDataStream &_out)
     _out << comm;
     _out << num_com;
 
-    bool ret=login == password;
+    bool ret=db_op->VerifyAutorization(login, password);
+            //login == password;
     _out << ret;
 
     _out.device()->seek(0);

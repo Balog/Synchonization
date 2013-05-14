@@ -23,6 +23,7 @@ public:
     QString DeleteLogin(qlonglong num_login);
     void SendLoginTable(QDataStream &_out);
     void SendReadPermissions(QDataStream &_out);
+    bool VerifyAutorization(QString& _login, QString& _password);
 
 private:
     QSqlDatabase db;

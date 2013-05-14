@@ -652,14 +652,14 @@ void MainForm::TreesBuildings(QString& _login)
 
         //получить корень дерева
 
-        if(read)
-        {
-            log.Write(QString("Следующая модель read=true"));
-        }
-        else
-        {
-            log.Write(QString("Следующая модель read=false"));
-        }
+//        if(read)
+//        {
+//            log.Write(QString("Следующая модель read=true"));
+//        }
+//        else
+//        {
+//            log.Write(QString("Следующая модель read=false"));
+//        }
 
         QStandardItem *item=adm_tree_model->invisibleRootItem();
         item->setCheckable(true);
@@ -667,7 +667,7 @@ void MainForm::TreesBuildings(QString& _login)
         for(int i=0; i<list_model.size(); i++)
         {
             QString txt=item->text();
-            log.Write(QString(QString("Ветви уже есть. Значение ")+txt.toUtf8()));
+//            log.Write(QString(QString("Ветви уже есть. Значение ")+txt.toUtf8()));
             //ветви уже есть
             //проверить всех потомков текущей ветви
             //если есть совпадение то перейти к этому потомку
@@ -678,22 +678,22 @@ void MainForm::TreesBuildings(QString& _login)
             {
                 QString ch_text=item->child(j)->text();
                 QString mod_text=list_model[i];
-                log.Write(QString(QString("Сверяю потомков. Ветвь: ")+ch_text.toUtf8()+QString(" Модель: ")+mod_text.toUtf8()));
+//                log.Write(QString(QString("Сверяю потомков. Ветвь: ")+ch_text.toUtf8()+QString(" Модель: ")+mod_text.toUtf8()));
 
                 if(ch_text==mod_text)
                 {
-                    log.Write(QString("Потомок найден "));
+//                    log.Write(QString("Потомок найден "));
                     Qt::CheckState st=item->child(j)->checkState();
 
                     switch (st)
                     {
                     case Qt::Checked:
                     {
-                        log.Write(QString("прошлое состояние - включено "));
+//                        log.Write(QString("прошлое состояние - включено "));
                         if(!read)
                         {
                             item->child(j)->setCheckState(Qt::PartiallyChecked);
-                            log.Write(QString("Установлено - среднее "));
+//                            log.Write(QString("Установлено - среднее "));
                         }
                         else
                         {
@@ -704,22 +704,22 @@ void MainForm::TreesBuildings(QString& _login)
                     }
                     case Qt::Unchecked:
                     {
-                        log.Write(QString("прошлое состояние - выключено "));
+//                        log.Write(QString("прошлое состояние - выключено "));
                         if(read)
                         {
                             item->child(j)->setCheckState(Qt::PartiallyChecked);
-                            log.Write(QString("Установлено - среднее "));
+//                            log.Write(QString("Установлено - среднее "));
                         }
                         else
                         {
                             item->child(j)->setCheckState(Qt::Unchecked);
-                            log.Write(QString("Установлено - выключено "));
+//                            log.Write(QString("Установлено - выключено "));
                         }
                         break;
                     }
                     case Qt::PartiallyChecked:
                     {
-                        log.Write(QString("прошлое состояние - среднее "));
+//                        log.Write(QString("прошлое состояние - среднее "));
                         break;
                     }
                     }
@@ -752,12 +752,12 @@ void MainForm::TreesBuildings(QString& _login)
                 if(read)
                 {
                 new_item->setCheckState(Qt::Checked);
-                log.Write(QString("Новая ветвь. Установлено - включено "+new_item->text().toUtf8()));
+//                log.Write(QString("Новая ветвь. Установлено - включено "+new_item->text().toUtf8()));
                 }
                 else
                 {
                 new_item->setCheckState(Qt::Unchecked);
-                log.Write(QString("Новая ветвь. Установлено - выключено "+new_item->text().toUtf8()));
+//                log.Write(QString("Новая ветвь. Установлено - выключено "+new_item->text().toUtf8()));
                 }
                 new_item->setEditable(false);
                 new_item->setSelectable(false);

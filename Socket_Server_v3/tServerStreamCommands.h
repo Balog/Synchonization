@@ -129,7 +129,7 @@ inline tAbstractStreamCommand* Create_tPrepareReceiveFile()
     return new tPrepareReceiveFile;
 }
 //*****************************************************************
-class tAutorization : public tAbstractStreamCommand
+class tAutorization : public tDatabaseStreamCommand
 
 {
     Q_OBJECT
