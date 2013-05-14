@@ -22,6 +22,7 @@ public:
     QString SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &num_log, int _row);
     QString DeleteLogin(qlonglong num_login);
     void SendLoginTable(QDataStream &_out);
+    void SendReadPermissions(QDataStream &_out);
 
 private:
     QSqlDatabase db;

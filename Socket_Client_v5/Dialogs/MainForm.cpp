@@ -13,6 +13,7 @@ MainForm::MainForm(QWidget *parent) :
     login_pass(new tEditLoginPass), adm_tree_model(NULL)
 {
 //    constr_mod_tree=NULL;
+    IsRequeryServerModel=false;
 
     sLM_Send=new QStringListModel;
     sLM_Del=new QStringListModel;
@@ -61,6 +62,8 @@ MainForm::MainForm(QWidget *parent) :
 //--------------------------------------------------------------------------------
 MainForm::~MainForm()
 {
+    delete login_pass;
+
     delete sLM_loc_list_models;
     delete slm_list;
 
@@ -69,6 +72,8 @@ MainForm::~MainForm()
     delete sLM_Rec;
     delete sLM_DelLoc;
     delete sLM_Logins;
+    delete slm_server_list_models;
+    delete adm_tree_model;
 
     delete mod_conv;
     mod_conv=NULL;
@@ -232,6 +237,7 @@ void MainForm::OnClearDelete()
 //---------------------------------------------------------------------
 void MainForm::OnListFiles()
 {
+
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
@@ -591,7 +597,7 @@ void MainForm::OnReceiveLoginsTable()
     mod_conv->ReceiveLoginsTable();
 }
 //----------------------------------------------------------
-void MainForm::UpfateLoginsTable(QByteArray &_block)
+void MainForm::UpdateLoginsTable(QByteArray &_block)
 {
     //распарсить переданый блок и записать в таблицу логинов
     db_op->UpdateLogins(_block);
@@ -625,22 +631,35 @@ void MainForm::OnVerPassword()
     }
 }
 //----------------------------------------------------------
-void MainForm::TreesBuildings()
+void MainForm::TreesBuildings(QString& _login)
 {
     //Постороение деревьев моделей
     tLog log;
     log.Write(tr("Постороение деревьев моделей"));
 
-    tConstructModelTree *constr_mod_tree=new tConstructModelTree(db_op, tr("ServerStructModels"));
+    adm_tree_model->clear();
+    tConstructModelTree *constr_mod_tree=new tConstructModelTree(db_op,  _login);
 
 
-    while(constr_mod_tree->NextModel())
+    while(constr_mod_tree->NextModelAdmin())
     {
-        QStringList list_model=constr_mod_tree->List();
+        bool read=false;
+        qlonglong server_num_model=-1;
+
+        QStringList list_model=constr_mod_tree->ListAdmin(read, server_num_model);
 
         //добавить модель к дереву
 
         //получить корень дерева
+
+        if(read)
+        {
+            log.Write(QString("Следующая модель read=true"));
+        }
+        else
+        {
+            log.Write(QString("Следующая модель read=false"));
+        }
 
         QStandardItem *item=adm_tree_model->invisibleRootItem();
         item->setCheckable(true);
@@ -648,6 +667,7 @@ void MainForm::TreesBuildings()
         for(int i=0; i<list_model.size(); i++)
         {
             QString txt=item->text();
+            log.Write(QString(QString("Ветви уже есть. Значение ")+txt.toUtf8()));
             //ветви уже есть
             //проверить всех потомков текущей ветви
             //если есть совпадение то перейти к этому потомку
@@ -658,8 +678,52 @@ void MainForm::TreesBuildings()
             {
                 QString ch_text=item->child(j)->text();
                 QString mod_text=list_model[i];
+                log.Write(QString(QString("Сверяю потомков. Ветвь: ")+ch_text.toUtf8()+QString(" Модель: ")+mod_text.toUtf8()));
+
                 if(ch_text==mod_text)
                 {
+                    log.Write(QString("Потомок найден "));
+                    Qt::CheckState st=item->child(j)->checkState();
+
+                    switch (st)
+                    {
+                    case Qt::Checked:
+                    {
+                        log.Write(QString("прошлое состояние - включено "));
+                        if(!read)
+                        {
+                            item->child(j)->setCheckState(Qt::PartiallyChecked);
+                            log.Write(QString("Установлено - среднее "));
+                        }
+                        else
+                        {
+                            item->child(j)->setCheckState(Qt::Checked);
+                            log.Write(QString("Установлено - включено "));
+                        }
+                        break;
+                    }
+                    case Qt::Unchecked:
+                    {
+                        log.Write(QString("прошлое состояние - выключено "));
+                        if(read)
+                        {
+                            item->child(j)->setCheckState(Qt::PartiallyChecked);
+                            log.Write(QString("Установлено - среднее "));
+                        }
+                        else
+                        {
+                            item->child(j)->setCheckState(Qt::Unchecked);
+                            log.Write(QString("Установлено - выключено "));
+                        }
+                        break;
+                    }
+                    case Qt::PartiallyChecked:
+                    {
+                        log.Write(QString("прошлое состояние - среднее "));
+                        break;
+                    }
+                    }
+
                     item=item->child(j);
                     QString t=item->text();
                     find=true;
@@ -669,15 +733,54 @@ void MainForm::TreesBuildings()
             if(!find)
             {
                 QStandardItem *new_item=new QStandardItem(list_model[i]);
+//                bool is_model=i==list_model.size()-1;
+                QFont font;
+                if(i==list_model.size()-1)
+                {
+                    new_item->setData(server_num_model);
+                    font.setBold(true);
+                }
+                else
+                {
+                    new_item->setData(-1);
+                    font.setBold(false);
+                }
+//                new_item->setData((QVariant)data);
+                new_item->setFont(font);
                 new_item->setCheckable(true);
                 new_item->setTristate(true);
+                if(read)
+                {
                 new_item->setCheckState(Qt::Checked);
+                log.Write(QString("Новая ветвь. Установлено - включено "+new_item->text().toUtf8()));
+                }
+                else
+                {
+                new_item->setCheckState(Qt::Unchecked);
+                log.Write(QString("Новая ветвь. Установлено - выключено "+new_item->text().toUtf8()));
+                }
                 new_item->setEditable(false);
                 new_item->setSelectable(false);
-                QIcon icon(":/Icons/Tree/Del_sm.ico");
-                new_item->setIcon(icon);
+//                QIcon icon(":/Icons/Tree/Del_sm.ico");
+//                new_item->setIcon(icon);
 
                 item->appendRow(new_item);
+
+
+                Qt::CheckState new_check;
+                if(item->checkState()==Qt::PartiallyChecked)
+                {
+                if(read)
+                {
+                    new_check=Qt::Unchecked;
+                }
+                else
+                {
+                    new_check=Qt::Checked;
+                }
+
+                UpToParent(new_item->index(), new_check);
+                }
                 item=new_item;
             }
         }
@@ -690,9 +793,6 @@ void MainForm::TreesBuildings()
     ui->tvAdminTree->setAnimated(true);
     delete constr_mod_tree;
     constr_mod_tree=NULL;
-
-    //после окончания работы вызвать это
-    StartAutoriz();
 }
 //----------------------------------------------------------
 void MainForm::StartAutoriz()
@@ -702,8 +802,165 @@ void MainForm::StartAutoriz()
     log.Write(tr("показ формы авторизации"));
     emit StartAutorizForm();
 }
-
+//----------------------------------------------------------
 void MainForm::on_tvAdminTree_clicked(const QModelIndex &index)
 {
+//    QStandardItem *item=adm_tree_model->itemFromIndex(index);
+//    Qt::CheckState state=item->checkState();
 
+//    const QModelIndex parent_index=adm_tree_model->parent(index);
+//    QStandardItem *parent_item=adm_tree_model->itemFromIndex(parent_index);
+
+//    QObjectList childrens=adm_tree_model->children();
+//    int count_ch=childrens.size();
+
+//    QString item_text=item->text();
+//    QString parent_text=parent_item->text();
+
+    //Для модификации отметок нужно проделать две операции:
+    //1. Вверх по предкам
+    //1.1. От предка пройти по всем его потомкам (в том числе и текущей ветви) и проверить их состояние
+    //     Если однозначное то такое же выставить предку, если неоднозначное поставить неопределенное.
+    //     Определенное и неопределенное в сумме дает неопределенное
+    //1.2. Перейти к предку предка и повторять операцию до самого корня
+
+    //2. Вниз по потомкам
+    //2.1. если текущая ветвь выставлена в истину то выставить всех потомков в истину
+    //     если текущая ветвь выставлена в ложь то всех потомков выставить в ложь
+
+    //В конце нужно будет сохранить состояние в таблице и синхронизировать на сервер
+    //(как это сделать пока не знаю)
+
+    UpToParent(index, adm_tree_model->itemFromIndex(index)->checkState());
+    DownToChildrens(index, adm_tree_model->itemFromIndex(index)->checkState());
+
+}
+//----------------------------------------------------------
+void MainForm::UpdateModelRead(QByteArray &_block)
+{
+    //распарсить переданый блок и записать в таблицу логинов
+    db_op->UpdateModelRead(_block);
+
+    StartAutoriz();
+
+}
+//----------------------------------------------------------
+
+void MainForm::on_lvLogins_clicked(const QModelIndex &index)
+{
+    //    QModelIndex MI=ui->lvLocalListFiles->currentIndex();
+
+    //    int N=MI.row();
+    //    if(N<0)
+    //    {
+    //        QMessageBox MB;
+    //        MB.setText(QString::fromUtf8("Выделите клиентскую модель"));
+    //        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+    //        MB.exec();
+    //    }
+    //    else
+    //    {
+    //        QStringListModel *M=new QStringListModel;
+    //        M=(QStringListModel *)MI.model();
+
+    //        QString S=M->stringList().value(N);
+
+    QString S=sLM_Logins->stringList().value(index.row());
+
+    TreesBuildings(S);
+
+}
+//----------------------------------------------------------
+void MainForm::UpToParent(QModelIndex index, Qt::CheckState _state)
+{
+
+    //определим предка
+    const QModelIndex parent_index=adm_tree_model->parent(index);
+    QStandardItem *parent_item=adm_tree_model->itemFromIndex(parent_index);
+    if(!parent_item)
+    {
+        return;
+    }
+    else
+    {
+
+
+    int child_count=parent_item->rowCount();
+    Qt::CheckState state=_state;
+    if(child_count>1)
+    {
+    for(int i=0; i<child_count;i++)
+    {
+        QStandardItem *child_item=parent_item->child(i);
+        switch (child_item->checkState())
+        {
+        case Qt::Checked:
+        {
+            if(state!=Qt::Checked)
+            {
+                state=Qt::PartiallyChecked;
+            }
+            break;
+        }
+        case Qt::Unchecked:
+        {
+            if(state!=Qt::Unchecked)
+            {
+                state=Qt::PartiallyChecked;
+            }
+            break;
+        }
+        case Qt::PartiallyChecked:
+        {
+            state=Qt::PartiallyChecked;
+            break;
+        }
+        }
+        if(state==Qt::PartiallyChecked)
+        {
+            break;
+        }
+    }
+    }
+    else
+    {
+        qlonglong s_num=parent_item->data().toLongLong();
+        if(s_num>0)
+        {
+            state=Qt::Checked;
+
+        }
+    }
+    //установим полученый state предку
+    parent_item->setCheckState(state);
+
+    UpToParent(parent_index, state);
+    }
+}
+//----------------------------------------------------------
+void MainForm::DownToChildrens(QModelIndex index, Qt::CheckState _state)
+{
+    QStandardItem *item=adm_tree_model->itemFromIndex(index);
+    int child_count=item->rowCount();
+    if(child_count==0)
+    {
+        return;
+    }
+    else
+    {
+        for(int i=0; i<child_count; i++)
+        {
+            QStandardItem *children=item->child(i);
+            children->setCheckState(_state);
+            QModelIndex child_index=children->index();
+            DownToChildrens(child_index, _state);
+        }
+    }
+}
+//----------------------------------------------------------
+
+void MainForm::on_pbListFiles_clicked()
+{
+    IsRequeryServerModel=true;
+    OnListFiles();
 }

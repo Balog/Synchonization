@@ -18,6 +18,7 @@
 using namespace std;
 
 
+
 //
 
 namespace Ui {
@@ -51,10 +52,13 @@ public:
     void UpdateLogins();
     void DeleteUser(qlonglong _s_num);
 
-    void UpfateLoginsTable(QByteArray &_block);
-    void TreesBuildings();
+    void UpdateLoginsTable(QByteArray &_block);
+    void TreesBuildings(QString &_login);
 
     void StartAutoriz();
+    void UpdateModelRead(QByteArray &_block);
+
+    bool IsRequeryServerModel;
 
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
@@ -102,6 +106,10 @@ private:
     QStandardItemModel *adm_tree_model;
 
 //    tConstructModelTree *constr_mod_tree;
+    void UpToParent(QModelIndex index, Qt::CheckState _state);
+    void DownToChildrens(QModelIndex index, Qt::CheckState _state);
+
+
 
 private slots:
     void Autorization(QString &_login, QString &_password);
@@ -148,6 +156,10 @@ private slots:
 
 
     void on_tvAdminTree_clicked(const QModelIndex &index);
+
+    void on_lvLogins_clicked(const QModelIndex &index);
+
+    void on_pbListFiles_clicked();
 
 public slots:
     void OnServerModelClick(const QModelIndex Ind);

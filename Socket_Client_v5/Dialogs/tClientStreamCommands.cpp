@@ -1377,3 +1377,51 @@ bool tStreamReportReceiveLoginsTable::ExeCommand(QDataStream &)
     return true;
 }
 //-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------
+bool tStreamReceiveReadPermissions::ExeCommand(QDataStream &_out)
+{
+    l="tStreamReceiveReadPermissions \tExeCommand\t Команда запроса таблицы разрешений на чтение ";
+    log.Write(l);
+
+    QString Comm="Command:";
+    int num_comm=15;
+
+    _out << quint16(0);
+
+    _out << Comm;
+    _out << num_comm;
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+    _out.device()->seek(_out.device()->size());
+    return false;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------
+bool tStreamReportReceiveReadPermissions::Initialize(QDataStream &_in)
+{
+
+    block1=_in.device()->readAll();
+    return true;
+}
+//-----------------------------------------------------------------
+bool tStreamReportReceiveReadPermissions::ExeCommand(QDataStream &)
+{
+    l="tStreamReportReceiveLoginsTable \tExeCommand\t Получение списка разрешений на чтение моделей с сервера ";
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("GUIReportReceiveReadPermissions");
+    out << block1;
+
+    emit Result(block);
+    return true;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------

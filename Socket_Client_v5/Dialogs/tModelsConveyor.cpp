@@ -27,6 +27,13 @@ tModelsConveyor::tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp 
 
 }
 //-------------------------------------------------------------------------
+tModelsConveyor::~tModelsConveyor()
+{
+    delete conv;
+    conv=NULL;
+}
+
+//-------------------------------------------------------------------------
 void tModelsConveyor::StartServer(const QString &_addr, const int _port)
 {
     conv->StartServer(_addr, _port);

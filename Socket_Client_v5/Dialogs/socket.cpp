@@ -48,6 +48,9 @@ tSocket::tSocket(const QString &_address, const int _port, const QString &_root,
 
     vf.reg("ReceiveLoginsTable",Create_tGetLoginsTable);
     vf.reg("Report:14",Create_tStreamReportReceiveLoginsTable);
+
+    vf.reg("ReceiveReadPermissions",Create_tStreamReceiveReadPermissions);
+    vf.reg("Report:15",Create_tStreamReportReceiveReadPermissions);
 }
 //-------------------------------------------------------------------------------
 tSocket::~tSocket()
@@ -75,6 +78,7 @@ void tSocket::Initialize()
     connect(socket, SIGNAL(readyRead()),this, SLOT(ReadReport()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(OnDisconnected()));
     connect(this, SIGNAL(Result(QByteArray)), owner, SLOT(OnCommandToGui(QByteArray)));
+
 }
 //-------------------------------------------------------------------------------
 void tSocket::ReadReport()

@@ -402,4 +402,30 @@ inline tAbstractGuiCommand* Create_tGUIReportReceiveLoginsTable()
     return new tGUIReportReceiveLoginsTable;
 }
 //**********************************************************************************
+class tGUIReceiveReadPermissions : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &_in);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUIReceiveReadPermissions()
+{
+    return new tGUIReceiveReadPermissions;
+}
+//**********************************************************************************
+class tGUIReportReceiveReadPermissions : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUIReportReceiveReadPermissions()
+{
+    return new tGUIReportReceiveReadPermissions;
+}
+//**********************************************************************************
 #endif // TCLIENTGUICOMMAND_H

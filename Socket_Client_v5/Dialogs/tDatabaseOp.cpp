@@ -865,7 +865,7 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
         int c=is_found_mod.value(0).toInt();
 
         qlonglong num_server_model=0;
-        if(c=0)
+        if(c==0)
         {
             QSqlQuery insert_server_model(db);
             insert_server_model.prepare("INSERT INTO ServerStructModels (DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, ServerNum) "
@@ -1907,47 +1907,140 @@ bool tDatabaseOp::VerPassword(QString &_login, QString& _pass)
 //    return list;
 //}
 //----------------------------------------------------------
-void tDatabaseOp::ResetFoundModel(QString& _table)
+void tDatabaseOp::ResetFoundModelAdmin()
 {
-    QSqlQuery reset_found(db);
-    reset_found.prepare("UPDATE "+_table+" SET Found=0");
-    if(!reset_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found у таблицы ") << _table;
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ")+_table));}
+        QSqlQuery reset_found(db);
+        reset_found.prepare("UPDATE ServerStructModels SET Found=0");
+        if(!reset_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ") ;
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")));}
 }
 //----------------------------------------------------------
-bool tDatabaseOp::NextModel(QString &_table)
+bool tDatabaseOp::NextModelAdmin()
 {
-    QSqlQuery next_model(db);
-    next_model.prepare("SELECT Count(*) FROM "+_table+" WHERE Found=0");
-    if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ") << _table;
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ")+_table));}
+    bool ret=false;
 
-    next_model.next();
+//    QSqlQuery select_perm(db);
+//    select_perm.prepare("SELECT Model FROM ModelRead WHERE Login="+QString::number(GetNumLogin(_login)));
+//    if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки разрешений по логину ") << _login ;
+//        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login));}
 
-    int c=next_model.value(0).toInt();
-    return c!=0;
-}
-//----------------------------------------------------------
-QStringList tDatabaseOp::NextStructListModel(QString& _table)
-{
-    QStringList ret;
+//    while(select_perm.next())
+//    {
+//        qlonglong model=select_perm.value(0).toLongLong();
 
-    QSqlQuery next_model(db);
-    next_model.prepare("SELECT Num, Struct FROM "+_table+" WHERE Found=0");
-    if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки очередной модели из таблицы ") << _table;
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ выборки очередной модели из таблицы ")+_table));}
+        QSqlQuery next_model(db);
+        next_model.prepare("SELECT Count(*) FROM ServerStructModels WHERE Found=0");
+        if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ServerStructModels");
+            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ServerStructModels")));}
 
-    next_model.next();
-    qlonglong num=next_model.value(0).toLongLong();
-    QString mod_struct=next_model.value(1).toString();
+        next_model.next();
 
-    //синтаксический разбор пути и формирование списка ветвей дерева
-    ret=mod_struct.split("/");
-
-    QSqlQuery set_found(db);
-    set_found.prepare("UPDATE "+_table+" SET Found=1 WHERE Num="+QString::number(num));
-    if(!set_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ пометки Found=1 модели номер ") << num <<  QString::fromUtf8("из таблицы ") << _table;
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ пометки Found=1 модели номер ")+ QString::number(num)+ QString("из таблицы ") +_table));}
+        ret=next_model.value(0).toInt()!=0;
+//        if(ret)
+//        {
+//            break;
+//        }
+//    }
 
     return ret;
 }
+//----------------------------------------------------------
+QStringList tDatabaseOp::NextStructListModelAdmin(QString& _login, bool& _read, qlonglong &_server_num)
+{
+    QStringList ret;
+
+//    QSqlQuery select_perm(db);
+//    select_perm.prepare("SELECT Model FROM ModelRead WHERE Login="+QString::number(GetNumLogin(_login)));
+//    if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки разрешений по логину ") << _login ;
+//        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login));}
+
+//    while(select_perm.next())
+//    {
+//        qlonglong model=select_perm.value(0).toLongLong();
+
+        QSqlQuery next_model(db);
+        next_model.prepare("SELECT Num, Struct, ServerNum FROM ServerStructModels WHERE Found=0");
+        if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels");
+            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels")));}
+
+        next_model.next();
+//        int c=next_model.value(0).toInt();
+//        if(c!=0)
+//        {
+        qlonglong num=next_model.value(0).toLongLong();
+        QString mod_struct=next_model.value(1).toString();
+        qlonglong s_num=next_model.value(2).toLongLong();
+        _server_num=s_num;
+
+        //синтаксический разбор пути и формирование списка ветвей дерева
+        ret=mod_struct.split("/");
+
+        QSqlQuery set_found(db);
+        set_found.prepare("UPDATE ServerStructModels SET Found=1 WHERE Num="+QString::number(num));
+        if(!set_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ пометки Found=1 модели номер ") << num <<  QString::fromUtf8("из таблицы ServerStructModels");
+            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ пометки Found=1 модели номер ")+ QString::number(num)+ QString("из таблицы ServerStructModels")));}
+
+
+        QSqlQuery select_perm(db);
+        select_perm.prepare("SELECT Count(*) FROM ModelRead WHERE Model="+QString::number(s_num)+" AND Login="+QString::number(GetNumLogin(_login)));
+        if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки разрешений по логину ") << _login << " и модели " << num ;
+            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login+" и модели "+QString::number(num)));}
+        select_perm.next();
+
+        int c=select_perm.value(0).toInt();
+        _read=c!=0;
+
+//        break;
+//        }
+//        else
+//        {
+//            continue;
+//        }
+//    }
+    return ret;
+}
+//----------------------------------------------------------
+void tDatabaseOp::UpdateModelRead(QByteArray &_block)
+{
+    l="tDatabaseOp \tUpdateLogins\tОбновление таблицы разрешений на чтение моделей  ";
+    log.Write(l);
+
+    QDataStream out(&_block, QIODevice::ReadOnly);
+
+    int num_permis=-1;
+    out >> num_permis;
+
+    db.transaction();
+
+    //удалить таблицу
+    QSqlQuery del_permis(db);
+    del_permis.prepare("DELETE FROM ModelRead");
+    if(!del_permis.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки таблицы разрешений ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ очистки таблицы разрешений ")));}
+
+
+    //записать таблицу заново
+    for(int i=0; i<num_permis; i++)
+    {
+        qlonglong login=-1;
+        qlonglong model=-1;
+
+        out >> login;
+        out >> model;
+
+    QSqlQuery insert_permis(db);
+    insert_permis.prepare("INSERT INTO ModelRead (Login, Model) VALUES (?, ?)");
+
+    insert_permis.bindValue(0, login);
+    insert_permis.bindValue(1, model);
+
+    if(!insert_permis.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ заполнения таблицы разрешений ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ заполнения таблицы разрешений ")));}
+
+    }
+
+    db.commit();
+
+
+}
+//----------------------------------------------------------

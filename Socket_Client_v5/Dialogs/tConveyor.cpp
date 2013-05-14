@@ -49,6 +49,9 @@ tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QOb
 
     gui_vf.reg("GUIReceiveLoginsTable",Create_tGUIReceiveLoginsTable);
     gui_vf.reg("GUIReportReceiveLoginsTable",Create_tGUIReportReceiveLoginsTable);
+
+    gui_vf.reg("ReceiveReadPermissions",Create_tGUIReceiveReadPermissions);
+    gui_vf.reg("GUIReportReceiveReadPermissions",Create_tGUIReportReceiveReadPermissions);
 }
 //-----------------------------------------------------------------
 tConveyor::~tConveyor()
