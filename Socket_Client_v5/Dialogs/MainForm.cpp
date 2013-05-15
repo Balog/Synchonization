@@ -698,7 +698,7 @@ void MainForm::TreesBuildings(QString& _login)
                         else
                         {
                             item->child(j)->setCheckState(Qt::Checked);
-                            log.Write(QString("Установлено - включено "));
+//                            log.Write(QString("Установлено - включено "));
                         }
                         break;
                     }
