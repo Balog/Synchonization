@@ -787,7 +787,7 @@ void tDatabaseOp::ClearModels()
     log.Write(QString::fromUtf8("tDatabaseOp \t ClearModels \t +++ ОШИБКА +++ удалении не найденых на диске моделей "));}
 }
 //----------------------------------------------------------
-void tDatabaseOp::GetListModels(QDataStream &_out)
+void tDatabaseOp::GetListModels(QDataStream &_out, QString& _login)
 {
     log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Формирование списка моделей ")));
     db.transaction();
@@ -821,21 +821,55 @@ void tDatabaseOp::GetListModels(QDataStream &_out)
 
     //}
 
-    //Определим количество моделей (вообще потом запрос будет сложнее с учетом прав доступа на чтение моделей, пока берем все модели)
+    //Определим количество моделей (реализуем с учетом доступа)
+//    QSqlQuery count_mod(db);
+//    count_mod.prepare("SELECT Count(*) FROM StructModels");
+//    if(!count_mod.exec()){qDebug() << QString::fromUtf8("+++ ОШИБКА +++ определения числа передаваемых моделей ");
+//    log.Write(QString::fromUtf8("tDatabaseOp \t GetListModels \t +++ ОШИБКА +++ определения числа передаваемых моделей "));}
+
+    bool no_delete=IsNoDelete(_login);
     QSqlQuery count_mod(db);
-    count_mod.prepare("SELECT Count(*) FROM StructModels");
+    qlonglong num_login=GetNumLogin(_login);
+    if(!no_delete)
+    {
+        //Для обычного пользователя по разрешениям
+
+
+    count_mod.prepare("SELECT Count(*) FROM ModelRead WHERE Login="+QString::number(num_login));
     if(!count_mod.exec()){qDebug() << QString::fromUtf8("+++ ОШИБКА +++ определения числа передаваемых моделей ");
     log.Write(QString::fromUtf8("tDatabaseOp \t GetListModels \t +++ ОШИБКА +++ определения числа передаваемых моделей "));}
+
+
+
+    }
+    else
+    {
+        //для админа все модели
+
+        count_mod.prepare("SELECT Count(*) FROM StructModels");
+        if(!count_mod.exec()){qDebug() << QString::fromUtf8("+++ ОШИБКА +++ определения числа передаваемых моделей ");
+        log.Write(QString::fromUtf8("tDatabaseOp \t GetListModels \t +++ ОШИБКА +++ определения числа передаваемых моделей "));}
+    }
 
     count_mod.next();
     int cm=count_mod.value(0).toInt();
     _out << cm;
 
     QSqlQuery models(db);
-    models.prepare("SELECT DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, Num FROM StructModels");
+    if(!no_delete)
+    {
+
+    models.prepare("SELECT DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, Num FROM StructModels INNER JOIN ModelRead ON Num=Model WHERE Login="+QString::number(num_login));
     if(!models.exec()){qDebug() << QString::fromUtf8("+++ ОШИБКА +++ получения данных передаваемых моделей ");
     log.Write(QString::fromUtf8("tDatabaseOp \t GetListModels \t +++ ОШИБКА +++ получения данных передаваемых моделей "));}
+    }
+    else
+    {
 
+        models.prepare("SELECT DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, Num FROM StructModels");
+        if(!models.exec()){qDebug() << QString::fromUtf8("+++ ОШИБКА +++ получения данных передаваемых моделей ");
+        log.Write(QString::fromUtf8("tDatabaseOp \t GetListModels \t +++ ОШИБКА +++ получения данных передаваемых моделей "));}
+    }
 //    models.next();
     while(models.next())
     {
@@ -955,7 +989,7 @@ void tDatabaseOp::Update_LastMod_Hash(const QString& _file_name, const QDateTime
 
 }
 //----------------------------------------------------------
-QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &num_log, int _row)
+QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &num_log)
 {
     //Если _new_user истина то нужно проверить не используется ли уже такой пароль
     //если используется то вернуть ошибку (сообщение)
@@ -1050,10 +1084,27 @@ QString tDatabaseOp::DeleteLogin(qlonglong num_login)
     if(c!=0)
     {
         //логин найден
+        //проверить не админа ли это логин
+        QSqlQuery is_admin(db);
+        is_admin.prepare("SELECT NoDelete FROM Logins WHERE Num="+QString::number(num_login));
+        if(!is_admin.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия логина для удаления ") << num_login;
+        log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ проверки наличия логина для удаления ")+QString::number(num_login)));}
+        is_admin.next();
+
+        bool no_del=is_admin.value(0).toBool();
+        if(no_del)
+        {
+            ret="Это логин администратора. Его нельзя удалять.";
+        }
+        else
+        {
+
+
         QSqlQuery del_login(db);
         del_login.prepare("DELETE FROM Logins WHERE Num="+QString::number(num_login));
         if(!del_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления логина ") << num_login;
         log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ удаления логина ")+QString::number(num_login)));}
+        }
 
     }
     else
@@ -1112,7 +1163,7 @@ void tDatabaseOp::SendReadPermissions(QDataStream &_out)
     _out << count;
 
     QSqlQuery select_perm(db);
-    select_perm.prepare("SELECT Login, Model FROM ModelRead ORDER BY Num");
+    select_perm.prepare("SELECT Login, Model FROM ModelRead");
     if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки таблицы разрешений ");
     log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ выборки таблицы разрешений ")));}
     while(select_perm.next())
@@ -1133,11 +1184,80 @@ bool tDatabaseOp::VerifyAutorization(QString& _login, QString& _password)
     QSqlQuery sel_login(db);
     sel_login.prepare("SELECT PassHash FROM Logins WHERE Login='"+_login+"'");
     if(!sel_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки логина для авторизации ") << _login;
-    log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ выборки таблицы разрешений ")+_login));}
+    log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ выборки логина для авторизации ")+_login));}
     sel_login.next();
 
     QString pass_hash=sel_login.value(0).toString();
     tCalcHash ch;
     ch.AddToHash(_password.toAscii());
     return ch.ResultHash()==pass_hash;
+}
+//----------------------------------------------------------
+void tDatabaseOp::SavePermissions(QByteArray _block)
+{
+
+    QDataStream out(&_block, QIODevice::ReadOnly);
+    out.device()->seek(0);
+    out.device()->seek(8);
+
+    qlonglong num_login=0;
+    out >> num_login;
+
+    QSqlQuery del_perm_login(db);
+    del_perm_login.prepare("DELETE FROM ModelRead WHERE Login="+QString::number(num_login));
+    if(!del_perm_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления разрешений по логину номер ") << num_login;
+    log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ удаления разрешений по логину номер ")+num_login));}
+
+
+    int count=0;
+    out >> count;
+
+    for(int i=0; i<count; i++)
+    {
+        qlonglong num_model=0;
+        out >> num_model;
+        num_model=num_model;
+
+        QSqlQuery insert_perm_login(db);
+        insert_perm_login.prepare("INSERT INTO ModelRead (Login, Model) VALUES(?, ?)");
+
+        insert_perm_login.bindValue(0, num_login);
+        insert_perm_login.bindValue(1, num_model);
+        if(!insert_perm_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления разрешений по логину номер ") << num_login;
+        log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ добавления разрешений по логину номер ")+num_login));}
+
+    }
+}
+//----------------------------------------------------------
+qlonglong tDatabaseOp::GetNumLogin(QString &_login)
+{
+    qlonglong num_log;
+
+    QSqlQuery search_login_num(db);
+    search_login_num.prepare("SELECT Count(*), Num FROM Logins WHERE Login='"+_login+"'");
+    if(!search_login_num.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения номера логина ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ получения номера логина ")));}
+
+    search_login_num.next();
+
+    int c=search_login_num.value(0).toInt();
+    if(c!=0)
+    {
+    num_log=search_login_num.value(1).toLongLong();
+    }
+
+    return num_log;
+}
+//----------------------------------------------------------
+bool tDatabaseOp::IsNoDelete(QString& _login)
+{
+    qlonglong num_log=GetNumLogin(_login);
+    QSqlQuery sel_no_del(db);
+    sel_no_del.prepare("SELECT NoDelete FROM Logins WHERE Num="+QString::number(num_log));
+    if(!sel_no_del.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения признака админа ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ получения признака админа ")));}
+    sel_no_del.next();
+
+    return sel_no_del.value(0).toBool();
+
 }

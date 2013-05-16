@@ -1364,7 +1364,7 @@ bool tStreamReportReceiveLoginsTable::Initialize(QDataStream &_in)
 //-----------------------------------------------------------------
 bool tStreamReportReceiveLoginsTable::ExeCommand(QDataStream &)
 {
-    l="tStreamReportReceiveLoginsTable \tExeCommand\t Получение списка моделей с сервера ";
+    l="tStreamReportReceiveLoginsTable \tExeCommand\t Получение списка логинов с сервера ";
     log.Write(l);
 
     QByteArray block;
@@ -1418,6 +1418,52 @@ bool tStreamReportReceiveReadPermissions::ExeCommand(QDataStream &)
 
     out << tr("GUIReportReceiveReadPermissions");
     out << block1;
+
+    emit Result(block);
+    return true;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------
+bool tStreamSavePermissions::Initialize(QDataStream &_in)
+{
+//    _in >> block1;
+    block1=_in.device()->readAll();
+    return true;
+}
+//-----------------------------------------------------------------
+bool tStreamSavePermissions::ExeCommand(QDataStream &_out)
+{
+    l="tStreamReceiveReadPermissions \tExeCommand\t Команда записи таблицы разрешений на сервер с таблицей ";
+    log.Write(l);
+
+    QString Comm="Command:";
+    int num_comm=16;
+
+    _out << quint16(0);
+
+    _out << Comm;
+    _out << num_comm;
+    _out << block1;
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+    _out.device()->seek(_out.device()->size());
+    return false;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------
+bool tStreamReportSavePermissions::ExeCommand(QDataStream &)
+{
+    l="tStreamReportReceiveLoginsTable \tExeCommand\t Получение ответа на запись разрешений на сервре ";
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("GUIReportSavePermissions");
 
     emit Result(block);
     return true;

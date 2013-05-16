@@ -251,7 +251,6 @@ public:
         QObject::connect(pbClearAll, SIGNAL(clicked()), MainForm, SLOT(OnClearSendAll()));
         QObject::connect(pbAddDelete, SIGNAL(clicked()), MainForm, SLOT(OnAddDelete()));
         QObject::connect(pbClearDelete, SIGNAL(clicked()), MainForm, SLOT(OnClearDelete()));
-        QObject::connect(pbListFiles, SIGNAL(clicked()), MainForm, SLOT(OnListFiles()));
         QObject::connect(pbAddReceive, SIGNAL(clicked()), MainForm, SLOT(OnAddReceive()));
         QObject::connect(pbClearReceiveAll, SIGNAL(clicked()), MainForm, SLOT(OnReceiveClear()));
         QObject::connect(pbAddLocalDelete, SIGNAL(clicked()), MainForm, SLOT(OnDeleteLocal()));

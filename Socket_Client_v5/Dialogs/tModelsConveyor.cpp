@@ -115,7 +115,7 @@ void tModelsConveyor::Autorization(QString& _login, QString& _password)
 //-------------------------------------------------------------------------
 void tModelsConveyor::OnListFiles()
 {
-    l="tModelsConveyor \tOnListFiles\tОтправка команды запроса списка файлов";
+    l="tModelsConveyor \t OnListFiles \t Отправка команды запроса списка файлов из конвейера моделей";
     log.Write(l);
 
     QByteArray block;
@@ -348,7 +348,7 @@ void tModelsConveyor::SendLoginPassword(QString &_login, QString &_password, int
     qlonglong num_log=0;
     if(!_new_user)
     {
-    num_log=db_op->GetNumLogin(_row);
+        num_log=db_op->GetNumLogin(_row);
     }
 
     QByteArray block;
@@ -362,7 +362,7 @@ void tModelsConveyor::SendLoginPassword(QString &_login, QString &_password, int
     out << num_log;
     out << _row;
 
-//    emit RunGui(block);
+    //    emit RunGui(block);
     conv->OnRunGuiCommand(block);
 }
 //-------------------------------------------------------------------------
@@ -393,6 +393,22 @@ void tModelsConveyor::ReceiveLoginsTable()
 
     out << tr("GUIReceiveLoginsTable");
     out << tr("ReceiveLoginsTable");
+
+    conv->OnRunGuiCommand(block);
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::SavePermissionsToServer(qlonglong _num_login)
+{
+    l="tModelsConveyor \tSavePermissionsToServer\t Запись на сервер таблицы разрешений";
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("GUISavePermissions");
+    out << tr("SavePermissions");
+
+    db_op->SavePermissionsToServer(_num_login, block);
 
     conv->OnRunGuiCommand(block);
 }

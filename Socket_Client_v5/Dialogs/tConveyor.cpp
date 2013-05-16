@@ -52,6 +52,9 @@ tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QOb
 
     gui_vf.reg("ReceiveReadPermissions",Create_tGUIReceiveReadPermissions);
     gui_vf.reg("GUIReportReceiveReadPermissions",Create_tGUIReportReceiveReadPermissions);
+
+    gui_vf.reg("GUISavePermissions",Create_tGUISavePermissions);
+    gui_vf.reg("GUIReportSavePermissions",Create_tGUIReportSavePermissions);
 }
 //-----------------------------------------------------------------
 tConveyor::~tConveyor()
@@ -252,7 +255,7 @@ void tConveyor::StartExecution()
 //--------------------------------------------------------------------------------
 void tConveyor::GetServerModels()
 {
-    l="tConveyor \tGetServerModels\tЗапрос списка моделей ";
+    l="tConveyor \t GetServerModels \t Запрос списка моделей из конвейера";
     log.Write(l);
 
     QByteArray block1;

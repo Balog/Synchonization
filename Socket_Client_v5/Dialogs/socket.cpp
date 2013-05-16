@@ -51,6 +51,9 @@ tSocket::tSocket(const QString &_address, const int _port, const QString &_root,
 
     vf.reg("ReceiveReadPermissions",Create_tStreamReceiveReadPermissions);
     vf.reg("Report:15",Create_tStreamReportReceiveReadPermissions);
+
+    vf.reg("SavePermissions",Create_tStreamSavePermissions);
+    vf.reg("Report:16",Create_tStreamReportSavePermissions);
 }
 //-------------------------------------------------------------------------------
 tSocket::~tSocket()

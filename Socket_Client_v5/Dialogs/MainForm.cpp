@@ -102,6 +102,7 @@ void MainForm::Autorization(QString& _login, QString& _password)
 //---------------------------------------------------------------------
 void MainForm::OnConnect()
 {
+    adm_tree_model->clear();
     ui->pbConnect->setEnabled(false);
     ui->pbDisconnect->setEnabled(true);
 
@@ -237,7 +238,8 @@ void MainForm::OnClearDelete()
 //---------------------------------------------------------------------
 void MainForm::OnListFiles()
 {
-
+    tLog log;
+    log.Write(tr("MainForm \t OnListFiles \t Запрос с главной формы GetListModels через RunGui"));
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
@@ -607,7 +609,8 @@ void MainForm::UpdateLoginsTable(QByteArray &_block)
 
     OnListFilesLocal();
 
-    OnListFiles();
+//    OnListFiles();
+    StartAutoriz();
 
 //    emit StartAutorizForm();
 
@@ -651,15 +654,6 @@ void MainForm::TreesBuildings(QString& _login)
         //добавить модель к дереву
 
         //получить корень дерева
-
-//        if(read)
-//        {
-//            log.Write(QString("Следующая модель read=true"));
-//        }
-//        else
-//        {
-//            log.Write(QString("Следующая модель read=false"));
-//        }
 
         QStandardItem *item=adm_tree_model->invisibleRootItem();
         item->setCheckable(true);
@@ -805,18 +799,6 @@ void MainForm::StartAutoriz()
 //----------------------------------------------------------
 void MainForm::on_tvAdminTree_clicked(const QModelIndex &index)
 {
-//    QStandardItem *item=adm_tree_model->itemFromIndex(index);
-//    Qt::CheckState state=item->checkState();
-
-//    const QModelIndex parent_index=adm_tree_model->parent(index);
-//    QStandardItem *parent_item=adm_tree_model->itemFromIndex(parent_index);
-
-//    QObjectList childrens=adm_tree_model->children();
-//    int count_ch=childrens.size();
-
-//    QString item_text=item->text();
-//    QString parent_text=parent_item->text();
-
     //Для модификации отметок нужно проделать две операции:
     //1. Вверх по предкам
     //1.1. От предка пройти по всем его потомкам (в том числе и текущей ветви) и проверить их состояние
@@ -829,11 +811,11 @@ void MainForm::on_tvAdminTree_clicked(const QModelIndex &index)
     //     если текущая ветвь выставлена в ложь то всех потомков выставить в ложь
 
     //В конце нужно будет сохранить состояние в таблице и синхронизировать на сервер
-    //(как это сделать пока не знаю)
+
 
     UpToParent(index, adm_tree_model->itemFromIndex(index)->checkState());
     DownToChildrens(index, adm_tree_model->itemFromIndex(index)->checkState());
-
+    mod_conv->SavePermissionsToServer(db_op->GetNumLogin(sLM_Logins->stringList().value(admin_logins_index.row())));
 }
 //----------------------------------------------------------
 void MainForm::UpdateModelRead(QByteArray &_block)
@@ -841,30 +823,16 @@ void MainForm::UpdateModelRead(QByteArray &_block)
     //распарсить переданый блок и записать в таблицу логинов
     db_op->UpdateModelRead(_block);
 
-    StartAutoriz();
+    this->setVisible(true);
+
+//    StartAutoriz();
 
 }
 //----------------------------------------------------------
 
 void MainForm::on_lvLogins_clicked(const QModelIndex &index)
 {
-    //    QModelIndex MI=ui->lvLocalListFiles->currentIndex();
-
-    //    int N=MI.row();
-    //    if(N<0)
-    //    {
-    //        QMessageBox MB;
-    //        MB.setText(QString::fromUtf8("Выделите клиентскую модель"));
-    //        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-    //        MB.exec();
-    //    }
-    //    else
-    //    {
-    //        QStringListModel *M=new QStringListModel;
-    //        M=(QStringListModel *)MI.model();
-
-    //        QString S=M->stringList().value(N);
-
+    admin_logins_index=index;
     QString S=sLM_Logins->stringList().value(index.row());
 
     TreesBuildings(S);
@@ -941,6 +909,20 @@ void MainForm::UpToParent(QModelIndex index, Qt::CheckState _state)
 void MainForm::DownToChildrens(QModelIndex index, Qt::CheckState _state)
 {
     QStandardItem *item=adm_tree_model->itemFromIndex(index);
+
+    qlonglong s_num=item->data().toLongLong();
+    if(s_num>0)
+    {
+        //это модель и s_num ее серверный номер
+        //обновить таблицу ModelRead
+        bool state=false;
+        if(_state==Qt::Checked)
+        {
+            state=true;
+        }
+        db_op->SaveReadPermission(sLM_Logins->stringList().value(admin_logins_index.row()), s_num, state);
+    }
+
     int child_count=item->rowCount();
     if(child_count==0)
     {
@@ -953,6 +935,8 @@ void MainForm::DownToChildrens(QModelIndex index, Qt::CheckState _state)
             QStandardItem *children=item->child(i);
             children->setCheckState(_state);
             QModelIndex child_index=children->index();
+
+
             DownToChildrens(child_index, _state);
         }
     }

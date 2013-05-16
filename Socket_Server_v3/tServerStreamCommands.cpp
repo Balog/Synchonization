@@ -220,7 +220,7 @@ bool tReceiveStreamFile::ExeCommand(QDataStream& _in, QDataStream& _out)
             calc_hash->AddToHash(data);
 
             delete[] buff;
-            qDebug() << "File size " << file_size << " saved size " << file.size() << " now " << num;
+            qDebug() << "File size " << file_size << " saved size " << file.size() << " now " << num;            
             if(read_size==file_size)
             {
                 log.Write(QString(QString::fromUtf8("tReceiveStreamFile \t ExeCommand \t Прием файла ")+file_name+QString::fromUtf8(" завершен")));
@@ -1549,7 +1549,7 @@ bool tGetListModels::ExeCommand(QDataStream &, QDataStream &_out)
     _out << comm;
     _out << num_com;
 
-    db_op->GetListModels(_out);
+    db_op->GetListModels(_out, ((tClient*)link)->GetName());
 
     _out.device()->seek(0);
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
@@ -1584,7 +1584,7 @@ bool tSaveLoginPassword::ExeCommand(QDataStream &, QDataStream &_out)
 //    qlonglong s_num=0;
 
     InitDB(((tClient*)link)->GetDB());
-    QString mess=db_op->SaveLoginPass(login, password, new_user, num_log, row);
+    QString mess=db_op->SaveLoginPass(login, password, new_user, num_log);
 
     if(mess.length()==0)
     {
@@ -1742,6 +1742,39 @@ bool tSendReadPermissions::ExeCommand(QDataStream &, QDataStream &_out)
     _out << bs;
 
     log.Write(QString(QString::fromUtf8("tSendReadPermissions \t ExeCommand \t Передача таблицы разрешений на чтение ")));
+
+    return false;
+}
+//----------------------------------------------------------
+//**********************************************************
+//----------------------------------------------------------
+bool tReceiveReadPermissions::ExeCommand(QDataStream &_in, QDataStream &_out)
+{
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
+
+    InitDB(((tClient*)link)->GetDB());
+
+    //Прочитать и сохранить данные в таблице разрешений
+    QByteArray block;
+
+    block=_in.device()->readAll();
+
+    db_op->SavePermissions(block);
+
+    QString comm="Report:";
+    int num_com=16;
+
+    _out << quint16(0);
+    _out << comm;
+    _out << num_com;
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+
+    log.Write(QString(QString::fromUtf8("tSendReadPermissions \t ExeCommand \t Прием таблицы разрешений на чтение ")));
 
     return false;
 }

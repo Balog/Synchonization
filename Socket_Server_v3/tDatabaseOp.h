@@ -13,17 +13,19 @@ public:
     ~tDatabaseOp();
     void RefreshModelsFiles();
     void ClearModels();
-    void GetListModels(QDataStream &_out);
+    void GetListModels(QDataStream &_out, QString &_login);
     void GetLocalModelFiles(const QString &_str, QStringList &_list);
     QString GetHash(const QString &name_file) const;
     QDateTime GetLastMod(const QString &name_file) const;
     QDateTime RoundDateTime(const QDateTime &_dt) const;
     void Update_LastMod_Hash(const QString &_file_name, const QDateTime &_last_mod, const QString &_hash);
-    QString SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &num_log, int _row);
+    QString SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &num_log);
     QString DeleteLogin(qlonglong num_login);
     void SendLoginTable(QDataStream &_out);
     void SendReadPermissions(QDataStream &_out);
     bool VerifyAutorization(QString& _login, QString& _password);
+    void SavePermissions(QByteArray _block);
+    qlonglong GetNumLogin(QString &_login);
 
 private:
     QSqlDatabase db;
@@ -37,6 +39,7 @@ private:
     void CheckInfoFiles(const qlonglong _num, const QString &_folder_mod);
 
     tLog log;
+    bool IsNoDelete(QString& _login);
 };
 
 #endif // TDATABASEOP_H

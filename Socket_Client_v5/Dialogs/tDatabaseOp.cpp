@@ -833,6 +833,15 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
 
     db.transaction();
 
+    QSqlQuery reset_found_ser_mod(db);
+    reset_found_ser_mod.prepare("UPDATE ServerStructModels SET Found=0");
+    if(!reset_found_ser_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found серверных моделей ");
+        log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ сброса Found серверных моделей  ")));}
+
+    l="tDatabaseOp \tSaveServerModelFiles\t Сброс Found серверных моделей. Число моделей "+QString::number(num_models);
+    log.Write(l);
+
+
     for(int i=0; i<num_models; i++)
     {
         QString DiskFile="";
@@ -857,6 +866,9 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
         out >> SummListHash;
         out >> Num;
 
+        l="tDatabaseOp \tSaveServerModelFiles\t Получение данных о модели "+Title.toUtf8();
+        log.Write(l);
+
         QSqlQuery is_found_mod(db);
         is_found_mod.prepare("SELECT Count(*), Num FROM ServerStructModels WHERE DiskFile='"+DiskFile+"'");
         if(!is_found_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия серверной модели ") << DiskFile;
@@ -864,12 +876,18 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
         is_found_mod.next();
         int c=is_found_mod.value(0).toInt();
 
+        l="tDatabaseOp \tSaveServerModelFiles\t Проверка наличия модели в базе ";
+        log.Write(l);
+
         qlonglong num_server_model=0;
         if(c==0)
         {
+            l="tDatabaseOp \tSaveServerModelFiles\t Такой модели нет ";
+            log.Write(l);
+
             QSqlQuery insert_server_model(db);
-            insert_server_model.prepare("INSERT INTO ServerStructModels (DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, ServerNum) "
-                                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
+            insert_server_model.prepare("INSERT INTO ServerStructModels (DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, ServerNum, Found) "
+                                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
             insert_server_model.bindValue(0, DiskFile);
             insert_server_model.bindValue(1, Title);
             insert_server_model.bindValue(2,Description );
@@ -880,16 +898,23 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
             insert_server_model.bindValue(7, ListFilesHash);
             insert_server_model.bindValue(8, SummListHash);
             insert_server_model.bindValue(9, Num);
+            insert_server_model.bindValue(10, 1);
 
             if(!insert_server_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления серверной модели ") << DiskFile;
                 log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления серверной модели ")+DiskFile.toUtf8()));}
 
             num_server_model=insert_server_model.lastInsertId().toLongLong();
+
+            l="tDatabaseOp \tSaveServerModelFiles\t Модель добавлена. Новый номер "+QString::number(num_server_model);
+            log.Write(l);
         }
         else
         {
+            l="tDatabaseOp \tSaveServerModelFiles\t Такая модель есть  ";
+            log.Write(l);
+
             QSqlQuery update_s_mod(db);
-            update_s_mod.prepare("UPDATE ServerStructModels SET Title='"+Title+"', Description='"+Description+"', Struct='"+Struct+"', LastMod='"+LastMod.toString(Qt::ISODate)+"', Hash='"+Hash+"', ListFilesLastMod='"+ListFilesLastMod.toString(Qt::ISODate)+"', ListFilesHash='"+ListFilesHash+"', SummListHash='"+SummListHash+"', ServerNum="+QString::number(Num)+"  WHERE DiskFile='"+DiskFile+"'");
+            update_s_mod.prepare("UPDATE ServerStructModels SET Title='"+Title+"', Description='"+Description+"', Struct='"+Struct+"', LastMod='"+LastMod.toString(Qt::ISODate)+"', Hash='"+Hash+"', ListFilesLastMod='"+ListFilesLastMod.toString(Qt::ISODate)+"', ListFilesHash='"+ListFilesHash+"', SummListHash='"+SummListHash+"', ServerNum="+QString::number(Num)+", Found=1  WHERE DiskFile='"+DiskFile+"'");
             if(!update_s_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления серверной модели ") << DiskFile;
                 log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ обновления серверной модели  ")+DiskFile));}
 
@@ -900,7 +925,8 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
             if(!del_model_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки файлов серверной модели ") << num_server_model;
                 log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ очистки файлов серверной модели ")+QString::number(num_server_model)));}
 
-
+            l="tDatabaseOp \tSaveServerModelFiles\t Удаление файлов модели из базы перед обновлением ";
+            log.Write(l);
         }
 
         int num_files=-1;
@@ -934,11 +960,22 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
                 log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления файлов серверной модели ")+QString::number(num_server_model)));}
 
         }
+        l="tDatabaseOp \tSaveServerModelFiles\t Файлы модели добавлены  ";
+        log.Write(l);
     }
 
+    QSqlQuery delete_unfound_serv_mod(db);
+    delete_unfound_serv_mod.prepare("DELETE FROM ServerStructModels WHERE Found=0");
+    if(!delete_unfound_serv_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления ненайденых моделей из базы ");
+        log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ удаления ненайденых моделей из базы ")));}
 
+    l="tDatabaseOp \tSaveServerModelFiles\t Удаление ненайденых моделей  ";
+    log.Write(l);
 
     db.commit();
+
+    l="tDatabaseOp \tSaveServerModelFiles\t Обновление серверных таблиц завершено  ";
+    log.Write(l);
 }
 //----------------------------------------------------------
 void tDatabaseOp::GetServerListModels(QStringList &_list)
@@ -2042,5 +2079,68 @@ void tDatabaseOp::UpdateModelRead(QByteArray &_block)
     db.commit();
 
 
+}
+//----------------------------------------------------------
+void tDatabaseOp::SaveReadPermission(QString& _login, qlonglong _mod_num, bool _state)
+{
+    qlonglong log_num=GetNumLogin(_login);
+    if(_state)
+    {
+        //нужно установить в истину, значит такой записи еще нет
+        //добавить запись
+        QSqlQuery insert_perm(db);
+        insert_perm.prepare("INSERT INTO ModelRead (Login, Model) VALUES (?, ?)");
+
+        insert_perm.bindValue(0, log_num);
+        insert_perm.bindValue(1, _mod_num);
+
+        if(!insert_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления записи в таблицу разрешений ");
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ добавления записи в таблицу разрешений ")));}
+
+    }
+    else
+    {
+        //нужно установить ложь значит такая запись есть
+        //удалить запись
+        QSqlQuery del_perm(db);
+        del_perm.prepare("DELETE FROM ModelRead WHERE Login="+QString::number(log_num)+" AND Model="+QString::number(_mod_num));
+        if(!del_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления записи из таблицы разрешений ");
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ удаления записи из таблицы разрешений ")));}
+
+    }
+
+}
+//----------------------------------------------------------
+void tDatabaseOp::SavePermissionsToServer(qlonglong _num_login, QByteArray& _block)
+{
+    //вначале номер логина
+    //потом число разрешений этого логина
+    //а после номера моделей
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+    out << _num_login;
+
+    QSqlQuery count_perm(db);
+    count_perm.prepare("SELECT Count(*) FROM ModelRead WHERE Login="+QString::number(_num_login));
+    if(!count_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета числа передаваемых разрешений логина номер ")+QString::number(_num_login);
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ подсчета числа передаваемых разрешений логина номер ")+QString::number(_num_login)));}
+    count_perm.next();
+
+    int count=count_perm.value(0).toInt();
+
+    out << count;
+
+    QSqlQuery select_perm(db);
+    select_perm.prepare("SELECT Model FROM ModelRead WHERE Login="+QString::number(_num_login));
+    if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки передаваемых разрешений логина номер ")+QString::number(_num_login);
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ выборки передаваемых разрешений логина номер ")+QString::number(_num_login)));}
+
+    while(select_perm.next())
+    {
+        qlonglong num_model=select_perm.value(0).toLongLong();
+        out << num_model;
+    }
+
+_block=_block+block;
 }
 //----------------------------------------------------------

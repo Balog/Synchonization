@@ -28,6 +28,7 @@ tClient::tClient(const int _handle, const QSqlDatabase &_db): QObject(NULL), log
     vf.reg("Command:13",Create_tDeleteLogin);
     vf.reg("Command:14",Create_tSendLoginsTable);
     vf.reg("Command:15",Create_tSendReadPermissions);
+    vf.reg("Command:16",Create_tReceiveReadPermissions);
 
     db=_db;
 

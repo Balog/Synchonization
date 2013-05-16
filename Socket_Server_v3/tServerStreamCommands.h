@@ -394,4 +394,23 @@ inline tAbstractStreamCommand* Create_tSendReadPermissions()
     return new tSendReadPermissions;
 }
 //*****************************************************************
+class tReceiveReadPermissions : public tDatabaseStreamCommand
+
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &){return true;}
+    virtual bool ExeCommand(QDataStream &_in, QDataStream &_out);
+    virtual void SendErrorReport(QDataStream &){}
+    virtual void SendReport(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+private:
+    qlonglong num_login;
+
+};
+inline tAbstractStreamCommand* Create_tReceiveReadPermissions()
+{
+    return new tReceiveReadPermissions;
+}
+//*****************************************************************
 #endif // TSERVERSTREAMCOMMANDS_H

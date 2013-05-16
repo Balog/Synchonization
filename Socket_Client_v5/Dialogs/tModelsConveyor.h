@@ -39,6 +39,7 @@ public:
     void SendDeleteLogin(int _row);
 
     void ReceiveLoginsTable();
+    void SavePermissionsToServer(qlonglong _num_login);
 
 private:
     QObject *link;

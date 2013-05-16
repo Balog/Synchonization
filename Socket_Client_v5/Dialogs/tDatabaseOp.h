@@ -62,6 +62,8 @@ public:
     bool NextModelAdmin();
     QStringList NextStructListModelAdmin(QString &_login, bool &_read, qlonglong &_server_num);
     void UpdateModelRead(QByteArray &_block);
+    void SaveReadPermission(QString &_login, qlonglong _mod_num, bool _state);
+    void SavePermissionsToServer(qlonglong _num_log, QByteArray &_block);
 
 private:
     QSqlDatabase db;

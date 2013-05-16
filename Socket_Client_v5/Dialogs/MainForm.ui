@@ -736,22 +736,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>pbListFiles</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnListFiles()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>452</x>
-     <y>773</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>210</x>
-     <y>260</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>pbAddReceive</sender>
    <signal>clicked()</signal>
    <receiver>MainForm</receiver>

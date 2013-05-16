@@ -59,6 +59,7 @@ public:
     void UpdateModelRead(QByteArray &_block);
 
     bool IsRequeryServerModel;
+    void OnListFiles();
 
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
@@ -105,10 +106,11 @@ private:
 
     QStandardItemModel *adm_tree_model;
 
+    QModelIndex admin_logins_index;
+
 //    tConstructModelTree *constr_mod_tree;
     void UpToParent(QModelIndex index, Qt::CheckState _state);
     void DownToChildrens(QModelIndex index, Qt::CheckState _state);
-
 
 
 private slots:
@@ -132,7 +134,7 @@ private slots:
     void OnAddDelete();
     void OnClearDelete();
 
-    void OnListFiles();
+
 
     void OnAddReceive();
     void OnReceiveClear();

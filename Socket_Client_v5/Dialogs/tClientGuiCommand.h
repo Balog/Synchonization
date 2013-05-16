@@ -428,4 +428,30 @@ inline tAbstractGuiCommand* Create_tGUIReportReceiveReadPermissions()
     return new tGUIReportReceiveReadPermissions;
 }
 //**********************************************************************************
+class tGUISavePermissions : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &_in);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUISavePermissions()
+{
+    return new tGUISavePermissions;
+}
+//**********************************************************************************
+class tGUIReportSavePermissions : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUIReportSavePermissions()
+{
+    return new tGUIReportSavePermissions;
+}
+//**********************************************************************************
 #endif // TCLIENTGUICOMMAND_H

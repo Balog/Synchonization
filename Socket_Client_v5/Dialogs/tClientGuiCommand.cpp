@@ -292,7 +292,10 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
         log.Write(l);
 
         //продолжить работу
-        emit OkAutoriz(true);
+        //запросить обновление логинов а потом доступов на чтение
+
+//        emit OkAutoriz(true);
+        ((MainForm*)link)->OnListFiles();
     }
     else
     {
@@ -608,27 +611,36 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     QByteArray block;
     block=_in.device()->readAll();
 
+    l="tClientGuiCommand \tGetListModels\t Вызов обновления серверных таблиц";
+    log.Write(l);
 
     ((MainForm*)link)->SaveServerModelFiles(block);
     if(!((MainForm*)link)->IsRequeryServerModel)
     {
+
     bool tr=((MainForm*)link)->GetIsTransaction();
     if(tr)
     {
+//        if(!((MainForm*)link)->IsRequeryServerModel)
+//        {
         //СЮДА ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST
         //НАЧАЛО В void tModelsConveyor::StartSendDeleteFiles()
-        l="tClientGuiCommand \tGetListModels\t ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST";
+        l="tClientGuiCommand \tGetListModels\t Процесс транзакции. ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST";
         log.Write(l);
 
         ((MainForm*)link)->CorrectLastSynch(true);
-        ((MainForm*)link)->IsRequeryServerModel=false;
+
 
         emit FinalBlockTransactions();
+//        }
     }
     else
     {
         //построение дерева вызвать позже
         //сначала нужно обновить таблицу разрешений
+
+        l="tClientGuiCommand \tGetListModels\t Запуск. Обращение к серверу для обновления таблицы разрешений на чтение";
+        log.Write(l);
 
         QByteArray block;
         QDataStream out(&block, QIODevice::WriteOnly);
@@ -640,10 +652,18 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
         l="tClientGuiCommand \tGuiReportPrepareSendFile\tЗапрос таблицы разрешений на чтение моделей ";
         log.Write(l);
 
+
         emit RunGui(block);
+        }
 //        ((MainForm*)link)->TreesBuildings();
     }
+    else
+    {
+        ((MainForm*)link)->IsRequeryServerModel=false;
+        l="tClientGuiCommand \tGuiReportPrepareSendFile\t Проход по кнопке мимо всего ";
+        log.Write(l);
     }
+
 
 }
 //************************************************************************************************
@@ -783,7 +803,7 @@ void tGUIReceiveReadPermissions::ExeCommand(QDataStream &_in)
 //************************************************************************************************
 void tGUIReportReceiveReadPermissions::ExeCommand(QDataStream &_in)
 {
-    l="tClientGuiCommand \tGetListModels\t Отчет запроса списка разрешений на чтение моделей с сервера";
+    l="tClientGuiCommand \ttGUIReportReceiveReadPermissions\t Отчет запроса списка разрешений на чтение моделей с сервера";
     log.Write(l);
 
     _in.device()->seek(0);
@@ -795,6 +815,40 @@ void tGUIReportReceiveReadPermissions::ExeCommand(QDataStream &_in)
 
 
     ((MainForm*)link)->UpdateModelRead(block);
+
+}
+//************************************************************************************************
+void tGUISavePermissions::ExeCommand(QDataStream &_in)
+{
+    l="tClientGuiCommand \ttGUISavePermissions\t Передача таблицы разрешений на сервер ";
+    log.Write(l);
+
+    QString comm="";
+    _in >> comm;
+
+    QByteArray block1;
+//    _in >> block1;
+    block1=_in.device()->readAll();
+
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    block.clear();
+
+    out << comm;
+    out << block1;
+
+
+    emit SendCommand(block);
+}
+//************************************************************************************************
+void tGUIReportSavePermissions::ExeCommand(QDataStream &)
+{
+    l="tClientGuiCommand \ttGUIReportReceiveReadPermissions\t Отчет записи списка разрешений на чтение моделей на сервер";
+    log.Write(l);
+
+
 
 }
 //************************************************************************************************
