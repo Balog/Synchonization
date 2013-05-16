@@ -26,7 +26,15 @@ void Autoriz::OnOk()
     QString l="Отправка авторизации Логин: "+login;
     log.Write(l);
 
-    emit SendAutorization(login, password);
+    bool mod_fold=false;
+    if(ui->cbModifyFolder->checkState()==Qt::Checked)
+    {
+        mod_fold=true;
+    }
+    ui->leLogin->setText("");
+    ui->lePassword->setText("");
+    ui->cbModifyFolder->setChecked(false);
+    emit SendAutorization(login, password, mod_fold);
 
 
 }

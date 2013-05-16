@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Главная форма</string>
   </property>
   <widget class="QLineEdit" name="leRoot">
    <property name="geometry">
@@ -24,6 +24,9 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -40,6 +43,9 @@
    </property>
   </widget>
   <widget class="QPushButton" name="pbConnect">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>200</x>
@@ -64,6 +70,9 @@
    <property name="text">
     <string>127.0.0.1</string>
    </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QSpinBox" name="sbPort">
    <property name="geometry">
@@ -73,6 +82,9 @@
      <width>61</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
    <property name="maximum">
     <number>9999</number>
@@ -119,6 +131,9 @@
    <property name="text">
     <string/>
    </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
   </widget>
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
@@ -130,11 +145,132 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
-   <widget class="QWidget" name="tab">
+   <widget class="QWidget" name="tab_4">
     <attribute name="title">
      <string>Чтение</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Запись</string>
+    </attribute>
+   </widget>
+   <widget class="QWidget" name="tab_3">
+    <attribute name="title">
+     <string>Администрирование</string>
+    </attribute>
+    <widget class="QListView" name="lvLogins">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>271</width>
+       <height>671</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="le_ver_pass">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>10</y>
+       <width>141</width>
+       <height>20</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbVerPassword">
+     <property name="geometry">
+      <rect>
+       <x>208</x>
+       <y>8</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Проверка</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>13</x>
+       <y>12</y>
+       <width>46</width>
+       <height>13</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Пароль</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbAddUser">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>720</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Добавить</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbEditUser">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>104</x>
+       <y>720</y>
+       <width>91</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Редактировать</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbDelUser">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>720</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Удалить</string>
+     </property>
+    </widget>
+    <widget class="QTreeView" name="tvAdminTree">
+     <property name="geometry">
+      <rect>
+       <x>290</x>
+       <y>40</y>
+       <width>761</width>
+       <height>671</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab">
+    <attribute name="title">
+     <string>Старое</string>
     </attribute>
     <widget class="QPushButton" name="pbLocalListFiles">
      <property name="geometry">
@@ -247,19 +383,6 @@
       <string>Clear Delete</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="geometry">
-      <rect>
-       <x>967</x>
-       <y>390</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Send Model</string>
-     </property>
-    </widget>
     <widget class="QListView" name="lvDeletingFiles">
      <property name="geometry">
       <rect>
@@ -278,19 +401,6 @@
        <width>421</width>
        <height>181</height>
       </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>437</x>
-       <y>390</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Receive Model</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pbClearAll">
@@ -500,122 +610,6 @@
      </property>
      <property name="text">
       <string>Прочитать с сервера</string>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="tab_2">
-    <attribute name="title">
-     <string>Запись</string>
-    </attribute>
-   </widget>
-   <widget class="QWidget" name="tab_3">
-    <attribute name="title">
-     <string>Администрирование</string>
-    </attribute>
-    <widget class="QListView" name="lvLogins">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>271</width>
-       <height>671</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>11</pointsize>
-      </font>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="le_ver_pass">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>10</y>
-       <width>141</width>
-       <height>20</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbVerPassword">
-     <property name="geometry">
-      <rect>
-       <x>208</x>
-       <y>8</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Проверка</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_11">
-     <property name="geometry">
-      <rect>
-       <x>13</x>
-       <y>12</y>
-       <width>46</width>
-       <height>13</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Пароль</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbAddUser">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>720</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Добавить</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbEditUser">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>104</x>
-       <y>720</y>
-       <width>91</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Редактировать</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbDelUser">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>210</x>
-       <y>720</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Удалить</string>
-     </property>
-    </widget>
-    <widget class="QTreeView" name="tvAdminTree">
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>40</y>
-       <width>761</width>
-       <height>671</height>
-      </rect>
      </property>
     </widget>
    </widget>

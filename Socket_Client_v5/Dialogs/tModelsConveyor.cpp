@@ -2,7 +2,7 @@
 #include <QMessageBox>
 
 tModelsConveyor::tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
-    QObject(parent), ui(_ui), db_op(_db_op), link(_link),Transaction(false)
+    QObject(parent), ui(_ui), db_op(_db_op), link(_link),Transaction(false), user_login("")
 {
 
 
@@ -224,18 +224,19 @@ void tModelsConveyor::StartSendDeleteFiles()
         l="tModelsConveyor \tStartSendDeleteFiles\t НАЧАЛО ПРОЦЕДУРЫ ОБНОВЛЕНИЯ LAST";
         log.Write(l);
 
-        db_op->PrepareUpdateLastSynch(true);
+        db_op->PrepareUpdateLastSynch(true, user_login);
 
-        MarkLastTables(true);
+        MarkLastTables(true, user_login);
         conv->GetServerModels();
     }
+
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::MarkLastTables(bool _send)
+void tModelsConveyor::MarkLastTables(bool _send, const QString& user_login)
 {
     for(int i=0; i<all_files.size(); i++)
     {
-        db_op->UpdateLastSynchMark(all_files[i], _send);
+        db_op->UpdateLastSynchMark(all_files[i], _send, user_login);
     }
 }
 
@@ -313,11 +314,11 @@ void tModelsConveyor::StartReceiveDeleteFiles()
 
         db_op->RefreshModelsFiles();
 
-        MarkLastTables(false);
+        MarkLastTables(false, user_login);
 
-        db_op->ExecUpdateLastSynch(false);
+        db_op->ExecUpdateLastSynch(false, user_login);
 
-        all_files.clear();
+        ClearAllList();
 
         emit EndTransactions();
     }
@@ -411,4 +412,16 @@ void tModelsConveyor::SavePermissionsToServer(qlonglong _num_login)
     db_op->SavePermissionsToServer(_num_login, block);
 
     conv->OnRunGuiCommand(block);
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::SetLogin(const QString& _user_login)
+{
+    user_login=_user_login;
+    conv->SetLogin(_user_login);
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::ClearAllList()
+{
+    all_files.clear();
+
 }

@@ -44,9 +44,11 @@ public:
         leAddres = new QLineEdit(Dialog);
         leAddres->setObjectName(QString::fromUtf8("leAddres"));
         leAddres->setGeometry(QRect(10, 10, 121, 20));
+        leAddres->setReadOnly(false);
         sbPort = new QSpinBox(Dialog);
         sbPort->setObjectName(QString::fromUtf8("sbPort"));
         sbPort->setGeometry(QRect(140, 10, 71, 22));
+        sbPort->setReadOnly(false);
         sbPort->setMaximum(9999);
         sbPort->setValue(1234);
         pbConnect = new QPushButton(Dialog);
@@ -57,7 +59,9 @@ public:
         pbDisconnect->setGeometry(QRect(350, 10, 75, 23));
         leCountClients = new QLineEdit(Dialog);
         leCountClients->setObjectName(QString::fromUtf8("leCountClients"));
+        leCountClients->setEnabled(true);
         leCountClients->setGeometry(QRect(214, 10, 51, 20));
+        leCountClients->setReadOnly(true);
         pbAddNew = new QPushButton(Dialog);
         pbAddNew->setObjectName(QString::fromUtf8("pbAddNew"));
         pbAddNew->setGeometry(QRect(10, 100, 101, 23));

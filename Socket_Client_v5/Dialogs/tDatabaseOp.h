@@ -35,9 +35,9 @@ public:
     void GetSendModelFiles(const QString &_name_model, QStringList& _list_files);
     void GetDeleteServerModelFiles(const QString &_name_model, QStringList& _list_files);
 
-    void PrepareUpdateLastSynch(bool _send);
-    void UpdateLastSynchMark(const QString& _file_name_, bool _server);
-    void ExecUpdateLastSynch(bool _server);
+    void PrepareUpdateLastSynch(bool _send, const QString &_login);
+    void UpdateLastSynchMark(const QString& _file_name_, bool _server, const QString &user_login);
+    void ExecUpdateLastSynch(bool _server, const QString &_user_login);
 
     bool GetNextReceiveDelModel(QString& _name_model);
     void GetReceiveModelFiles(const QString& _name_model_, QStringList& _list_files);
@@ -47,7 +47,7 @@ public:
     void SaveLoginPassword(QString &_login, QString &_password, bool _new_user, qlonglong _s_num);
     QStringList GetLoginsList();
 
-    qlonglong GetNumLogin(QString &_login);
+    qlonglong GetNumLogin(const QString &_login);
     qlonglong GetNumLogin(int _row);
 
     void DeleteLogin(qlonglong _num_log);
@@ -64,6 +64,10 @@ public:
     void UpdateModelRead(QByteArray &_block);
     void SaveReadPermission(QString &_login, qlonglong _mod_num, bool _state);
     void SavePermissionsToServer(qlonglong _num_log, QByteArray &_block);
+
+    bool VerifyUserFolders(QString& _login, QString &_project_folder, QString &_temp_folder, QString &_message);
+    void SaveFoldersToLoginsTable(const QString& _login, const QString& _project_folder, const QString& _temp_folder);
+    void SaveFoldersToSettings(const QString& _userlogin);
 
 private:
     QSqlDatabase db;

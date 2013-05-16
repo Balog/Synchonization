@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>291</width>
-    <height>104</height>
+    <height>101</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Авторизация пользователя</string>
   </property>
   <widget class="QLineEdit" name="leLogin">
    <property name="geometry">
@@ -31,6 +31,12 @@
      <width>221</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="inputMask">
+    <string/>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -62,7 +68,7 @@
   <widget class="QPushButton" name="pbOk">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>200</x>
      <y>70</y>
      <width>75</width>
      <height>23</height>
@@ -70,6 +76,19 @@
    </property>
    <property name="text">
     <string>Ok</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cbModifyFolder">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>70</y>
+     <width>111</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Изменить папки</string>
    </property>
   </widget>
  </widget>

@@ -62,6 +62,7 @@ public:
     void CorrectLastSynch(QStringList &_all_files, bool _server);
     void GetServerModels();
     void ClearTempFolder();
+    void SetLogin(const QString& _user_login);
 
 private:
     QObject *link;
@@ -109,6 +110,7 @@ private:
 
     QString l;
     tLog log;
+    QString user_login;
 
 signals:
     void EndCommands();

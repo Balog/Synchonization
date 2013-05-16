@@ -11,7 +11,7 @@ Zast::Zast(QWidget *_parent) :
     ui->setupUi(this);
     dAutoriz->setModal(true);
 
-    connect(dAutoriz, SIGNAL(SendAutorization(QString&, QString&)), main_form, SLOT(Autorization(QString&, QString&)));
+    connect(dAutoriz, SIGNAL(SendAutorization(QString&, QString&, bool)), main_form, SLOT(Autorization(QString&, QString&, bool)));
     connect(main_form, SIGNAL(AutorizStart()), this, SLOT(AutorizStart()));
     connect(main_form, SIGNAL(FindServer()), this, SLOT(FindServer()));
     connect(this, SIGNAL(ReceiveLoginsTable()), main_form, SLOT(OnReceiveLoginsTable()));

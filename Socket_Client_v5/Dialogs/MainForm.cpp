@@ -10,10 +10,11 @@ extern tSettings my_settings;
 MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm), QDialog(parent),mod_conv(NULL), db_op(NULL),
     sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL),
-    login_pass(new tEditLoginPass), adm_tree_model(NULL)
+    login_pass(new tEditLoginPass), adm_tree_model(NULL), form_new_path(new tNewPath)
 {
 //    constr_mod_tree=NULL;
     IsRequeryServerModel=false;
+    user_login="";
 
     sLM_Send=new QStringListModel;
     sLM_Del=new QStringListModel;
@@ -27,23 +28,23 @@ MainForm::MainForm(QWidget *parent) :
 
     //    connect(ui->lvListFiles, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(OnClickListFiles(QModelIndex)));
 
-    ui->leRoot->setText(my_settings.GetRoot());
-    ui->leTemp->setText(my_settings.GetTemp());
+//    ui->leRoot->setText(my_settings.GetRoot());
+//    ui->leTemp->setText(my_settings.GetTemp());
     ui->leAddr->setText(my_settings.GetServerAddr());
     ui->sbPort->setValue(my_settings.GetServerPort());
 
 
 
 
-    my_settings.SetRoot(ui->leRoot->text());
-    my_settings.SetTemp(ui->leTemp->text());
+//    my_settings.SetRoot(ui->leRoot->text());
+//    my_settings.SetTemp(ui->leTemp->text());
     my_settings.SetServerAddr(ui->leAddr->text());
     my_settings.SetServerPort(ui->sbPort->value());
     my_settings.sync();
 
     db_op=new tDatabaseOp();
 
-    db_op->RefreshModelsFiles();
+
 
     mod_conv= new tModelsConveyor(ui, this, db_op);
 
@@ -51,6 +52,7 @@ MainForm::MainForm(QWidget *parent) :
 
     login_pass->setVisible(false);
     connect(login_pass, SIGNAL(EndEditing(QString&,QString&,int,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,int,bool)));
+    connect(form_new_path, SIGNAL(ContinueStrat()), this, SLOT(OnContinueStart()));
 
 //    UpdateLogins();
 
@@ -62,6 +64,7 @@ MainForm::MainForm(QWidget *parent) :
 //--------------------------------------------------------------------------------
 MainForm::~MainForm()
 {
+    delete form_new_path;
     delete login_pass;
 
     delete sLM_loc_list_models;
@@ -81,14 +84,20 @@ MainForm::~MainForm()
     delete db_op;
     db_op=NULL;
 
+
+
     delete ui;
 
     tLog log;
     log.Write(tr("Конец работы клиента"));
 }
 //---------------------------------------------------------------------
-void MainForm::Autorization(QString& _login, QString& _password)
+void MainForm::Autorization(QString& _login, QString& _password, bool _modify_folder)
 {
+    user_login=_login;
+    this->setWindowTitle(QString::fromUtf8(QString("Главная форма (Пользователь '"+user_login+"')").toAscii()));
+    modify_folder=_modify_folder;
+    mod_conv->SetLogin(user_login);
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
@@ -105,6 +114,8 @@ void MainForm::OnConnect()
     adm_tree_model->clear();
     ui->pbConnect->setEnabled(false);
     ui->pbDisconnect->setEnabled(true);
+    ui->leAddr->setReadOnly(true);
+    ui->sbPort->setReadOnly(true);
 
     my_settings.SetServerAddr(ui->leAddr->text());
     my_settings.SetServerPort(ui->sbPort->value());
@@ -124,6 +135,8 @@ void MainForm::OnDisconnect()
 {
     ui->pbConnect->setEnabled(true);
     ui->pbDisconnect->setEnabled(false);
+    ui->leAddr->setReadOnly(false);
+    ui->sbPort->setReadOnly(false);
 
     mod_conv->Clear();
 
@@ -332,7 +345,7 @@ void MainForm::OnStartReceive()
 //---------------------------------------------------------------------
 void MainForm::OnListFilesLocal()
 {
-    QString root=my_settings.GetRoot();
+//    QString root=my_settings.GetRoot();
     QStringList list;
     db_op->RefreshModelsFiles();
     SearchModelsOnDatabase(list);
@@ -450,10 +463,10 @@ void MainForm::OnServerModelClick(const QModelIndex Ind)
 void MainForm::CorrectLastSynch(bool _server)
 {
 
-    mod_conv->MarkLastTables(_server);
+    mod_conv->MarkLastTables(_server, user_login);
 
-    db_op->ExecUpdateLastSynch(_server);
-
+    db_op->ExecUpdateLastSynch(_server, user_login);
+    mod_conv->ClearAllList();
 }
 //----------------------------------------------------------
 void MainForm::OnNewLogin()
@@ -607,12 +620,12 @@ void MainForm::UpdateLoginsTable(QByteArray &_block)
     UpdateLogins();
 
 
-    OnListFilesLocal();
+//    OnListFilesLocal();
 
-//    OnListFiles();
+
     StartAutoriz();
 
-//    emit StartAutorizForm();
+
 
 }
 //----------------------------------------------------------
@@ -946,5 +959,40 @@ void MainForm::DownToChildrens(QModelIndex index, Qt::CheckState _state)
 void MainForm::on_pbListFiles_clicked()
 {
     IsRequeryServerModel=true;
+    OnListFiles();
+}
+//----------------------------------------------------------
+bool MainForm::VerifyUserFolders()
+{
+    QString message="";
+    QString project_folder="";
+    QString temp_folder="";
+    if(!modify_folder && db_op->VerifyUserFolders(user_login, project_folder, temp_folder, message))
+    {
+
+        return true;
+    }
+    else
+    {
+        form_new_path->SetDatabase(db_op);
+        form_new_path->SetLogin(user_login);
+        form_new_path->SetMessage(message);
+        form_new_path->setVisible(true);
+        return false;
+    }
+
+}
+//----------------------------------------------------------
+void MainForm::OnContinueStart()
+{
+    db_op->SaveFoldersToSettings(user_login);
+    ui->leRoot->setText(my_settings.GetRoot());
+    ui->leTemp->setText(my_settings.GetTemp());
+//    my_settings.SetRoot(ui->leRoot->text());
+//    my_settings.SetTemp(ui->leTemp->text());
+
+db_op->RefreshModelsFiles();
+
+OnListFilesLocal();
     OnListFiles();
 }

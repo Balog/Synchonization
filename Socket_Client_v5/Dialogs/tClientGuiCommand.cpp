@@ -292,10 +292,25 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
         log.Write(l);
 
         //продолжить работу
+
+        //сначала проверить наличие рабочей и временной папки в базе
+        //проверить наличие самих папок
+        //если что-то не так - открыть диалог запроса новых папок
+
+        //и только потом продолжать загрузку и обновление данных
         //запросить обновление логинов а потом доступов на чтение
 
-//        emit OkAutoriz(true);
-        ((MainForm*)link)->OnListFiles();
+
+//        ((MainForm*)link)->OnListFiles();
+
+        bool ver=((MainForm*)link)->VerifyUserFolders();
+        if(ver)
+        {
+            //все в порядке, продолжаем запуск
+//            ((MainForm*)link)->OnListFiles();
+
+            ((MainForm*)link)->OnContinueStart();
+        }
     }
     else
     {

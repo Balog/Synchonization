@@ -7,9 +7,9 @@
 extern tSettings my_settings;
 
 tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
-    QObject(parent), ui(_ui), gui_comm(NULL), db_op(_db_op), link(_link), send_mode(0)//, Transaction(false)
+    QObject(parent), ui(_ui), gui_comm(NULL), db_op(_db_op), link(_link), send_mode(0), user_login("")
 {
-    root=my_settings.GetRoot();
+//    root=my_settings.GetRoot();
     v_conv.clear();
 
     gui_vf.reg("ReceiveFile",Create_tGuiReceiveFile);
@@ -376,17 +376,17 @@ void tConveyor::AddCommitTransactionDel()
 //--------------------------------------------------------------------------------
 void tConveyor::VerifyMoveDelete(QString &m_struct)
 {
-    db_op->PrepareUpdateLastSynch(false);
+    db_op->PrepareUpdateLastSynch(false, user_login);
 
     //    MarkLastTables(false);
     for(int i=0; i<file_list.size();i++)
     {
-        db_op->UpdateLastSynchMark(file_list[i].file_name, false);
+        db_op->UpdateLastSynchMark(file_list[i].file_name, false, user_login);
     }
 
     for(int i=0; i<file_list1.size();i++)
     {
-        db_op->UpdateLastSynchMark(file_list1[i].file_name, false);
+        db_op->UpdateLastSynchMark(file_list1[i].file_name, false, user_login);
     }
 
     model_file=m_struct;
@@ -1131,7 +1131,7 @@ void tConveyor::CorrectLastSynch(QStringList &_all_files, bool _server)
 
     for(int i=0; i<_all_files.size(); i++)
     {
-        db_op->UpdateLastSynchMark(_all_files[i], _server);
+        db_op->UpdateLastSynchMark(_all_files[i], _server, user_login);
     }
 
 }
@@ -1148,4 +1148,9 @@ void tConveyor::OnEndConveyor()
     l="tConveyor \tOnEndTransactions\tКонец списка команд  ";
     log.Write(l);
     emit EndConveyor();
+}
+//----------------------------------------------------------
+void tConveyor::SetLogin(const QString& _user_login)
+{
+    user_login=_user_login;
 }

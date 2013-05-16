@@ -12,6 +12,7 @@
 #include "tEditLoginPass.h"
 #include "tConstructModelTree.h"
 #include <QStandardItemModel>
+#include "tNewPath.h"
 #include <vector>
 
 
@@ -60,6 +61,8 @@ public:
 
     bool IsRequeryServerModel;
     void OnListFiles();
+
+    bool VerifyUserFolders();
 
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
@@ -113,8 +116,15 @@ private:
     void DownToChildrens(QModelIndex index, Qt::CheckState _state);
 
 
+
+    QString user_login;
+    bool modify_folder;
+
+    tNewPath* form_new_path;
+
+
 private slots:
-    void Autorization(QString &_login, QString &_password);
+    void Autorization(QString &_login, QString &_password, bool _modify_folder);
 
     void OnConnect();
     void OnDisconnect();
@@ -163,11 +173,13 @@ private slots:
 
     void on_pbListFiles_clicked();
 
+
 public slots:
     void OnServerModelClick(const QModelIndex Ind);
     void OnListFilesLocal();
     void OnReceiveLoginsTable();
     void OnVerPassword();
+    void OnContinueStart();
 
 signals:
     void RunGui(QByteArray& block);

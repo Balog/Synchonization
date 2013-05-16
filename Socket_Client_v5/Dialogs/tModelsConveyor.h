@@ -33,13 +33,16 @@ public:
     }
 
     void SetTransactionFlag(bool _flag);
-    void MarkLastTables(bool _send);
+    void MarkLastTables(bool _send, const QString &user_login);
 
     void SendLoginPassword(QString &_login, QString &_password, int _row, bool _new_user);
     void SendDeleteLogin(int _row);
 
     void ReceiveLoginsTable();
     void SavePermissionsToServer(qlonglong _num_login);
+    void SetLogin(const QString& _user_login);
+
+    void ClearAllList();
 
 private:
     QObject *link;
@@ -52,6 +55,7 @@ private:
 
     QString l;
     tLog log;
+    QString user_login;
     
 signals:
     void NextCommand();

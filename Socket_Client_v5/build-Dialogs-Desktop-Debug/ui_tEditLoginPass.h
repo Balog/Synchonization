@@ -44,7 +44,7 @@ public:
         lePassword->setGeometry(QRect(60, 40, 211, 20));
         label = new QLabel(tEditLoginPass);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(7, 13, 46, 13));
+        label->setGeometry(QRect(12, 13, 46, 13));
         label_2 = new QLabel(tEditLoginPass);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setGeometry(QRect(10, 40, 46, 13));
@@ -64,7 +64,7 @@ public:
 
     void retranslateUi(QDialog *tEditLoginPass)
     {
-        tEditLoginPass->setWindowTitle(QApplication::translate("tEditLoginPass", "Dialog", 0, QApplication::UnicodeUTF8));
+        tEditLoginPass->setWindowTitle(QApplication::translate("tEditLoginPass", "\320\240\320\265\320\264\320\260\320\272\321\202\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265 \321\203\321\207\320\265\321\202\320\275\321\213\321\205 \320\264\320\260\320\275\320\275\321\213\321\205", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("tEditLoginPass", "\320\233\320\276\320\263\320\270\320\275", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("tEditLoginPass", "\320\237\320\260\321\200\320\276\320\273\321\214", 0, QApplication::UnicodeUTF8));
         pushButton->setText(QApplication::translate("tEditLoginPass", "\320\227\320\260\320\277\320\270\321\201\320\260\321\202\321\214", 0, QApplication::UnicodeUTF8));

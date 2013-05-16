@@ -56,7 +56,7 @@ bool tStreamReceiveFile::ExeCommand(QDataStream& _in)
 {
     bool ret=false;
 
-
+//20280000076576
 
     qint64 n=_in.device()->bytesAvailable();
     char* buff= new char[n];

@@ -25,6 +25,9 @@
    <property name="text">
     <string>127.0.0.1</string>
    </property>
+   <property name="readOnly">
+    <bool>false</bool>
+   </property>
   </widget>
   <widget class="QSpinBox" name="sbPort">
    <property name="geometry">
@@ -34,6 +37,9 @@
      <width>71</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="readOnly">
+    <bool>false</bool>
    </property>
    <property name="maximum">
     <number>9999</number>
@@ -69,6 +75,9 @@
    </property>
   </widget>
   <widget class="QLineEdit" name="leCountClients">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>214</x>
@@ -79,6 +88,9 @@
    </property>
    <property name="text">
     <string>0</string>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QPushButton" name="pbAddNew">
