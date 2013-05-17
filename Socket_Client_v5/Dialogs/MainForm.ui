@@ -145,12 +145,71 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
      <string>Чтение</string>
     </attribute>
+    <widget class="QTreeView" name="tvRead">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>541</width>
+       <height>701</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbRead">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>718</y>
+       <width>101</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Читать с сервера</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbRefresh">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>718</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Обновить</string>
+     </property>
+    </widget>
+    <widget class="QListView" name="lvDescription">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>10</y>
+       <width>491</width>
+       <height>701</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbBuildRead">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>718</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Построить дерево</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_2">
     <attribute name="title">
@@ -613,6 +672,19 @@
      </property>
     </widget>
    </widget>
+  </widget>
+  <widget class="QPushButton" name="pbExit">
+   <property name="geometry">
+    <rect>
+     <x>990</x>
+     <y>818</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Выход</string>
+   </property>
   </widget>
  </widget>
  <resources/>

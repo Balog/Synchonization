@@ -350,6 +350,8 @@ void MainForm::OnListFilesLocal()
     db_op->RefreshModelsFiles();
     SearchModelsOnDatabase(list);
 
+    VerifyLastTable(user_login);
+
     sLM_loc_list_models=new QStringListModel;
     sLM_loc_list_models->setStringList(list);
     ui->lwLocalListModels->setModel(sLM_loc_list_models);
@@ -958,6 +960,7 @@ void MainForm::DownToChildrens(QModelIndex index, Qt::CheckState _state)
 
 void MainForm::on_pbListFiles_clicked()
 {
+    //старая кнопка
     IsRequeryServerModel=true;
     OnListFiles();
 }
@@ -988,11 +991,51 @@ void MainForm::OnContinueStart()
     db_op->SaveFoldersToSettings(user_login);
     ui->leRoot->setText(my_settings.GetRoot());
     ui->leTemp->setText(my_settings.GetTemp());
-//    my_settings.SetRoot(ui->leRoot->text());
-//    my_settings.SetTemp(ui->leTemp->text());
 
 db_op->RefreshModelsFiles();
 
 OnListFilesLocal();
     OnListFiles();
+}
+//----------------------------------------------------------
+void MainForm::VerifyLastTable(const QString& user_login)
+{
+    //Проверить если есть такие модели в таблице Last
+    //которых уже нет ни в серверной ни в локальной папке
+    db_op->VerifyLastTable(user_login);
+
+}
+//----------------------------------------------------------
+void MainForm::on_pbExit_clicked()
+{
+    this->close();
+}
+//----------------------------------------------------------
+void MainForm::on_pbRefresh_clicked()
+{
+    //Обновление и локальных и серверных таблиц
+    OnListFilesLocal();
+    IsRequeryServerModel=true;
+    OnListFiles();
+
+    //формирование дерева чтения по полученым и имеющимся данным
+    BuildingReadTree(user_login);
+}
+//----------------------------------------------------------
+
+void MainForm::on_pbRead_clicked()
+{
+    //начать чтение с сервера по новому
+
+}
+//----------------------------------------------------------
+void MainForm::BuildingReadTree(const QString& user_login)
+{
+    //В таблицу CompareTablesToTree из локальной, ласт и серверной таблиц занести ориентируясь на Struct суммарные хеши моделей
+    db_op->WriteToCompareTablesToTree(user_login);
+}
+//----------------------------------------------------------
+void MainForm::on_pbBuildRead_clicked()
+{
+    BuildingReadTree(user_login);
 }

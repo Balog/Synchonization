@@ -1766,7 +1766,7 @@ QStringList tDatabaseOp::GetLoginsList()
     QSqlQuery get_logins(db);
     get_logins.prepare("SELECT Login FROM Logins ORDER BY Num, Login");
     if(!get_logins.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения списка логинов ");
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ получения списка логинов ")));}
+    log.Write(QString(QString("tDatabaseOp \t GetLoginsList \t ++ ОШИБКА ++ получения списка логинов ")));}
 
     while(get_logins.next())
     {
@@ -1785,7 +1785,7 @@ qlonglong tDatabaseOp::GetNumLogin(const QString &_login)
     QSqlQuery search_login_num(db);
     search_login_num.prepare("SELECT Count(*), Num FROM Logins WHERE Login='"+_login+"'");
     if(!search_login_num.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения номера логина ");
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ получения номера логина ")));}
+    log.Write(QString(QString("tDatabaseOp \t GetNumLogin \t ++ ОШИБКА ++ получения номера логина ")));}
 
     search_login_num.next();
 
@@ -1805,7 +1805,7 @@ qlonglong tDatabaseOp::GetNumLogin(int _row)
     QSqlQuery search_login_num(db);
     search_login_num.prepare("SELECT Num FROM Logins ORDER BY Num, Login");
     if(!search_login_num.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения номера логина ");
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ получения номера логина ")));}
+    log.Write(QString(QString("tDatabaseOp \t GetNumLogin \t ++ ОШИБКА ++ получения номера логина ")));}
 
     for(int i=0; i<_row+1;i++)
     {
@@ -1823,7 +1823,7 @@ void tDatabaseOp::DeleteLogin(qlonglong _num_log)
     QSqlQuery del_login(db);
     del_login.prepare("DELETE FROM Logins WHERE Num="+QString::number(_num_log));
     if(!del_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log);
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log)));}
+    log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log)));}
 }
 //----------------------------------------------------------
 void tDatabaseOp::UpdateLogins(QByteArray &_block)
@@ -1842,7 +1842,7 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
     QSqlQuery set_found(db);
     set_found.prepare("UPDATE Logins SET Found=1");
     if(!set_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found=1 ");
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ установки Found=1 ")));}
+    log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ установки Found=1 ")));}
 
 
     for(int i=0; i<num_logins; i++)
@@ -1862,7 +1862,7 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
         QSqlQuery select_num_login(db);
         select_num_login.prepare("SELECT Count(*) FROM Logins WHERE Num="+QString::number(Num));
         if(!select_num_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num);
-        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)));}
+        log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)));}
 
         select_num_login.next();
         int count=select_num_login.value(0).toInt();
@@ -1879,7 +1879,7 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
             insert_login.bindValue(5, 0);
 
             if(!insert_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления нового логина ")+QString::number(Num);
-            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)));}
         }
         else
         {
@@ -1887,7 +1887,7 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
             QSqlQuery update_login(db);
             update_login.prepare("UPDATE Logins SET Login='"+Login+"', PassHash='"+PassHash+"', NoDelete="+QString::number(NoDelete)+", Writable="+QString::number(Writable)+", Found=0 WHERE NUm="+QString::number(Num));
             if(!update_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ редактирования логина ")+QString::number(Num);
-            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ редактирования логина ")+QString::number(Num)));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ редактирования логина ")+QString::number(Num)));}
 
         }
     }
@@ -1895,12 +1895,12 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
     QSqlQuery delete_login(db);
     delete_login.prepare("DELETE FROM Logins WHERE Found=1");
     if(!delete_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления лишних логинов ");
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ удаления лишних логинов ")));}
+    log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ удаления лишних логинов ")));}
 
     QSqlQuery unset_found(db);
     unset_found.prepare("UPDATE Logins SET Found=0");
     if(!unset_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found=0 ");
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ установки Found=0 ")));}
+    log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ установки Found=0 ")));}
 
     db.commit();
 
@@ -1912,7 +1912,7 @@ bool tDatabaseOp::VerPassword(QString &_login, QString& _pass)
     QSqlQuery ver_pass(db);
     ver_pass.prepare("SELECT Count(*), PassHash FROM Logins WHERE Login='"+_login+"'");
     if(!ver_pass.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки логина и выборки пароля ") << _login;
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ проверки логина и выборки пароля ")+_login));}
+    log.Write(QString(QString("tDatabaseOp \t VerPassword \t ++ ОШИБКА ++ проверки логина и выборки пароля ")+_login));}
 
     ver_pass.next();
 
@@ -1954,7 +1954,7 @@ void tDatabaseOp::ResetFoundModelAdmin()
         QSqlQuery reset_found(db);
         reset_found.prepare("UPDATE ServerStructModels SET Found=0");
         if(!reset_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ") ;
-        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")));}
+        log.Write(QString(QString("tDatabaseOp \t ResetFoundModelAdmin \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")));}
 }
 //----------------------------------------------------------
 bool tDatabaseOp::NextModelAdmin()
@@ -1964,7 +1964,7 @@ bool tDatabaseOp::NextModelAdmin()
 //    QSqlQuery select_perm(db);
 //    select_perm.prepare("SELECT Model FROM ModelRead WHERE Login="+QString::number(GetNumLogin(_login)));
 //    if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки разрешений по логину ") << _login ;
-//        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login));}
+//        log.Write(QString(QString("tDatabaseOp \t NextModelAdmin \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login));}
 
 //    while(select_perm.next())
 //    {
@@ -1973,7 +1973,7 @@ bool tDatabaseOp::NextModelAdmin()
         QSqlQuery next_model(db);
         next_model.prepare("SELECT Count(*) FROM ServerStructModels WHERE Found=0");
         if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ServerStructModels");
-            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ServerStructModels")));}
+            log.Write(QString(QString("tDatabaseOp \t NextModelAdmin \t ++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ServerStructModels")));}
 
         next_model.next();
 
@@ -1994,7 +1994,7 @@ QStringList tDatabaseOp::NextStructListModelAdmin(QString& _login, bool& _read, 
 //    QSqlQuery select_perm(db);
 //    select_perm.prepare("SELECT Model FROM ModelRead WHERE Login="+QString::number(GetNumLogin(_login)));
 //    if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки разрешений по логину ") << _login ;
-//        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login));}
+//        log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login));}
 
 //    while(select_perm.next())
 //    {
@@ -2003,7 +2003,7 @@ QStringList tDatabaseOp::NextStructListModelAdmin(QString& _login, bool& _read, 
         QSqlQuery next_model(db);
         next_model.prepare("SELECT Num, Struct, ServerNum FROM ServerStructModels WHERE Found=0");
         if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels");
-            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels")));}
+            log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels")));}
 
         next_model.next();
 //        int c=next_model.value(0).toInt();
@@ -2020,13 +2020,13 @@ QStringList tDatabaseOp::NextStructListModelAdmin(QString& _login, bool& _read, 
         QSqlQuery set_found(db);
         set_found.prepare("UPDATE ServerStructModels SET Found=1 WHERE Num="+QString::number(num));
         if(!set_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ пометки Found=1 модели номер ") << num <<  QString::fromUtf8("из таблицы ServerStructModels");
-            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ пометки Found=1 модели номер ")+ QString::number(num)+ QString("из таблицы ServerStructModels")));}
+            log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ пометки Found=1 модели номер ")+ QString::number(num)+ QString("из таблицы ServerStructModels")));}
 
 
         QSqlQuery select_perm(db);
         select_perm.prepare("SELECT Count(*) FROM ModelRead WHERE Model="+QString::number(s_num)+" AND Login="+QString::number(GetNumLogin(_login)));
         if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки разрешений по логину ") << _login << " и модели " << num ;
-            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login+" и модели "+QString::number(num)));}
+            log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login+" и модели "+QString::number(num)));}
         select_perm.next();
 
         int c=select_perm.value(0).toInt();
@@ -2058,7 +2058,7 @@ void tDatabaseOp::UpdateModelRead(QByteArray &_block)
     QSqlQuery del_permis(db);
     del_permis.prepare("DELETE FROM ModelRead");
     if(!del_permis.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки таблицы разрешений ");
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ очистки таблицы разрешений ")));}
+    log.Write(QString(QString("tDatabaseOp \t UpdateModelRead \t ++ ОШИБКА ++ очистки таблицы разрешений ")));}
 
 
     //записать таблицу заново
@@ -2077,7 +2077,7 @@ void tDatabaseOp::UpdateModelRead(QByteArray &_block)
     insert_permis.bindValue(1, model);
 
     if(!insert_permis.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ заполнения таблицы разрешений ");
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ заполнения таблицы разрешений ")));}
+    log.Write(QString(QString("tDatabaseOp \t UpdateModelRead \t ++ ОШИБКА ++ заполнения таблицы разрешений ")));}
 
     }
 
@@ -2100,7 +2100,7 @@ void tDatabaseOp::SaveReadPermission(QString& _login, qlonglong _mod_num, bool _
         insert_perm.bindValue(1, _mod_num);
 
         if(!insert_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления записи в таблицу разрешений ");
-        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ добавления записи в таблицу разрешений ")));}
+        log.Write(QString(QString("tDatabaseOp \t SaveReadPermission \t ++ ОШИБКА ++ добавления записи в таблицу разрешений ")));}
 
     }
     else
@@ -2110,7 +2110,7 @@ void tDatabaseOp::SaveReadPermission(QString& _login, qlonglong _mod_num, bool _
         QSqlQuery del_perm(db);
         del_perm.prepare("DELETE FROM ModelRead WHERE Login="+QString::number(log_num)+" AND Model="+QString::number(_mod_num));
         if(!del_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления записи из таблицы разрешений ");
-        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ удаления записи из таблицы разрешений ")));}
+        log.Write(QString(QString("tDatabaseOp \t SaveReadPermission \t ++ ОШИБКА ++ удаления записи из таблицы разрешений ")));}
 
     }
 
@@ -2128,7 +2128,7 @@ void tDatabaseOp::SavePermissionsToServer(qlonglong _num_login, QByteArray& _blo
     QSqlQuery count_perm(db);
     count_perm.prepare("SELECT Count(*) FROM ModelRead WHERE Login="+QString::number(_num_login));
     if(!count_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета числа передаваемых разрешений логина номер ")+QString::number(_num_login);
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ подсчета числа передаваемых разрешений логина номер ")+QString::number(_num_login)));}
+    log.Write(QString(QString("tDatabaseOp \t SavePermissionsToServer \t ++ ОШИБКА ++ подсчета числа передаваемых разрешений логина номер ")+QString::number(_num_login)));}
     count_perm.next();
 
     int count=count_perm.value(0).toInt();
@@ -2138,7 +2138,7 @@ void tDatabaseOp::SavePermissionsToServer(qlonglong _num_login, QByteArray& _blo
     QSqlQuery select_perm(db);
     select_perm.prepare("SELECT Model FROM ModelRead WHERE Login="+QString::number(_num_login));
     if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки передаваемых разрешений логина номер ")+QString::number(_num_login);
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ выборки передаваемых разрешений логина номер ")+QString::number(_num_login)));}
+    log.Write(QString(QString("tDatabaseOp \t SavePermissionsToServer \t ++ ОШИБКА ++ выборки передаваемых разрешений логина номер ")+QString::number(_num_login)));}
 
     while(select_perm.next())
     {
@@ -2161,7 +2161,7 @@ bool tDatabaseOp::VerifyUserFolders(QString& _login, QString &_project_folder, Q
     QSqlQuery sel_folders(db);
     sel_folders.prepare("SELECT ProjectFolder, TempFolder FROM Logins WHERE Num="+QString::number(num_login));
     if(!sel_folders.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login);
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)));}
+    log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)));}
     sel_folders.next();
 
     project_folder=sel_folders.value(0).toString();
@@ -2188,7 +2188,7 @@ bool tDatabaseOp::VerifyUserFolders(QString& _login, QString &_project_folder, Q
             QSqlQuery sel_count_pr(db);
             sel_count_pr.prepare("SELECT Count(*) FROM Logins WHERE (ProjectFolder='"+project_folder+"' OR TempFolder='"+project_folder+"') AND Num<>"+QString::number(num_login));
             if(!sel_count_pr.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки уникальности рабочей папки ")+project_folder;
-            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ проверки уникальности рабочей папки ")+project_folder));}
+            log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ проверки уникальности рабочей папки ")+project_folder));}
             sel_count_pr.next();
 
             int count_pr=sel_count_pr.value(0).toInt();
@@ -2196,7 +2196,7 @@ bool tDatabaseOp::VerifyUserFolders(QString& _login, QString &_project_folder, Q
             QSqlQuery sel_count_tmp(db);
             sel_count_tmp.prepare("SELECT Count(*) FROM Logins WHERE (ProjectFolder='"+temp_folder+"' OR TempFolder='"+temp_folder+"') AND Num<>"+QString::number(num_login));
             if(!sel_count_tmp.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки уникальности рабочей папки ")+temp_folder;
-            log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ проверки уникальности рабочей папки ")+temp_folder));}
+            log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ проверки уникальности рабочей папки ")+temp_folder));}
             sel_count_tmp.next();
 
             int count_tmp=sel_count_tmp.value(0).toInt();
@@ -2233,7 +2233,7 @@ void tDatabaseOp::SaveFoldersToLoginsTable(const QString& _login, const QString&
     QSqlQuery update_folders(db);
     update_folders.prepare("UPDATE Logins SET ProjectFolder='"+_project_folder+"', TempFolder='"+_temp_folder+"' WHERE Num="+QString::number(num_login));
     if(!update_folders.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ записи папок для логина ")+_login;
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ записи папок для логина ")+_login));}
+    log.Write(QString(QString("tDatabaseOp \t SaveFoldersToLoginsTable \t ++ ОШИБКА ++ записи папок для логина ")+_login));}
 }
 //----------------------------------------------------------
 void tDatabaseOp::SaveFoldersToSettings(const QString& _userlogin)
@@ -2242,7 +2242,7 @@ void tDatabaseOp::SaveFoldersToSettings(const QString& _userlogin)
     QSqlQuery sel_folders(db);
     sel_folders.prepare("SELECT ProjectFolder, TempFolder FROM Logins WHERE Num="+QString::number(num_login));
     if(!sel_folders.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login);
-    log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)));}
+    log.Write(QString(QString("tDatabaseOp \t SaveFoldersToSettings \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)));}
     sel_folders.next();
 
     QString project_folder=sel_folders.value(0).toString();
@@ -2250,4 +2250,163 @@ void tDatabaseOp::SaveFoldersToSettings(const QString& _userlogin)
 
     my_settings.SetRoot(NormalizePathFiles(project_folder+"/"));
     my_settings.SetTemp(NormalizePathFiles(temp_folder+"/"));
+}
+//----------------------------------------------------------
+void tDatabaseOp::VerifyLastTable(const QString& _login)
+{
+    qlonglong num_login=GetNumLogin(_login);
+    QSqlQuery update_unfound_last(db);
+    update_unfound_last.prepare("DELETE FROM CompareTablesToTree");
+    if(!update_unfound_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки таблицы CompareTablesToTree ");
+    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ очистки таблицы CompareTablesToTree ")));}
+
+    QSqlQuery sel_server(db);
+    sel_server.prepare("SELECT Struct FROM ServerStructModels");
+    if(!sel_server.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки моделей серверной таблицы для очистки Last ");
+    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ выборки папок логина номер ")));}
+    while(sel_server.next())
+    {
+        QString server_struct=sel_server.value(0).toString();
+        MarkLastModel(num_login, server_struct);
+    }
+
+    QSqlQuery sel_local(db);
+    sel_local.prepare("SELECT Struct FROM StructModels");
+    if(!sel_local.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки моделей серверной таблицы для очистки Last ");
+    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ выборки папок логина номер ")));}
+    while(sel_local.next())
+    {
+        QString local_struct=sel_local.value(0).toString();
+        MarkLastModel(num_login, local_struct);
+    }
+
+    QSqlQuery delete_unfound_last(db);
+    delete_unfound_last.prepare("DELETE FROM LastStructModels WHERE Login="+QString::number(num_login)+" AND Found=0");
+    if(!delete_unfound_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки таблицы Last ");
+    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ очистки таблицы Last ")));}
+
+}
+//----------------------------------------------------------
+void tDatabaseOp::MarkLastModel(qlonglong num_login, const QString& m_struct)
+{
+    QSqlQuery update_found_last(db);
+    update_found_last.prepare("UPDATE LastStructModels SET Found=1 WHERE Login="+QString::number(num_login)+" AND Struct='"+m_struct+"'");
+    if(!update_found_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found таблицы Last ");
+    log.Write(QString(QString("tDatabaseOp \t MarkLastModel \t ++ ОШИБКА ++ установки Found таблицы Last ")));}
+}
+//----------------------------------------------------------
+void tDatabaseOp::WriteToCompareTablesToTree(const QString& _login)
+{
+    qlonglong num_login=GetNumLogin(_login);
+    QSqlQuery select_local_mod(db);
+    select_local_mod.prepare("SELECT Num, Struct, SummListHash FROM StructModels");
+    if(!select_local_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выбора локальной модели для сравнения суммарных хешей ");
+    log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора локальной модели для сравнения суммарных хешей ")));}
+    while(select_local_mod.next())
+    {
+        qlonglong num=select_local_mod.value(0).toLongLong();
+        QString m_struct=select_local_mod.value(1).toString();
+        QString summ_hash=select_local_mod.value(2).toString();
+
+        UpdateCompareTable(num, m_struct, summ_hash, Local);
+    }
+
+    QSqlQuery select_last_mod(db);
+    select_last_mod.prepare("SELECT Num, Struct, SummListHash FROM LastStructModels WHERE Login="+QString::number(num_login));
+    if(!select_last_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выбора Last модели для сравнения суммарных хешей ");
+    log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора Last модели для сравнения суммарных хешей ")));}
+    while(select_last_mod.next())
+    {
+        qlonglong num=select_last_mod.value(0).toLongLong();
+        QString m_struct=select_last_mod.value(1).toString();
+        QString summ_hash=select_last_mod.value(2).toString();
+
+        UpdateCompareTable(num, m_struct, summ_hash, Last);
+    }
+
+    QSqlQuery select_server_mod(db);
+    select_server_mod.prepare("SELECT Num, Struct, SummListHash FROM ServerStructModels");
+    if(!select_server_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выбора серверной модели для сравнения суммарных хешей ");
+    log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора серверной модели для сравнения суммарных хешей ")));}
+    while(select_server_mod.next())
+    {
+        qlonglong num=select_server_mod.value(0).toLongLong();
+        QString m_struct=select_server_mod.value(1).toString();
+        QString summ_hash=select_server_mod.value(2).toString();
+
+        UpdateCompareTable(num, m_struct, summ_hash, Server);
+    }
+}
+//----------------------------------------------------------
+void tDatabaseOp::UpdateCompareTable(qlonglong _num, const QString& _m_struct, const QString& _summ_hash, tTableLevel _level)
+{
+    //SELECT Count(*) FROM Logins WHERE
+    QSqlQuery find_compare(db);
+    find_compare.prepare("SELECT Count(*) FROM CompareTablesToTree WHERE Struct='"+_m_struct+"'");
+    if(!find_compare.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска наличия записи в таблице сравнения ");
+        log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ поиска наличия записи в таблице сравнения ")));}
+    find_compare.next();
+
+    int count=find_compare.value(0).toInt();
+
+    if(count==0)
+    {
+        //записи нет, добавляем
+        QSqlQuery insert_comp(db);
+
+        switch (_level)
+        {
+        case Local:
+        {
+            insert_comp.prepare("INSERT INTO CompareTablesToTree (NumLocal, LocalHash, Struct) VALUES (?, ?, ?)");
+            insert_comp.bindValue(0, _num);
+            insert_comp.bindValue(1, _summ_hash);
+            insert_comp.bindValue(2, _m_struct);
+            break;
+        }
+        case Last:
+        {
+            insert_comp.prepare("INSERT INTO CompareTablesToTree (NumLast, LastHash, Struct) VALUES (?, ?, ?)");
+            insert_comp.bindValue(0, _num);
+            insert_comp.bindValue(1, _summ_hash);
+            insert_comp.bindValue(2, _m_struct);
+            break;
+        }
+        case Server:
+        {
+            insert_comp.prepare("INSERT INTO CompareTablesToTree (NumServer, ServerHash, Struct) VALUES (?, ?, ?)");
+            insert_comp.bindValue(0, _num);
+            insert_comp.bindValue(1, _summ_hash);
+            insert_comp.bindValue(2, _m_struct);
+            break;
+        }
+        }
+        if(!insert_comp.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления записи в таблице сравнения ");
+            log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ добавления записи в таблице сравнения ")));}
+    }
+    else
+    {
+        //запись есть, обновляем
+        QSqlQuery update_comp(db);
+        switch (_level)
+        {
+        case Local:
+        {
+            update_comp.prepare("UPDATE CompareTablesToTree SET NumLocal="+QString::number(_num)+", LocalHash='"+_summ_hash+"' WHERE Struct='"+_m_struct+"'");
+            break;
+        }
+        case Last:
+        {
+            update_comp.prepare("UPDATE CompareTablesToTree SET NumLast="+QString::number(_num)+", LastHash='"+_summ_hash+"' WHERE Struct='"+_m_struct+"'");
+            break;
+        }
+        case Server:
+        {
+            update_comp.prepare("UPDATE CompareTablesToTree SET NumServer="+QString::number(_num)+", ServerHash='"+_summ_hash+"' WHERE Struct='"+_m_struct+"'");
+            break;
+        }
+        }
+        if(!update_comp.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления записи в таблице сравнения ");
+            log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ обновления записи в таблице сравнения ")));}
+    }
 }

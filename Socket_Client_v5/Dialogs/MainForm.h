@@ -64,6 +64,9 @@ public:
 
     bool VerifyUserFolders();
 
+    void BuildingReadTree(const QString &user_login);
+    void VerifyLastTable(const QString& user_login);
+
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
     QStringListModel *sLM_loc_list_files;//модель локальных файлов
@@ -173,6 +176,14 @@ private slots:
 
     void on_pbListFiles_clicked();
 
+
+    void on_pbExit_clicked();
+
+    void on_pbRefresh_clicked();
+
+    void on_pbRead_clicked();
+
+    void on_pbBuildRead_clicked();
 
 public slots:
     void OnServerModelClick(const QModelIndex Ind);

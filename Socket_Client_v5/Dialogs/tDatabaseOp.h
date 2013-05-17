@@ -5,6 +5,8 @@
 #include <QtSql>
 #include "tLog.h"
 
+typedef enum {Local, Last, Server} tTableLevel;
+
 
 class tDatabaseOp
 {
@@ -69,6 +71,9 @@ public:
     void SaveFoldersToLoginsTable(const QString& _login, const QString& _project_folder, const QString& _temp_folder);
     void SaveFoldersToSettings(const QString& _userlogin);
 
+    void VerifyLastTable(const QString& _login);
+    void WriteToCompareTablesToTree(const QString& _login);
+
 private:
     QSqlDatabase db;
     QString root;
@@ -83,6 +88,9 @@ private:
 
     QString l;
     tLog log;
+
+    void MarkLastModel(qlonglong num_login, const QString& m_struct);
+    void UpdateCompareTable(qlonglong _num, const QString& _m_struct, const QString& _summ_hash, tTableLevel _level);
 
 };
 
