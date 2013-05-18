@@ -125,6 +125,12 @@ private:
 
     tNewPath* form_new_path;
 
+    QList<CompareTableRec> list_compare;
+
+    void ConstructTree(QList<CompareTableRec> _comp_table);
+
+
+
 
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);

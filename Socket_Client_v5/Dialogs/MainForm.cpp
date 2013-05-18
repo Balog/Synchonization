@@ -1033,9 +1033,24 @@ void MainForm::BuildingReadTree(const QString& user_login)
 {
     //В таблицу CompareTablesToTree из локальной, ласт и серверной таблиц занести ориентируясь на Struct суммарные хеши моделей
     db_op->WriteToCompareTablesToTree(user_login);
+
+    //Провести анализ на направление изменений моделей в целом
+    list_compare=db_op->AnalyzeCompareAll();
+
+    //добавляем к стректуре моделей различающиеся файлы
+    db_op->AddFilesToModelsStruct(list_compare);
+
+    //строим дерево и модели помечаем в соответствии с анализом (нулевой результат пропускаем)
+    ConstructTree(list_compare);
+
 }
 //----------------------------------------------------------
 void MainForm::on_pbBuildRead_clicked()
 {
     BuildingReadTree(user_login);
+}
+//----------------------------------------------------------
+void MainForm::ConstructTree(QList<CompareTableRec> _comp_table)
+{
+    //
 }

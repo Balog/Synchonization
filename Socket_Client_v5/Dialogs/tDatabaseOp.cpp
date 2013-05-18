@@ -2325,7 +2325,7 @@ void tDatabaseOp::WriteToCompareTablesToTree(const QString& _login)
     }
 
     QSqlQuery select_server_mod(db);
-    select_server_mod.prepare("SELECT Num, Struct, SummListHash FROM ServerStructModels");
+    select_server_mod.prepare("SELECT ServerNum, Struct, SummListHash FROM ServerStructModels");
     if(!select_server_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выбора серверной модели для сравнения суммарных хешей ");
     log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора серверной модели для сравнения суммарных хешей ")));}
     while(select_server_mod.next())
@@ -2408,5 +2408,121 @@ void tDatabaseOp::UpdateCompareTable(qlonglong _num, const QString& _m_struct, c
         }
         if(!update_comp.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления записи в таблице сравнения ");
             log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ обновления записи в таблице сравнения ")));}
+    }
+}
+//----------------------------------------------------------
+QList<CompareTableRec> tDatabaseOp::AnalyzeCompareAll()
+{
+    QList<CompareTableRec> res;
+//typedef enum {no_changes, change_local, change_server, new_local, new_server, conflict} CompareRes;
+    AnalyzeCompare(no_changes);
+    AnalyzeCompare(change_local);
+    AnalyzeCompare(change_server);
+    AnalyzeCompare(new_local);
+    AnalyzeCompare(new_server);
+    AnalyzeCompare(conflict);
+
+    QSqlQuery sel_compare(db);
+    sel_compare.prepare("SELECT Num, NumLocal, NumServer, Struct, Result FROM CompareTablesToTree WHERE Result<>0");
+    if(!sel_compare.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выделения результатов сравнения таблиц ");
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompareAll \t ++ ОШИБКА ++ выделения результатов сравнения таблиц ")));}
+    while(sel_compare.next())
+    {
+        CompareTableRec rec;
+        rec.num=sel_compare.value(0).toLongLong();
+        rec.model_local=sel_compare.value(1).toLongLong();
+        rec.model_server=sel_compare.value(2).toLongLong();
+        rec.mod_struct=sel_compare.value(3).toString();
+        rec.result=sel_compare.value(4).toInt();
+
+        res.push_back(rec);
+    }
+
+    return res;
+}
+//----------------------------------------------------------
+void tDatabaseOp::AnalyzeCompare(CompareRes _res)
+{
+    QSqlQuery upd_comp(db);
+    switch(_res)
+    {
+    case no_changes:
+    {
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t Отмечаем отсутствие изменений ")));
+        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=0 WHERE LocalHash=ServerHash");
+        break;
+    }
+    case change_local:
+    {
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t Отмечаем локальные изменения ")));
+        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=1 WHERE LocalHash<>ServerHash AND LastHash=ServerHash");
+        break;
+    }
+    case change_server:
+    {
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t Отмечаем серверные изменения ")));
+        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=2 WHERE LocalHash<>ServerHash AND LastHash=LocalHash");
+        break;
+    }
+    case new_local:
+    {
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t Отмечаем новые на локальном ")));
+        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=3 WHERE ServerHash='' AND LocalHash<>''");
+        break;
+    }
+    case new_server:
+    {
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t Отмечаем новые на сервере ")));
+        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=4 WHERE LocalHash='' AND ServerHash<>''");
+        break;
+    }
+    case conflict:
+    {
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t Отмечаем конфликты ")));
+        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=-1 WHERE LocalHash<>LastHash AND ServerHash<>LastHash AND LocalHash<>ServerHash");
+        break;
+    }
+    }
+    if(!upd_comp.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ анализа таблицы сравнения ");
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t ++ ОШИБКА ++ анализа таблицы сравнения ")));}
+
+}
+//----------------------------------------------------------
+void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
+{
+    for(int i=0; i<comp_models.size();i++)
+    {
+        switch (comp_models[i].result)
+        {
+        case 1:
+        {
+            //локальные изменения
+            //выбрать несовпадающие с сервером локальные файлы
+
+            break;
+        }
+        case 2:
+        {
+            //серверные изменения
+            //выбрать не совпадающие с локальным серверные файлы
+
+            break;
+        }
+        case 3:
+        {
+            //новое на сервере
+            //взять все серверные файлы
+
+            break;
+        }
+        case 4:
+        {
+            //новое на локальном
+            //взять все локальные файлы
+
+            break;
+        }
+        }
+
     }
 }

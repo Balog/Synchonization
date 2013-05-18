@@ -5,7 +5,26 @@
 #include <QtSql>
 #include "tLog.h"
 
-typedef enum {Local, Last, Server} tTableLevel;
+struct tFile
+{
+    bool Local; // 1 - локальный файл, 0 - серверный файл
+    qlonglong num;
+    QString file_name;
+    qint64 size;
+    QString last_mod;
+} ;
+
+struct CompareTableRec
+{
+    qlonglong num;
+    qlonglong model_local;
+    qlonglong model_server;
+    QString mod_struct;
+    int result;
+    tFile file;
+};
+
+
 
 
 class tDatabaseOp
@@ -13,6 +32,9 @@ class tDatabaseOp
 public:
     tDatabaseOp();
     ~tDatabaseOp();
+
+
+
     void RefreshModelsFiles();
     void ClearModels();
     void GetListModels(QStringList &_list);
@@ -73,8 +95,13 @@ public:
 
     void VerifyLastTable(const QString& _login);
     void WriteToCompareTablesToTree(const QString& _login);
+    QList<CompareTableRec> AnalyzeCompareAll();
+    void AddFilesToModelsStruct(QList<CompareTableRec> &comp_models);
 
 private:
+    typedef enum {Local, Last, Server} tTableLevel;
+    typedef enum {no_changes, change_local, change_server, new_local, new_server, conflict} CompareRes;
+
     QSqlDatabase db;
     QString root;
     void SearchInfo(const QString &_folder);
@@ -91,6 +118,7 @@ private:
 
     void MarkLastModel(qlonglong num_login, const QString& m_struct);
     void UpdateCompareTable(qlonglong _num, const QString& _m_struct, const QString& _summ_hash, tTableLevel _level);
+    void AnalyzeCompare(CompareRes _res);
 
 };
 
