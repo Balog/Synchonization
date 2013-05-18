@@ -26623,3 +26623,371 @@
 2013-05-18 12:14:18 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
 2013-05-18 12:14:18 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
 2013-05-18 12:14:18 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1028 отключен. Осталось 0 клиентов
+2013-05-18 16:34:56 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 900
+2013-05-18 16:34:56 Client 900 tClient 	 tClient 	 Клиент создан 
+2013-05-18 16:34:56 Client 900 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 16:34:56 Client 900 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 16:34:56 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 16:34:57 Client 900 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 16:34:57 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 16:35:00 Client 900 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 16:35:00 Client 900 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 900
+2013-05-18 16:35:00 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 16:35:01 Client 900 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 16:35:01 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 16:35:01 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 16:35:01 Client 900 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 16:35:01 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 16:36:59 Client 900 (1) tClient 	 OnDisconnect 	 Клиент 900 Логин 1 отключен 
+2013-05-18 16:36:59 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 16:36:59 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 16:36:59 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 16:36:59 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 16:36:59 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 16:36:59 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 900 отключен. Осталось 0 клиентов
+2013-05-18 16:40:03 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1156
+2013-05-18 16:40:03 Client 1156 tClient 	 tClient 	 Клиент создан 
+2013-05-18 16:40:03 Client 1156 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 16:40:03 Client 1156 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 16:40:03 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 16:40:04 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 16:40:04 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 16:40:07 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 16:40:07 Client 1156 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1156
+2013-05-18 16:40:07 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 16:40:08 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 16:40:08 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 16:40:08 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 16:40:08 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 16:40:08 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 16:41:00 Client 1156 (1) tClient 	 OnDisconnect 	 Клиент 1156 Логин 1 отключен 
+2013-05-18 16:41:00 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 16:41:00 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 16:41:00 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 16:41:00 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 16:41:00 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 16:41:00 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1156 отключен. Осталось 0 клиентов
+2013-05-18 17:35:46 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1044
+2013-05-18 17:35:46 Client 1044 tClient 	 tClient 	 Клиент создан 
+2013-05-18 17:35:46 Client 1044 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 17:35:46 Client 1044 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 17:35:46 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 17:35:47 Client 1044 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 17:35:47 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 17:35:50 Client 1044 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 17:35:50 Client 1044 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1044
+2013-05-18 17:35:50 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 17:35:51 Client 1044 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 17:35:51 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 17:35:51 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 17:35:51 Client 1044 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 17:35:51 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 17:37:13 Client 1044 (1) tClient 	 OnDisconnect 	 Клиент 1044 Логин 1 отключен 
+2013-05-18 17:37:13 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 17:37:13 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 17:37:13 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 17:37:13 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 17:37:13 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 17:37:13 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1044 отключен. Осталось 0 клиентов
+2013-05-18 17:37:18 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1048
+2013-05-18 17:37:18 Client 1048 tClient 	 tClient 	 Клиент создан 
+2013-05-18 17:37:18 Client 1048 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 17:37:18 Client 1048 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 17:37:18 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 17:37:19 Client 1048 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 17:37:19 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 17:37:21 Client 1048 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 17:37:21 Client 1048 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1048
+2013-05-18 17:37:21 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 17:37:22 Client 1048 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 17:37:22 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 17:37:22 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 17:37:22 Client 1048 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 17:37:22 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 17:38:45 Client 1048 (1) tClient 	 OnDisconnect 	 Клиент 1048 Логин 1 отключен 
+2013-05-18 17:38:45 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 17:38:45 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 17:38:45 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 17:38:45 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 17:38:45 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 17:38:45 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1048 отключен. Осталось 0 клиентов
+2013-05-18 17:43:01 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1160
+2013-05-18 17:43:01 Client 1160 tClient 	 tClient 	 Клиент создан 
+2013-05-18 17:43:01 Client 1160 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 17:43:01 Client 1160 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 17:43:01 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 17:43:01 Client 1160 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 17:43:01 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 17:43:04 Client 1160 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 17:43:04 Client 1160 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1160
+2013-05-18 17:43:04 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 17:43:05 Client 1160 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 17:43:05 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 17:43:05 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 17:43:05 Client 1160 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 17:43:05 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 18:19:21 Client 1160 (1) tClient 	 OnDisconnect 	 Клиент 1160 Логин 1 отключен 
+2013-05-18 18:19:21 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 18:19:21 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 18:19:21 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 18:19:21 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 18:19:21 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 18:19:21 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1160 отключен. Осталось 0 клиентов
+2013-05-18 18:20:15 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1176
+2013-05-18 18:20:15 Client 1176 tClient 	 tClient 	 Клиент создан 
+2013-05-18 18:20:15 Client 1176 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 18:20:15 Client 1176 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 18:20:15 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 18:20:16 Client 1176 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 18:20:16 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 18:20:19 Client 1176 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 18:20:19 Client 1176 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1176
+2013-05-18 18:20:19 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 18:20:20 Client 1176 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 18:20:20 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 18:20:20 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 18:20:20 Client 1176 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 18:20:20 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 18:21:08 Client 1176 (1) tClient 	 OnDisconnect 	 Клиент 1176 Логин 1 отключен 
+2013-05-18 18:21:08 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 18:21:08 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 18:21:08 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 18:21:08 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 18:21:08 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 18:21:08 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1176 отключен. Осталось 0 клиентов
+2013-05-18 18:21:13 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1156
+2013-05-18 18:21:13 Client 1156 tClient 	 tClient 	 Клиент создан 
+2013-05-18 18:21:13 Client 1156 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 18:21:13 Client 1156 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 18:21:13 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 18:21:14 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 18:21:14 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 18:21:18 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 18:21:18 Client 1156 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1156
+2013-05-18 18:21:18 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 18:21:18 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 18:21:18 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 18:21:18 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 18:21:19 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 18:21:19 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 18:23:54 Client 1156 (1) tClient 	 OnDisconnect 	 Клиент 1156 Логин 1 отключен 
+2013-05-18 18:23:54 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 18:23:54 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 18:23:54 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 18:23:54 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 18:23:54 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 18:23:54 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1156 отключен. Осталось 0 клиентов
+2013-05-18 18:25:14 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 900
+2013-05-18 18:25:14 Client 900 tClient 	 tClient 	 Клиент создан 
+2013-05-18 18:25:14 Client 900 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 18:25:14 Client 900 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 18:25:14 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 18:25:15 Client 900 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 18:25:15 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 18:25:17 Client 900 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 18:25:17 Client 900 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 900
+2013-05-18 18:25:17 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 18:25:18 Client 900 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 18:25:18 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 18:25:18 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 18:25:18 Client 900 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 18:25:18 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 18:26:34 Client 900 (1) tClient 	 OnDisconnect 	 Клиент 900 Логин 1 отключен 
+2013-05-18 18:26:34 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 18:26:34 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 18:26:34 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 18:26:34 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 18:26:34 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 18:26:34 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 900 отключен. Осталось 0 клиентов
+2013-05-18 18:26:39 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1124
+2013-05-18 18:26:39 Client 1124 tClient 	 tClient 	 Клиент создан 
+2013-05-18 18:26:39 Client 1124 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 18:26:39 Client 1124 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 18:26:39 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 18:26:40 Client 1124 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 18:26:40 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 18:26:53 Client 1124 () tClient 	 OnDisconnect 	 Клиент 1124 Логин  отключен 
+2013-05-18 18:26:53 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 
+2013-05-18 18:26:53 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-05-18 18:26:53 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись снята. Логин: 
+2013-05-18 18:26:53 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 
+2013-05-18 18:26:53 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 
+2013-05-18 18:26:53 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 
+2013-05-18 18:26:53 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 
+2013-05-18 18:26:53 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1124 отключен. Осталось 0 клиентов
+2013-05-18 18:27:40 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1160
+2013-05-18 18:27:40 Client 1160 tClient 	 tClient 	 Клиент создан 
+2013-05-18 18:27:40 Client 1160 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 18:27:40 Client 1160 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 18:27:40 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 18:27:40 Client 1160 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 18:27:40 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 18:27:43 Client 1160 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 18:27:43 Client 1160 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1160
+2013-05-18 18:27:43 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 18:27:44 Client 1160 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 18:27:44 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 18:27:44 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 18:27:44 Client 1160 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 18:27:44 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 18:32:46 Client 1160 (1) tClient 	 OnDisconnect 	 Клиент 1160 Логин 1 отключен 
+2013-05-18 18:32:46 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 18:32:46 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 18:32:46 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 18:32:46 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 18:32:46 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 18:32:46 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1160 отключен. Осталось 0 клиентов
+2013-05-18 18:38:34 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1176
+2013-05-18 18:38:34 Client 1176 tClient 	 tClient 	 Клиент создан 
+2013-05-18 18:38:34 Client 1176 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 18:38:34 Client 1176 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 18:38:34 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 18:38:37 Client 1176 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 18:38:37 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 18:38:40 Client 1176 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 18:38:40 Client 1176 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1176
+2013-05-18 18:38:40 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 18:38:41 Client 1176 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 18:38:41 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 18:38:41 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 18:38:41 Client 1176 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 18:38:41 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 19:56:57 Client 1176 (1) tClient 	 OnDisconnect 	 Клиент 1176 Логин 1 отключен 
+2013-05-18 19:56:57 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 19:56:57 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 19:56:57 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 19:56:57 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 19:56:57 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 19:56:57 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1176 отключен. Осталось 0 клиентов
+2013-05-18 19:57:06 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1048
+2013-05-18 19:57:06 Client 1048 tClient 	 tClient 	 Клиент создан 
+2013-05-18 19:57:06 Client 1048 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 19:57:06 Client 1048 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 19:57:06 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 19:57:09 Client 1048 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 19:57:09 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 19:57:12 Client 1048 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 19:57:12 Client 1048 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1048
+2013-05-18 19:57:12 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 19:57:13 Client 1048 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 19:57:13 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 19:57:13 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 19:57:14 Client 1048 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 19:57:14 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 20:00:52 Client 1048 (1) tClient 	 OnDisconnect 	 Клиент 1048 Логин 1 отключен 
+2013-05-18 20:00:52 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 20:00:52 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 20:00:52 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 20:00:52 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 20:00:52 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 20:00:52 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1048 отключен. Осталось 0 клиентов
+2013-05-18 20:02:12 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1156
+2013-05-18 20:02:12 Client 1156 tClient 	 tClient 	 Клиент создан 
+2013-05-18 20:02:12 Client 1156 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 20:02:12 Client 1156 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 20:02:12 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 20:02:15 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 20:02:15 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 20:02:26 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 20:02:26 Client 1156 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1156
+2013-05-18 20:02:26 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 20:02:28 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 20:02:28 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 20:02:28 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 20:02:28 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 20:02:28 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 20:39:56 Client 1156 (1) tClient 	 OnDisconnect 	 Клиент 1156 Логин 1 отключен 
+2013-05-18 20:39:56 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 20:39:56 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 20:39:56 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 20:39:56 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 20:39:56 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 20:39:56 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1156 отключен. Осталось 0 клиентов
+2013-05-18 21:29:45 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 900
+2013-05-18 21:29:45 Client 900 tClient 	 tClient 	 Клиент создан 
+2013-05-18 21:29:45 Client 900 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 21:29:45 Client 900 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 21:29:45 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 21:29:46 Client 900 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 21:29:46 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 21:29:48 Client 900 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 21:29:48 Client 900 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 900
+2013-05-18 21:29:48 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 21:29:49 Client 900 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 21:29:49 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 21:29:49 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 21:29:49 Client 900 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 21:29:49 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 21:31:32 Client 900 (1) tClient 	 OnDisconnect 	 Клиент 900 Логин 1 отключен 
+2013-05-18 21:31:32 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 21:31:32 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 21:31:32 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 21:31:32 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 21:31:32 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 21:31:32 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 900 отключен. Осталось 0 клиентов
+2013-05-18 21:32:47 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1160
+2013-05-18 21:32:47 Client 1160 tClient 	 tClient 	 Клиент создан 
+2013-05-18 21:32:47 Client 1160 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 21:32:47 Client 1160 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 21:32:47 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 21:32:47 Client 1160 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 21:32:47 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 21:32:50 Client 1160 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 21:32:50 Client 1160 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1160
+2013-05-18 21:32:50 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 21:32:51 Client 1160 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 21:32:51 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 21:32:51 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 21:32:51 Client 1160 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 21:32:51 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 21:33:18 Client 1160 (1) tClient 	 OnDisconnect 	 Клиент 1160 Логин 1 отключен 
+2013-05-18 21:33:18 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 21:33:18 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 21:33:18 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 21:33:18 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 21:33:18 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 21:33:18 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1160 отключен. Осталось 0 клиентов
+2013-05-18 21:35:40 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1176
+2013-05-18 21:35:40 Client 1176 tClient 	 tClient 	 Клиент создан 
+2013-05-18 21:35:40 Client 1176 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 21:35:40 Client 1176 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 21:35:40 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 21:35:41 Client 1176 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 21:35:41 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 21:35:43 Client 1176 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 21:35:43 Client 1176 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1176
+2013-05-18 21:35:43 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 21:35:44 Client 1176 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 21:35:44 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 21:35:44 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 21:35:44 Client 1176 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 21:35:44 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 22:20:40 Client 1176 (1) tClient 	 OnDisconnect 	 Клиент 1176 Логин 1 отключен 
+2013-05-18 22:20:40 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 22:20:40 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 22:20:40 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 22:20:40 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 22:20:40 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 22:20:40 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1176 отключен. Осталось 0 клиентов
+2013-05-18 22:21:00 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1156
+2013-05-18 22:21:00 Client 1156 tClient 	 tClient 	 Клиент создан 
+2013-05-18 22:21:00 Client 1156 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 22:21:00 Client 1156 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 22:21:00 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 22:21:01 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 22:21:01 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 22:21:04 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 22:21:04 Client 1156 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1156
+2013-05-18 22:21:04 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 22:21:04 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 22:21:04 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 22:21:04 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 22:21:05 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 22:21:05 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 22:22:30 Client 1156 (1) tClient 	 OnDisconnect 	 Клиент 1156 Логин 1 отключен 
+2013-05-18 22:22:30 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 22:22:30 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 22:22:30 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 22:22:30 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 22:22:30 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 22:22:30 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1156 отключен. Осталось 0 клиентов

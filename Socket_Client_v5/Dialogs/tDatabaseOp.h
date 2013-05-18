@@ -12,6 +12,8 @@ struct tFile
     QString file_name;
     qint64 size;
     QString last_mod;
+    int IsFounded;
+
 } ;
 
 struct CompareTableRec
@@ -21,7 +23,7 @@ struct CompareTableRec
     qlonglong model_server;
     QString mod_struct;
     int result;
-    tFile file;
+    QList<tFile> file;
 };
 
 
