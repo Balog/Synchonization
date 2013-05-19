@@ -2325,7 +2325,7 @@ void tDatabaseOp::WriteToCompareTablesToTree(const QString& _login)
     }
 
     QSqlQuery select_server_mod(db);
-    select_server_mod.prepare("SELECT ServerNum, Struct, SummListHash FROM ServerStructModels");
+    select_server_mod.prepare("SELECT Num, Struct, SummListHash FROM ServerStructModels");
     if(!select_server_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выбора серверной модели для сравнения суммарных хешей ");
     log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора серверной модели для сравнения суммарных хешей ")));}
     while(select_server_mod.next())
@@ -2467,13 +2467,13 @@ void tDatabaseOp::AnalyzeCompare(CompareRes _res)
     case new_local:
     {
         log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t Отмечаем новые на локальном ")));
-        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=3 WHERE ServerHash='' AND LocalHash<>''");
+        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=4 WHERE ServerHash='' AND LocalHash<>''");
         break;
     }
     case new_server:
     {
         log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t Отмечаем новые на сервере ")));
-        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=4 WHERE LocalHash='' AND ServerHash<>''");
+        upd_comp.prepare("UPDATE CompareTablesToTree SET Result=3 WHERE LocalHash='' AND ServerHash<>''");
         break;
     }
     case conflict:
@@ -2587,6 +2587,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 file.last_mod=sel_unfound_local.value(3).toDateTime().toString(Qt::ISODate);
                 file.Local=true;
                 file.IsFounded=1;
+                comp_models[i].file.push_back(file);
             }
 
             //файлы что есть только на сервере
@@ -2604,6 +2605,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 file.last_mod=sel_unfound_server.value(3).toDateTime().toString(Qt::ISODate);
                 file.Local=true;
                 file.IsFounded=1;
+                comp_models[i].file.push_back(file);
             }
             break;
         }
@@ -2677,6 +2679,48 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 comp_models[i].file.push_back(file);
                 }
 
+                //после записи файлов имеющихся и локально и на сервере но различающихся хешами
+                //нужно еще добавить файлы что есть только локально или только на сервере
+
+
+
+
+
+            }
+            //файлы что есть только локально
+            QSqlQuery sel_unfound_local(db);
+            sel_unfound_local.prepare("SELECT Num, File, Size, LastMod FROM Files WHERE Model="+QString::number(num_loc_mod)+" AND Found=0");
+            if(!sel_unfound_local.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки файлов имеющихся только локально у модели ")+QString::number(num_loc_mod);
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки файлов имеющихся только локально у модели ")+QString::number(num_loc_mod)));}
+
+            while(sel_unfound_local.next())
+            {
+                tFile file;
+                file.num=sel_unfound_local.value(0).toLongLong();
+                file.file_name=sel_unfound_local.value(1).toString();
+                file.size=sel_unfound_local.value(2).toLongLong();
+                file.last_mod=sel_unfound_local.value(3).toDateTime().toString(Qt::ISODate);
+                file.Local=true;
+                file.IsFounded=1;
+                comp_models[i].file.push_back(file);
+            }
+
+            //файлы что есть только на сервере
+            QSqlQuery sel_unfound_server(db);
+            sel_unfound_server.prepare("SELECT Num, File, Size, LastMod FROM ServerFiles WHERE Model="+QString::number(num_serv_mod)+" AND Found=0");
+            if(!sel_unfound_server.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки файлов имеющихся только на сервере у модели ")+QString::number(num_serv_mod);
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки файлов имеющихся только на сервере у модели ")+QString::number(num_serv_mod)));}
+
+            while(sel_unfound_server.next())
+            {
+                tFile file;
+                file.num=sel_unfound_server.value(0).toLongLong();
+                file.file_name=sel_unfound_server.value(1).toString();
+                file.size=sel_unfound_server.value(2).toLongLong();
+                file.last_mod=sel_unfound_server.value(3).toDateTime().toString(Qt::ISODate);
+                file.Local=true;
+                file.IsFounded=1;
+                comp_models[i].file.push_back(file);
             }
             break;
         }
@@ -2684,7 +2728,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
         {
             //новое на сервере
             //взять все серверные файлы
-            qlonglong num_serv_mod=comp_models[i].model_local;
+            qlonglong num_serv_mod=comp_models[i].model_server;
             QSqlQuery server_files(db);
             server_files.prepare("SELECT Num, File, Size, LastMod FROM ServerFiles WHERE Model="+QString::number(num_serv_mod));
             if(!server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов для дерева в модель ")+QString::number(num_serv_mod);

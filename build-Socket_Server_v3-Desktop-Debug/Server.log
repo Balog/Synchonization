@@ -26991,3 +26991,1308 @@
 2013-05-18 22:22:30 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
 2013-05-18 22:22:30 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
 2013-05-18 22:22:30 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1156 отключен. Осталось 0 клиентов
+----------------------------------------------------
+2013-05-18 22:46:10 GUI tSettings 	SetFilePath	 Чтение параметров 
+2013-05-18 22:46:10 GUI Dialog 	 Dialog 	 Начало работы 
+2013-05-18 22:46:10 GUI tSettings 	 SetFilePath 	 Запись параметров 
+2013-05-18 22:46:10 GUI tServer 	 RefreshDatabase 	 Проверка и обновление базы данных файлов 
+2013-05-18 22:46:10 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-05-18 22:46:10 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели gun_30mm.info
+2013-05-18 22:46:10 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-18 22:46:10 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-18 22:46:10 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели gun_30mm.info
+2013-05-18 22:46:10 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-18 22:46:10 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-18 22:46:10 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-18 22:46:10 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-18 22:46:10 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info
+2013-05-18 22:46:10 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/30mm.dds
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/30mm.dds
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/30mm.dds
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/30mm.dds
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.mat
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.mat
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.mat
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.mat
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.mesh
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.mesh
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.mesh
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.mesh
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.node
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.node
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.node
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.node
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.xml
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.xml
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.xml
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.xml
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов common/Pinguins.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть common/Pinguins.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть common/Pinguins.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы common/Pinguins.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов common/Desert.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть common/Desert.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть common/Desert.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы common/Desert.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/proba.txt
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет objects/gun_30mm/proba.txt
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 465
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла common/Desert.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла common/Pinguins.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/30mm.dds
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.mat
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.mesh
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.node
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.xml
+2013-05-18 22:46:11 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели msl_fab-100.info
+2013-05-18 22:46:11 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-18 22:46:11 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-18 22:46:11 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели msl_fab-100.info
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-18 22:46:11 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-18 22:46:12 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.mat
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.mat
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.mat
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100.mat
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.mesh
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.mesh
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.mesh
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске не совпадают, берем хеш с диска objects/msl_fab-100/msl_fab-100.mesh
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.node
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.node
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.node
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100.node
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.xml
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.xml
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.xml
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100.xml
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 470
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.mat
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.mesh
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.node
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.xml
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-18 22:46:12 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели t-34.info
+2013-05-18 22:46:12 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-18 22:46:12 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-18 22:46:12 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели t-34.info
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/vhc_t-34/.t-34.info
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckInfoFiles 	 Файл изменялся objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-18 22:46:13 DB tDatabaseOp 	 CheckFile 	 Файл изменялсяь objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_mask.dds
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет objects/vhc_t-34/t-34_mask.dds
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файлна диске есть objects/vhc_t-34/t-34_mask.dds
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_d.dds
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет objects/vhc_t-34/t-34_d.dds
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файлна диске есть objects/vhc_t-34/t-34_d.dds
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_n.dds
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет objects/vhc_t-34/t-34_n.dds
+2013-05-18 22:46:13 DB tDatabaseOp 	 UpdateModelFiles 	 Файлна диске есть objects/vhc_t-34/t-34_n.dds
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_s.dds
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет objects/vhc_t-34/t-34_s.dds
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Файлна диске есть objects/vhc_t-34/t-34_s.dds
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/Chrysanthemum.jpg
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть Common/Chrysanthemum.jpg
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть Common/Chrysanthemum.jpg
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы Common/Chrysanthemum.jpg
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 491
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла Common/Chrysanthemum.jpg
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_d.dds
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_mask.dds
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_n.dds
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_s.dds
+2013-05-18 22:46:14 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели cabin.info
+2013-05-18 22:46:14 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-18 22:46:14 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-18 22:46:14 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели cabin.info
+2013-05-18 22:46:14 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-18 22:46:14 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-18 22:46:14 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-18 22:46:14 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/vhc_t-90/.cabin.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/Jellyfish.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть Common/Jellyfish.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть Common/Jellyfish.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы Common/Jellyfish.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 495
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла Common/Jellyfish.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели t-90.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели t-90.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/vhc_t-90/.t-90.info
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/mask.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/mask.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/mask.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/mask.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90_d.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90_d.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90_d.dds
+2013-05-18 22:46:15 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90_d.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90_n.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90_n.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90_n.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90_n.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90_s.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90_s.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90_s.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90_s.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90kill_d.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90kill_d.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90kill_d.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90kill_d.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/tracks_d.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/tracks_d.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/tracks_d.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/tracks_d.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/tracks_n.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/tracks_n.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/tracks_n.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/tracks_n.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.bullet
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.bullet
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.bullet
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.bullet
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.mat
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.mat
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.mat
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.mat
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.node
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.node
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.node
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.node
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.smesh
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.smesh
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.smesh
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.smesh
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.xml
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.xml
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.xml
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.xml
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/white.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/white.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/white.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/white.dds
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/Т-90.docx
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/Т-90.docx
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/Т-90.docx
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/Т-90.docx
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/Chrysanthemum.jpg
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть Common/Chrysanthemum.jpg
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть Common/Chrysanthemum.jpg
+2013-05-18 22:46:16 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы Common/Chrysanthemum.jpg
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/DXSDK_Jun10.exe
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет Common/DXSDK_Jun10.exe
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 472
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла Common/Chrysanthemum.jpg
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/mask.dds
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90_d.dds
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90_n.dds
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90_s.dds
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90kill_d.dds
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/tracks_d.dds
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/tracks_n.dds
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.bullet
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.mat
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.node
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.smesh
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.xml
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/white.dds
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-18 22:46:17 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/Т-90.docx
+2013-05-18 22:46:17 GUI Dialog 	 Dialog 	 Сервер подключен 
+2013-05-18 22:46:26 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1116
+2013-05-18 22:46:26 Client 1116 tClient 	 tClient 	 Клиент создан 
+2013-05-18 22:46:28 Client 1116 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 22:46:28 Client 1116 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 22:46:28 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 22:46:31 Client 1116 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 22:46:31 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 22:47:01 Client 1116 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 22:47:01 Client 1116 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1116
+2013-05-18 22:47:01 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 22:47:02 Client 1116 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 22:47:02 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 22:47:02 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 22:47:02 Client 1116 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 22:47:02 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 23:20:15 Client 1116 (1) tClient 	 OnDisconnect 	 Клиент 1116 Логин 1 отключен 
+2013-05-18 23:20:15 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 23:20:15 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 23:20:15 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 23:20:15 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 23:20:15 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 23:20:15 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1116 отключен. Осталось 0 клиентов
+2013-05-18 23:27:43 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1124
+2013-05-18 23:27:43 Client 1124 tClient 	 tClient 	 Клиент создан 
+2013-05-18 23:27:43 Client 1124 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 23:27:43 Client 1124 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 23:27:43 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 23:27:44 Client 1124 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 23:27:44 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 23:27:49 Client 1124 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 23:27:49 Client 1124 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1124
+2013-05-18 23:27:49 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 23:27:50 Client 1124 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 23:27:50 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 23:27:50 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 23:27:50 Client 1124 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 23:27:50 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-18 23:33:12 Client 1124 (1) tClient 	 OnDisconnect 	 Клиент 1124 Логин 1 отключен 
+2013-05-18 23:33:12 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-18 23:33:12 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-18 23:33:12 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-18 23:33:12 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-18 23:33:12 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-18 23:33:12 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1124 отключен. Осталось 0 клиентов
+2013-05-18 23:36:27 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1140
+2013-05-18 23:36:27 Client 1140 tClient 	 tClient 	 Клиент создан 
+2013-05-18 23:36:27 Client 1140 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-18 23:36:27 Client 1140 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-18 23:36:27 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-18 23:36:30 Client 1140 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-18 23:36:30 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-18 23:50:48 Client 1140 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-18 23:50:48 Client 1140 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1140
+2013-05-18 23:50:48 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-18 23:50:49 Client 1140 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-18 23:50:49 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-18 23:50:49 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-18 23:50:49 Client 1140 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-18 23:50:49 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 00:16:54 Client 1140 (1) tClient 	 OnDisconnect 	 Клиент 1140 Логин 1 отключен 
+2013-05-19 00:16:54 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-19 00:16:54 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-19 00:16:54 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-19 00:16:54 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-19 00:16:54 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-19 00:16:54 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1140 отключен. Осталось 0 клиентов
+2013-05-19 00:17:33 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1152
+2013-05-19 00:17:33 Client 1152 tClient 	 tClient 	 Клиент создан 
+2013-05-19 00:17:33 Client 1152 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 00:17:33 Client 1152 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 00:17:33 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 00:17:34 Client 1152 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 00:17:34 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 00:17:37 Client 1152 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 00:17:37 Client 1152 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1152
+2013-05-19 00:17:37 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-19 00:17:38 Client 1152 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 00:17:38 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 00:17:38 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 00:17:38 Client 1152 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 00:17:38 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 00:41:04 Client 1152 (1) tClient 	 OnDisconnect 	 Клиент 1152 Логин 1 отключен 
+2013-05-19 00:41:04 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-19 00:41:04 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-19 00:41:04 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-19 00:41:04 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-19 00:41:04 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-19 00:41:04 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1152 отключен. Осталось 0 клиентов
+2013-05-19 00:41:12 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1144
+2013-05-19 00:41:12 Client 1144 tClient 	 tClient 	 Клиент создан 
+2013-05-19 00:41:12 Client 1144 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 00:41:12 Client 1144 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 00:41:12 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 00:41:13 Client 1144 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 00:41:13 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 00:41:15 Client 1144 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 00:41:15 Client 1144 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1144
+2013-05-19 00:41:15 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-19 00:41:16 Client 1144 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 00:41:16 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 00:41:16 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 00:41:19 Client 1144 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 00:41:19 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 00:44:41 Client 1144 (1) tClient 	 OnDisconnect 	 Клиент 1144 Логин 1 отключен 
+2013-05-19 00:44:41 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-19 00:44:41 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-19 00:44:41 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-19 00:44:41 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-19 00:44:41 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-19 00:44:41 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1144 отключен. Осталось 0 клиентов
+2013-05-19 00:44:49 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1156
+2013-05-19 00:44:49 Client 1156 tClient 	 tClient 	 Клиент создан 
+2013-05-19 00:44:49 Client 1156 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 00:44:49 Client 1156 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 00:44:49 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 00:44:50 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 00:44:50 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 00:44:53 Client 1156 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 00:44:53 Client 1156 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1156
+2013-05-19 00:44:53 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-19 00:44:54 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 00:44:54 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 00:44:54 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 00:44:54 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 00:44:54 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 00:46:48 Client 1156 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 00:46:48 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 00:46:48 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 00:48:01 Client 1156 (1) tClient 	 OnDisconnect 	 Клиент 1156 Логин 1 отключен 
+2013-05-19 00:48:01 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-19 00:48:01 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-19 00:48:01 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-19 00:48:01 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-19 00:48:01 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-19 00:48:01 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1156 отключен. Осталось 0 клиентов
+2013-05-19 00:48:10 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1124
+2013-05-19 00:48:10 Client 1124 tClient 	 tClient 	 Клиент создан 
+2013-05-19 00:48:10 Client 1124 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 00:48:10 Client 1124 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 00:48:10 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 00:48:11 Client 1124 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 00:48:11 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 00:48:14 Client 1124 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 00:48:14 Client 1124 (a) tClient 	 SetName 	 Присвоение логина a клиенту 1124
+2013-05-19 00:48:14 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: a
+2013-05-19 00:48:19 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 00:48:19 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 00:48:19 (Login: a) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 00:48:19 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 00:48:19 (Login: a) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 00:48:39 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 00:48:39 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 00:48:39 (Login: a) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 00:49:17 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 6
+2013-05-19 00:49:17 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:49:17 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:49:17 (Login: a) tStartTransaction 	 ExeCommand 	 СТАРТ ТРАНЗАКЦИИ НА ЗАПИСЬ 
+2013-05-19 00:49:17 FileBlocker  tFileBlocker 	 StartWriteFile 	 ==== Блокировка файла на запись ==== objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:49:17 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на чтение логином a
+2013-05-19 00:49:17 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:49:17 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:49:17 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на чтение логином a
+2013-05-19 00:49:17 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на запись логином a
+2013-05-19 00:49:17 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: a
+2013-05-19 00:49:17 FileBlocker  tFileBlocker 	 StartWriteFile 	 Файл objects/msl_fab-100/msl_fab-100.node добавление в список и блокировка на запись логином a
+2013-05-19 00:49:17 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: a
+2013-05-19 00:49:17 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-05-19 00:49:17 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на запись логином a
+2013-05-19 00:49:17 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 9
+2013-05-19 00:49:17 (Login: a) tDeleteFile 	 ExeCommand 	 Отчет об удалении файла objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:49:17 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 7
+2013-05-19 00:49:17 (Login: a) tCommitTransaction 	 ExeCommand 	 ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов 
+2013-05-19 00:49:17 (Login: a) tCommitTransaction 	 Move 	 Удаление файла C:/Server/Project 1/objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:49:17 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-05-19 00:49:17 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели gun_30mm.info
+2013-05-19 00:49:17 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:49:17 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:49:17 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели gun_30mm.info
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:49:17 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:49:17 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:49:17 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:49:17 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/30mm.dds
+2013-05-19 00:49:17 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/30mm.dds
+2013-05-19 00:49:17 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/30mm.dds
+2013-05-19 00:49:17 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/30mm.dds
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.node
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.node
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.node
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.node
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов common/Pinguins.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть common/Pinguins.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть common/Pinguins.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы common/Pinguins.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов common/Desert.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть common/Desert.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть common/Desert.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы common/Desert.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/proba.txt
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет objects/gun_30mm/proba.txt
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 465
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла common/Desert.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла common/Pinguins.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/30mm.dds
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.node
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:49:18 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели msl_fab-100.info
+2013-05-19 00:49:18 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:49:18 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:49:18 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели msl_fab-100.info
+2013-05-19 00:49:18 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:49:18 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:49:18 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:49:18 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:49:19 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файла на диске нет objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:49:19 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 470
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:49:20 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели t-34.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели t-34.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/vhc_t-34/.t-34.info
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:49:20 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/Chrysanthemum.jpg
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть Common/Chrysanthemum.jpg
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть Common/Chrysanthemum.jpg
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы Common/Chrysanthemum.jpg
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 491
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла Common/Chrysanthemum.jpg
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:49:21 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:49:22 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/vhc_t-90/.cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/Jellyfish.jpg
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть Common/Jellyfish.jpg
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть Common/Jellyfish.jpg
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы Common/Jellyfish.jpg
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 495
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла Common/Jellyfish.jpg
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:49:22 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели t-90.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели t-90.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:49:22 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:49:23 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/vhc_t-90/.t-90.info
+2013-05-19 00:49:23 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-19 00:49:23 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-19 00:49:23 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-19 00:49:23 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:49:23 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:49:23 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:49:23 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/mask.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/mask.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/mask.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/mask.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:49:23 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:49:24 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/white.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/white.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/white.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/white.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/Т-90.docx
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/Т-90.docx
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/Т-90.docx
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/Т-90.docx
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/Chrysanthemum.jpg
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть Common/Chrysanthemum.jpg
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть Common/Chrysanthemum.jpg
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы Common/Chrysanthemum.jpg
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/DXSDK_Jun10.exe
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет Common/DXSDK_Jun10.exe
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 472
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла Common/Chrysanthemum.jpg
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/mask.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/white.dds
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:49:25 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/Т-90.docx
+2013-05-19 00:49:26 (Login: a) tCommitTransaction 	 ExeCommand 	 Разблокировка от записи файла 
+2013-05-19 00:49:26 FileBlocker  tFileBlocker 	 FinishWriteFile 	 ==== Снятие блокировки на запись ==== objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:49:26 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов заблокирована на чтение логином a
+2013-05-19 00:49:26 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:49:26 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:49:26 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов разблокирована на чтение логином a
+2013-05-19 00:49:26 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-05-19 00:49:26 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Файл objects/msl_fab-100/msl_fab-100.node найден в списке и снята блокировка на запись логином a
+2013-05-19 00:49:26 FileBlocker  tFileBlocker 	 SearchBlockFile 	 Файлobjects/msl_fab-100/msl_fab-100.node ничем не блокирован и удаляется из таблицы файлов
+2013-05-19 00:49:26 (Login: a) tCommitTransaction 	 ExeCommand 	 ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ 
+2013-05-19 00:49:26 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 00:49:26 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 00:49:26 (Login: a) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 00:50:56 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 6
+2013-05-19 00:50:56 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:50:56 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:50:56 (Login: a) tStartTransaction 	 ExeCommand 	 СТАРТ ТРАНЗАКЦИИ НА ЗАПИСЬ 
+2013-05-19 00:50:56 FileBlocker  tFileBlocker 	 StartWriteFile 	 ==== Блокировка файла на запись ==== objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:50:56 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на чтение логином a
+2013-05-19 00:50:56 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:50:56 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:50:56 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на чтение логином a
+2013-05-19 00:50:56 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов заблокирована на запись логином a
+2013-05-19 00:50:56 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: a
+2013-05-19 00:50:56 FileBlocker  tFileBlocker 	 StartWriteFile 	 Файл objects/msl_fab-100/msl_fab-100.node добавление в список и блокировка на запись логином a
+2013-05-19 00:50:56 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: a
+2013-05-19 00:50:56 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-05-19 00:50:56 FileBlocker  tFileBlocker 	 StartWriteFile 	 Таблица файлов разблокирована на запись логином a
+2013-05-19 00:50:56 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 2
+2013-05-19 00:50:56 (Login: a) tReceiveStreamFile 	 Initialize 	 ****** ПРИЕМ ФАЙЛА ****** objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:50:56 (Login: a) tReceiveStreamFile 	 ExeCommand 	 Прием файла objects/msl_fab-100/msl_fab-100.node завершен
+2013-05-19 00:50:56 (Login: a) tReceiveStreamFile 	 SendReport 	 Посылка отчета о приеме файла objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:50:56 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 7
+2013-05-19 00:50:56 (Login: a) tCommitTransaction 	 ExeCommand 	 ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов 
+2013-05-19 00:50:56 (Login: a) tCommitTransaction 	 Move 	 Проверка файла C:/Server/Project 1/objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:50:56 (Login: a) tCommitTransaction 	 Verify 	 Файл C:/Server/Project 1/objects/msl_fab-100/msl_fab-100.node отсутствует 
+2013-05-19 00:50:56 (Login: a) tCommitTransaction 	 Move 	 Замена файла C:/Server/Project 1/objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:50:56 DB tDatabaseOp 	 RefreshModelsFiles 	 Проверка и обновление серверной базы данных 
+2013-05-19 00:50:56 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели gun_30mm.info
+2013-05-19 00:50:56 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:50:56 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:50:56 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели gun_30mm.info
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:50:56 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/30mm.dds
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/30mm.dds
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/30mm.dds
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/30mm.dds
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.node
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.node
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.node
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.node
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов common/Pinguins.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть common/Pinguins.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть common/Pinguins.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы common/Pinguins.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов common/Desert.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть common/Desert.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть common/Desert.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы common/Desert.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/gun_30mm/proba.txt
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет objects/gun_30mm/proba.txt
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 465
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла common/Desert.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла common/Pinguins.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/Chrysanthemum.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/Desert.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.files
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/.gun_30mm.info/gun_30mm.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/30mm.dds
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.mat
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.mesh
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.node
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/gun_30mm/gun_30mm.xml
+2013-05-19 00:50:57 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели msl_fab-100.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели msl_fab-100.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-19 00:50:57 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-19 00:50:58 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:50:58 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:50:58 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:50:58 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файлна диске есть objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 470
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/Penguins.jpg
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.files
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/msl_fab-100.info
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/.msl_fab-100.info/Этюд в багровых тонах2.jpg
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.mat
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.mesh
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100.xml
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100_d.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/msl_fab-100/msl_fab-100_n.dds
+2013-05-19 00:50:58 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели t-34.info
+2013-05-19 00:50:58 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:50:58 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:50:58 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели t-34.info
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/vhc_t-34/.t-34.info
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:50:59 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/Chrysanthemum.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть Common/Chrysanthemum.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть Common/Chrysanthemum.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы Common/Chrysanthemum.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 491
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла Common/Chrysanthemum.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/Lighthouse - копия.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/Lighthouse.jpg
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/t-34.files
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/.t-34.info/t-34.info
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_d.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_mask.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_n.dds
+2013-05-19 00:50:59 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-34/t-34_s.dds
+2013-05-19 00:51:00 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/vhc_t-90/.cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/Jellyfish.jpg
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть Common/Jellyfish.jpg
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть Common/Jellyfish.jpg
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы Common/Jellyfish.jpg
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 495
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла Common/Jellyfish.jpg
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.cabin.info/Lighthouse.jpg
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.cabin.info/cabin.files
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.cabin.info/cabin.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/cabin/t-90_cabine_0.dds
+2013-05-19 00:51:00 DB tDatabaseOp 	 SearchInfo 	 Найден файл описания модели t-90.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 SearchInfo 	 Такая модель в базе есть objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 SearchInfo 	 Такая модель на диске есть objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша файлов модели t-90.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:51:00 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:51:01 DB tDatabaseOp 	 CheckInfoFiles 	 Обработка файлов в инфо-папке C:/Server/Project 1/objects/vhc_t-90/.t-90.info
+2013-05-19 00:51:01 DB tDatabaseOp 	 CheckInfoFiles 	 На диске найден файл objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-19 00:51:01 DB tDatabaseOp 	 CheckInfoFiles 	 В базе есть файл objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-19 00:51:01 DB tDatabaseOp 	 CheckInfoFiles 	 Файл не изменялся objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-19 00:51:01 DB tDatabaseOp 	 CheckFile 	 Проверка файла objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:51:01 DB tDatabaseOp 	 CheckFile 	 Файл в базе есть objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:51:01 DB tDatabaseOp 	 CheckFile 	 Файл есть на диске objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:51:01 DB tDatabaseOp 	 CheckFile 	 Файл не изменялся objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Проверим наличие файлов в базе и соответствие базе C:/Server/Project 1/objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть C:/Server/Project 1/objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/mask.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/mask.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/mask.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/mask.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:51:01 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/white.dds
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/white.dds
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/white.dds
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/white.dds
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/Т-90.docx
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/Т-90.docx
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/Т-90.docx
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/Т-90.docx
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:51:02 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/Chrysanthemum.jpg
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Файл в базе есть Common/Chrysanthemum.jpg
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Файл на диске есть Common/Chrysanthemum.jpg
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Файлы в базе и на диске совпадают, берем хеш с базы Common/Chrysanthemum.jpg
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Файл списка файлов Common/DXSDK_Jun10.exe
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Файла в базе нет Common/DXSDK_Jun10.exe
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Подсчет суммарного хеша модели 472
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла Common/Chrysanthemum.jpg
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.t-90.info/Lighthouse.jpg
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.t-90.info/t-90.files
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/.t-90.info/t-90.info
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/mask.dds
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90_d.dds
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90_n.dds
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90_s.dds
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/t-90kill_d.dds
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/tracks_d.dds
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/tracks_n.dds
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.bullet
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.mat
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.node
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.smesh
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/vhc_t-90.xml
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/white.dds
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/Русскоязычный файл.txt
+2013-05-19 00:51:03 DB tDatabaseOp 	 UpdateModelFiles 	 Обработка файла objects/vhc_t-90/Т-90.docx
+2013-05-19 00:51:03 (Login: a) tCommitTransaction 	 ExeCommand 	 Разблокировка от записи файла 
+2013-05-19 00:51:03 FileBlocker  tFileBlocker 	 FinishWriteFile 	 ==== Снятие блокировки на запись ==== objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:51:03 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов заблокирована на чтение логином a
+2013-05-19 00:51:03 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:51:03 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:51:03 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Таблица файлов разблокирована на чтение логином a
+2013-05-19 00:51:03 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-05-19 00:51:03 FileBlocker  tFileBlocker 	 FinishWriteFile 	 Файл objects/msl_fab-100/msl_fab-100.node найден в списке и снята блокировка на запись логином a
+2013-05-19 00:51:03 FileBlocker  tFileBlocker 	 SearchBlockFile 	 Файлobjects/msl_fab-100/msl_fab-100.node ничем не блокирован и удаляется из таблицы файлов
+2013-05-19 00:51:03 (Login: a) tCommitTransaction 	 ExeCommand 	 ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ 
+2013-05-19 00:51:03 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 00:51:03 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 00:51:03 (Login: a) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 00:51:46 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 6
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:51:46 (Login: a) tStartTransaction 	 ExeCommand 	 СТАРТ ТРАНЗАКЦИИ НА ЧТЕНИЕ 
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 StartReadFile 	 ==== Блокировка файла на чтение ==== objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 StartReadFile 	 Таблица файлов заблокирована на чтение логином a
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 StartReadFile 	 Таблица файлов разблокирована на чтение логином a
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 StartReadFile 	 Таблица файлов заблокирована на запись логином a
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: a
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 StartReadFile 	 Файл objects/msl_fab-100/msl_fab-100.node добавление в список и блокировка на чтение логином a
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 unlockWrite 	 --- Снятие блокировки на запись. ---
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 StartReadFile 	 Таблица файлов разблокирована на запись логином a
+2013-05-19 00:51:46 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 1
+2013-05-19 00:51:46 (Login: a) tSendStreamFile 	 ExeCommand 	 ****** ОТПРАВКА ФАЙЛА ****** objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:51:46 (Login: a) tSendStreamFile 	 ExeCommand 	 Отправка файла objects/msl_fab-100/msl_fab-100.node завершена
+2013-05-19 00:51:46 Client 1124 (a) tClient 	 OnReadyRead 	 Получена команда номер 7
+2013-05-19 00:51:46 (Login: a) tCommitTransaction 	 ExeCommand 	 ****** КОММИТ ТРАНЗАКЦИИ ******. Замена и удаление целевых файлов 
+2013-05-19 00:51:46 (Login: a) tCommitTransaction 	 ExeCommand 	 Разблокировка от чтения файла 
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 FinishReadFile 	 ==== Снятие блокировки на чтение ==== objects/msl_fab-100/msl_fab-100.node
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 FinishReadFile 	 Таблица файлов заблокирована на чтение логином a
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 lockRead 	 --- Блокировка на чтение. --- Логин: a
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 FinishReadFile 	 Таблица файлов разблокирована на чтение логином a
+2013-05-19 00:51:46 Blocker  tReadWriteMutex 	 unlockRead 	 --- Снятие блокировки на чтение. --- Логин: a
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 FinishReadFile 	 Файл objects/msl_fab-100/msl_fab-100.node найден в списке и снята блокировка на чтение логином a
+2013-05-19 00:51:46 FileBlocker  tFileBlocker 	 SearchBlockFile 	 Файлobjects/msl_fab-100/msl_fab-100.node ничем не блокирован и удаляется из таблицы файлов
+2013-05-19 00:51:46 (Login: a) tCommitTransaction 	 ExeCommand 	 ЗАВЕРШЕНИЕ ТРАНЗАКЦИИ 
+2013-05-19 00:51:57 Client 1124 (a) tClient 	 OnDisconnect 	 Клиент 1124 Логин a отключен 
+2013-05-19 00:51:57 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === a
+2013-05-19 00:51:57 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: a
+2013-05-19 00:51:57 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: a
+2013-05-19 00:51:57 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: a
+2013-05-19 00:51:57 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: a
+2013-05-19 00:51:57 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1124 отключен. Осталось 0 клиентов
+2013-05-19 00:52:04 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1140
+2013-05-19 00:52:04 Client 1140 tClient 	 tClient 	 Клиент создан 
+2013-05-19 00:52:04 Client 1140 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 00:52:04 Client 1140 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 00:52:04 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 00:52:04 Client 1140 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 00:52:04 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 00:52:07 Client 1140 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 00:52:07 Client 1140 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1140
+2013-05-19 00:52:07 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-19 00:52:13 Client 1140 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 00:52:13 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 00:52:13 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 00:52:13 Client 1140 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 00:52:13 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 01:22:24 Client 1140 (1) tClient 	 OnDisconnect 	 Клиент 1140 Логин 1 отключен 
+2013-05-19 01:22:24 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-19 01:22:24 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-19 01:22:24 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-19 01:22:24 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-19 01:22:24 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-19 01:22:24 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1140 отключен. Осталось 0 клиентов
+2013-05-19 01:22:32 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1184
+2013-05-19 01:22:32 Client 1184 tClient 	 tClient 	 Клиент создан 
+2013-05-19 01:22:32 Client 1184 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 01:22:32 Client 1184 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 01:22:32 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 01:22:33 Client 1184 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 01:22:33 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 01:22:36 Client 1184 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 01:22:36 Client 1184 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1184
+2013-05-19 01:22:36 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-19 01:22:36 Client 1184 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 01:22:36 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 01:22:36 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 01:22:37 Client 1184 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 01:22:37 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 01:26:20 Client 1184 (1) tClient 	 OnDisconnect 	 Клиент 1184 Логин 1 отключен 
+2013-05-19 01:26:20 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-19 01:26:20 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-19 01:26:20 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-19 01:26:20 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-19 01:26:20 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-19 01:26:20 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1184 отключен. Осталось 0 клиентов
+2013-05-19 10:03:55 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1200
+2013-05-19 10:03:55 Client 1200 tClient 	 tClient 	 Клиент создан 
+2013-05-19 10:03:55 Client 1200 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 10:03:55 Client 1200 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 10:03:55 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 10:03:56 Client 1200 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 10:03:56 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 10:03:58 Client 1200 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 10:03:58 Client 1200 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1200
+2013-05-19 10:03:58 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-19 10:03:59 Client 1200 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 10:03:59 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 10:04:00 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 10:04:00 Client 1200 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 10:04:00 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 10:24:03 Client 1200 (1) tClient 	 OnDisconnect 	 Клиент 1200 Логин 1 отключен 
+2013-05-19 10:24:03 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-19 10:24:03 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-19 10:24:03 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-19 10:24:03 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-19 10:24:03 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-19 10:24:03 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1200 отключен. Осталось 0 клиентов
+2013-05-19 10:25:08 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1068
+2013-05-19 10:25:08 Client 1068 tClient 	 tClient 	 Клиент создан 
+2013-05-19 10:25:08 Client 1068 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 10:25:08 Client 1068 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 10:25:08 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 10:25:09 Client 1068 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 10:25:09 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 10:25:12 Client 1068 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 10:25:12 Client 1068 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1068
+2013-05-19 10:25:12 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-19 10:25:13 Client 1068 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 10:25:13 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 10:25:13 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 10:25:13 Client 1068 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 10:25:13 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 10:27:45 Client 1068 (1) tClient 	 OnDisconnect 	 Клиент 1068 Логин 1 отключен 
+2013-05-19 10:27:45 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-19 10:27:45 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-19 10:27:45 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-19 10:27:45 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-19 10:27:45 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-19 10:27:45 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1068 отключен. Осталось 0 клиентов
+2013-05-19 10:31:55 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1056
+2013-05-19 10:31:55 Client 1056 tClient 	 tClient 	 Клиент создан 
+2013-05-19 10:31:55 Client 1056 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 10:31:55 Client 1056 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 10:31:55 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 10:31:56 Client 1056 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 10:31:56 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 10:31:59 Client 1056 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 10:31:59 Client 1056 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1056
+2013-05-19 10:31:59 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-19 10:32:00 Client 1056 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 10:32:00 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 10:32:00 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 10:32:00 Client 1056 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 10:32:00 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
+2013-05-19 10:42:28 Client 1056 (1) tClient 	 OnDisconnect 	 Клиент 1056 Логин 1 отключен 
+2013-05-19 10:42:28 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 === Снятие блокировок со всех файлов на чтение и запись логина === 1
+2013-05-19 10:42:28 Blocker  tReadWriteMutex 	 lockWrite 	 --- Блокировка на запись. --- Логин: 1
+2013-05-19 10:42:28 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на запись установлена. Логин: 1
+2013-05-19 10:42:28 Blocker  tReadWriteMutex 	 unlockReadWrite 	 --- Снятие всех блокировок на чтение и запись ---. Логин: 1
+2013-05-19 10:42:28 FileBlocker  tFileBlocker 	 UnlockReadWrite 	 Блокировка таблицы файлов на чтение и запись снята. Логин: 1
+2013-05-19 10:42:28 GUI tServer 	 OnDisconnectClient 	 Клиент. Дескриптор: 1056 отключен. Осталось 0 клиентов
+2013-05-19 10:42:38 GUI tServer 	 incomingConnection 	 Входящее соединение. Дескриптор: 1076
+2013-05-19 10:42:38 Client 1076 tClient 	 tClient 	 Клиент создан 
+2013-05-19 10:42:38 Client 1076 () tClient 	 Initialize 	 Клиент подключен 
+2013-05-19 10:42:38 Client 1076 () tClient 	 OnConnected 	 Формирование отчета о подключении 
+2013-05-19 10:42:38 (Login: неопределен) tConnectionReport 	 ExeCommand 	 Отправка отчета о соединении (успех)
+2013-05-19 10:42:39 Client 1076 () tClient 	 OnReadyRead 	 Получена команда номер 14
+2013-05-19 10:42:39 (Login: ) tSendLoginsTable 	 ExeCommand 	 Передача таблицы логинов 
+2013-05-19 10:42:42 Client 1076 () tClient 	 OnReadyRead 	 Получена команда номер 5
+2013-05-19 10:42:42 Client 1076 (1) tClient 	 SetName 	 Присвоение логина 1 клиенту 1076
+2013-05-19 10:42:42 (Login: ) tAutorization 	 ExeCommand 	 Авторизация прошла успешно Login: 1
+2013-05-19 10:42:43 Client 1076 (1) tClient 	 OnReadyRead 	 Получена команда номер 11
+2013-05-19 10:42:43 DB tDatabaseOp 	 RefreshModelsFiles 	 Формирование списка моделей 
+2013-05-19 10:42:43 (Login: 1) tGetListModels 	 ExeCommand 	 Передача списка моделей 
+2013-05-19 10:42:43 Client 1076 (1) tClient 	 OnReadyRead 	 Получена команда номер 15
+2013-05-19 10:42:43 (Login: 1) tSendReadPermissions 	 ExeCommand 	 Передача таблицы разрешений на чтение 
