@@ -67,6 +67,8 @@ public:
     void BuildingReadTree(const QString &user_login);
     void VerifyLastTable(const QString& user_login);
 
+    void ConstructTreeModel(QStandardItemModel *_tree_model, bool _read);
+
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
     QStringListModel *sLM_loc_list_files;//модель локальных файлов
@@ -127,10 +129,15 @@ private:
 
     QList<CompareTableRec> list_compare;
 
-    void ConstructTree(QList<CompareTableRec> _comp_table);
+    typedef enum{Read, Write} tTreeMod;
+
+    void ConstructTree(tTreeMod _tree_mod, QList<CompareTableRec> _comp_table);
+
+    QList<CompareTableRec> tree_data;
 
 
-
+    QStandardItemModel *read_tree_model;
+    QStandardItemModel *write_tree_model;
 
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
@@ -190,6 +197,8 @@ private slots:
     void on_pbRead_clicked();
 
     void on_pbBuildRead_clicked();
+
+    void on_tvRead_clicked(const QModelIndex &index);
 
 public slots:
     void OnServerModelClick(const QModelIndex Ind);

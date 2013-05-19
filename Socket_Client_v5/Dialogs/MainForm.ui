@@ -187,7 +187,7 @@
       <string>Обновить</string>
      </property>
     </widget>
-    <widget class="QListView" name="lvDescription">
+    <widget class="QListView" name="lvReadDescription">
      <property name="geometry">
       <rect>
        <x>560</x>
@@ -215,6 +215,65 @@
     <attribute name="title">
      <string>Запись</string>
     </attribute>
+    <widget class="QListView" name="lvWriteDescription">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>10</y>
+       <width>491</width>
+       <height>701</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbRead_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>718</y>
+       <width>101</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Писать на сервер</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbBuildRead_2">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>718</y>
+       <width>111</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Построить дерево</string>
+     </property>
+    </widget>
+    <widget class="QTreeView" name="tvWrite">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>541</width>
+       <height>701</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pbRefresh_2">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>718</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Обновить</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">

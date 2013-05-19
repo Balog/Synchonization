@@ -1991,24 +1991,13 @@ QStringList tDatabaseOp::NextStructListModelAdmin(QString& _login, bool& _read, 
 {
     QStringList ret;
 
-//    QSqlQuery select_perm(db);
-//    select_perm.prepare("SELECT Model FROM ModelRead WHERE Login="+QString::number(GetNumLogin(_login)));
-//    if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки разрешений по логину ") << _login ;
-//        log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login));}
-
-//    while(select_perm.next())
-//    {
-//        qlonglong model=select_perm.value(0).toLongLong();
-
         QSqlQuery next_model(db);
         next_model.prepare("SELECT Num, Struct, ServerNum FROM ServerStructModels WHERE Found=0");
         if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels");
             log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels")));}
 
         next_model.next();
-//        int c=next_model.value(0).toInt();
-//        if(c!=0)
-//        {
+
         qlonglong num=next_model.value(0).toLongLong();
         QString mod_struct=next_model.value(1).toString();
         qlonglong s_num=next_model.value(2).toLongLong();
@@ -2032,13 +2021,6 @@ QStringList tDatabaseOp::NextStructListModelAdmin(QString& _login, bool& _read, 
         int c=select_perm.value(0).toInt();
         _read=c!=0;
 
-//        break;
-//        }
-//        else
-//        {
-//            continue;
-//        }
-//    }
     return ret;
 }
 //----------------------------------------------------------

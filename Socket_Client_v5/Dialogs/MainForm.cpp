@@ -10,7 +10,8 @@ extern tSettings my_settings;
 MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm), QDialog(parent),mod_conv(NULL), db_op(NULL),
     sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL),
-    login_pass(new tEditLoginPass), adm_tree_model(NULL), form_new_path(new tNewPath)
+    login_pass(new tEditLoginPass), adm_tree_model(NULL), form_new_path(new tNewPath),
+    read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel())
 {
 //    constr_mod_tree=NULL;
     IsRequeryServerModel=false;
@@ -77,6 +78,8 @@ MainForm::~MainForm()
     delete sLM_Logins;
     delete slm_server_list_models;
     delete adm_tree_model;
+    delete read_tree_model;
+    delete write_tree_model;
 
     delete mod_conv;
     mod_conv=NULL;
@@ -1041,7 +1044,7 @@ void MainForm::BuildingReadTree(const QString& user_login)
     db_op->AddFilesToModelsStruct(list_compare);
 
     //строим дерево и модели помечаем в соответствии с анализом (нулевой результат пропускаем)
-    ConstructTree(list_compare);
+    ConstructTree(Read, list_compare);
 
 }
 //----------------------------------------------------------
@@ -1050,7 +1053,159 @@ void MainForm::on_pbBuildRead_clicked()
     BuildingReadTree(user_login);
 }
 //----------------------------------------------------------
-void MainForm::ConstructTree(QList<CompareTableRec> _comp_table)
+void MainForm::ConstructTree(tTreeMod _tree_mod, QList<CompareTableRec> _comp_table)
 {
-    //
+    tree_data=_comp_table;
+
+        switch (_tree_mod)
+        {
+        case Read:
+        {
+            read_tree_model->clear();
+
+            ConstructTreeModel(read_tree_model, true);
+
+            ui->tvRead->setModel(read_tree_model);
+            ui->tvRead->setHeaderHidden(true);
+            ui->tvRead->expandAll();
+
+            ui->tvRead->setRootIsDecorated(true);
+            ui->tvRead->setAnimated(true);
+            break;
+        }
+        case Write:
+        {
+            write_tree_model->clear();
+
+            ConstructTreeModel(write_tree_model, false);
+
+            ui->tvWrite->setModel(write_tree_model);
+            ui->tvWrite->setHeaderHidden(true);
+            ui->tvWrite->expandAll();
+            ui->tvWrite->setRootIsDecorated(true);
+            ui->tvWrite->setAnimated(true);
+            break;
+        }
+        }
+
+
+}
+//----------------------------------------------------------
+void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
+{
+    for(int i=0; i<tree_data.size(); i++)
+    {
+        int res=tree_data[i].result;
+        qlonglong loc_num_mod=tree_data[i].model_local;
+        qlonglong serv_num_mod=tree_data[i].model_server;
+        QString mod_struct=tree_data[i].mod_struct;
+        QStringList list_model=mod_struct.split("/");
+
+        //        bool read=false;
+        QStandardItem *item=_tree_model->invisibleRootItem();
+        item->setCheckable(true);
+
+        for(int j=0; j<list_model.size(); j++)
+        {
+            QString txt=item->text();
+            //            log.Write(QString(QString("Ветви уже есть. Значение ")+txt.toUtf8()));
+            //ветви уже есть
+            //проверить всех потомков текущей ветви
+            //если есть совпадение то перейти к этому потомку
+            //если нет - создать нового потомка
+            bool find=false;
+            int row_count=item->rowCount();
+            for(int k=0; k<row_count; k++)
+            {
+                QString ch_text=item->child(k)->text();
+                QString mod_text=list_model[j];
+                //                log.Write(QString(QString("Сверяю потомков. Ветвь: ")+ch_text.toUtf8()+QString(" Модель: ")+mod_text.toUtf8()));
+
+                if(ch_text==mod_text)
+                {
+                    //                    log.Write(QString("Потомок найден "));
+                    Qt::CheckState st=item->child(k)->checkState();
+
+                    item->child(k)->setCheckState(Qt::Unchecked);
+                    //                            log.Write(QString("Установлено - выключено "));
+
+                    item=item->child(k);
+                    QString t=item->text();
+                    find=true;
+                    break;
+                }
+            }
+            if(!find)
+            {
+                QStandardItem *new_item=new QStandardItem(list_model[j]);
+                QFont font;
+                if(j==list_model.size()-1)
+                {
+                    new_item->setData(res,Qt::UserRole+1);
+                    new_item->setData(loc_num_mod,Qt::UserRole+2);
+                    new_item->setData(serv_num_mod,Qt::UserRole+3);
+                    font.setBold(true);
+
+                    QList<tFile> tf=tree_data[i].file;
+                    for(int l=0; l<tf.size();l++)
+                    {
+                        bool is_founded=tree_data[i].file[l].IsFounded;
+                        QString name=tree_data[i].file[l].file_name;
+                        QString last_mod=tree_data[i].file[l].last_mod;
+                        bool local=tree_data[i].file[l].Local;
+                        qlonglong num=tree_data[i].file[l].num;
+                        qlonglong size=tree_data[i].file[l].size;
+
+                        QStandardItem *file=new QStandardItem(name);
+
+
+                        QList<QStandardItem *> columns;
+                        QStandardItem *col1=new QStandardItem("Size: "+QString::number(size));
+                        QStandardItem *col2=new QStandardItem(QString::fromUtf8("Изменено: ")+last_mod);
+                        columns.push_back(col1);
+                        columns.push_back(col2);
+
+                        file->appendColumn(columns);
+                        new_item->appendRow(file);
+                    }
+                }
+                else
+                {
+                    new_item->setData(res, Qt::UserRole+1);
+                    font.setBold(false);
+                }
+                new_item->setFont(font);
+                new_item->setCheckable(true);
+                new_item->setTristate(true);
+
+                new_item->setCheckState(Qt::Unchecked);
+                //                log.Write(QString("Новая ветвь. Установлено - выключено "+new_item->text().toUtf8()));
+
+                new_item->setEditable(false);
+                new_item->setSelectable(false);
+                //                QIcon icon(":/Icons/Tree/Del_sm.ico");
+                //                new_item->setIcon(icon);
+
+                item->appendRow(new_item);
+
+                item=new_item;
+            }
+        }
+    }
+
+}
+//----------------------------------------------------------
+void MainForm::on_tvRead_clicked(const QModelIndex &index)
+{
+    int res=-1000;
+    res=read_tree_model->itemData(index).value(Qt::UserRole+1).toInt();
+
+    qlonglong num_loc_mod=0;
+    qlonglong num_serv_mod=0;
+
+    if(res!=0)
+    {
+        num_loc_mod=read_tree_model->itemData(index).value(Qt::UserRole+2).toInt();
+        num_serv_mod=read_tree_model->itemData(index).value(Qt::UserRole+3).toInt();
+    }
 }
