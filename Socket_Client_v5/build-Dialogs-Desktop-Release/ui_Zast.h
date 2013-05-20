@@ -43,7 +43,7 @@ public:
 
     void retranslateUi(QDialog *Zast)
     {
-        Zast->setWindowTitle(QApplication::translate("Zast", "Zast", 0, QApplication::UnicodeUTF8));
+        Zast->setWindowTitle(QApplication::translate("Zast", "\320\227\320\260\321\201\321\202\320\260\320\262\320\272\320\260", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("Zast", "\320\242\320\270\320\277\320\260 \320\267\320\260\321\201\321\202\320\260\320\262\320\272\320\260", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 

@@ -2279,6 +2279,7 @@ void tDatabaseOp::MarkLastModel(qlonglong num_login, const QString& m_struct)
 //----------------------------------------------------------
 void tDatabaseOp::WriteToCompareTablesToTree(const QString& _login)
 {
+    db.transaction();
     qlonglong num_login=GetNumLogin(_login);
     QSqlQuery select_local_mod(db);
     select_local_mod.prepare("SELECT Num, Struct, SummListHash FROM StructModels");
@@ -2755,4 +2756,5 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
         }
 
     }
+    db.commit();
 }
