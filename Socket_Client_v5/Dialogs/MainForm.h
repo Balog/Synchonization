@@ -68,6 +68,7 @@ public:
     void VerifyLastTable(const QString& user_login);
 
     void ConstructTreeModel(QStandardItemModel *_tree_model, bool _read);
+    void EndUpdateServerModel();
 
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
@@ -139,6 +140,9 @@ private:
     QStandardItemModel *read_tree_model;
     QStandardItemModel *write_tree_model;
 
+    void UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state);
+    void DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state);
+
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
 
@@ -199,6 +203,7 @@ private slots:
     void on_pbBuildRead_clicked();
 
     void on_tvRead_clicked(const QModelIndex &index);
+    void TreeCustomCollapsed(QStandardItem *item);
 
 public slots:
     void OnServerModelClick(const QModelIndex Ind);

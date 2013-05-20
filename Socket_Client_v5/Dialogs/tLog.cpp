@@ -21,7 +21,7 @@ void tLog::Write(QString &_text, bool flag)
     {
         QTextStream out(&file);
 
-        out.setCodec("Windows-1251");
+        out.setCodec("UTF-8");
 
         if(flag)
         {

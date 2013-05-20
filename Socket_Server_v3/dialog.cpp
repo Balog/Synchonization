@@ -13,7 +13,7 @@ Dialog::Dialog(QWidget *_parent) :
 
 
 
-    QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+    QTextCodec *codec =QTextCodec::codecForName("UTF-8");
     QTextCodec::setCodecForTr(codec);
     QTextCodec::setCodecForCStrings(codec);
     QTextCodec::setCodecForLocale(codec);

@@ -134,6 +134,7 @@ public:
         tvRead = new QTreeView(tab_4);
         tvRead->setObjectName(QString::fromUtf8("tvRead"));
         tvRead->setGeometry(QRect(10, 10, 541, 701));
+        tvRead->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
         pbRead = new QPushButton(tab_4);
         pbRead->setObjectName(QString::fromUtf8("pbRead"));
         pbRead->setGeometry(QRect(10, 718, 101, 23));
@@ -310,7 +311,7 @@ public:
         QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
         QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainForm);

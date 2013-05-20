@@ -1016,13 +1016,12 @@ void MainForm::on_pbExit_clicked()
 //----------------------------------------------------------
 void MainForm::on_pbRefresh_clicked()
 {
-    //Обновление и локальных и серверных таблиц
-    OnListFilesLocal();
+    //Обновление серверных таблиц
+
     IsRequeryServerModel=true;
     OnListFiles();
 
-    //формирование дерева чтения по полученым и имеющимся данным
-    BuildingReadTree(user_login);
+
 }
 //----------------------------------------------------------
 
@@ -1067,7 +1066,9 @@ void MainForm::ConstructTree(tTreeMod _tree_mod, QList<CompareTableRec> _comp_ta
 
             ui->tvRead->setModel(read_tree_model);
             ui->tvRead->setHeaderHidden(true);
-            ui->tvRead->expandAll();
+            ui->tvRead->collapseAll();
+
+            TreeCustomCollapsed(read_tree_model->invisibleRootItem());
 
             ui->tvRead->setRootIsDecorated(true);
             ui->tvRead->setAnimated(true);
@@ -1103,7 +1104,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
 
         //        bool read=false;
         QStandardItem *item=_tree_model->invisibleRootItem();
-        item->setCheckable(true);
+
 
         for(int j=0; j<list_model.size(); j++)
         {
@@ -1125,8 +1126,9 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                 {
                     //                    log.Write(QString("Потомок найден "));
                     Qt::CheckState st=item->child(k)->checkState();
+//                    item->setCheckable(true);
 
-                    item->child(k)->setCheckState(Qt::Unchecked);
+//                    item->child(k)->setCheckState(Qt::Unchecked);
                     //                            log.Write(QString("Установлено - выключено "));
 
                     item=item->child(k);
@@ -1137,48 +1139,190 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
             }
             if(!find)
             {
+//                QString T=list_model[j];
                 QStandardItem *new_item=new QStandardItem(list_model[j]);
                 QFont font;
                 if(j==list_model.size()-1)
                 {
-                    new_item->setData(res,Qt::UserRole+1);
-                    new_item->setData(loc_num_mod,Qt::UserRole+2);
-                    new_item->setData(serv_num_mod,Qt::UserRole+3);
+
                     font.setBold(true);
 
+                    if(res>0)
+                    {
+                        new_item->setData(res,Qt::UserRole+1);
+                        new_item->setData(loc_num_mod,Qt::UserRole+2);
+                        new_item->setData(serv_num_mod,Qt::UserRole+3);
+                        if(res>0)
+                        {
+//                        new_item->setCheckable(true);
+//                        new_item->setCheckState(Qt::Unchecked);
+
+                        switch(res)
+                        {
+                        case 1:
+                        {
+//                            new_item->setCheckable(true);
+                            new_item->setCheckState(Qt::Unchecked);
+                            new_item->setCheckable(true);
+                            new_item->setTristate(true);
+                            new_item->setSelectable(false);
+                            new_item->setEditable(false);
+                            QIcon icon(":/Icons/Tree/Triangle_right.ico");
+                            new_item->setIcon(icon);
+                            break;
+                        }
+                        case 2:
+                        {
+//                            new_item->setCheckable(true);
+                            new_item->setCheckState(Qt::Unchecked);
+                            new_item->setCheckable(true);
+                            new_item->setTristate(true);
+                            new_item->setSelectable(false);
+                            new_item->setEditable(false);
+                            QIcon icon(":/Icons/Tree/Triangle_left.ico");
+                            new_item->setIcon(icon);
+                            break;
+                        }
+                        case 3:
+                        {
+//                            new_item->setCheckable(true);
+                            new_item->setCheckState(Qt::Unchecked);
+                            new_item->setCheckable(true);
+                            new_item->setTristate(true);
+                            new_item->setSelectable(false);
+                            new_item->setEditable(false);
+                            QIcon icon(":/Icons/Tree/New_sm.ico");
+                            new_item->setIcon(icon);
+                            break;
+                        }
+                        case 4:
+                        {
+//                            new_item->setCheckable(true);
+                            new_item->setCheckState(Qt::Unchecked);
+                            new_item->setCheckable(true);
+                            new_item->setTristate(true);
+                            new_item->setSelectable(false);
+                            new_item->setEditable(false);
+                            QIcon icon(":/Icons/Tree/Del_sm.ico");
+                            new_item->setIcon(icon);
+                            break;
+                        }
+                        }
+                        }
+
                     QList<tFile> tf=tree_data[i].file;
+                    QStandardItem *file_group=new QStandardItem(QString::fromUtf8("Файлы"));
+                    file_group->setSelectable(false);
+                    file_group->setEditable(false);
                     for(int l=0; l<tf.size();l++)
                     {
-                        bool is_founded=tree_data[i].file[l].IsFounded;
+                        int is_founded=tree_data[i].file[l].IsFounded;
                         QString name=tree_data[i].file[l].file_name;
-                        QString last_mod=tree_data[i].file[l].last_mod;
+                        QString last_mod1=tree_data[i].file[l].last_mod;
+                        int char_t=last_mod1.indexOf("T");
+                        QString last_mod=last_mod1.left(char_t)+" "+last_mod1.right(last_mod1.length()-char_t-1);
                         bool local=tree_data[i].file[l].Local;
                         qlonglong num=tree_data[i].file[l].num;
                         qlonglong size=tree_data[i].file[l].size;
 
                         QStandardItem *file=new QStandardItem(name);
+                        file->setSelectable(false);
+                        file->setEditable(false);
+                        QFont file_font;
+//                        QBrush file_brush;
+//                        QColor color(128,128,0,0);
+//                        file_brush.setColor(color);
+                        file_font.setItalic(true);
+                        file_font.setBold(true);
 
+                        int size_font=file_font.pointSize();
 
+                        file->setFont(file_font);
+
+//                        file->setBackground(file_brush);
+
+                        QFont file_prop_font;
+                        file_prop_font.setPointSize(size_font*0.95);
                         QList<QStandardItem *> columns;
-                        QStandardItem *col1=new QStandardItem("Size: "+QString::number(size));
+                        QStandardItem *col1=new QStandardItem("Размер: "+QString::number(size)+" bytes");
+                        file_prop_font.setItalic(true);
+                        col1->setFont(file_prop_font);
+                        col1->setSelectable(false);
+                        col1->setEditable(false);
+
                         QStandardItem *col2=new QStandardItem(QString::fromUtf8("Изменено: ")+last_mod);
+                        col2->setFont(file_prop_font);
+                        col2->setSelectable(false);
+                        col2->setEditable(false);
+
+                        col1->setBackground(QBrush(QColor(255,255,0, 64)));
+                        col2->setBackground(QBrush(QColor(255,255,0, 64)));
                         columns.push_back(col1);
                         columns.push_back(col2);
 
                         file->appendColumn(columns);
-                        new_item->appendRow(file);
+                        //                QIcon icon(":/Icons/Tree/Del_sm.ico");
+                        //                new_item->setIcon(icon);
+                        if(_read)
+                        {
+                            //режим чтения
+                            //флаг IsFounded (1 - есть только на локальном, 2 - есть только на серверном, 0 - есть и там и там)
+                            //при чтении если файл только на локальном то при чтении он будет удален и значит иконка удаления
+                            //если только на сервере то иконка добавления
+                            //при записи наоборот
+
+                            switch(is_founded)
+                            {
+                            case 1:
+                            {
+
+                                QIcon icon(":/Icons/Tree/Del_sm.ico");
+                                file->setIcon(icon);
+                                break;
+                            }
+                            case 2:
+                            {
+                                QIcon icon(":/Icons/Tree/New_sm.ico");
+                                file->setIcon(icon);
+                                break;
+                            }
+                            }
+
+                        }
+                        else
+                        {
+                            //режим записи
+                        }
+
+                        file_group->appendRow(file);
+
+                    }
+                    new_item->appendRow(file_group);
+                    }
+                    else
+                    {
+                        //col1->setBackground(QBrush(QColor(255,255,0, 64)));
+//                        new_item->setCheckable(false);
+
+                        new_item->setBackground(QBrush(QColor(255,0,0, 192)));
                     }
                 }
                 else
                 {
-                    new_item->setData(res, Qt::UserRole+1);
+//                    new_item->setCheckable(true);
+                    new_item->setCheckState(Qt::Unchecked);
+                    new_item->setCheckable(true);
+                    new_item->setTristate(true);
+                    new_item->setSelectable(false);
+                    new_item->setEditable(false);
+                    new_item->setData(-1, Qt::UserRole+1);
                     font.setBold(false);
                 }
                 new_item->setFont(font);
-                new_item->setCheckable(true);
+
                 new_item->setTristate(true);
 
-                new_item->setCheckState(Qt::Unchecked);
+
                 //                log.Write(QString("Новая ветвь. Установлено - выключено "+new_item->text().toUtf8()));
 
                 new_item->setEditable(false);
@@ -1190,6 +1334,172 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
 
                 item=new_item;
             }
+            else
+            {
+                QFont font;
+                if(j==list_model.size()-1)
+                {
+//                    item->setCheckable(true);
+                    font.setBold(true);
+
+                    if(res>0)
+                    {
+                        item->setData(res,Qt::UserRole+1);
+                        item->setData(loc_num_mod,Qt::UserRole+2);
+                        item->setData(serv_num_mod,Qt::UserRole+3);
+                        if(res>0)
+                        {
+//                        item->setCheckable(true);
+//                        item->setCheckState(Qt::Unchecked);
+
+                        switch(res)
+                        {
+                        case 1:
+                        {
+//                            item->setCheckable(true);
+                            item->setCheckState(Qt::Unchecked);
+                            item->setCheckable(true);
+                            item->setTristate(true);
+                            item->setSelectable(false);
+                            item->setEditable(false);
+                            QIcon icon(":/Icons/Tree/Triangle_right.ico");
+                            item->setIcon(icon);
+                            break;
+                        }
+                        case 2:
+                        {
+//                            item->setCheckable(true);
+                            item->setCheckState(Qt::Unchecked);
+                            item->setCheckable(true);
+                            item->setTristate(true);
+                            item->setSelectable(false);
+                            item->setEditable(false);
+                            QIcon icon(":/Icons/Tree/Triangle_left.ico");
+                            item->setIcon(icon);
+                            break;
+                        }
+                        case 3:
+                        {
+//                            item->setCheckable(true);
+                            item->setCheckState(Qt::Unchecked);
+                            item->setCheckable(true);
+                            item->setTristate(true);
+                            item->setSelectable(false);
+                            item->setEditable(false);
+                            QIcon icon(":/Icons/Tree/New_sm.ico");
+                            item->setIcon(icon);
+                            break;
+                        }
+                        case 4:
+                        {
+//                            item->setCheckable(true);
+                            item->setCheckState(Qt::Unchecked);
+                            item->setCheckable(true);
+                            item->setTristate(true);
+                            item->setSelectable(false);
+                            item->setEditable(false);
+                            QIcon icon(":/Icons/Tree/Del_sm.ico");
+                            item->setIcon(icon);
+                            break;
+                        }
+                        }
+                        }
+
+                    QList<tFile> tf=tree_data[i].file;
+                    QStandardItem *file_group=new QStandardItem(QString::fromUtf8("Файлы"));
+                    file_group->setSelectable(false);
+                    file_group->setEditable(false);
+                    for(int l=0; l<tf.size();l++)
+                    {
+                        int is_founded=tree_data[i].file[l].IsFounded;
+                        QString name=tree_data[i].file[l].file_name;
+                        QString last_mod1=tree_data[i].file[l].last_mod;
+                        int char_t=last_mod1.indexOf("T");
+                        QString last_mod=last_mod1.left(char_t)+" "+last_mod1.right(last_mod1.length()-char_t-1);
+                        bool local=tree_data[i].file[l].Local;
+                        qlonglong num=tree_data[i].file[l].num;
+                        qlonglong size=tree_data[i].file[l].size;
+
+                        QStandardItem *file=new QStandardItem(name);
+                        QFont file_font;
+//                        QBrush file_brush;
+//                        QColor color(128,128,0,0);
+//                        file_brush.setColor(color);
+                        file_font.setItalic(true);
+                        file_font.setBold(true);
+
+                        int size_font=file_font.pointSize();
+
+                        file->setFont(file_font);
+
+//                        file->setBackground(file_brush);
+
+                        QFont file_prop_font;
+                        file_prop_font.setPointSize(size_font*0.95);
+                        QList<QStandardItem *> columns;
+                        QStandardItem *col1=new QStandardItem("Размер: "+QString::number(size)+" bytes");
+                        file_prop_font.setItalic(true);
+                        col1->setFont(file_prop_font);
+                        col1->setSelectable(false);
+                        col1->setEditable(false);
+
+                        QStandardItem *col2=new QStandardItem(QString::fromUtf8("Изменено: ")+last_mod);
+                        col2->setFont(file_prop_font);
+                        col2->setSelectable(false);
+                        col2->setEditable(false);
+
+                        col1->setBackground(QBrush(QColor(255,255,0, 64)));
+                        col2->setBackground(QBrush(QColor(255,255,0, 64)));
+                        columns.push_back(col1);
+                        columns.push_back(col2);
+
+                        file->appendColumn(columns);
+                        //                QIcon icon(":/Icons/Tree/Del_sm.ico");
+                        //                new_item->setIcon(icon);
+                        if(_read)
+                        {
+                            //режим чтения
+                            //флаг IsFounded (1 - есть только на локальном, 2 - есть только на серверном, 0 - есть и там и там)
+                            //при чтении если файл только на локальном то при чтении он будет удален и значит иконка удаления
+                            //если только на сервере то иконка добавления
+                            //при записи наоборот
+
+                            switch(is_founded)
+                            {
+                            case 1:
+                            {
+
+                                QIcon icon(":/Icons/Tree/Del_sm.ico");
+                                file->setIcon(icon);
+                                break;
+                            }
+                            case 2:
+                            {
+                                QIcon icon(":/Icons/Tree/New_sm.ico");
+                                file->setIcon(icon);
+                                break;
+                            }
+                            }
+
+                        }
+                        else
+                        {
+                            //режим записи
+                        }
+
+                        file_group->appendRow(file);
+
+                    }
+                    item->appendRow(file_group);
+                    }
+                    else
+                    {
+                        //col1->setBackground(QBrush(QColor(255,255,0, 64)));
+//                        item->setCheckable(false);
+                        item->setBackground(QBrush(QColor(255,0,0, 192)));
+                    }
+                }
+            }
         }
     }
 
@@ -1197,15 +1507,180 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
 //----------------------------------------------------------
 void MainForm::on_tvRead_clicked(const QModelIndex &index)
 {
-    int res=-1000;
-    res=read_tree_model->itemData(index).value(Qt::UserRole+1).toInt();
+    UpToParentFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState());
+    DownToChildrensFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState());
+//    int row=index.row();
 
-    qlonglong num_loc_mod=0;
-    qlonglong num_serv_mod=0;
 
-    if(res!=0)
+//    int res=-1000;
+//    res=read_tree_model->itemData(index).value(Qt::UserRole+1).toInt();
+
+//    qlonglong num_loc_mod=0;
+//    qlonglong num_serv_mod=0;
+
+//    if(res!=0)
+//    {
+//        num_loc_mod=read_tree_model->itemData(index).value(Qt::UserRole+2).toInt();
+//        num_serv_mod=read_tree_model->itemData(index).value(Qt::UserRole+3).toInt();
+//    }
+}
+//----------------------------------------------------------
+void MainForm::TreeCustomCollapsed(QStandardItem *item)
+{
+    //все ветви с UserRole+1 меньше нуля - развернуть
+    //    QStandardItem *item=_tree_model->invisibleRootItem();
+    int row_count=item->rowCount();
+    QString  txt=item->text();
+    //    QList<QStandardItem *> item_list;
+
+    for(int k=0; k<row_count; k++)
     {
-        num_loc_mod=read_tree_model->itemData(index).value(Qt::UserRole+2).toInt();
-        num_serv_mod=read_tree_model->itemData(index).value(Qt::UserRole+3).toInt();
+        int prop=item->child(k)->data(Qt::UserRole+1).toLongLong();
+        QString ch_txt=item->child(k)->text();
+        int par_prop=item->data(Qt::UserRole+1).toLongLong();
+        QString par_txt=item->text();
+        if(prop<0 || txt=="")
+        {
+            QModelIndex index=item->child(k)->index();
+            ui->tvRead->expand(index);
+        }
+//        if(prop>0 && par_prop<0 && txt!="Файлы")
+//        {
+
+//            ui->tvRead->expand(item->child(k)->index());
+//        }
+        int ch_row_count=item->child(k)->rowCount();
+        bool is_submod=false;
+        for(int j=0; j<ch_row_count; j++)
+        {
+            int prop_ch=item->child(k)->child(j)->data(Qt::UserRole+1).toLongLong();
+            if(prop_ch>0)
+            {
+                is_submod=true;
+                break;
+            }
+        }
+        if(is_submod)
+        {
+            ui->tvRead->expand(item->child(k)->index());
+        }
+
+        TreeCustomCollapsed(item->child(k));
+    }
+}
+//----------------------------------------------------------
+void MainForm::EndUpdateServerModel()
+{
+    //формирование дерева чтения по полученым и имеющимся данным после обновления данных с сервера
+
+    OnListFilesLocal();
+
+    BuildingReadTree(user_login);
+}
+//----------------------------------------------------------
+void MainForm::UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state)
+{
+    const QModelIndex parent_index=model->parent(index);
+    QStandardItem *parent_item=model->itemFromIndex(parent_index);
+    if(!parent_item)
+    {
+        return;
+    }
+    else
+    {
+        QString parent_txt=parent_item->text();
+        int child_count=parent_item->rowCount();
+        Qt::CheckState state=_state;
+        if(child_count>1)
+        {
+            for(int i=0; i<child_count;i++)
+            {
+                QStandardItem *child_item=parent_item->child(i);
+                if (child_item->isCheckable())
+                {
+                    QString child_txt=child_item->text();
+
+                    switch (child_item->checkState())
+                    {
+                    case Qt::Checked:
+                    {
+                        if(state!=Qt::Checked)
+                        {
+                            state=Qt::PartiallyChecked;
+                        }
+                        break;
+                    }
+                    case Qt::Unchecked:
+                    {
+                        if(state!=Qt::Unchecked)
+                        {
+                            state=Qt::PartiallyChecked;
+                        }
+                        break;
+                    }
+                    case Qt::PartiallyChecked:
+                    {
+                        state=Qt::PartiallyChecked;
+                        break;
+                    }
+                    }
+                }
+                if(state==Qt::PartiallyChecked)
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            qlonglong s_num=parent_item->data(Qt::UserRole+1).toLongLong();
+            if(s_num>0)
+            {
+                state=Qt::Checked;
+
+            }
+        }
+        parent_item->setCheckState(state);
+
+        UpToParentFiles(model, parent_index, state);
+    }
+}
+//----------------------------------------------------------
+void MainForm::DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state)
+{
+    QStandardItem *item=model->itemFromIndex(index);
+
+    qlonglong s_num=item->data(Qt::UserRole+1).toLongLong();
+    if(s_num>0)
+    {
+        //это модель и s_num ее серверный номер
+        //обновить таблицу ModelRead
+        bool state=false;
+        if(_state==Qt::Checked)
+        {
+            state=true;
+        }
+//        db_op->SaveReadPermission(sLM_Logins->stringList().value(admin_logins_index.row()), s_num, state);
+    }
+
+    int child_count=item->rowCount();
+    if(child_count==0)
+    {
+        return;
+    }
+    else
+    {
+        for(int i=0; i<child_count; i++)
+        {
+            QStandardItem *children=item->child(i);
+            if(children->text()!="Файлы")
+            {
+            children->setCheckState(_state);
+            QModelIndex child_index=children->index();
+
+
+            DownToChildrensFiles(model, child_index, _state);
+            }
+        }
     }
 }

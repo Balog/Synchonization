@@ -7,7 +7,7 @@ extern tSettings my_settings;
 //----------------------------------------------------------------------
 tDatabaseOp::tDatabaseOp()
 {
-    QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+    QTextCodec *codec =QTextCodec::codecForName("UTF-8");
 
     QTextCodec::setCodecForTr(codec);
     QTextCodec::setCodecForCStrings(codec);
@@ -115,7 +115,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                 QString hash=ch.GetFileHash(_folder+"/"+entry);
 
                 QSettings s(_folder+"/"+entry, QSettings::IniFormat);
-                QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+                QTextCodec *codec =QTextCodec::codecForName("UTF-8");
                 s.setIniCodec(codec);
 
                 QString title=s.value("Title","").toString();
@@ -187,7 +187,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                         //читаем Title модели, описание и структуру
 
                         QSettings s(_folder+"/"+entry, QSettings::IniFormat);
-                        QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+                        QTextCodec *codec =QTextCodec::codecForName("UTF-8");
                         s.setIniCodec(codec);
 
                         QString title=s.value("Title","").toString();
@@ -333,7 +333,7 @@ void tDatabaseOp::AddModelFiles(const qlonglong _num, const QString _path, const
 //----------------------------------------------------------
 QString tDatabaseOp::NormalizePathFiles(QString _path) const
 {
-    QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+    QTextCodec *codec =QTextCodec::codecForName("UTF-8");
     //        QTextCodec *codec =QTextCodec::codecForName("UTF-8");
     QTextCodec::setCodecForTr(codec);
     QTextCodec::setCodecForCStrings(codec);
@@ -2406,7 +2406,7 @@ QList<CompareTableRec> tDatabaseOp::AnalyzeCompareAll()
     AnalyzeCompare(conflict);
 
     QSqlQuery sel_compare(db);
-    sel_compare.prepare("SELECT Num, NumLocal, NumServer, Struct, Result FROM CompareTablesToTree WHERE Result<>0");
+    sel_compare.prepare("SELECT Num, NumLocal, NumServer, Struct, Result FROM CompareTablesToTree WHERE Result<>0 Order by Struct");
     if(!sel_compare.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выделения результатов сравнения таблиц ");
         log.Write(QString(QString("tDatabaseOp \t AnalyzeCompareAll \t ++ ОШИБКА ++ выделения результатов сравнения таблиц ")));}
     while(sel_compare.next())
@@ -2520,7 +2520,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 QString loc_hash=local_files.value(4).toString();
 
                 QSqlQuery server_files(db);
-                server_files.prepare("SELECT Hash, Count(*), Num FROM ServerFiles WHERE File='"+file_name+"'");
+                server_files.prepare("SELECT Hash, Count(*), Num FROM ServerFiles WHERE File='"+file_name+"' AND Model="+QString::number(num_serv_mod));
                 if(!server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов сравнения с локальным для дерева в модель ")+QString::number(num_loc_mod);
                     log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки серверных файлов сравнения с локальным для дерева в модель ")+QString::number(num_loc_mod)));}
                 server_files.next();
@@ -2586,8 +2586,8 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 file.file_name=sel_unfound_server.value(1).toString();
                 file.size=sel_unfound_server.value(2).toLongLong();
                 file.last_mod=sel_unfound_server.value(3).toDateTime().toString(Qt::ISODate);
-                file.Local=true;
-                file.IsFounded=1;
+                file.Local=false;
+                file.IsFounded=2;
                 comp_models[i].file.push_back(file);
             }
             break;
@@ -2634,7 +2634,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 QString server_hash=server_files.value(4).toString();
 
                 QSqlQuery local_files(db);
-                local_files.prepare("SELECT Hash, Count(*), Num FROM Files WHERE File='"+file_name+"'");
+                local_files.prepare("SELECT Hash, Count(*), Num FROM Files WHERE File='"+file_name+"' AND Model="+QString::number(num_loc_mod));
                 if(!local_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки локальных файлов сравнения с серверными для дерева в модель ")+QString::number(num_serv_mod);
                     log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки локальных файлов сравнения с серверными для дерева в модель ")+QString::number(num_serv_mod)));}
                 local_files.next();

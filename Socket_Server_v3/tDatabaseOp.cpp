@@ -114,7 +114,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                 QString hash=ch.GetFileHash(_folder+"/"+entry);
 
                 QSettings s(_folder+"/"+entry, QSettings::IniFormat);
-                QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+                QTextCodec *codec =QTextCodec::codecForName("UTF-8");
                 s.setIniCodec(codec);
 
                 QString title=s.value("Title","").toString();
@@ -188,7 +188,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                         //читаем Title модели, описание и структуру
 
                         QSettings s(_folder+"/"+entry, QSettings::IniFormat);
-                        QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+                        QTextCodec *codec =QTextCodec::codecForName("UTF-8");
                         s.setIniCodec(codec);
 
                         QString title=s.value("Title","").toString();

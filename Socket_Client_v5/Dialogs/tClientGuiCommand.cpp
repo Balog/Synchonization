@@ -138,7 +138,7 @@ void tGuiError::ExeCommand(QDataStream& _in)
     }
     else
     {
-        QTextCodec *codec =QTextCodec::codecForName("Windows-1251");
+        QTextCodec *codec =QTextCodec::codecForName("UTF-8");
 
         QTextCodec::setCodecForTr(codec);
         QTextCodec::setCodecForCStrings(codec);
@@ -675,6 +675,7 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     else
     {
         ((MainForm*)link)->IsRequeryServerModel=false;
+        ((MainForm*)link)->EndUpdateServerModel();
         l="tClientGuiCommand \tGuiReportPrepareSendFile\t Проход по кнопке мимо всего ";
         log.Write(l);
     }
