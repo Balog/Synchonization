@@ -145,7 +145,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
@@ -177,7 +177,7 @@
       <string>Читать с сервера</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pbRefresh">
+    <widget class="QPushButton" name="pbRefreshRead">
      <property name="geometry">
       <rect>
        <x>120</x>
@@ -228,7 +228,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pbRead_2">
+    <widget class="QPushButton" name="pbWrite">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -241,7 +241,7 @@
       <string>Писать на сервер</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pbBuildRead_2">
+    <widget class="QPushButton" name="pbBuildWrite">
      <property name="geometry">
       <rect>
        <x>220</x>
@@ -264,7 +264,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="pbRefresh_2">
+    <widget class="QPushButton" name="pbRefresh_Write">
      <property name="geometry">
       <rect>
        <x>120</x>

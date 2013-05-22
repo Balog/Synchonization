@@ -3,6 +3,7 @@
 #include <QFileDialog>
 #include "tLog.h"
 #include <QRegExp>
+#include <QMenu>
 
 
 extern tSettings my_settings;
@@ -56,6 +57,9 @@ MainForm::MainForm(QWidget *parent) :
     connect(form_new_path, SIGNAL(ContinueStrat()), this, SLOT(OnContinueStart()));
 
 //    UpdateLogins();
+
+    ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(ui->tvRead, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(showContextMenuRead(QPoint)));
 
 
     tLog log;
@@ -148,6 +152,9 @@ void MainForm::OnDisconnect()
 void MainForm::EndTransactions()
 {
     mod_conv->SetTransactionFlag(false);
+
+    IsRequeryServerModel=true;
+    OnListFiles();
 
     tLog log;
     log.Write(tr("Пакет транзакций выполнен"));
@@ -999,6 +1006,7 @@ db_op->RefreshModelsFiles();
 
 OnListFilesLocal();
     OnListFiles();
+
 }
 //----------------------------------------------------------
 void MainForm::VerifyLastTable(const QString& user_login)
@@ -1006,7 +1014,8 @@ void MainForm::VerifyLastTable(const QString& user_login)
     //Проверить если есть такие модели в таблице Last
     //которых уже нет ни в серверной ни в локальной папке
     db_op->VerifyLastTable(user_login);
-
+    BuildingTree(user_login, Read);
+    BuildingTree(user_login, Write);
 }
 //----------------------------------------------------------
 void MainForm::on_pbExit_clicked()
@@ -1014,24 +1023,87 @@ void MainForm::on_pbExit_clicked()
     this->close();
 }
 //----------------------------------------------------------
-void MainForm::on_pbRefresh_clicked()
-{
-    //Обновление серверных таблиц
 
-    IsRequeryServerModel=true;
-    OnListFiles();
-
-
-}
-//----------------------------------------------------------
 
 void MainForm::on_pbRead_clicked()
 {
+
+//    struct tFile
+//    {
+//        bool Local; // 1 - локальный файл, 0 - серверный файл
+//        qlonglong num;
+//        QString file_name;
+//        qint64 size;
+//        QString last_mod;
+//        int IsFounded;  //флаг IsFounded (1 - есть только на локальном, 2 - есть только на серверном, 0 - есть и там и там)
+
+//    } ;
+
     //начать чтение с сервера по новому
+////сначала составим списки запрашиваемых с сервера и удаляемых локально файлов
+//QList<QString>rec_files;
+//QList<QString>loc_del_files;
+
+//если запрашиваемый файл есть только локально а на сервере его нет то это удаление файла локально
+//остальные случаи это или создание или модификация что тут - одно и то же
+mod_conv->SetTransactionFlag(true);
+mod_conv->Clear();
+int is_work=false;
+for(int i=0; i<tree_data.size();i++)
+{
+    if(tree_data[i].read_choice)
+    {
+        for(int j=0; j<tree_data[i].file.size(); j++)
+        {
+            QString file_name=tree_data[i].file[j].file_name;
+            if(tree_data[i].file[j].IsFounded==1)
+            {
+                mod_conv->DeletingLocalFile(file_name);
+            }
+            else
+            {
+                mod_conv->ReceiveFile(file_name);
+            }
+            is_work=true;
+        }
+    }
+}
+if(is_work)
+{
+mod_conv->StartReceiveDeleteFiles();
+}
+else
+{
+    QMessageBox MB;
+    MB.setText(QString::fromUtf8("Нет выделеных моделей для чтения"));
+    MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+    MB.exec();
+}
+//    mod_conv->SetTransactionFlag(true);
+//    mod_conv->Clear();
+//    if(listRec.size()>0)
+//    {
+//        for(int i=0; i<listRec.size(); i++)
+//        {
+//            QString S=listRec[i];
+//            mod_conv->ReceiveFile(S);
+//        }
+//    }
+
+//    if(listDelLoc.size()>0)
+//    {
+//        for(int i=0;i<listDelLoc.size(); i++)
+//        {
+//            QString S=listDelLoc[i];
+//            mod_conv->DeletingLocalFile(S);
+//        }
+//    }
+
+//    mod_conv->StartReceiveDeleteFiles();
 
 }
 //----------------------------------------------------------
-void MainForm::BuildingReadTree(const QString& user_login)
+void MainForm::BuildingTree(const QString& user_login, tTreeMod _direction)
 {
     //В таблицу CompareTablesToTree из локальной, ласт и серверной таблиц занести ориентируясь на Struct суммарные хеши моделей
     db_op->WriteToCompareTablesToTree(user_login);
@@ -1043,13 +1115,13 @@ void MainForm::BuildingReadTree(const QString& user_login)
     db_op->AddFilesToModelsStruct(list_compare);
 
     //строим дерево и модели помечаем в соответствии с анализом (нулевой результат пропускаем)
-    ConstructTree(Read, list_compare);
+    ConstructTree(_direction, list_compare);
 
 }
 //----------------------------------------------------------
 void MainForm::on_pbBuildRead_clicked()
 {
-    BuildingReadTree(user_login);
+    BuildingTree(user_login, Read);
 }
 //----------------------------------------------------------
 void MainForm::ConstructTree(tTreeMod _tree_mod, QList<CompareTableRec> _comp_table)
@@ -1068,7 +1140,7 @@ void MainForm::ConstructTree(tTreeMod _tree_mod, QList<CompareTableRec> _comp_ta
             ui->tvRead->setHeaderHidden(true);
             ui->tvRead->collapseAll();
 
-            TreeCustomCollapsed(read_tree_model->invisibleRootItem());
+            TreeCustomCollapsed(read_tree_model->invisibleRootItem(), _tree_mod);
 
             ui->tvRead->setRootIsDecorated(true);
             ui->tvRead->setAnimated(true);
@@ -1082,7 +1154,10 @@ void MainForm::ConstructTree(tTreeMod _tree_mod, QList<CompareTableRec> _comp_ta
 
             ui->tvWrite->setModel(write_tree_model);
             ui->tvWrite->setHeaderHidden(true);
-            ui->tvWrite->expandAll();
+            ui->tvWrite->collapseAll();
+
+            TreeCustomCollapsed(write_tree_model->invisibleRootItem(), _tree_mod);
+
             ui->tvWrite->setRootIsDecorated(true);
             ui->tvWrite->setAnimated(true);
             break;
@@ -1191,8 +1266,17 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             new_item->setTristate(true);
                             new_item->setSelectable(false);
                             new_item->setEditable(false);
+                            if(_read)
+                            {
                             QIcon icon(":/Icons/Tree/New_sm.ico");
                             new_item->setIcon(icon);
+                            }
+                            else
+                            {
+                            QIcon icon(":/Icons/Tree/Del_sm.ico");
+                            new_item->setIcon(icon);
+                            }
+
                             break;
                         }
                         case 4:
@@ -1203,8 +1287,17 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             new_item->setTristate(true);
                             new_item->setSelectable(false);
                             new_item->setEditable(false);
+                            if(_read)
+                            {
                             QIcon icon(":/Icons/Tree/Del_sm.ico");
                             new_item->setIcon(icon);
+                            }
+                            else
+                            {
+                            QIcon icon(":/Icons/Tree/New_sm.ico");
+                            new_item->setIcon(icon);
+                            }
+
                             break;
                         }
                         }
@@ -1292,6 +1385,23 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                         else
                         {
                             //режим записи
+                            switch(is_founded)
+                            {
+                            case 1:
+                            {
+
+
+                                QIcon icon(":/Icons/Tree/New_sm.ico");
+                                file->setIcon(icon);
+                                break;
+                            }
+                            case 2:
+                            {
+                                 QIcon icon(":/Icons/Tree/Del_sm.ico");
+                                file->setIcon(icon);
+                                break;
+                            }
+                            }
                         }
 
                         file_group->appendRow(file);
@@ -1303,7 +1413,9 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                     {
                         //col1->setBackground(QBrush(QColor(255,255,0, 64)));
 //                        new_item->setCheckable(false);
-
+                        new_item->setData(-2,Qt::UserRole+1);
+                        new_item->setData(loc_num_mod,Qt::UserRole+2);
+                        new_item->setData(serv_num_mod,Qt::UserRole+3);
                         new_item->setBackground(QBrush(QColor(255,0,0, 192)));
                     }
                 }
@@ -1386,8 +1498,17 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             item->setTristate(true);
                             item->setSelectable(false);
                             item->setEditable(false);
+                            if(_read)
+                            {
                             QIcon icon(":/Icons/Tree/New_sm.ico");
                             item->setIcon(icon);
+                            }
+                            else
+                            {
+                            QIcon icon(":/Icons/Tree/Del_sm.ico");
+                            item->setIcon(icon);
+                            }
+
                             break;
                         }
                         case 4:
@@ -1398,8 +1519,17 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             item->setTristate(true);
                             item->setSelectable(false);
                             item->setEditable(false);
+                            if(_read)
+                            {
                             QIcon icon(":/Icons/Tree/Del_sm.ico");
                             item->setIcon(icon);
+                            }
+                            else
+                            {
+                            QIcon icon(":/Icons/Tree/New_sm.ico");
+                            item->setIcon(icon);
+                            }
+
                             break;
                         }
                         }
@@ -1485,6 +1615,23 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                         else
                         {
                             //режим записи
+                            switch(is_founded)
+                            {
+                            case 1:
+                            {
+
+
+                                QIcon icon(":/Icons/Tree/New_sm.ico");
+                                file->setIcon(icon);
+                                break;
+                            }
+                            case 2:
+                            {
+                                 QIcon icon(":/Icons/Tree/Del_sm.ico");
+                                file->setIcon(icon);
+                                break;
+                            }
+                            }
                         }
 
                         file_group->appendRow(file);
@@ -1496,6 +1643,9 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                     {
                         //col1->setBackground(QBrush(QColor(255,255,0, 64)));
 //                        item->setCheckable(false);
+                        item->setData(-2,Qt::UserRole+1);
+                        item->setData(loc_num_mod,Qt::UserRole+2);
+                        item->setData(serv_num_mod,Qt::UserRole+3);
                         item->setBackground(QBrush(QColor(255,0,0, 192)));
                     }
                 }
@@ -1508,7 +1658,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
 void MainForm::on_tvRead_clicked(const QModelIndex &index)
 {
     UpToParentFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState());
-    DownToChildrensFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState());
+    DownToChildrensFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState(), Read);
 //    int row=index.row();
 
 
@@ -1525,7 +1675,7 @@ void MainForm::on_tvRead_clicked(const QModelIndex &index)
 //    }
 }
 //----------------------------------------------------------
-void MainForm::TreeCustomCollapsed(QStandardItem *item)
+void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
 {
     //все ветви с UserRole+1 меньше нуля - развернуть
     //    QStandardItem *item=_tree_model->invisibleRootItem();
@@ -1542,6 +1692,20 @@ void MainForm::TreeCustomCollapsed(QStandardItem *item)
         if(prop<0 || txt=="")
         {
             QModelIndex index=item->child(k)->index();
+            switch (_tree_mod)
+            {
+            case Read:
+            {
+                ui->tvRead->expand(index);
+                break;
+            }
+            case Write:
+            {
+                ui->tvWrite->expand(index);
+                break;
+            }
+            }
+
             ui->tvRead->expand(index);
         }
 //        if(prop>0 && par_prop<0 && txt!="Файлы")
@@ -1562,10 +1726,24 @@ void MainForm::TreeCustomCollapsed(QStandardItem *item)
         }
         if(is_submod)
         {
-            ui->tvRead->expand(item->child(k)->index());
+            switch(_tree_mod)
+            {
+            case Read:
+            {
+                ui->tvRead->expand(item->child(k)->index());
+                break;
+            }
+            case Write:
+            {
+                ui->tvWrite->expand(item->child(k)->index());
+                break;
+            }
+            }
+
+
         }
 
-        TreeCustomCollapsed(item->child(k));
+        TreeCustomCollapsed(item->child(k), _tree_mod);
     }
 }
 //----------------------------------------------------------
@@ -1575,22 +1753,26 @@ void MainForm::EndUpdateServerModel()
 
     OnListFilesLocal();
 
-    BuildingReadTree(user_login);
+//    BuildingReadTree(user_login, Read);
+//    BuildingReadTree(user_login, Write);
 }
 //----------------------------------------------------------
 void MainForm::UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state)
 {
     const QModelIndex parent_index=model->parent(index);
     QStandardItem *parent_item=model->itemFromIndex(parent_index);
+    Qt::CheckState state=_state;
     if(!parent_item)
     {
         return;
     }
     else
     {
+        if(parent_item->data(Qt::UserRole+1).toLongLong()==-1)
+        {
         QString parent_txt=parent_item->text();
         int child_count=parent_item->rowCount();
-        Qt::CheckState state=_state;
+
         if(child_count>1)
         {
             for(int i=0; i<child_count;i++)
@@ -1641,25 +1823,59 @@ void MainForm::UpToParentFiles(QStandardItemModel *model, const QModelIndex &ind
             }
         }
         parent_item->setCheckState(state);
-
+        }
         UpToParentFiles(model, parent_index, state);
+
     }
 }
 //----------------------------------------------------------
-void MainForm::DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state)
+void MainForm::DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state, tTreeMod _direction)
 {
     QStandardItem *item=model->itemFromIndex(index);
-
+    QString txt=item->text();
     qlonglong s_num=item->data(Qt::UserRole+1).toLongLong();
-    if(s_num>0)
+    if(s_num>0 && s_num!=0)
     {
-        //это модель и s_num ее серверный номер
+        qlonglong loc_num_mod=item->data(Qt::UserRole+2).toLongLong();
+        qlonglong serv_num_mod=item->data(Qt::UserRole+3).toLongLong();
+
         //обновить таблицу ModelRead
         bool state=false;
-        if(_state==Qt::Checked)
+        switch (_direction)
         {
-            state=true;
+        case Read:
+        {
+            if(_state==Qt::Checked)
+            {
+                state=true;
+                //тут ставим true в структуре для модели
+                SetToModelsTreeData(loc_num_mod, serv_num_mod, true, true);
+            }
+            else
+            {
+                //тут ставим false в структуре для модели
+                SetToModelsTreeData(loc_num_mod, serv_num_mod, true, false);
+            }
+            break;
         }
+        case Write:
+        {
+            if(_state==Qt::Checked)
+            {
+                state=true;
+                //тут ставим true в структуре для модели
+                SetToModelsTreeData(loc_num_mod, serv_num_mod, false, true);
+            }
+            else
+            {
+                //тут ставим false в структуре для модели
+                SetToModelsTreeData(loc_num_mod, serv_num_mod, false, false);
+            }
+            break;
+        }
+        }
+
+
 //        db_op->SaveReadPermission(sLM_Logins->stringList().value(admin_logins_index.row()), s_num, state);
     }
 
@@ -1673,14 +1889,183 @@ void MainForm::DownToChildrensFiles(QStandardItemModel *model, QModelIndex index
         for(int i=0; i<child_count; i++)
         {
             QStandardItem *children=item->child(i);
+            QString ch_txt=children->text();
             if(children->text()!="Файлы")
             {
-            children->setCheckState(_state);
+                qlonglong d=children->data(Qt::UserRole+1).toLongLong();
+                if(d!=-2)
+                {
+                    children->setCheckState(_state);
+
+                }
             QModelIndex child_index=children->index();
-
-
-            DownToChildrensFiles(model, child_index, _state);
+            DownToChildrensFiles(model, child_index, _state, _direction);
             }
         }
+    }
+}
+//----------------------------------------------------------
+void MainForm::SetToModelsTreeData(qlonglong loc_num_model, qlonglong _serv_num_model, bool _to_read, bool _choice)
+{
+//    struct tFile
+//    {
+//        bool Local; // 1 - локальный файл, 0 - серверный файл
+//        qlonglong num;
+//        QString file_name;
+//        qint64 size;
+//        QString last_mod;
+//        int IsFounded;
+
+//    } ;
+
+//    struct CompareTableRec
+//    {
+//        qlonglong num;
+//        qlonglong model_local;
+//        qlonglong model_server;
+//        QString mod_struct;
+//        int result;
+//        QList<tFile> file;
+//        bool read_choice;
+//        bool write_choice;
+//    };
+    for(int i=0; i<tree_data.size(); i++)
+    {
+        if(tree_data[i].model_local==loc_num_model && tree_data[i].model_server==_serv_num_model)
+        {
+            //модель найдена
+            if(_to_read)
+            {
+                tree_data[i].read_choice=_choice;
+            }
+            else
+            {
+                tree_data[i].write_choice=_choice;
+            }
+        }
+    }
+}
+//----------------------------------------------------------
+void MainForm::on_pbRefreshRead_clicked()
+{
+    //Обновление серверных таблиц
+
+    IsRequeryServerModel=true;
+    OnListFiles();
+}
+//----------------------------------------------------------
+void MainForm::on_pbRefresh_Write_clicked()
+{
+    IsRequeryServerModel=true;
+    OnListFiles();
+}
+//----------------------------------------------------------
+void MainForm::on_pbBuildWrite_clicked()
+{
+    BuildingTree(user_login, Write);
+}
+//----------------------------------------------------------
+void MainForm::on_tvWrite_clicked(const QModelIndex &index)
+{
+    UpToParentFiles(write_tree_model, index, write_tree_model->itemFromIndex(index)->checkState());
+    DownToChildrensFiles(write_tree_model, index, write_tree_model->itemFromIndex(index)->checkState(), Write);
+}
+//----------------------------------------------------------
+void MainForm::on_pbWrite_clicked()
+{
+mod_conv->SetTransactionFlag(true);
+mod_conv->Clear();
+int is_work=false;
+for(int i=0; i<tree_data.size();i++)
+{
+    if(tree_data[i].write_choice)
+    {
+        for(int j=0; j<tree_data[i].file.size(); j++)
+        {
+            QString file_name=tree_data[i].file[j].file_name;
+            if(tree_data[i].file[j].IsFounded==2)
+            {
+                mod_conv->DeletingServerFile(file_name);
+            }
+            else
+            {
+                mod_conv->SendFile(file_name);
+            }
+            is_work=true;
+        }
+    }
+}
+if(is_work)
+{
+mod_conv->StartSendDeleteFiles();
+}
+else
+{
+    QMessageBox MB;
+    MB.setText(QString::fromUtf8("Нет выделеных моделей для записи"));
+    MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+    MB.exec();
+}
+}
+//----------------------------------------------------------
+void MainForm::showContextMenuRead(QPoint pos)
+{
+    QPoint global_pos;
+    if(sender()->inherits("QAbstractScrollArea"))
+    {
+        global_pos=((QAbstractScrollArea*)sender())->viewport()->mapToGlobal(pos);
+    }
+    else
+    {
+        global_pos=ui->tvRead->mapToGlobal(pos);
+    }
+
+    QModelIndex click_index=ui->tvRead->indexAt(pos);
+    bool valid=click_index.isValid();
+
+    if(valid)
+    {
+
+        QStandardItem *item=read_tree_model->itemFromIndex(click_index);
+        QString txt=item->text();
+        qlonglong d=item->data(Qt::UserRole+1).toLongLong();
+        if(d==-2)
+        {
+            qlonglong local_num=item->data(Qt::UserRole+2).toLongLong();
+            qlonglong server_num=item->data(Qt::UserRole+3).toLongLong();
+            QMenu menu;
+
+            QAction *action1=new QAction(QString::fromUtf8("Принять актуальной локальную версию"), this);
+            action1->setData(1);
+            menu.addAction(action1);
+
+            QAction *action2=new QAction(QString::fromUtf8("Принять актуальной серверную версию"), this);
+            action2->setData(2);
+            menu.addAction(action2);
+
+            QAction* selectedItem=menu.exec(global_pos);
+
+            if(selectedItem)
+            {
+                int menu_id=selectedItem->data().toInt();
+                switch(menu_id)
+                {
+                case 1:
+                {
+                    db_op->ActualiseModel(user_login, server_num, true);
+                    BuildingTree(user_login, Read);
+                    break;
+                }
+                case 2:
+                {
+                    db_op->ActualiseModel(user_login, local_num, true);
+                    BuildingTree(user_login, Read);
+                    break;
+                }
+                }
+            }
+        }
+
+
     }
 }

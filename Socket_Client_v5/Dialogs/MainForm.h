@@ -30,7 +30,9 @@ class MainForm;
 class MainForm : public QDialog
 {
     Q_OBJECT
-    
+private:
+typedef enum{Read, Write} tTreeMod;
+
 public:
     explicit MainForm(QWidget *parent = 0);
     ~MainForm();
@@ -64,7 +66,7 @@ public:
 
     bool VerifyUserFolders();
 
-    void BuildingReadTree(const QString &user_login);
+    void BuildingTree(const QString &user_login, tTreeMod _direction);
     void VerifyLastTable(const QString& user_login);
 
     void ConstructTreeModel(QStandardItemModel *_tree_model, bool _read);
@@ -130,7 +132,7 @@ private:
 
     QList<CompareTableRec> list_compare;
 
-    typedef enum{Read, Write} tTreeMod;
+
 
     void ConstructTree(tTreeMod _tree_mod, QList<CompareTableRec> _comp_table);
 
@@ -141,7 +143,8 @@ private:
     QStandardItemModel *write_tree_model;
 
     void UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state);
-    void DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state);
+    void DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state, tTreeMod _direction);
+    void SetToModelsTreeData(qlonglong loc_num_model, qlonglong _serv_num_model, bool _to_read, bool _choice);
 
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
@@ -196,14 +199,28 @@ private slots:
 
     void on_pbExit_clicked();
 
-    void on_pbRefresh_clicked();
+//    void on_pbRefresh_clicked();
 
     void on_pbRead_clicked();
 
     void on_pbBuildRead_clicked();
 
     void on_tvRead_clicked(const QModelIndex &index);
-    void TreeCustomCollapsed(QStandardItem *item);
+    void TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod);
+
+//    void on_pbRefresh_2_clicked();
+
+    void on_pbRefreshRead_clicked();
+
+    void on_pbRefresh_Write_clicked();
+
+    void on_pbBuildWrite_clicked();
+
+    void on_tvWrite_clicked(const QModelIndex &index);
+
+    void on_pbWrite_clicked();
+
+    void showContextMenuRead(QPoint pos);
 
 public slots:
     void OnServerModelClick(const QModelIndex Ind);

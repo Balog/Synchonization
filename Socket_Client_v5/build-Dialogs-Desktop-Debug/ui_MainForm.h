@@ -41,15 +41,15 @@ public:
     QWidget *tab_4;
     QTreeView *tvRead;
     QPushButton *pbRead;
-    QPushButton *pbRefresh;
+    QPushButton *pbRefreshRead;
     QListView *lvReadDescription;
     QPushButton *pbBuildRead;
     QWidget *tab_2;
     QListView *lvWriteDescription;
-    QPushButton *pbRead_2;
-    QPushButton *pbBuildRead_2;
+    QPushButton *pbWrite;
+    QPushButton *pbBuildWrite;
     QTreeView *tvWrite;
-    QPushButton *pbRefresh_2;
+    QPushButton *pbRefresh_Write;
     QWidget *tab_3;
     QListView *lvLogins;
     QLineEdit *le_ver_pass;
@@ -138,9 +138,9 @@ public:
         pbRead = new QPushButton(tab_4);
         pbRead->setObjectName(QString::fromUtf8("pbRead"));
         pbRead->setGeometry(QRect(10, 718, 101, 23));
-        pbRefresh = new QPushButton(tab_4);
-        pbRefresh->setObjectName(QString::fromUtf8("pbRefresh"));
-        pbRefresh->setGeometry(QRect(120, 718, 75, 23));
+        pbRefreshRead = new QPushButton(tab_4);
+        pbRefreshRead->setObjectName(QString::fromUtf8("pbRefreshRead"));
+        pbRefreshRead->setGeometry(QRect(120, 718, 75, 23));
         lvReadDescription = new QListView(tab_4);
         lvReadDescription->setObjectName(QString::fromUtf8("lvReadDescription"));
         lvReadDescription->setGeometry(QRect(560, 10, 491, 701));
@@ -153,18 +153,18 @@ public:
         lvWriteDescription = new QListView(tab_2);
         lvWriteDescription->setObjectName(QString::fromUtf8("lvWriteDescription"));
         lvWriteDescription->setGeometry(QRect(560, 10, 491, 701));
-        pbRead_2 = new QPushButton(tab_2);
-        pbRead_2->setObjectName(QString::fromUtf8("pbRead_2"));
-        pbRead_2->setGeometry(QRect(10, 718, 101, 23));
-        pbBuildRead_2 = new QPushButton(tab_2);
-        pbBuildRead_2->setObjectName(QString::fromUtf8("pbBuildRead_2"));
-        pbBuildRead_2->setGeometry(QRect(220, 718, 111, 23));
+        pbWrite = new QPushButton(tab_2);
+        pbWrite->setObjectName(QString::fromUtf8("pbWrite"));
+        pbWrite->setGeometry(QRect(10, 718, 101, 23));
+        pbBuildWrite = new QPushButton(tab_2);
+        pbBuildWrite->setObjectName(QString::fromUtf8("pbBuildWrite"));
+        pbBuildWrite->setGeometry(QRect(220, 718, 111, 23));
         tvWrite = new QTreeView(tab_2);
         tvWrite->setObjectName(QString::fromUtf8("tvWrite"));
         tvWrite->setGeometry(QRect(10, 10, 541, 701));
-        pbRefresh_2 = new QPushButton(tab_2);
-        pbRefresh_2->setObjectName(QString::fromUtf8("pbRefresh_2"));
-        pbRefresh_2->setGeometry(QRect(120, 718, 75, 23));
+        pbRefresh_Write = new QPushButton(tab_2);
+        pbRefresh_Write->setObjectName(QString::fromUtf8("pbRefresh_Write"));
+        pbRefresh_Write->setGeometry(QRect(120, 718, 75, 23));
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
@@ -311,7 +311,7 @@ public:
         QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
         QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainForm);
@@ -328,12 +328,12 @@ public:
         label_2->setText(QApplication::translate("MainForm", "Temp path", 0, QApplication::UnicodeUTF8));
         leTemp->setText(QString());
         pbRead->setText(QApplication::translate("MainForm", "\320\247\320\270\321\202\320\260\321\202\321\214 \321\201 \321\201\320\265\321\200\320\262\320\265\321\200\320\260", 0, QApplication::UnicodeUTF8));
-        pbRefresh->setText(QApplication::translate("MainForm", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
+        pbRefreshRead->setText(QApplication::translate("MainForm", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         pbBuildRead->setText(QApplication::translate("MainForm", "\320\237\320\276\321\201\321\202\321\200\320\276\320\270\321\202\321\214 \320\264\320\265\321\200\320\265\320\262\320\276", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainForm", "\320\247\321\202\320\265\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
-        pbRead_2->setText(QApplication::translate("MainForm", "\320\237\320\270\321\201\320\260\321\202\321\214 \320\275\320\260 \321\201\320\265\321\200\320\262\320\265\321\200", 0, QApplication::UnicodeUTF8));
-        pbBuildRead_2->setText(QApplication::translate("MainForm", "\320\237\320\276\321\201\321\202\321\200\320\276\320\270\321\202\321\214 \320\264\320\265\321\200\320\265\320\262\320\276", 0, QApplication::UnicodeUTF8));
-        pbRefresh_2->setText(QApplication::translate("MainForm", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
+        pbWrite->setText(QApplication::translate("MainForm", "\320\237\320\270\321\201\320\260\321\202\321\214 \320\275\320\260 \321\201\320\265\321\200\320\262\320\265\321\200", 0, QApplication::UnicodeUTF8));
+        pbBuildWrite->setText(QApplication::translate("MainForm", "\320\237\320\276\321\201\321\202\321\200\320\276\320\270\321\202\321\214 \320\264\320\265\321\200\320\265\320\262\320\276", 0, QApplication::UnicodeUTF8));
+        pbRefresh_Write->setText(QApplication::translate("MainForm", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainForm", "\320\227\320\260\320\277\320\270\321\201\321\214", 0, QApplication::UnicodeUTF8));
         pbVerPassword->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\320\262\320\265\321\200\320\272\320\260", 0, QApplication::UnicodeUTF8));
         label_11->setText(QApplication::translate("MainForm", "\320\237\320\260\321\200\320\276\320\273\321\214", 0, QApplication::UnicodeUTF8));

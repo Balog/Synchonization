@@ -24,6 +24,8 @@ struct CompareTableRec
     QString mod_struct;
     int result;
     QList<tFile> file;
+    bool read_choice;
+    bool write_choice;
 };
 
 
@@ -99,6 +101,8 @@ public:
     void WriteToCompareTablesToTree(const QString& _login);
     QList<CompareTableRec> AnalyzeCompareAll();
     void AddFilesToModelsStruct(QList<CompareTableRec> &comp_models);
+
+    void ActualiseModel(const QString &_login, qlonglong _num_model, bool _from_server);
 
 private:
     typedef enum {Local, Last, Server} tTableLevel;
