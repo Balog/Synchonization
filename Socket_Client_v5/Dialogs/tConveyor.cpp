@@ -55,6 +55,9 @@ tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QOb
 
     gui_vf.reg("GUISavePermissions",Create_tGUISavePermissions);
     gui_vf.reg("GUIReportSavePermissions",Create_tGUIReportSavePermissions);
+
+    gui_vf.reg("SaveLoginWritable",Create_tGUISaveLoginWritable);
+    gui_vf.reg("GUIReportSaveLoginWritable",Create_tGUIReportSaveLoginWritable);
 }
 //-----------------------------------------------------------------
 tConveyor::~tConveyor()

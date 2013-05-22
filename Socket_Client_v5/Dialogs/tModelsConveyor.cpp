@@ -363,7 +363,6 @@ void tModelsConveyor::SendLoginPassword(QString &_login, QString &_password, int
     out << num_log;
     out << _row;
 
-    //    emit RunGui(block);
     conv->OnRunGuiCommand(block);
 }
 //-------------------------------------------------------------------------
@@ -424,4 +423,28 @@ void tModelsConveyor::ClearAllList()
 {
     all_files.clear();
 
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::SaveLoginWritable(QStandardItemModel* model, int _row)
+{
+    bool check=false;
+    db_op->SaveLoginsWritable(model, _row, check);
+    l="tModelsConveyor \tSaveLoginWritable\tЗапись разрешения на запись на сервере";
+    log.Write(l);
+
+//    qlonglong num_log=0;
+//    if(!_new_user)
+//    {
+//        num_log=db_op->GetNumLogin(_row);
+//    }
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("SaveLoginWritable");
+    out << tr("SaveLoginWritable");
+    out << _row;
+    out << check;
+
+    conv->OnRunGuiCommand(block);
 }

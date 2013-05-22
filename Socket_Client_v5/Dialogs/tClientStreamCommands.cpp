@@ -1471,3 +1471,51 @@ bool tStreamReportSavePermissions::ExeCommand(QDataStream &)
 //-----------------------------------------------------------------
 //*****************************************************************
 //-----------------------------------------------------------------
+
+bool tStreamSaveLoginWritable::Initialize(QDataStream &_in)
+{
+    _in >> row;
+    _in >> writable;
+    return true;
+}
+//-----------------------------------------------------------------
+bool tStreamSaveLoginWritable::ExeCommand(QDataStream &_out)
+{
+    l="tStreamSaveLoginWritable \tExeCommand\t Команда записи разрешений на запись на сервер с таблицей ";
+    log.Write(l);
+
+    QString Comm="Command:";
+    int num_comm=17;
+
+    _out << quint16(0);
+
+    _out << Comm;
+    _out << num_comm;
+    _out << row;
+    _out << writable;
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+    _out.device()->seek(_out.device()->size());
+    return false;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------
+bool tStreamReportSaveLoginWritable::ExeCommand(QDataStream &)
+{
+    l="tStreamReportSaveLoginWritable \tExeCommand\t Получение ответа на запись разрешений на запись логина на сервре ";
+    log.Write(l);
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("GUIReportSaveLoginWritable");
+
+    emit Result(block);
+    return true;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------

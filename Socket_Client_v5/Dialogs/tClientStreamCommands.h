@@ -559,4 +559,37 @@ inline tAbstractStreamCommand* Create_tStreamReportSavePermissions()
     return new tStreamReportSavePermissions;
 }
 //****************************************************************
+class tStreamSaveLoginWritable : public tAbstractStreamCommand
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &_in);
+    virtual bool ExeCommand(QDataStream &_out);
+    virtual void ProcessError(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+private:
+    int row;
+    bool writable;
+};
+inline tAbstractStreamCommand* Create_tStreamSaveLoginWritable()
+{
+    return new tStreamSaveLoginWritable;
+}
+//****************************************************************
+class tStreamReportSaveLoginWritable : public tAbstractStreamCommand
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &){return true;}
+    virtual bool ExeCommand(QDataStream &);
+    virtual void ProcessError(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+
+private:
+    QByteArray block1;
+};
+inline tAbstractStreamCommand* Create_tStreamReportSaveLoginWritable()
+{
+    return new tStreamReportSaveLoginWritable;
+}
 #endif // TCLIENTSTREAMCOMMANDS_H

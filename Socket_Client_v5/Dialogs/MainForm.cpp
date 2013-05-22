@@ -8,6 +8,21 @@
 
 extern tSettings my_settings;
 
+
+
+
+Qt::ItemFlags TableModel::flags ( const QModelIndex & index ) const
+{
+Qt::ItemFlags result = QStandardItemModel::flags(index);
+if (index.column()==0) result |= Qt::ItemIsUserCheckable;
+return result;
+}
+
+
+
+
+
+
 MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm), QDialog(parent),mod_conv(NULL), db_op(NULL),
     sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL),
@@ -24,7 +39,11 @@ MainForm::MainForm(QWidget *parent) :
     sLM_DelLoc=new QStringListModel;
     sLM_Logins=new QStringListModel;
 
-    adm_tree_model= new QStandardItemModel();;
+    adm_tree_model= new QStandardItemModel();
+    tableModel = new TableModel();
+//    table_logins_model= new QStandardItemModel();
+
+//    tab_log_model=new tLoginRowModel();
 
     ui->setupUi(this);
 
@@ -80,6 +99,8 @@ MainForm::~MainForm()
     delete sLM_Rec;
     delete sLM_DelLoc;
     delete sLM_Logins;
+//    delete table_logins_model;
+    delete tableModel;
     delete slm_server_list_models;
     delete adm_tree_model;
     delete read_tree_model;
@@ -155,6 +176,11 @@ void MainForm::EndTransactions()
 
     IsRequeryServerModel=true;
     OnListFiles();
+
+    BuildingTree(user_login);
+    //строим дерево и модели помечаем в соответствии с анализом (нулевой результат пропускаем)
+    ConstructTree(Read, list_compare);
+    ConstructTree(Write, list_compare);
 
     tLog log;
     log.Write(tr("Пакет транзакций выполнен"));
@@ -497,9 +523,11 @@ void MainForm::OnEditLogin()
     int N=MI.row();
     if(N>=0)
     {
-    QStringListModel *sLM_Logins=new QStringListModel;
-    sLM_Logins=(QStringListModel *)MI.model();
-    QString S=sLM_Logins->stringList().value(N);
+//    QStringListModel *sLM_Logins=new QStringListModel;
+//    sLM_Logins=(QStringListModel *)MI.model();
+//    QString S=sLM_Logins->stringList().value(N);
+
+      QString S=tableModel->data(MI, Qt::EditRole).toString();
 //    delete M;
 
     login_pass->setModal(true);
@@ -583,6 +611,9 @@ void MainForm::OnLoginsClicked(QModelIndex Ind)
         ui->pbEditUser->setEnabled(false);
         ui->pbDelUser->setEnabled(false);
     }
+
+    mod_conv->SaveLoginWritable(tableModel,N);
+//    mod_conv->SaveLoginsWritable(tableModel, N);
 }
 //----------------------------------------------------------
 void MainForm::RegisterUser(qlonglong _s_num)
@@ -601,11 +632,52 @@ void MainForm::RegisterUser(qlonglong _s_num)
 //----------------------------------------------------------
 void MainForm::UpdateLogins()
 {
-    listLogins=db_op->GetLoginsList();
-    sLM_Logins->setStringList(listLogins);
-    ui->lvLogins->setModel(sLM_Logins);
 
-    ui->lvLogins->selectionModel()->setCurrentIndex(mi, QItemSelectionModel::Select);
+
+//    QModelIndex tab_index=table_logins_model->index(0, 0);
+//    table_logins_model->setColumnCount(2);
+//    table_logins_model->insertRows(2,2,tab_index);
+
+//    table_logins_model->setData(tab_index,QVariant("qqq"),Qt::DisplayRole);
+//    table_logins_model->setData(tab_index,QVariant(1),Qt::CheckStateRole);
+//    table_logins_model->insertRows(1,1,tab_index);
+//    table_logins_model->setData(tab_index,QVariant("qqq"),Qt::DisplayRole);
+//    table_logins_model->setData(tab_index,QVariant(1),Qt::CheckStateRole);
+
+
+//    ui->tabvLogins->setModel(table_logins_model);
+
+    db_op->GetLoginsModel(tableModel);
+
+     // add columns
+//    tableModel->insertColumn(0, QModelIndex());
+////    tableModel->insertColumn(1, QModelIndex());
+//    // add rows
+//    tableModel->insertRows(0, 1, QModelIndex());
+//    tableModel->insertRows(1, 1, QModelIndex());
+//    // set text item
+//    QModelIndex index0 = tableModel->index(0, 0, QModelIndex());
+//    tableModel->setData(index0, QVariant("test item"), Qt::EditRole);
+//    // set checkbox item
+////    QModelIndex index1 = tableModel->index(0, 1, QModelIndex());
+//    tableModel->setData(index0, QVariant(Qt::Checked), Qt::CheckStateRole);
+////    ui->tableView->setModel(tableModel);
+
+//    index0 = tableModel->index(1, 0, QModelIndex());
+//    tableModel->setData(index0, QVariant("test item111"), Qt::EditRole);
+//    tableModel->setData(index0, QVariant(Qt::Unchecked), Qt::CheckStateRole);
+
+
+//    ui->tabvLogins->setModel(tableModel);
+
+
+
+    ////////////////////////////
+//    listLogins=db_op->GetLoginsList();
+//    sLM_Logins->setStringList(listLogins);
+    ui->lvLogins->setModel(tableModel);
+
+//    ui->lvLogins->selectionModel()->setCurrentIndex(mi, QItemSelectionModel::Select);
 }
 //----------------------------------------------------------
 void MainForm::DeleteUser(qlonglong _s_num)
@@ -1014,8 +1086,12 @@ void MainForm::VerifyLastTable(const QString& user_login)
     //Проверить если есть такие модели в таблице Last
     //которых уже нет ни в серверной ни в локальной папке
     db_op->VerifyLastTable(user_login);
-    BuildingTree(user_login, Read);
-    BuildingTree(user_login, Write);
+    if(!GetIsTransaction())
+    {
+    BuildingTree(user_login);
+    ConstructTree(Read, list_compare);
+    ConstructTree(Write, list_compare);
+    }
 }
 //----------------------------------------------------------
 void MainForm::on_pbExit_clicked()
@@ -1103,7 +1179,7 @@ else
 
 }
 //----------------------------------------------------------
-void MainForm::BuildingTree(const QString& user_login, tTreeMod _direction)
+void MainForm::BuildingTree(const QString& user_login)
 {
     //В таблицу CompareTablesToTree из локальной, ласт и серверной таблиц занести ориентируясь на Struct суммарные хеши моделей
     db_op->WriteToCompareTablesToTree(user_login);
@@ -1114,14 +1190,16 @@ void MainForm::BuildingTree(const QString& user_login, tTreeMod _direction)
     //добавляем к стректуре моделей различающиеся файлы
     db_op->AddFilesToModelsStruct(list_compare);
 
-    //строим дерево и модели помечаем в соответствии с анализом (нулевой результат пропускаем)
-    ConstructTree(_direction, list_compare);
+
 
 }
 //----------------------------------------------------------
 void MainForm::on_pbBuildRead_clicked()
 {
-    BuildingTree(user_login, Read);
+    BuildingTree(user_login);
+    ConstructTree(Read, list_compare);
+    ConstructTree(Write, list_compare);
+
 }
 //----------------------------------------------------------
 void MainForm::ConstructTree(tTreeMod _tree_mod, QList<CompareTableRec> _comp_table)
@@ -1753,8 +1831,9 @@ void MainForm::EndUpdateServerModel()
 
     OnListFilesLocal();
 
-//    BuildingReadTree(user_login, Read);
-//    BuildingReadTree(user_login, Write);
+    BuildingTree(user_login);
+    ConstructTree(Read, list_compare);
+    ConstructTree(Write, list_compare);
 }
 //----------------------------------------------------------
 void MainForm::UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state)
@@ -1952,17 +2031,22 @@ void MainForm::on_pbRefreshRead_clicked()
 
     IsRequeryServerModel=true;
     OnListFiles();
+//    BuildingTree(user_login);
+//    ConstructTree(Read, list_compare);
 }
 //----------------------------------------------------------
 void MainForm::on_pbRefresh_Write_clicked()
 {
     IsRequeryServerModel=true;
     OnListFiles();
+//    BuildingTree(user_login);
+//    ConstructTree(Write, list_compare);
 }
 //----------------------------------------------------------
 void MainForm::on_pbBuildWrite_clicked()
 {
-    BuildingTree(user_login, Write);
+    BuildingTree(user_login);
+    ConstructTree(Write, list_compare);
 }
 //----------------------------------------------------------
 void MainForm::on_tvWrite_clicked(const QModelIndex &index)
@@ -2048,18 +2132,25 @@ void MainForm::showContextMenuRead(QPoint pos)
             if(selectedItem)
             {
                 int menu_id=selectedItem->data().toInt();
+                BuildingTree(user_login);
                 switch(menu_id)
                 {
                 case 1:
                 {
                     db_op->ActualiseModel(user_login, server_num, true);
-                    BuildingTree(user_login, Read);
+//                    ConstructTree(Read, list_compare);
+//                    ConstructTree(Write, list_compare);
+                    BuildingTree(user_login);
+                    ConstructTree(Read, list_compare);
+                    ConstructTree(Write, list_compare);
                     break;
                 }
                 case 2:
                 {
-                    db_op->ActualiseModel(user_login, local_num, true);
-                    BuildingTree(user_login, Read);
+                    db_op->ActualiseModel(user_login, local_num, false);
+                    BuildingTree(user_login);
+                    ConstructTree(Read, list_compare);
+                    ConstructTree(Write, list_compare);
                     break;
                 }
                 }

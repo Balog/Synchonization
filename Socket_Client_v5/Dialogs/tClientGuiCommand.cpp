@@ -868,3 +868,39 @@ void tGUIReportSavePermissions::ExeCommand(QDataStream &)
 
 }
 //************************************************************************************************
+void tGUISaveLoginWritable::ExeCommand(QDataStream &_in)
+{
+    l="tClientGuiCommand \ttGUISaveLoginWritable\t Передача разрешений на запись на сервер ";
+    log.Write(l);
+
+    QString comm="";
+    int row=0;
+    bool check=false;
+    _in >> comm;
+    _in >> row;
+    _in >>check;
+
+
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    block.clear();
+
+    out << comm;
+    out << row;
+    out << check;
+
+
+    emit SendCommand(block);
+}
+//************************************************************************************************
+void tGUIReportSaveLoginWritable::ExeCommand(QDataStream &)
+{
+    l="tClientGuiCommand \ttGUIReportSaveLoginWritable\t Отчет записи списка разрешений на запись моделей на сервер";
+    log.Write(l);
+
+
+
+}
+//************************************************************************************************

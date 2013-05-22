@@ -43,6 +43,7 @@ public:
     void SetLogin(const QString& _user_login);
 
     void ClearAllList();
+    void SaveLoginWritable(QStandardItemModel* model, int _row);
 
 private:
     QObject *link;

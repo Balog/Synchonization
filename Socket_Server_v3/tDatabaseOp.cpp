@@ -1328,3 +1328,32 @@ bool tDatabaseOp::IsNoDelete(QString& _login)
     return sel_no_del.value(0).toBool();
 
 }
+//----------------------------------------------------------
+void tDatabaseOp::SaveLoginWritable(int row, bool writ)
+{
+    QSqlQuery sel_login(db);
+    sel_login.prepare("SELECT Num FROM Logins ORDER BY Num, Login");
+    if(!sel_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения списка логинов ");
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginWritable \t ++ ОШИБКА ++ получения списка логинов ")));}
+    sel_login.next();
+    sel_login.first();
+    if(!sel_login.seek(row))
+    {
+        qDebug() << QString::fromUtf8("++ ОШИБКА ++ перехода в логинах по индексу ") << row;
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginWritable \t ++ ОШИБКА ++ перехода в логинах по индексу ")+QString::number(row)));
+    }
+    qlonglong num_login=sel_login.value(0).toLongLong();
+
+    QSqlQuery upd_writ(db);
+    if(writ)
+    {
+        upd_writ.prepare("UPDATE Logins SET Writable=1 WHERE Num="+QString::number(num_login));
+    }
+    else
+    {
+        upd_writ.prepare("UPDATE Logins SET Writable=0 WHERE Num="+QString::number(num_login));
+    }
+    if(!upd_writ.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ изменения writable у логина номер ") << num_login;
+    log.Write(QString(QString("tDatabaseOp \t SaveLoginWritable \t ++ ОШИБКА ++ изменения writable у логина номер ")+QString::number(num_login)));}
+
+}

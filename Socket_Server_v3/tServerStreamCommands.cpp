@@ -1781,3 +1781,39 @@ bool tReceiveReadPermissions::ExeCommand(QDataStream &_in, QDataStream &_out)
 //----------------------------------------------------------
 //**********************************************************
 //----------------------------------------------------------
+bool tReceiveReadLoginWritable::ExeCommand(QDataStream &_in, QDataStream &_out)
+{
+    tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
+    log=log1;
+
+
+    InitDB(((tClient*)link)->GetDB());
+
+    int row=0;
+    bool writ=false;
+    _in >> row;
+    _in >> writ;
+
+
+
+
+    db_op->SaveLoginWritable(row, writ);
+
+    QString comm="Report:";
+    int num_com=17;
+
+    _out << quint16(0);
+    _out << comm;
+    _out << num_com;
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+
+    log.Write(QString(QString::fromUtf8("tReceiveReadLoginWritable \t ExeCommand \t Прием таблицы разрешений на чтение ")));
+
+    return false;
+}
+//----------------------------------------------------------
+//**********************************************************
+//----------------------------------------------------------

@@ -4,6 +4,7 @@
 #include <QString>
 #include <QtSql>
 #include "tLog.h"
+#include <QStandardItemModel>
 
 struct tFile
 {
@@ -27,7 +28,6 @@ struct CompareTableRec
     bool read_choice;
     bool write_choice;
 };
-
 
 
 
@@ -103,6 +103,8 @@ public:
     void AddFilesToModelsStruct(QList<CompareTableRec> &comp_models);
 
     void ActualiseModel(const QString &_login, qlonglong _num_model, bool _from_server);
+    void GetLoginsModel(QStandardItemModel* model);
+    void SaveLoginsWritable(QStandardItemModel *model, int _row, bool &check);
 
 private:
     typedef enum {Local, Last, Server} tTableLevel;

@@ -26,6 +26,7 @@ public:
     bool VerifyAutorization(QString& _login, QString& _password);
     void SavePermissions(QByteArray _block);
     qlonglong GetNumLogin(QString &_login);
+    void SaveLoginWritable(int row, bool writ);
 
 private:
     QSqlDatabase db;

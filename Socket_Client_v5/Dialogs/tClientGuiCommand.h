@@ -454,4 +454,30 @@ inline tAbstractGuiCommand* Create_tGUIReportSavePermissions()
     return new tGUIReportSavePermissions;
 }
 //**********************************************************************************
+class tGUISaveLoginWritable : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &_in);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUISaveLoginWritable()
+{
+    return new tGUISaveLoginWritable;
+}
+//**********************************************************************************
+class tGUIReportSaveLoginWritable : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &);
+
+
+};
+inline tAbstractGuiCommand* Create_tGUIReportSaveLoginWritable()
+{
+    return new tGUIReportSaveLoginWritable;
+}
+//**********************************************************************************
 #endif // TCLIENTGUICOMMAND_H
