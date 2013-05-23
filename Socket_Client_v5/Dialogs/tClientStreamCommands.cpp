@@ -56,7 +56,7 @@ bool tStreamReceiveFile::ExeCommand(QDataStream& _in)
 {
     bool ret=false;
 
-//20280000076576
+
 
     qint64 n=_in.device()->bytesAvailable();
     char* buff= new char[n];
@@ -218,7 +218,8 @@ bool tPrepareReceiveFile::Initialize(QDataStream &_in)
 {
 
     _in >> file_name;
-    root=my_settings.GetRoot();
+    _in >> root;
+//    root=my_settings.GetRoot();
     QString f=root+file_name;
     file.setFileName(root+file_name);
     file.open(QIODevice::Append);

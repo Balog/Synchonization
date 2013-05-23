@@ -72,7 +72,7 @@ void tModelsConveyor::EndConveyor()
     }
     else
     {
-        StartReceiveDeleteFiles();
+        StartReceiveDeleteFiles(root_folder, false);
     }
 
 
@@ -153,6 +153,22 @@ void tModelsConveyor::StartSendDeleteFiles()
         QStringList SendModelFiles;
         db_op->GetSendModelFiles(name_model, SendModelFiles);
 
+        QStringList DeleteServerModelFiles;
+        db_op->GetDeleteServerModelFiles(name_model, DeleteServerModelFiles);
+
+        if(DeleteServerModelFiles.size()!=0)
+        {
+            for(int i=0; i<DeleteServerModelFiles.size(); i++)
+            {
+                QString S=DeleteServerModelFiles[i];
+                stop=conv->DeletingFile(S, all_files, send);
+                if(stop)
+                {
+                    break;
+                }
+            }
+        }
+
         if(SendModelFiles.size()!=0)
         {
             //Если есть файлы для записи на сервер
@@ -168,32 +184,24 @@ void tModelsConveyor::StartSendDeleteFiles()
             }
         }
 
-        QStringList DeleteServerModelFiles;
-        db_op->GetDeleteServerModelFiles(name_model, DeleteServerModelFiles);
 
-        if(DeleteServerModelFiles.size()!=0)
-        {
-            for(int i=0; i<DeleteServerModelFiles.size(); i++)
-            {
-                QString S=DeleteServerModelFiles[i];
-                stop=conv->DeletingFile(S, all_files, send);
-            }
-        }
 
 
         conv->AddStartTransaction(send);
-
-        if(SendModelFiles.size()!=0)
-        {
-            stop=conv->AddSendCommand();
-        }
 
         if(DeleteServerModelFiles.size()!=0)
         {
             conv->AddDelCommand();
         }
 
-        conv->AddCommitTransaction(send);
+        if(SendModelFiles.size()!=0)
+        {
+            stop=conv->AddSendCommand();
+        }
+
+
+
+        conv->AddCommitTransaction(send, QString(""), false);
 
 
         //Начало выполнения списка команд
@@ -241,10 +249,11 @@ void tModelsConveyor::MarkLastTables(bool _send, const QString& user_login)
 }
 
 //-------------------------------------------------------------------------
-void tModelsConveyor::StartReceiveDeleteFiles()
+void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom_copy)
 {
     l="tModelsConveyor \tStartReceiveDeleteFiles\tФормирование списка команд транзакции приема и удаления файлов на клиенте";
     log.Write(l);
+    root_folder=_root;
 
     conv->ClearTempFolder();
     send=false;
@@ -256,6 +265,11 @@ void tModelsConveyor::StartReceiveDeleteFiles()
         //получено имя очередной модели что нужно получить с сервера
         QStringList ReceiveModelFiles;
         db_op->GetReceiveModelFiles(name_model, ReceiveModelFiles);
+        QStringList DeleteLocalModelFiles;
+        db_op->GetDeleteLocalModelFiles(name_model, DeleteLocalModelFiles);
+
+
+
         if(ReceiveModelFiles.size()!=0)
         {
             //Если есть файлы для чтения с сервера
@@ -271,8 +285,6 @@ void tModelsConveyor::StartReceiveDeleteFiles()
             }
         }
 
-        QStringList DeleteLocalModelFiles;
-        db_op->GetDeleteLocalModelFiles(name_model, DeleteLocalModelFiles);
 
         if(DeleteLocalModelFiles.size()!=0)
         {
@@ -280,13 +292,18 @@ void tModelsConveyor::StartReceiveDeleteFiles()
             {
                 QString S=DeleteLocalModelFiles[i];
                 stop=conv->DeletingFile(S, all_files, send);
+                if(stop)
+                {
+                    break;
+                }
             }
         }
+
         conv->AddStartTransaction(send);
-        stop=conv->AddReceiveCommand();
+        stop=conv->AddReceiveCommand(_root);
         //        conv->AddDelCommand();
 
-        conv->AddCommitTransaction(send);
+        conv->AddCommitTransaction(send, root_folder, _custom_copy);
 
         //Начало выполнения списка команд
         if(!stop)

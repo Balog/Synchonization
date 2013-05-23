@@ -190,7 +190,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                         QTextCodec *codec =QTextCodec::codecForName("UTF-8");
                         s.setIniCodec(codec);
 
-                        QString title=s.value("Title","").toString();
+                        QString title=s.value("Title","Модель").toString();
                         QString desc=s.value("Description","").toString();
                         QString struct_mod=s.value("Struct","").toString();
 
@@ -1017,6 +1017,22 @@ void tDatabaseOp::GetServerListFiles(const QString &_str, QStringList &_list)
 {
     QSqlQuery models(db);
     QString s="SELECT ServerFiles.File FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num WHERE ServerStructModels.Struct='"+_str+"'";
+    models.prepare(s);
+    if(!models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ составления списка серверных файлов ");
+        log.Write(QString("tDatabaseOp \t GetServerListFiles \t ++ ОШИБКА ++ составления списка серверных файлов "));}
+
+    while(models.next())
+    {
+        QString str=models.value(0).toString();
+        _list.push_back(str);
+    }
+
+}
+//----------------------------------------------------------
+void tDatabaseOp::GetServerListFiles(const qlonglong _num_server_model, QStringList &_list)
+{
+    QSqlQuery models(db);
+    QString s="SELECT ServerFiles.File FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num WHERE ServerStructModels.Num="+QString::number(_num_server_model);
     models.prepare(s);
     if(!models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ составления списка серверных файлов ");
         log.Write(QString("tDatabaseOp \t GetServerListFiles \t ++ ОШИБКА ++ составления списка серверных файлов "));}
@@ -1856,6 +1872,9 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
     int num_logins=-1;
     out >> num_logins;
 
+    l="tDatabaseOp \tUpdateLogins\t Количество полученых логинов "+QString::number(num_logins);
+    log.Write(l);
+
     db.transaction();
 
     QSqlQuery set_found(db);
@@ -1877,6 +1896,21 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
         out >> PassHash;
         out >> NoDelete;
         out >> Writable;
+
+        l="tDatabaseOp \tUpdateLogins\t Номер "+QString::number(Num);
+        log.Write(l);
+
+        l="tDatabaseOp \tUpdateLogins\t Логин "+Login;
+        log.Write(l);
+
+        l="tDatabaseOp \tUpdateLogins\t Хэш "+PassHash;
+        log.Write(l);
+
+        l="tDatabaseOp \tUpdateLogins\t NoDelete "+QString::number(NoDelete);
+        log.Write(l);
+
+        l="tDatabaseOp \tUpdateLogins\t Writable "+QString::number(Writable);
+        log.Write(l);
 
         QSqlQuery select_num_login(db);
         select_num_login.prepare("SELECT Count(*) FROM Logins WHERE Num="+QString::number(Num));
@@ -2207,7 +2241,37 @@ bool tDatabaseOp::VerifyUserFolders(QString& _login, QString &_project_folder, Q
                 //папки уникальны
                 //проверить не находятся ли эти папки внутри других папок или не содержат ли в себе другие папки
                 //но это потом, когда будет с чем сравнивать
-                ret=true;
+                if(project_folder.length()!=temp_folder.length())
+                {
+                    if(project_folder.length()>temp_folder.length())
+                    {
+                        if(project_folder.left(temp_folder.length())==temp_folder)
+                        {
+                            _message=QString::fromUtf8("Папки проекта и временных файлов не должны быть одна внутри другой.");
+                        }
+                        else
+                        {
+                            ret=true;
+                        }
+                    }
+                    else
+                    {
+                        if(temp_folder.left(project_folder.length())==project_folder)
+                        {
+                            _message=QString::fromUtf8("Папки проекта и временных файлов не должны быть одна внутри другой.");
+                        }
+                        else
+                        {
+                            ret=true;
+                        }
+                    }
+
+                }
+                else
+                {
+                    _message=QString::fromUtf8("Папки проекта и временных файлов не должны совпадать.");
+                }
+
             }
             else
             {
@@ -2298,7 +2362,7 @@ void tDatabaseOp::MarkLastModel(qlonglong num_login, const QString& m_struct)
 //----------------------------------------------------------
 void tDatabaseOp::WriteToCompareTablesToTree(const QString& _login)
 {
-    db.transaction();
+//    db.transaction();
     qlonglong num_login=GetNumLogin(_login);
     QSqlQuery select_local_mod(db);
     select_local_mod.prepare("SELECT Num, Struct, SummListHash FROM StructModels");
@@ -2791,7 +2855,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
         }
 
     }
-    db.commit();
+//    db.commit();
 }
 //----------------------------------------------------------
 void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bool _from_server)
@@ -3104,4 +3168,18 @@ void tDatabaseOp::SaveLoginsWritable(QStandardItemModel* model, int _row, bool &
         log.Write(QString(QString("tDatabaseOp \t SaveLoginsWritable \t ++ ОШИБКА ++ записи writable логинов ")));}
 
 
+}
+//----------------------------------------------------------
+void tDatabaseOp::GetPermissionsUser(const QString &user_login, bool &is_admin_user, bool &is_writable_user)
+{
+    QSqlQuery sel_perm(db);
+    sel_perm.prepare("SELECT NoDelete, Writable FROM Logins WHERE Login='"+user_login+"'");
+    if(!sel_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения разрешений пользователя ") << user_login;
+    log.Write(QString(QString("tDatabaseOp \t GetPermissionsUser \t ++ ОШИБКА ++ получения разрешений пользователя ")+user_login));}
+    sel_perm.next();
+
+    is_admin_user=sel_perm.value(0).toBool();
+    is_writable_user=sel_perm.value(1).toBool();
+
+    is_writable_user=is_admin_user || is_writable_user;
 }

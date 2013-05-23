@@ -33,6 +33,7 @@ MainForm::MainForm(QWidget *parent) :
     IsRequeryServerModel=false;
     user_login="";
 
+
     sLM_Send=new QStringListModel;
     sLM_Del=new QStringListModel;
     sLM_Rec=new QStringListModel;
@@ -47,6 +48,11 @@ MainForm::MainForm(QWidget *parent) :
 
     ui->setupUi(this);
 
+    ui->pbBuildRead->setVisible(false);
+    ui->pbBuildWrite->setVisible(false);
+//    ui->tabWidget->setTabEnabled(3, false);
+ui->tabWidget->removeTab(3);
+ui->tabWidget->setCurrentIndex(0);
     //    connect(ui->lvListFiles, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(OnClickListFiles(QModelIndex)));
 
 //    ui->leRoot->setText(my_settings.GetRoot());
@@ -374,7 +380,7 @@ void MainForm::OnStartReceive()
         }
     }
 
-    mod_conv->StartReceiveDeleteFiles();
+    mod_conv->StartReceiveDeleteFiles(my_settings.GetRoot(), false);
 
 
 }
@@ -611,8 +617,14 @@ void MainForm::OnLoginsClicked(QModelIndex Ind)
         ui->pbEditUser->setEnabled(false);
         ui->pbDelUser->setEnabled(false);
     }
+    admin_logins_index=Ind;
+    QModelIndex MI=ui->lvLogins->currentIndex();
+    QString S=tableModel->data(MI, Qt::EditRole).toString();
+
+    TreesBuildings(S);
 
     mod_conv->SaveLoginWritable(tableModel,N);
+
 //    mod_conv->SaveLoginsWritable(tableModel, N);
 }
 //----------------------------------------------------------
@@ -632,52 +644,9 @@ void MainForm::RegisterUser(qlonglong _s_num)
 //----------------------------------------------------------
 void MainForm::UpdateLogins()
 {
-
-
-//    QModelIndex tab_index=table_logins_model->index(0, 0);
-//    table_logins_model->setColumnCount(2);
-//    table_logins_model->insertRows(2,2,tab_index);
-
-//    table_logins_model->setData(tab_index,QVariant("qqq"),Qt::DisplayRole);
-//    table_logins_model->setData(tab_index,QVariant(1),Qt::CheckStateRole);
-//    table_logins_model->insertRows(1,1,tab_index);
-//    table_logins_model->setData(tab_index,QVariant("qqq"),Qt::DisplayRole);
-//    table_logins_model->setData(tab_index,QVariant(1),Qt::CheckStateRole);
-
-
-//    ui->tabvLogins->setModel(table_logins_model);
-
     db_op->GetLoginsModel(tableModel);
 
-     // add columns
-//    tableModel->insertColumn(0, QModelIndex());
-////    tableModel->insertColumn(1, QModelIndex());
-//    // add rows
-//    tableModel->insertRows(0, 1, QModelIndex());
-//    tableModel->insertRows(1, 1, QModelIndex());
-//    // set text item
-//    QModelIndex index0 = tableModel->index(0, 0, QModelIndex());
-//    tableModel->setData(index0, QVariant("test item"), Qt::EditRole);
-//    // set checkbox item
-////    QModelIndex index1 = tableModel->index(0, 1, QModelIndex());
-//    tableModel->setData(index0, QVariant(Qt::Checked), Qt::CheckStateRole);
-////    ui->tableView->setModel(tableModel);
-
-//    index0 = tableModel->index(1, 0, QModelIndex());
-//    tableModel->setData(index0, QVariant("test item111"), Qt::EditRole);
-//    tableModel->setData(index0, QVariant(Qt::Unchecked), Qt::CheckStateRole);
-
-
-//    ui->tabvLogins->setModel(tableModel);
-
-
-
-    ////////////////////////////
-//    listLogins=db_op->GetLoginsList();
-//    sLM_Logins->setStringList(listLogins);
     ui->lvLogins->setModel(tableModel);
-
-//    ui->lvLogins->selectionModel()->setCurrentIndex(mi, QItemSelectionModel::Select);
 }
 //----------------------------------------------------------
 void MainForm::DeleteUser(qlonglong _s_num)
@@ -912,7 +881,10 @@ void MainForm::on_tvAdminTree_clicked(const QModelIndex &index)
 
     UpToParent(index, adm_tree_model->itemFromIndex(index)->checkState());
     DownToChildrens(index, adm_tree_model->itemFromIndex(index)->checkState());
-    mod_conv->SavePermissionsToServer(db_op->GetNumLogin(sLM_Logins->stringList().value(admin_logins_index.row())));
+
+    QModelIndex MI=ui->lvLogins->currentIndex();
+    QString S=tableModel->data(MI, Qt::EditRole).toString();
+    mod_conv->SavePermissionsToServer(db_op->GetNumLogin(S));
 }
 //----------------------------------------------------------
 void MainForm::UpdateModelRead(QByteArray &_block)
@@ -929,10 +901,10 @@ void MainForm::UpdateModelRead(QByteArray &_block)
 
 void MainForm::on_lvLogins_clicked(const QModelIndex &index)
 {
-    admin_logins_index=index;
-    QString S=sLM_Logins->stringList().value(index.row());
+//    admin_logins_index=index;
+//    QString S=sLM_Logins->stringList().value(index.row());
 
-    TreesBuildings(S);
+//    TreesBuildings(S);
 
 }
 //----------------------------------------------------------
@@ -1017,7 +989,10 @@ void MainForm::DownToChildrens(QModelIndex index, Qt::CheckState _state)
         {
             state=true;
         }
-        db_op->SaveReadPermission(sLM_Logins->stringList().value(admin_logins_index.row()), s_num, state);
+
+        QModelIndex MI=ui->lvLogins->currentIndex();
+        QString S=tableModel->data(MI, Qt::EditRole).toString();
+        db_op->SaveReadPermission(S, s_num, state);
     }
 
     int child_count=item->rowCount();
@@ -1073,6 +1048,32 @@ void MainForm::OnContinueStart()
     db_op->SaveFoldersToSettings(user_login);
     ui->leRoot->setText(my_settings.GetRoot());
     ui->leTemp->setText(my_settings.GetTemp());
+    bool is_admin_user=false;
+    bool is_writable_user=false;
+    db_op->GetPermissionsUser(user_login, is_admin_user, is_writable_user);
+
+//    ui->tabWidget->removeTab(3);
+//    ui->tabWidget->setCurrentIndex(0);
+
+    if(!is_admin_user)
+    {
+        ui->tabWidget->setTabEnabled(2, false);
+    }
+    else
+    {
+        ui->tabWidget->setTabEnabled(2, true);
+//        ui->tabWidget->addTab(new QWidget(), QString("Администрирование"));
+    }
+
+    if(!is_writable_user)
+    {
+        ui->tabWidget->setTabEnabled(1, false);
+    }
+    else
+    {
+        ui->tabWidget->setTabEnabled(1, true);
+    }
+    ui->tabWidget->setCurrentIndex(0);
 
 db_op->RefreshModelsFiles();
 
@@ -1086,12 +1087,14 @@ void MainForm::VerifyLastTable(const QString& user_login)
     //Проверить если есть такие модели в таблице Last
     //которых уже нет ни в серверной ни в локальной папке
     db_op->VerifyLastTable(user_login);
-    if(!GetIsTransaction())
-    {
-    BuildingTree(user_login);
-    ConstructTree(Read, list_compare);
-    ConstructTree(Write, list_compare);
-    }
+
+    //ВЫЗЫВАЕТСЯ СЛИШКОМ РАНО
+//    if(!GetIsTransaction())
+//    {
+//    BuildingTree(user_login);
+//    ConstructTree(Read, list_compare);
+//    ConstructTree(Write, list_compare);
+//    }
 }
 //----------------------------------------------------------
 void MainForm::on_pbExit_clicked()
@@ -1104,78 +1107,50 @@ void MainForm::on_pbExit_clicked()
 void MainForm::on_pbRead_clicked()
 {
 
-//    struct tFile
-//    {
-//        bool Local; // 1 - локальный файл, 0 - серверный файл
-//        qlonglong num;
-//        QString file_name;
-//        qint64 size;
-//        QString last_mod;
-//        int IsFounded;  //флаг IsFounded (1 - есть только на локальном, 2 - есть только на серверном, 0 - есть и там и там)
 
-//    } ;
 
     //начать чтение с сервера по новому
 ////сначала составим списки запрашиваемых с сервера и удаляемых локально файлов
-//QList<QString>rec_files;
-//QList<QString>loc_del_files;
+
 
 //если запрашиваемый файл есть только локально а на сервере его нет то это удаление файла локально
 //остальные случаи это или создание или модификация что тут - одно и то же
-mod_conv->SetTransactionFlag(true);
-mod_conv->Clear();
-int is_work=false;
-for(int i=0; i<tree_data.size();i++)
-{
-    if(tree_data[i].read_choice)
-    {
-        for(int j=0; j<tree_data[i].file.size(); j++)
-        {
-            QString file_name=tree_data[i].file[j].file_name;
-            if(tree_data[i].file[j].IsFounded==1)
-            {
-                mod_conv->DeletingLocalFile(file_name);
-            }
-            else
-            {
-                mod_conv->ReceiveFile(file_name);
-            }
-            is_work=true;
-        }
-    }
-}
-if(is_work)
-{
-mod_conv->StartReceiveDeleteFiles();
-}
-else
-{
-    QMessageBox MB;
-    MB.setText(QString::fromUtf8("Нет выделеных моделей для чтения"));
-    MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-    MB.exec();
-}
-//    mod_conv->SetTransactionFlag(true);
-//    mod_conv->Clear();
-//    if(listRec.size()>0)
+    StartReadModeles(my_settings.GetRoot(), 0);
+
+//mod_conv->SetTransactionFlag(true);
+//mod_conv->Clear();
+//int is_work=false;
+//for(int i=0; i<tree_data.size();i++)
+//{
+//    if(tree_data[i].read_choice)
 //    {
-//        for(int i=0; i<listRec.size(); i++)
+//        for(int j=0; j<tree_data[i].file.size(); j++)
 //        {
-//            QString S=listRec[i];
-//            mod_conv->ReceiveFile(S);
+//            QString file_name=tree_data[i].file[j].file_name;
+//            if(tree_data[i].file[j].IsFounded==1)
+//            {
+//                mod_conv->DeletingLocalFile(file_name);
+//            }
+//            else
+//            {
+//                mod_conv->ReceiveFile(file_name);
+//            }
+//            is_work=true;
 //        }
 //    }
+//}
+//if(is_work)
+//{
+//mod_conv->StartReceiveDeleteFiles();
+//}
+//else
+//{
+//    QMessageBox MB;
+//    MB.setText(QString::fromUtf8("Нет выделеных моделей для чтения"));
+//    MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+//    MB.exec();
+//}
 
-//    if(listDelLoc.size()>0)
-//    {
-//        for(int i=0;i<listDelLoc.size(); i++)
-//        {
-//            QString S=listDelLoc[i];
-//            mod_conv->DeletingLocalFile(S);
-//        }
-//    }
-
-//    mod_conv->StartReceiveDeleteFiles();
 
 }
 //----------------------------------------------------------
@@ -1428,6 +1403,12 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
 
                         col1->setBackground(QBrush(QColor(255,255,0, 64)));
                         col2->setBackground(QBrush(QColor(255,255,0, 64)));
+
+                        file_group->setData(-3, Qt::UserRole+1);
+                        file->setData(-3, Qt::UserRole+1);
+                        col1->setData(-3, Qt::UserRole+1);
+                        col2->setData(-3, Qt::UserRole+1);
+
                         columns.push_back(col1);
                         columns.push_back(col2);
 
@@ -1658,6 +1639,12 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
 
                         col1->setBackground(QBrush(QColor(255,255,0, 64)));
                         col2->setBackground(QBrush(QColor(255,255,0, 64)));
+
+                        file_group->setData(-3, Qt::UserRole+1);
+                        file->setData(-3, Qt::UserRole+1);
+                        col1->setData(-3, Qt::UserRole+1);
+                        col2->setData(-3, Qt::UserRole+1);
+
                         columns.push_back(col1);
                         columns.push_back(col2);
 
@@ -1767,7 +1754,7 @@ void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
         QString ch_txt=item->child(k)->text();
         int par_prop=item->data(Qt::UserRole+1).toLongLong();
         QString par_txt=item->text();
-        if(prop<0 || txt=="")
+        if((prop<0 || txt=="") && prop!=-3)
         {
             QModelIndex index=item->child(k)->index();
             switch (_tree_mod)
@@ -1784,7 +1771,7 @@ void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
             }
             }
 
-            ui->tvRead->expand(index);
+//            ui->tvRead->expand(index);
         }
 //        if(prop>0 && par_prop<0 && txt!="Файлы")
 //        {
@@ -1804,6 +1791,8 @@ void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
         }
         if(is_submod)
         {
+            if(prop!=-3)
+            {
             switch(_tree_mod)
             {
             case Read:
@@ -1817,7 +1806,7 @@ void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
                 break;
             }
             }
-
+            }
 
         }
 
@@ -1840,13 +1829,23 @@ void MainForm::UpToParentFiles(QStandardItemModel *model, const QModelIndex &ind
 {
     const QModelIndex parent_index=model->parent(index);
     QStandardItem *parent_item=model->itemFromIndex(parent_index);
+
+
+    QStandardItem *item=model->itemFromIndex(index);
     Qt::CheckState state=_state;
+
+
     if(!parent_item)
     {
         return;
     }
     else
     {
+        int d=item->data(Qt::UserRole+1).toInt();
+        if(d==-3)
+        {
+            return;
+        }
         if(parent_item->data(Qt::UserRole+1).toLongLong()==-1)
         {
         QString parent_txt=parent_item->text();
@@ -1913,6 +1912,10 @@ void MainForm::DownToChildrensFiles(QStandardItemModel *model, QModelIndex index
     QStandardItem *item=model->itemFromIndex(index);
     QString txt=item->text();
     qlonglong s_num=item->data(Qt::UserRole+1).toLongLong();
+    if(s_num==-3)
+    {
+        return;
+    }
     if(s_num>0 && s_num!=0)
     {
         qlonglong loc_num_mod=item->data(Qt::UserRole+2).toLongLong();
@@ -1968,10 +1971,11 @@ void MainForm::DownToChildrensFiles(QStandardItemModel *model, QModelIndex index
         for(int i=0; i<child_count; i++)
         {
             QStandardItem *children=item->child(i);
+             qlonglong d=children->data(Qt::UserRole+1).toLongLong();
             QString ch_txt=children->text();
-            if(children->text()!="Файлы")
+            if(d!=-3)
             {
-                qlonglong d=children->data(Qt::UserRole+1).toLongLong();
+
                 if(d!=-2)
                 {
                     children->setCheckState(_state);
@@ -2113,11 +2117,13 @@ void MainForm::showContextMenuRead(QPoint pos)
         QStandardItem *item=read_tree_model->itemFromIndex(click_index);
         QString txt=item->text();
         qlonglong d=item->data(Qt::UserRole+1).toLongLong();
+        QMenu menu;
+        qlonglong local_num=item->data(Qt::UserRole+2).toLongLong();
+        qlonglong server_num=item->data(Qt::UserRole+3).toLongLong();
         if(d==-2)
         {
-            qlonglong local_num=item->data(Qt::UserRole+2).toLongLong();
-            qlonglong server_num=item->data(Qt::UserRole+3).toLongLong();
-            QMenu menu;
+
+
 
             QAction *action1=new QAction(QString::fromUtf8("Принять актуальной локальную версию"), this);
             action1->setData(1);
@@ -2126,13 +2132,20 @@ void MainForm::showContextMenuRead(QPoint pos)
             QAction *action2=new QAction(QString::fromUtf8("Принять актуальной серверную версию"), this);
             action2->setData(2);
             menu.addAction(action2);
+        }
+        if(d>0 && d!=4 || d==-2)
+        {
+            QAction *action3=new QAction(QString::fromUtf8("Скопировать модель с сервера для анализа"), this);
+            action3->setData(3);
+            menu.addAction(action3);
+        }
 
             QAction* selectedItem=menu.exec(global_pos);
 
             if(selectedItem)
             {
                 int menu_id=selectedItem->data().toInt();
-                BuildingTree(user_login);
+//                BuildingTree(user_login);
                 switch(menu_id)
                 {
                 case 1:
@@ -2153,10 +2166,82 @@ void MainForm::showContextMenuRead(QPoint pos)
                     ConstructTree(Write, list_compare);
                     break;
                 }
+                case 3:
+                {
+                    QString Analys_folder=QFileDialog::getExistingDirectory(0, QString::fromUtf8(QString("Укажи куда скопировать модель").toAscii()),"/home",QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+                    if(Analys_folder!="")
+                    {
+                    StartReadModeles(Analys_folder+"/", server_num);
+                    }
+                    break;
                 }
+
             }
         }
 
 
+    }
+}
+//----------------------------------------------------------
+void MainForm::InternalCallBuildingTree()
+{
+    if(!GetIsTransaction())
+    {
+    BuildingTree(user_login);
+    ConstructTree(Read, list_compare);
+    ConstructTree(Write, list_compare);
+    }
+}
+//----------------------------------------------------------
+void MainForm::StartReadModeles(const QString &_root, qlonglong _server_num_model)
+{
+    mod_conv->SetTransactionFlag(true);
+    mod_conv->Clear();
+    int is_work=false;
+    bool custom_copy=false;
+    if(_server_num_model==0)
+    {
+
+    for(int i=0; i<tree_data.size();i++)
+    {
+        if(tree_data[i].read_choice)
+        {
+            for(int j=0; j<tree_data[i].file.size(); j++)
+            {
+                QString file_name=tree_data[i].file[j].file_name;
+                if(tree_data[i].file[j].IsFounded==1)
+                {
+                    mod_conv->DeletingLocalFile(file_name);
+                }
+                else
+                {
+                    mod_conv->ReceiveFile(file_name);
+                }
+                is_work=true;
+            }
+        }
+    }
+    }
+    else
+    {
+        QStringList files_list;
+        db_op->GetServerListFiles(_server_num_model, files_list);
+        for(int i=0; i<files_list.size(); i++)
+        {
+            mod_conv->ReceiveFile(files_list[i]);
+        }
+        is_work=true;
+        custom_copy=true;
+    }
+    if(is_work)
+    {
+        mod_conv->StartReceiveDeleteFiles(_root, custom_copy);
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Нет выделеных моделей для чтения"));
+        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+        MB.exec();
     }
 }

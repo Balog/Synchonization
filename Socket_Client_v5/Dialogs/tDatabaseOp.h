@@ -46,6 +46,7 @@ public:
 
     void SaveServerModelFiles(QByteArray &_block);
     void GetServerListFiles(const QString &_str, QStringList &_list);
+    void GetServerListFiles(const qlonglong _num_server_model, QStringList &_list);
     void GetServerListModels(QStringList &_list);
     QString GetLocalHash(const QString& _name_file_, bool& _sending, bool &_receiving);
     QString GetServerHash(const QString &name_file);
@@ -105,6 +106,7 @@ public:
     void ActualiseModel(const QString &_login, qlonglong _num_model, bool _from_server);
     void GetLoginsModel(QStandardItemModel* model);
     void SaveLoginsWritable(QStandardItemModel *model, int _row, bool &check);
+    void GetPermissionsUser(const QString &user_login, bool &is_admin_user, bool &is_writable_user);
 
 private:
     typedef enum {Local, Last, Server} tTableLevel;

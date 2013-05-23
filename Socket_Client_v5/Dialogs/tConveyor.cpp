@@ -167,7 +167,7 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
     gui_comm=gui_vf.create(command);
 
     connect(gui_comm, SIGNAL(SendCommand(QByteArray)), client_th, SLOT(OnCommandToSocket(QByteArray)));
-    connect(gui_comm, SIGNAL(VerifyMoveDelete(QString&)), this, SLOT(VerifyMoveDelete(QString&)));
+    connect(gui_comm, SIGNAL(VerifyMoveDelete(QString&, bool)), this, SLOT(VerifyMoveDelete(QString&, bool)));
     connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
     connect(gui_comm, SIGNAL(EndConveyor()), this, SLOT(OnEndConveyor()));
     //    connect(gui_comm, SIGNAL(EndTransactions()), this, SIGNAL(OnEndTransactions()));
@@ -272,7 +272,7 @@ void tConveyor::GetServerModels()
 }
 
 //--------------------------------------------------------------------------------
-void tConveyor::AddCommitTransaction(const bool _send)
+void tConveyor::AddCommitTransaction(const bool _send, QString& _root, bool _custom_copy)
 {
 
 
@@ -341,6 +341,8 @@ void tConveyor::AddCommitTransaction(const bool _send)
         QString gui_command="VerifyMoveDelete";
 
         out << gui_command;
+        out << _root;
+        out << _custom_copy;
         //        out << model_struct;
 
         l="tConveyor \tAddCommitTransaction\tФормирование команды коммита транзакции получения "+gui_command;
@@ -377,7 +379,7 @@ void tConveyor::AddCommitTransactionDel()
 }
 
 //--------------------------------------------------------------------------------
-void tConveyor::VerifyMoveDelete(QString &m_struct)
+void tConveyor::VerifyMoveDelete(QString &_root_folder, bool _custom_copy)
 {
     db_op->PrepareUpdateLastSynch(false, user_login);
 
@@ -392,15 +394,15 @@ void tConveyor::VerifyMoveDelete(QString &m_struct)
         db_op->UpdateLastSynchMark(file_list1[i].file_name, false, user_login);
     }
 
-    model_file=m_struct;
+//    model_file=m_struct;
     bool ret=true;
     temp=my_settings.GetTemp();
-    root=my_settings.GetRoot();
+    root=_root_folder;//my_settings.GetRoot();
     QDir dir(temp);
     stopped=false;
     error_file="";
 
-    VerifyReplacedFiles();
+    VerifyReplacedFiles(_custom_copy);
     VerifyDeletedFiles();
 
     if(!stopped)
@@ -645,7 +647,7 @@ bool tConveyor::SendFile(const QString &_file_name, QStringList& _all_files)
     return ret;
 }
 //--------------------------------------------------------------------------------
-bool tConveyor::AddReceiveCommand()
+bool tConveyor::AddReceiveCommand(const QString& _root)
 {
 
 
@@ -663,6 +665,7 @@ bool tConveyor::AddReceiveCommand()
         out << gui_command;
         out << socket_command;
         out << file_list[i].file_name;
+        out << _root;
 
         l="tConveyor \tAddReceiveCommand\tДобавление команды получения файлов "+ gui_command+" Файл "+file_list[i].file_name.toUtf8();
         log.Write(l);
@@ -1068,7 +1071,7 @@ void tConveyor::CancelOperations()
     v_conv.clear();
 }
 //----------------------------------------------------------
-void tConveyor::VerifyReplacedFiles()
+void tConveyor::VerifyReplacedFiles(bool _custom_copy)
 {
     //проверить совпадает ли файл в рабочей папке тому что указан в базе
     //для предохранения от неожиданной потери изменений
@@ -1081,6 +1084,10 @@ void tConveyor::VerifyReplacedFiles()
     {
         QString name=file_list[i].file_name;
         QFileInfo info(root+"/"+name);
+        if(!_custom_copy)
+        {
+        if(info.exists())
+        {
         QDateTime disk_dt=db_op->RoundDateTime(info.lastModified());
         QDateTime base_dt=db_op->GetLastMod(name);
         if(disk_dt!=base_dt)
@@ -1094,6 +1101,8 @@ void tConveyor::VerifyReplacedFiles()
             {
                 stopped=true;
             }
+        }
+        }
         }
     }
 }

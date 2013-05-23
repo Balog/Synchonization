@@ -118,6 +118,8 @@ public:
     void ConstructTreeModel(QStandardItemModel *_tree_model, bool _read);
     void EndUpdateServerModel();
 
+    void InternalCallBuildingTree();
+
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
     QStringListModel *sLM_loc_list_files;//модель локальных файлов
@@ -196,6 +198,7 @@ private:
     void UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state);
     void DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state, tTreeMod _direction);
     void SetToModelsTreeData(qlonglong loc_num_model, qlonglong _serv_num_model, bool _to_read, bool _choice);
+    void StartReadModeles(const QString &_root, qlonglong _server_num_model);
 
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);

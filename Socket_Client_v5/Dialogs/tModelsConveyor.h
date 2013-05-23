@@ -25,7 +25,7 @@ public:
     void StartSendDeleteFiles();
     void ReceiveFile(const QString& _file_name);
     void DeletingLocalFile(const QString& _file_name);
-    void StartReceiveDeleteFiles();
+    void StartReceiveDeleteFiles(const QString &_root, bool _custom_copy);
     void CorrectLastSynch(bool _server);
     bool GetIsTransaction()
     {
@@ -57,6 +57,7 @@ private:
     QString l;
     tLog log;
     QString user_login;
+    QString root_folder;
     
 signals:
     void NextCommand();

@@ -134,7 +134,7 @@ public:
         tvRead = new QTreeView(tab_4);
         tvRead->setObjectName(QString::fromUtf8("tvRead"));
         tvRead->setGeometry(QRect(10, 10, 541, 701));
-        tvRead->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        tvRead->setHorizontalScrollBarPolicy(Qt::ScrollBarAsNeeded);
         pbRead = new QPushButton(tab_4);
         pbRead->setObjectName(QString::fromUtf8("pbRead"));
         pbRead->setGeometry(QRect(10, 718, 101, 23));

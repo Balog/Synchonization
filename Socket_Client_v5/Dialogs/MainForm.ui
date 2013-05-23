@@ -161,7 +161,7 @@
       </rect>
      </property>
      <property name="horizontalScrollBarPolicy">
-      <enum>Qt::ScrollBarAlwaysOn</enum>
+      <enum>Qt::ScrollBarAsNeeded</enum>
      </property>
     </widget>
     <widget class="QPushButton" name="pbRead">

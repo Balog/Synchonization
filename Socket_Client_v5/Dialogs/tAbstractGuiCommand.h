@@ -31,7 +31,7 @@ signals:
     void OkAutoriz(bool res);
     void NextCommand();
     void FinalBlockTransactions();
-    void VerifyMoveDelete(QString&);
+    void VerifyMoveDelete(QString&, bool);
     void EndConveyor();
 };
 

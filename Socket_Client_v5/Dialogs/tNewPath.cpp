@@ -40,9 +40,6 @@ void tNewPath::on_pbCancel_clicked()
 //-------------------------------------------------------
 void tNewPath::on_pbOk_clicked()
 {
-
-
-
     //нужно проверить наличие путей, из корректность и уникальность
     //а потом записать в базу данных и передать в главную форму
     QString pr_folder=ui->leProjectFolder->text();

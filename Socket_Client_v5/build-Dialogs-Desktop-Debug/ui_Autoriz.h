@@ -43,6 +43,8 @@ public:
         lePassword = new QLineEdit(Autoriz);
         lePassword->setObjectName(QString::fromUtf8("lePassword"));
         lePassword->setGeometry(QRect(60, 40, 221, 20));
+        lePassword->setInputMethodHints(Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText);
+        lePassword->setEchoMode(QLineEdit::Password);
         label = new QLabel(Autoriz);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(10, 10, 31, 16));
@@ -65,7 +67,6 @@ public:
     void retranslateUi(QDialog *Autoriz)
     {
         Autoriz->setWindowTitle(QApplication::translate("Autoriz", "\320\220\320\262\321\202\320\276\321\200\320\270\320\267\320\260\321\206\320\270\321\217 \320\277\320\276\320\273\321\214\320\267\320\276\320\262\320\260\321\202\320\265\320\273\321\217", 0, QApplication::UnicodeUTF8));
-        lePassword->setInputMask(QString());
         lePassword->setText(QString());
         label->setText(QApplication::translate("Autoriz", "\320\233\320\276\320\263\320\270\320\275", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("Autoriz", "\320\237\320\260\321\200\320\276\320\273\321\214", 0, QApplication::UnicodeUTF8));

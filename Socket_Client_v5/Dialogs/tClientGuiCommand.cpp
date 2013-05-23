@@ -556,15 +556,18 @@ void tGuiPrepareReceiveFile::ExeCommand(QDataStream &_in)
 {
     QString comm="";
     QString file_name="";
+    QString root="";
 
     _in >> comm;
     _in >> file_name;
+    _in >> root;
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
     out << comm;
     out << file_name;
+    out << root;
 
     l="tClientGuiCommand \tGuiPrepareReceiveFile\tПодготовка к приему файла ";
     l=l+file_name.toUtf8();
@@ -590,9 +593,11 @@ void tVerifyMoveDelete::ExeCommand(QDataStream &_out)
     l="tClientGuiCommand \tVerifyMoveDelete\t Команда проверки, замены и удаления локальных файлов";
     log.Write(l);
 
-    QString m_struct="";
-    _out >> m_struct;
-    emit VerifyMoveDelete(m_struct);
+    QString root="";
+    bool custom_copy=false;
+    _out >> root;
+    _out >> custom_copy;
+    emit VerifyMoveDelete(root, custom_copy);
 }
 //************************************************************************************************
 void tGetListModels::ExeCommand(QDataStream &_in)
@@ -831,6 +836,8 @@ void tGUIReportReceiveReadPermissions::ExeCommand(QDataStream &_in)
 
 
     ((MainForm*)link)->UpdateModelRead(block);
+
+    ((MainForm*)link)->InternalCallBuildingTree();
 
 }
 //************************************************************************************************

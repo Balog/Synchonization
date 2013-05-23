@@ -43,12 +43,12 @@ public:
     bool ReceiveFile(const QString &_file_name, QStringList &_all_files);
     bool DeletingFile(const QString &_file_name, QStringList &_all_files, const bool _send);
 
-    void AddCommitTransaction(const bool _send);
+    void AddCommitTransaction(const bool _send, QString &_root, bool _custom_copy);
     void AddCommitTransactionDel();
 
     bool AddSendCommand();
     void AddDelCommand();
-    bool AddReceiveCommand();
+    bool AddReceiveCommand(const QString &_root);
 
     void AddStartTransaction(const bool _send);
     void StartExecution();
@@ -105,7 +105,7 @@ private:
 
     void AddModelFiles(qlonglong Num, QString Path, QString InfoFile, QDateTime &_list_date_time, QString &list_files_hash, QString &summ_list_hash);
     QString NormalizePathFiles(QString Path);
-    void VerifyReplacedFiles();
+    void VerifyReplacedFiles(bool _custom_copy);
     void VerifyDeletedFiles();
 
     QString l;
@@ -132,7 +132,7 @@ public slots:
     void OnStartStop(const bool _res);
     void OnStart(const bool _res);
     void OnDisconnecting();
-    void VerifyMoveDelete(QString &m_struct);
+    void VerifyMoveDelete(QString &_root_folder, bool _custom_copy);
     void OnEndTransactions();
     void OnEndConveyor();
 };
