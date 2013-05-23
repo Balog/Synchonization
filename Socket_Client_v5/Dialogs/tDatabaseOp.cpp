@@ -1609,25 +1609,25 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server, const QString& _user_login)
 //----------------------------------------------------------
 bool tDatabaseOp::GetNextReceiveDelModel(QString& _name_model)
 {
-    QSqlQuery select_rec_models(db);
-    select_rec_models.prepare("SELECT ServerStructModels.Struct, ServerStructModels.Num FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num GROUP BY ServerStructModels.Struct, ServerFiles.Receive HAVING ServerFiles.Receive=1");
-    if(!select_rec_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на прием моделей ");
-        log.Write(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки отмеченных на прием моделей "));}
-
-    if(select_rec_models.next())
+    QSqlQuery select_del_models(db);
+    select_del_models.prepare("SELECT StructModels.Struct, StructModels.Num FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num GROUP BY StructModels.Struct, Files.Delete_local HAVING Files.Delete_local=1");
+    if(!select_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на удаление локальных моделей ");
+        log.Write(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки отмеченных на удаление локальных моделей "));}
+    if(select_del_models.next())
     {
-        _name_model=select_rec_models.value(0).toString();
+        _name_model=select_del_models.value(0).toString();
         return true;
     }
     else
     {
-        QSqlQuery select_del_models(db);
-        select_del_models.prepare("SELECT StructModels.Struct, StructModels.Num FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num GROUP BY StructModels.Struct, Files.Delete_local HAVING Files.Delete_local=1");
-        if(!select_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на удаление локальных моделей ");
-            log.Write(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки отмеченных на удаление локальных моделей "));}
-        if(select_del_models.next())
+        QSqlQuery select_rec_models(db);
+        select_rec_models.prepare("SELECT ServerStructModels.Struct, ServerStructModels.Num FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num GROUP BY ServerStructModels.Struct, ServerFiles.Receive HAVING ServerFiles.Receive=1");
+        if(!select_rec_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на прием моделей ");
+            log.Write(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки отмеченных на прием моделей "));}
+
+        if(select_rec_models.next())
         {
-            _name_model=select_del_models.value(0).toString();
+            _name_model=select_rec_models.value(0).toString();
             return true;
         }
         else
@@ -1635,6 +1635,9 @@ bool tDatabaseOp::GetNextReceiveDelModel(QString& _name_model)
             return false;
         }
     }
+
+
+
 }
 //----------------------------------------------------------
 void tDatabaseOp::GetReceiveModelFiles(const QString& _name_model, QStringList& _list_files)

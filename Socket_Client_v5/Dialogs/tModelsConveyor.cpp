@@ -268,7 +268,18 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom
         QStringList DeleteLocalModelFiles;
         db_op->GetDeleteLocalModelFiles(name_model, DeleteLocalModelFiles);
 
-
+        if(DeleteLocalModelFiles.size()!=0)
+        {
+            for(int i=0; i<DeleteLocalModelFiles.size(); i++)
+            {
+                QString S=DeleteLocalModelFiles[i];
+                stop=conv->DeletingFile(S, all_files, send);
+                if(stop)
+                {
+                    break;
+                }
+            }
+        }
 
         if(ReceiveModelFiles.size()!=0)
         {
@@ -286,18 +297,7 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom
         }
 
 
-        if(DeleteLocalModelFiles.size()!=0)
-        {
-            for(int i=0; i<DeleteLocalModelFiles.size(); i++)
-            {
-                QString S=DeleteLocalModelFiles[i];
-                stop=conv->DeletingFile(S, all_files, send);
-                if(stop)
-                {
-                    break;
-                }
-            }
-        }
+
 
         conv->AddStartTransaction(send);
         stop=conv->AddReceiveCommand(_root);
