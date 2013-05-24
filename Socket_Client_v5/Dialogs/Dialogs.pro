@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     tLog.cpp \
     tEditLoginPass.cpp \
     tConstructModelTree.cpp \
-    tNewPath.cpp
+    tNewPath.cpp \
+    tProgress.cpp
 
 HEADERS  += Zast.h \
     Autoriz.h \
@@ -52,13 +53,15 @@ HEADERS  += Zast.h \
     tLog.h \
     tEditLoginPass.h \
     tConstructModelTree.h \
-    tNewPath.h
+    tNewPath.h \
+    tProgress.h
 
 FORMS    += Zast.ui \
     Autoriz.ui \
     MainForm.ui \
     tEditLoginPass.ui \
-    tNewPath.ui
+    tNewPath.ui \
+    tProgress.ui
 
 RESOURCES += \
     Resources.qrc

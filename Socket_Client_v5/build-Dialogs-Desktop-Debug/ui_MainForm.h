@@ -19,7 +19,6 @@
 #include <QtGui/QLineEdit>
 #include <QtGui/QListView>
 #include <QtGui/QPlainTextEdit>
-#include <QtGui/QProgressBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QSpinBox>
 #include <QtGui/QTabWidget>
@@ -91,7 +90,6 @@ public:
     QPushButton *pbClearReceiveAll;
     QLabel *label_6;
     QPushButton *pbExit;
-    QProgressBar *progressBar;
 
     void setupUi(QDialog *MainForm)
     {
@@ -291,10 +289,6 @@ public:
         pbExit = new QPushButton(MainForm);
         pbExit->setObjectName(QString::fromUtf8("pbExit"));
         pbExit->setGeometry(QRect(990, 818, 75, 23));
-        progressBar = new QProgressBar(MainForm);
-        progressBar->setObjectName(QString::fromUtf8("progressBar"));
-        progressBar->setGeometry(QRect(10, 820, 531, 23));
-        progressBar->setValue(24);
 
         retranslateUi(MainForm);
         QObject::connect(pbConnect, SIGNAL(clicked()), MainForm, SLOT(OnConnect()));
@@ -318,7 +312,7 @@ public:
         QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
         QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainForm);
@@ -370,7 +364,6 @@ public:
         label_6->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\321\207\320\270\321\202\320\260\321\202\321\214 \321\201 \321\201\320\265\321\200\320\262\320\265\321\200\320\260", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainForm", "\320\241\321\202\320\260\321\200\320\276\320\265", 0, QApplication::UnicodeUTF8));
         pbExit->setText(QApplication::translate("MainForm", "\320\222\321\213\321\205\320\276\320\264", 0, QApplication::UnicodeUTF8));
-        progressBar->setFormat(QApplication::translate("MainForm", "%v", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

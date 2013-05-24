@@ -14,6 +14,7 @@
 #include <QStandardItemModel>
 #include "tNewPath.h"
 //#include "qivbcheckindicatordelegate.h"
+#include "tProgress.h"
 #include <vector>
 
 
@@ -205,6 +206,8 @@ private:
 
     int max_models;
 
+    tProgress *fProgress;
+
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
 
@@ -304,6 +307,9 @@ signals:
     void Disconnecting();
 
     void StartAutorizForm();
+
+    void ProgressStart(int _max);
+    void ProgressStop();
 
 };
 

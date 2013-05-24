@@ -5,7 +5,7 @@
 extern tSettings my_settings;
 //---------------------------------------------------------------------
 Dialog::Dialog(QWidget *_parent) :
-    QDialog(_parent), ui(new Ui::Dialog), server(NULL), base_op(NULL)
+    QDialog(_parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint), ui(new Ui::Dialog), server(NULL), base_op(NULL)
 {
     tLog log1("GUI");
     log=log1;

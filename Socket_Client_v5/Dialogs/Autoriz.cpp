@@ -3,7 +3,7 @@
 #include "tLog.h"
 
 Autoriz::Autoriz(QWidget *_parent) :
-    QDialog(_parent),
+    QDialog(_parent, Qt::WindowSystemMenuHint | Qt::WindowTitleHint),
     ui(new Ui::Autoriz)
 {
     ui->setupUi(this);

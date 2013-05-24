@@ -33,6 +33,8 @@ signals:
     void FinalBlockTransactions();
     void VerifyMoveDelete(QString&, bool);
     void EndConveyor();
+
+
 };
 
 #endif // TABSTRACTGUICOMMAND_H

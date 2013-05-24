@@ -6,6 +6,7 @@
 #include <QMenu>
 
 
+
 extern tSettings my_settings;
 
 
@@ -24,12 +25,15 @@ return result;
 
 
 MainForm::MainForm(QWidget *parent) :
-    ui(new Ui::MainForm), QDialog(parent),mod_conv(NULL), db_op(NULL),
+    ui(new Ui::MainForm), QDialog(parent,Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint),mod_conv(NULL), db_op(NULL),
     sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL),
     login_pass(new tEditLoginPass), adm_tree_model(NULL), form_new_path(new tNewPath),
-    read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel())
+    read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel()),
+    fProgress(new tProgress)
 {
 //    constr_mod_tree=NULL;
+    fProgress->setVisible(false);
+
     IsRequeryServerModel=false;
     user_login="";
 
@@ -81,7 +85,9 @@ ui->tabWidget->setCurrentIndex(0);
     connect(login_pass, SIGNAL(EndEditing(QString&,QString&,int,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,int,bool)));
     connect(form_new_path, SIGNAL(ContinueStrat()), this, SLOT(OnContinueStart()));
 
-    connect(mod_conv, SIGNAL(SignalCountFiles(int)), ui->progressBar, SLOT(setValue(int)));
+    connect(mod_conv, SIGNAL(SignalCountFiles(int)), fProgress, SLOT(setValue(int)));
+    connect(this, SIGNAL(ProgressStart(int)), fProgress, SLOT(Start(int)));
+    connect(this, SIGNAL(ProgressStop()), fProgress, SLOT(Stop()));
 //    UpdateLogins();
 
     ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -114,6 +120,7 @@ MainForm::~MainForm()
     delete adm_tree_model;
     delete read_tree_model;
     delete write_tree_model;
+    delete fProgress;
 
     delete mod_conv;
     mod_conv=NULL;
@@ -192,13 +199,14 @@ void MainForm::EndTransactions()
     ConstructTree(Read, list_compare);
     ConstructTree(Write, list_compare);
 
+    emit ProgressStop();
     tLog log;
     log.Write(tr("Работа завершена"));
 
-    QMessageBox MB;
-    MB.setText(QString::fromUtf8("Работа завершена"));
-    MB.setWindowTitle(QString::fromUtf8("Обновление"));
-    MB.exec();
+//    QMessageBox MB;
+//    MB.setText(QString::fromUtf8("Работа завершена"));
+//    MB.setWindowTitle(QString::fromUtf8("Обновление"));
+//    MB.exec();
 }
 //---------------------------------------------------------------------
 void MainForm::OnAutorizStart()
@@ -2052,12 +2060,13 @@ for(int i=0; i<tree_data.size();i++)
 }
 if(is_work)
 {
-    ui->progressBar->setMinimum(0);
-    ui->progressBar->setValue(0);
+//    ui->progressBar->setMinimum(0);
+//    ui->progressBar->setValue(0);
     max_models=db_op->GetCountSendDelModels();
-    ui->progressBar->setMaximum(max_models);
-    ui->progressBar->setFormat(QString("%v"));
-    ui->progressBar->setTextVisible(true);
+    emit ProgressStart(max_models);
+//    ui->progressBar->setMaximum(max_models);
+//    ui->progressBar->setFormat(QString("%v"));
+//    ui->progressBar->setTextVisible(true);
 
 mod_conv->StartSendDeleteFiles(max_models);
 }
@@ -2250,12 +2259,13 @@ void MainForm::StartReadModeles(const QString &_root, qlonglong _server_num_mode
     }
     if(is_work)
     {
-        ui->progressBar->setMinimum(0);
-        ui->progressBar->setValue(0);
+//        ui->progressBar->setMinimum(0);
+//        ui->progressBar->setValue(0);
         max_models=db_op->GetCountRecDelModels();
-        ui->progressBar->setMaximum(max_models);
-        ui->progressBar->setFormat(QString("%v"));
-        ui->progressBar->setTextVisible(true);
+        emit ProgressStart(max_models);
+//        ui->progressBar->setMaximum(max_models);
+//        ui->progressBar->setFormat(QString("%v"));
+//        ui->progressBar->setTextVisible(true);
 
         mod_conv->StartReceiveDeleteFiles(_root, custom_copy, max_models);
     }
