@@ -145,7 +145,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
@@ -190,16 +190,6 @@
       <string>Обновить</string>
      </property>
     </widget>
-    <widget class="QListView" name="lvReadDescription">
-     <property name="geometry">
-      <rect>
-       <x>560</x>
-       <y>10</y>
-       <width>491</width>
-       <height>701</height>
-      </rect>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pbBuildRead">
      <property name="geometry">
       <rect>
@@ -213,12 +203,7 @@
       <string>Построить дерево</string>
      </property>
     </widget>
-   </widget>
-   <widget class="QWidget" name="tab_2">
-    <attribute name="title">
-     <string>Запись</string>
-    </attribute>
-    <widget class="QListView" name="lvWriteDescription">
+    <widget class="QPlainTextEdit" name="pteDesRead">
      <property name="geometry">
       <rect>
        <x>560</x>
@@ -228,6 +213,11 @@
       </rect>
      </property>
     </widget>
+   </widget>
+   <widget class="QWidget" name="tab_2">
+    <attribute name="title">
+     <string>Запись</string>
+    </attribute>
     <widget class="QPushButton" name="pbWrite">
      <property name="geometry">
       <rect>
@@ -275,6 +265,16 @@
      </property>
      <property name="text">
       <string>Обновить</string>
+     </property>
+    </widget>
+    <widget class="QPlainTextEdit" name="pteDesWrite">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>10</y>
+       <width>491</width>
+       <height>701</height>
+      </rect>
      </property>
     </widget>
    </widget>
@@ -790,8 +790,8 @@
    <slot>OnAddSend()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1050</x>
-     <y>613</y>
+     <x>1052</x>
+     <y>635</y>
     </hint>
     <hint type="destinationlabel">
      <x>367</x>
@@ -838,8 +838,8 @@
    <slot>OnAddDelete()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>487</x>
-     <y>644</y>
+     <x>489</x>
+     <y>666</y>
     </hint>
     <hint type="destinationlabel">
      <x>276</x>
@@ -854,8 +854,8 @@
    <slot>OnClearDelete()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>477</x>
-     <y>291</y>
+     <x>479</x>
+     <y>313</y>
     </hint>
     <hint type="destinationlabel">
      <x>291</x>
@@ -870,8 +870,8 @@
    <slot>OnAddReceive()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>479</x>
-     <y>614</y>
+     <x>481</x>
+     <y>636</y>
     </hint>
     <hint type="destinationlabel">
      <x>946</x>
@@ -902,8 +902,8 @@
    <slot>OnDeleteLocal()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1005</x>
-     <y>643</y>
+     <x>1007</x>
+     <y>665</y>
     </hint>
     <hint type="destinationlabel">
      <x>982</x>

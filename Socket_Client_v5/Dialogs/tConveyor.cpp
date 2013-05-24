@@ -308,18 +308,6 @@ void tConveyor::AddCommitTransaction(const bool _send, QString& _root, bool _cus
 
         out << num_files;
 
-        //удаляемые с сервера файлы
-        for(int i=0; i<file_list1.size(); i++)
-        {
-            tFileList fl;
-            fl=file_list1[i];
-
-            out << fl.file_name;
-            out << tr("");//типа локальный хеш уже отсутствующего файла
-            out << fl.server_hash;
-        }
-        AddCommand(block);
-
         for(int i=0; i<file_list.size(); i++)
         {
             tFileList fl;
@@ -332,7 +320,17 @@ void tConveyor::AddCommitTransaction(const bool _send, QString& _root, bool _cus
 
         }
 
+        //удаляемые с сервера файлы
+        for(int i=0; i<file_list1.size(); i++)
+        {
+            tFileList fl;
+            fl=file_list1[i];
 
+            out << fl.file_name;
+            out << tr("");//типа локальный хеш уже отсутствующего файла
+            out << fl.server_hash;
+        }
+        AddCommand(block);
     }
     if(!_send)
     {
@@ -383,6 +381,8 @@ void tConveyor::AddCommitTransactionDel()
 //--------------------------------------------------------------------------------
 void tConveyor::VerifyMoveDelete(QString &_root_folder, bool _custom_copy)
 {
+    if(!_custom_copy)
+    {
     db_op->PrepareUpdateLastSynch(false, user_login);
 
     //    MarkLastTables(false);
@@ -395,8 +395,8 @@ void tConveyor::VerifyMoveDelete(QString &_root_folder, bool _custom_copy)
     {
         db_op->UpdateLastSynchMark(file_list1[i].file_name, false, user_login);
     }
-
-    //    model_file=m_struct;
+    }
+//    model_file=m_struct;
     bool ret=true;
     temp=my_settings.GetTemp();
     root=_root_folder;//my_settings.GetRoot();
@@ -411,42 +411,39 @@ void tConveyor::VerifyMoveDelete(QString &_root_folder, bool _custom_copy)
     {
         if(FolderOperation(dir, 0))
         {
-
-            bool ok=true;
-            for(int j=0; j<file_list1.size();j++)
-            {
-                //Выбирать только файлы с одной хеш-суммой
-                if(file_list1[j].server_hash=="")
-                {
-                    QString file=file_list1[j].file_name;
-                    ok=Delete(root+file_list1[j].file_name, error_file);
-                    if(ok)
-                    {
-                        ret=DeleteEmptyFolders(root);
-                    }
-                    else
-                    {
-                        ret=false;;
-                    }
-                }
-            }
-            if(ok)
-            {
-                ret=true;
-            }
-            else
-            {
-                l="tConveyor \tVerifyMoveDelete\tСбой удаления локальных файлов ";
-                log.Write(l);
-                ret=false;
-            }
-
             if(FolderOperation(dir, 1))
             {
 
                 if(file_list1.size()!=0)
                 {
-
+                    bool ok=true;
+                    for(int j=0; j<file_list1.size();j++)
+                    {
+                        //Выбирать только файлы с одной хеш-суммой
+                        if(file_list1[j].server_hash=="")
+                        {
+                            QString file=file_list1[j].file_name;
+                            ok=Delete(root+file_list1[j].file_name, error_file);
+                            if(ok)
+                            {
+                                ret=DeleteEmptyFolders(root);
+                            }
+                            else
+                            {
+                                ret=false;;
+                            }
+                        }
+                    }
+                    if(ok)
+                    {
+                        ret=true;
+                    }
+                    else
+                    {
+                        l="tConveyor \tVerifyMoveDelete\tСбой удаления локальных файлов ";
+                        log.Write(l);
+                        ret=false;
+                    }
                 }
                 else
                 {

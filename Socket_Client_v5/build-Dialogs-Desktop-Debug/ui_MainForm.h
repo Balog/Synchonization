@@ -18,6 +18,7 @@
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
 #include <QtGui/QListView>
+#include <QtGui/QPlainTextEdit>
 #include <QtGui/QPushButton>
 #include <QtGui/QSpinBox>
 #include <QtGui/QTabWidget>
@@ -42,14 +43,14 @@ public:
     QTreeView *tvRead;
     QPushButton *pbRead;
     QPushButton *pbRefreshRead;
-    QListView *lvReadDescription;
     QPushButton *pbBuildRead;
+    QPlainTextEdit *pteDesRead;
     QWidget *tab_2;
-    QListView *lvWriteDescription;
     QPushButton *pbWrite;
     QPushButton *pbBuildWrite;
     QTreeView *tvWrite;
     QPushButton *pbRefresh_Write;
+    QPlainTextEdit *pteDesWrite;
     QWidget *tab_3;
     QListView *lvLogins;
     QLineEdit *le_ver_pass;
@@ -141,18 +142,15 @@ public:
         pbRefreshRead = new QPushButton(tab_4);
         pbRefreshRead->setObjectName(QString::fromUtf8("pbRefreshRead"));
         pbRefreshRead->setGeometry(QRect(120, 718, 75, 23));
-        lvReadDescription = new QListView(tab_4);
-        lvReadDescription->setObjectName(QString::fromUtf8("lvReadDescription"));
-        lvReadDescription->setGeometry(QRect(560, 10, 491, 701));
         pbBuildRead = new QPushButton(tab_4);
         pbBuildRead->setObjectName(QString::fromUtf8("pbBuildRead"));
         pbBuildRead->setGeometry(QRect(220, 718, 111, 23));
+        pteDesRead = new QPlainTextEdit(tab_4);
+        pteDesRead->setObjectName(QString::fromUtf8("pteDesRead"));
+        pteDesRead->setGeometry(QRect(560, 10, 491, 701));
         tabWidget->addTab(tab_4, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
-        lvWriteDescription = new QListView(tab_2);
-        lvWriteDescription->setObjectName(QString::fromUtf8("lvWriteDescription"));
-        lvWriteDescription->setGeometry(QRect(560, 10, 491, 701));
         pbWrite = new QPushButton(tab_2);
         pbWrite->setObjectName(QString::fromUtf8("pbWrite"));
         pbWrite->setGeometry(QRect(10, 718, 101, 23));
@@ -165,6 +163,9 @@ public:
         pbRefresh_Write = new QPushButton(tab_2);
         pbRefresh_Write->setObjectName(QString::fromUtf8("pbRefresh_Write"));
         pbRefresh_Write->setGeometry(QRect(120, 718, 75, 23));
+        pteDesWrite = new QPlainTextEdit(tab_2);
+        pteDesWrite->setObjectName(QString::fromUtf8("pteDesWrite"));
+        pteDesWrite->setGeometry(QRect(560, 10, 491, 701));
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
@@ -311,7 +312,7 @@ public:
         QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
         QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainForm);

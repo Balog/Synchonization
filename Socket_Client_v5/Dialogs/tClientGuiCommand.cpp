@@ -134,6 +134,8 @@ void tGuiError::ExeCommand(QDataStream& _in)
         l="tClientGuiCommand \tGuiError\tКоманда серверу на отмену транзакции ";
         log.Write(l);
 
+        ((MainForm*)link)->ViewError(num_error, error, detail, client_detail);
+
         emit SendCommand(block);
     }
     else
@@ -174,6 +176,7 @@ void tGuiError::ExeCommand(QDataStream& _in)
             ((MainForm*)link)->UpdateLogins();
             break;
         }
+
         }
 
     }

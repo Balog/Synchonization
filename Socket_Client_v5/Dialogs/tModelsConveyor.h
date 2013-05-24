@@ -58,6 +58,7 @@ private:
     tLog log;
     QString user_login;
     QString root_folder;
+    bool mod_custom_copy;
     
 signals:
     void NextCommand();

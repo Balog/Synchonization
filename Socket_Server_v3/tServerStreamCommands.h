@@ -148,7 +148,7 @@ inline tAbstractStreamCommand* Create_tAutorization()
     return new tAutorization;
 }
 //*****************************************************************
-class tStartTransaction : public tAbstractStreamCommand
+class tStartTransaction : public tDatabaseStreamCommand
 
 {
     Q_OBJECT
@@ -178,6 +178,7 @@ private:
     QString temp_path;
     bool send_mode;
     QDir dir;
+    QString error_message;
 
 };
 inline tAbstractStreamCommand* Create_tStartTransaction()
@@ -212,14 +213,10 @@ private:
 
     void VerifyReplacedFiles();
     void VerifyDeletedFiles();
+    QString transfer_file_struct;
 
 private:
-    struct tFileList
-    {
-        QString file_name;
-        QString client_hash;
-        QString server_hash;
-    };
+
 //    QString model_file;
     QList<tFileList> file_list;
     int send_mode;

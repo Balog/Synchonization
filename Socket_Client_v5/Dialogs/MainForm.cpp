@@ -84,7 +84,9 @@ ui->tabWidget->setCurrentIndex(0);
 //    UpdateLogins();
 
     ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
-    connect(ui->tvRead, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(showContextMenuRead(QPoint)));
+    ui->tvWrite->setContextMenuPolicy(Qt::CustomContextMenu);
+//    connect(ui->tvRead, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(showContextMenuRead(QPoint)));
+//    connect(ui->tvWrite, SIGNAL(customContextMenuRequested(QPoint)),this, SLOT(showContextMenuWrite(QPoint)));
 
 
     tLog log;
@@ -189,11 +191,11 @@ void MainForm::EndTransactions()
     ConstructTree(Write, list_compare);
 
     tLog log;
-    log.Write(tr("Пакет транзакций выполнен"));
+    log.Write(tr("Работа завершена"));
 
     QMessageBox MB;
-    MB.setText(QString::fromUtf8("Пакет транзакций выполнен"));
-    MB.setWindowTitle(QString::fromUtf8("Пакет транзакций"));
+    MB.setText(QString::fromUtf8("Работа завершена"));
+    MB.setWindowTitle(QString::fromUtf8("Обновление"));
     MB.exec();
 }
 //---------------------------------------------------------------------
@@ -1062,7 +1064,6 @@ void MainForm::OnContinueStart()
     else
     {
         ui->tabWidget->setTabEnabled(2, true);
-//        ui->tabWidget->addTab(new QWidget(), QString("Администрирование"));
     }
 
     if(!is_writable_user)
@@ -1829,23 +1830,20 @@ void MainForm::UpToParentFiles(QStandardItemModel *model, const QModelIndex &ind
 {
     const QModelIndex parent_index=model->parent(index);
     QStandardItem *parent_item=model->itemFromIndex(parent_index);
-
-
-    QStandardItem *item=model->itemFromIndex(index);
     Qt::CheckState state=_state;
 
-
+    QStandardItem *item=model->itemFromIndex(index);
+    qlonglong d=item->data(Qt::UserRole+1).toLongLong();
+    if(d==-2 || d==-3)
+    {
+        return;
+    }
     if(!parent_item)
     {
         return;
     }
     else
     {
-        int d=item->data(Qt::UserRole+1).toInt();
-        if(d==-3)
-        {
-            return;
-        }
         if(parent_item->data(Qt::UserRole+1).toLongLong()==-1)
         {
         QString parent_txt=parent_item->text();
@@ -2096,7 +2094,17 @@ else
 }
 }
 //----------------------------------------------------------
-void MainForm::showContextMenuRead(QPoint pos)
+//void MainForm::showContextMenuRead(QPoint pos)
+//{
+
+//}
+////----------------------------------------------------------
+//void MainForm::showContextMenuWrite(QPoint pos)
+//{
+
+//}
+////----------------------------------------------------------
+void MainForm::ShowContextMenu(QPoint pos, bool _read)
 {
     QPoint global_pos;
     if(sender()->inherits("QAbstractScrollArea"))
@@ -2105,16 +2113,41 @@ void MainForm::showContextMenuRead(QPoint pos)
     }
     else
     {
-        global_pos=ui->tvRead->mapToGlobal(pos);
+        if(_read)
+        {
+            global_pos=ui->tvRead->mapToGlobal(pos);
+        }
+        else
+        {
+            global_pos=ui->tvWrite->mapToGlobal(pos);
+        }
     }
 
-    QModelIndex click_index=ui->tvRead->indexAt(pos);
+    QModelIndex click_index;
+    if(_read)
+    {
+        click_index=ui->tvRead->indexAt(pos);
+    }
+    else
+    {
+        click_index=ui->tvWrite->indexAt(pos);
+    }
+
     bool valid=click_index.isValid();
 
     if(valid)
     {
 
-        QStandardItem *item=read_tree_model->itemFromIndex(click_index);
+        QStandardItem *item;
+        if(_read)
+        {
+            item=read_tree_model->itemFromIndex(click_index);
+        }
+        else
+        {
+            item=write_tree_model->itemFromIndex(click_index);
+        }
+
         QString txt=item->text();
         qlonglong d=item->data(Qt::UserRole+1).toLongLong();
         QMenu menu;
@@ -2124,14 +2157,19 @@ void MainForm::showContextMenuRead(QPoint pos)
         {
 
 
-
+            if(local_num!=0)
+            {
             QAction *action1=new QAction(QString::fromUtf8("Принять актуальной локальную версию"), this);
             action1->setData(1);
             menu.addAction(action1);
+            }
 
+            if(server_num)
+            {
             QAction *action2=new QAction(QString::fromUtf8("Принять актуальной серверную версию"), this);
             action2->setData(2);
             menu.addAction(action2);
+            }
         }
         if(d>0 && d!=4 || d==-2)
         {
@@ -2150,7 +2188,7 @@ void MainForm::showContextMenuRead(QPoint pos)
                 {
                 case 1:
                 {
-                    db_op->ActualiseModel(user_login, server_num, true);
+                    db_op->ActualiseModel(user_login, local_num, false);
 //                    ConstructTree(Read, list_compare);
 //                    ConstructTree(Write, list_compare);
                     BuildingTree(user_login);
@@ -2160,7 +2198,7 @@ void MainForm::showContextMenuRead(QPoint pos)
                 }
                 case 2:
                 {
-                    db_op->ActualiseModel(user_login, local_num, false);
+                    db_op->ActualiseModel(user_login, server_num, true);
                     BuildingTree(user_login);
                     ConstructTree(Read, list_compare);
                     ConstructTree(Write, list_compare);
@@ -2182,6 +2220,7 @@ void MainForm::showContextMenuRead(QPoint pos)
 
     }
 }
+
 //----------------------------------------------------------
 void MainForm::InternalCallBuildingTree()
 {
@@ -2244,4 +2283,25 @@ void MainForm::StartReadModeles(const QString &_root, qlonglong _server_num_mode
         MB.setWindowTitle(QString::fromUtf8("Ошибка"));
         MB.exec();
     }
+}
+
+
+//----------------------------------------------------------
+void MainForm::on_tvRead_customContextMenuRequested(const QPoint &pos)
+{
+    ShowContextMenu(pos, true);
+}
+//----------------------------------------------------------
+void MainForm::on_tvWrite_customContextMenuRequested(const QPoint &pos)
+{
+    ShowContextMenu(pos, false);
+}
+//----------------------------------------------------------
+void MainForm::ViewError(int num_error, QString& error, QString &detail, QString& client_detail)
+{
+    //Вообще будет выводиться куда-то на панель а пока так
+    QMessageBox MB;
+    MB.setText(error+"\n"+detail+"\n"+client_detail);
+    MB.setWindowTitle(QString::fromUtf8("Ошибка ")+QString::number(num_error));
+    MB.exec();
 }

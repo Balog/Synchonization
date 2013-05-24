@@ -5,6 +5,12 @@
 #include <QtSql>
 #include "tLog.h"
 
+struct tFileList
+{
+    QString file_name;
+    QString client_hash;
+    QString server_hash;
+};
 
 class tDatabaseOp
 {
@@ -27,6 +33,9 @@ public:
     void SavePermissions(QByteArray _block);
     qlonglong GetNumLogin(QString &_login);
     void SaveLoginWritable(int row, bool writ);
+    bool VerifyFile(QString& name_file, QString& server_hash);
+    void CorrectReadPermission(QString& _trans_model, QString& _login);
+    void CorrectWrittenWho(QList<tFileList> list, QString& login);
 
 private:
     QSqlDatabase db;
@@ -41,6 +50,7 @@ private:
 
     tLog log;
     bool IsNoDelete(QString& _login);
+
 };
 
 #endif // TDATABASEOP_H

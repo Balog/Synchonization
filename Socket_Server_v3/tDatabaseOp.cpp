@@ -884,6 +884,7 @@ void tDatabaseOp::GetListModels(QDataStream &_out, QString& _login)
     //- LastMod
     //- Hash
     //- Серверный номер файла
+    //- Номер логина последнего изменявшего файл
     //}
 
     //}
@@ -976,7 +977,7 @@ void tDatabaseOp::GetListModels(QDataStream &_out, QString& _login)
 
         //Получение списка файлов модели
         QSqlQuery files(db);
-        files.prepare("SELECT File, Size, LastMod, Hash, Num FROM Files WHERE Model="+QString::number(Num_S));
+        files.prepare("SELECT File, Size, LastMod, Hash, Num, WrittenWho FROM Files WHERE Model="+QString::number(Num_S));
         if(!files.exec()){qDebug() << QString::fromUtf8("+++ ОШИБКА +++ получения списка файлов модели ") << Num_S;
         log.Write(QString(QString::fromUtf8("tDatabaseOp \t GetListModels \t +++ ОШИБКА +++ получения списка файлов модели ")+QString::number(Num_S)));}
 
@@ -988,12 +989,14 @@ void tDatabaseOp::GetListModels(QDataStream &_out, QString& _login)
             QDateTime LastMod_F=files.value(2).toDateTime();
             QString Hash_F=files.value(3).toString();
             qlonglong Num_F=files.value(4).toLongLong();
+            qlonglong wr_who=files.value(5).toLongLong();
 
             _out << File;
             _out << Size;
             _out << LastMod_F;
             _out << Hash_F;
             _out << Num_F;
+            _out << wr_who;
         }
 
     }
@@ -1356,4 +1359,69 @@ void tDatabaseOp::SaveLoginWritable(int row, bool writ)
     if(!upd_writ.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ изменения writable у логина номер ") << num_login;
     log.Write(QString(QString("tDatabaseOp \t SaveLoginWritable \t ++ ОШИБКА ++ изменения writable у логина номер ")+QString::number(num_login)));}
 
+}
+//----------------------------------------------------------
+bool tDatabaseOp::VerifyFile(QString& name_file, QString& server_hash)
+{
+    QSqlQuery sel_hash_file(db);
+    sel_hash_file.prepare("SELECT Hash FROM Files WHERE File='"+name_file+"'");
+    if(!sel_hash_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска хэша в базе для файла ") << name_file;
+    log.Write(QString(QString("tDatabaseOp \t VerifyFile \t ++ ОШИБКА ++ поиска хэша в базе для файла ")+name_file));}
+    sel_hash_file.next();
+
+    QString base_hash=sel_hash_file.value(0).toString();
+    if(base_hash=="")
+    {
+        return true;
+    }
+    return base_hash==server_hash;
+}
+//----------------------------------------------------------
+void tDatabaseOp::CorrectReadPermission(QString& _trans_model, QString& _login)
+{
+    qlonglong num_login=GetNumLogin(_login);
+    QSqlQuery sel_num_model(db);
+    sel_num_model.prepare("SELECT Num FROM StructModels WHERE Struct='"+_trans_model+"'");
+    if(!sel_num_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска номера модели по структуре ") << _trans_model;
+    log.Write(QString(QString("tDatabaseOp \t CorrectReadPermission \t ++ ОШИБКА ++ поиска номера модели по структуре ")+_trans_model));}
+    sel_num_model.next();
+
+    qlonglong num_model=sel_num_model.value(0).toLongLong();
+
+    //корректировка разрешений
+    //если разрешения нет - добавить
+    //если есть - ничего делать не нужно
+
+    QSqlQuery ver_perm(db);
+    ver_perm.prepare("SELECT Count(*) FROM ModelRead WHERE Login="+QString::number(num_login)+" AND Model="+QString::number(num_model));
+    if(!ver_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ определения наличия разрешения ");
+    log.Write(QString(QString("tDatabaseOp \t CorrectReadPermission \t ++ ОШИБКА ++ определения наличия разрешения ")));}
+    ver_perm.next();
+
+    int count=ver_perm.value(0).toInt();
+    if(count==0)
+    {
+        QSqlQuery insert_perm(db);
+        insert_perm.prepare("INSERT INTO ModelRead (Login, Model) VALUES (?, ?)");
+        insert_perm.bindValue(0, num_login);
+        insert_perm.bindValue(1, num_model);
+        if(!insert_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления разрешения ");
+        log.Write(QString(QString("tDatabaseOp \t CorrectReadPermission \t ++ ОШИБКА ++ добавления разрешения ")));}
+
+
+    }
+}
+//----------------------------------------------------------
+void tDatabaseOp::CorrectWrittenWho(QList<tFileList> list, QString& login)
+{
+    qlonglong num_login=GetNumLogin(login);
+    for(int i=0; i<list.size(); i++)
+    {
+        QString file_name=list[i].file_name;
+        QSqlQuery correct_wr(db);
+        correct_wr.prepare("UPDATE Files SET WrittenWho="+QString::number(num_login)+" WHERE File='"+file_name+"'");
+        if(!correct_wr.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ редактирование логина записавшего файл ");
+        log.Write(QString(QString("tDatabaseOp \t CorrectWrittenWho \t ++ ОШИБКА ++ редактирование логина записавшего файл ")));}
+
+    }
 }

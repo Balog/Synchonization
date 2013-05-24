@@ -120,6 +120,8 @@ public:
 
     void InternalCallBuildingTree();
 
+    void ViewError(int num_error, QString& error, QString &detail, QString& client_detail);
+
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
     QStringListModel *sLM_loc_list_files;//модель локальных файлов
@@ -199,6 +201,7 @@ private:
     void DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state, tTreeMod _direction);
     void SetToModelsTreeData(qlonglong loc_num_model, qlonglong _serv_num_model, bool _to_read, bool _choice);
     void StartReadModeles(const QString &_root, qlonglong _server_num_model);
+    void ShowContextMenu(QPoint pos, bool _read);
 
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
@@ -274,7 +277,14 @@ private slots:
 
     void on_pbWrite_clicked();
 
-    void showContextMenuRead(QPoint pos);
+//    void showContextMenuRead(QPoint pos);
+//    void showContextMenuWrite(QPoint pos);
+
+
+
+    void on_tvRead_customContextMenuRequested(const QPoint &pos);
+
+    void on_tvWrite_customContextMenuRequested(const QPoint &pos);
 
 public slots:
     void OnServerModelClick(const QModelIndex Ind);

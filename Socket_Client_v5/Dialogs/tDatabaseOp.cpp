@@ -44,13 +44,13 @@ void tDatabaseOp::RefreshModelsFiles()
     unset_found_models.prepare("UPDATE StructModels SET Found=0");
 
     if(!unset_found_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при сбросе Found моделей ");
-        log.Write(QString("tDatabaseOp \t RefreshModelsFiles \t ++ ОШИБКА ++ при сбросе Found моделей "));}
+        log.Write(QString(QString("tDatabaseOp \t RefreshModelsFiles \t ++ ОШИБКА ++ при сбросе Found моделей ")+" "+db.lastError().text()));}
 
     QSqlQuery unset_found_files(db);
     unset_found_files.prepare("UPDATE Files SET Found=0, Del=0");
 
     if(!unset_found_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при сбросе Found и Del файлов ");
-        log.Write(QString("tDatabaseOp \t RefreshModelsFiles \t ++ ОШИБКА ++ при сбросе Found и Del файлов "));}
+        log.Write(QString(QString("tDatabaseOp \t RefreshModelsFiles \t ++ ОШИБКА ++ при сбросе Found и Del файлов ")+" "+db.lastError().text()));}
 
     SearchInfo(root);
 
@@ -58,7 +58,7 @@ void tDatabaseOp::RefreshModelsFiles()
     QSqlQuery delete_unfound_models(db);
     delete_unfound_models.prepare("DELETE FROM StructModels WHERE Found=0");
     if(!delete_unfound_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удалении не найденых на диске моделей ");
-        log.Write(QString("tDatabaseOp \t RefreshModelsFiles \t ++ ОШИБКА ++ удалении не найденых на диске моделей "));}
+        log.Write(QString(QString("tDatabaseOp \t RefreshModelsFiles \t ++ ОШИБКА ++ удалении не найденых на диске моделей ")+" "+db.lastError().text()));}
 
 //    QSqlQuery delete_unfound_files(db);
 //    delete_unfound_files.prepare("DELETE FROM Files WHERE Found=0 OR Del=1");
@@ -98,7 +98,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
             search_file.prepare(S);
 
             if(!search_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при поиске ") << NormalizePathFiles(relat+"/"+entry);
-                log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при поиске ") + NormalizePathFiles(relat.toUtf8()+"/"+entry.toUtf8())));}
+                log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при поиске ") + NormalizePathFiles(relat.toUtf8()+"/"+entry.toUtf8()+" "+db.lastError().text())));}
 
             search_file.next();
 
@@ -137,7 +137,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                 QString summ_list_hash="";
 
                 if(!struct_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при добавлении данных ") << relat+"/"+entry;
-                    log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при добавлении данных ") + relat.toUtf8()+"/"+entry.toUtf8()));}
+                    log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при добавлении данных ") + relat.toUtf8()+"/"+entry.toUtf8()+" "+db.lastError().text()));}
 
                 //добавление списка файлов модели
                 //передаем значение автоинкрементного ключа
@@ -153,7 +153,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                 update_struct_models.prepare(sql);
 
                 if(!update_struct_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при обновлении новых данных ") << relat+"/"+entry;
-                    log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при обновлении новых данных ") + relat.toUtf8()+"/"+entry.toUtf8()));}
+                    log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при обновлении новых данных ") + relat.toUtf8()+"/"+entry.toUtf8()+" "+db.lastError().text()));}
             }
             else
             {
@@ -172,7 +172,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                     search_file.prepare(S);
 
                     if(!search_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при поиске ") << NormalizePathFiles(relat+"/"+entry);
-                        log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при поиске ") + NormalizePathFiles(relat.toUtf8()+"/"+entry.toUtf8())));}
+                        log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при поиске ") + NormalizePathFiles(relat.toUtf8()+"/"+entry.toUtf8()+" "+db.lastError().text())));}
 
                     search_file.next();
 
@@ -190,7 +190,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                         QTextCodec *codec =QTextCodec::codecForName("UTF-8");
                         s.setIniCodec(codec);
 
-                        QString title=s.value("Title","Модель").toString();
+                        QString title=s.value("Title","").toString();
                         QString desc=s.value("Description","").toString();
                         QString struct_mod=s.value("Struct","").toString();
 
@@ -207,7 +207,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                         search_file.bindValue(":desc_mod", desc);
 
                         if(!search_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при редактировании ") << NormalizePathFiles(relat+"/"+entry);
-                            log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при редактировании ") + NormalizePathFiles(relat.toUtf8()+"/"+entry.toUtf8())));}
+                            log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при редактировании ") + NormalizePathFiles(relat.toUtf8()+"/"+entry.toUtf8()+" "+db.lastError().text())));}
 
                     }
                     //Если такая модель в базе есть то независимо от того менялся ли список файлов
@@ -232,7 +232,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                     update_struct_models.prepare(sql);
 
                     if(!update_struct_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при обновлении имеющихся данных ") << relat+"/"+entry;
-                        log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при обновлении имеющихся данных ") + relat.toUtf8()+"/"+entry.toUtf8()));}
+                        log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при обновлении имеющихся данных ") + relat.toUtf8()+"/"+entry.toUtf8()+" "+db.lastError().text()));}
 
                 }
                 else
@@ -242,7 +242,7 @@ void tDatabaseOp::SearchInfo(const QString &_folder)
                     QSqlQuery update_found_false(db);
                     update_found_false.prepare("UPDATE StructModels SET Found=0 Where DiskFile='"+NormalizePathFiles(relat+"/"+entry)+"'");
                     if(!update_found_false.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при пометки на удаление модели ") << NormalizePathFiles(relat+"/"+entry);
-                        log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при пометки на удаление модели ")+ NormalizePathFiles(relat.toUtf8()+"/"+entry.toUtf8())));}
+                        log.Write(QString(QString("tDatabaseOp \t SearchInfo \t ++ ОШИБКА ++ при пометки на удаление модели ")+ NormalizePathFiles(relat.toUtf8()+"/"+entry.toUtf8()+" "+db.lastError().text())));}
 
                 }
             }
@@ -283,7 +283,7 @@ void tDatabaseOp::AddModelFiles(const qlonglong _num, const QString _path, const
     if(!list_files.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         qDebug() << "Не удалось открыть файл списка " << model_files;
-        log.Write(QString(QString("tDatabaseOp \t AddModelFiles \t Не удалось открыть файл списка ") + model_files.toUtf8()));
+        log.Write(QString(QString("tDatabaseOp \t AddModelFiles \t Не удалось открыть файл списка ") + model_files.toUtf8()+" "+db.lastError().text()));
         return;
     }
 
@@ -321,7 +321,7 @@ void tDatabaseOp::AddModelFiles(const qlonglong _num, const QString _path, const
             files_model.bindValue(6, info_file.size());
 
             if(!files_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ при записи файла списка ") << root+file_path;
-                log.Write(QString(QString("tDatabaseOp \t AddModelFiles \t ++ ОШИБКА ++ при записи файла списка ") + root+file_path.toUtf8()));}
+                log.Write(QString(QString("tDatabaseOp \t AddModelFiles \t ++ ОШИБКА ++ при записи файла списка ") + root+file_path.toUtf8()+" "+db.lastError().text()));}
 
         }
     }
@@ -382,7 +382,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, co
         if(!list_files.open(QIODevice::ReadOnly | QIODevice::Text))
         {
             qDebug() << "Не удалось открыть файл списка (обновление) " << model_files;
-            log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t Не удалось открыть файл списка (обновление) ") + model_files.toUtf8()));
+            log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t Не удалось открыть файл списка (обновление) ") + model_files.toUtf8()+" "+db.lastError().text()));
             return;
         }
 
@@ -411,7 +411,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, co
             QSqlQuery search_file(db);
             search_file.prepare("SELECT count(*) FROM Files WHERE File='"+file_path+"' AND Model="+QString::number(_num));
             if(!search_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ отпределения наличия файла для обновления ") << file_path;
-                log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ отпределения наличия файла для обновления ") + file_path.toUtf8()));}
+                log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ отпределения наличия файла для обновления ") + file_path.toUtf8()+" "+db.lastError().text()));}
 
             search_file.next();
             QString hash="";
@@ -423,7 +423,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, co
                 QSqlQuery dt_file(db);
                 dt_file.prepare("SELECT LastMod FROM Files WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                 if(!dt_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения даты-времени модификации файла для обновления ") << relat_path;
-                    log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ получения даты-времени модификации файла для обновления ") + relat_path.toUtf8()));}
+                    log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ получения даты-времени модификации файла для обновления ") + relat_path.toUtf8()+" "+db.lastError().text()));}
 
                 dt_file.next();
                 QDateTime base_dt=dt_file.value(0).toDateTime();
@@ -446,7 +446,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, co
                         QSqlQuery update_file(db);
                         update_file.prepare("UPDATE Files SET LastMod='"+rount_dt.toString(Qt::ISODate)+"', Hash='"+file_hash+"', Size="+QString::number(info.size())+",Found=1 WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                         if(!update_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления даты-времени модификации и хеш-суммы файла ") << relat_path;
-                            log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ обновления даты-времени модификации и хеш-суммы файла ") + relat_path.toUtf8()));}
+                            log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ обновления даты-времени модификации и хеш-суммы файла ") + relat_path.toUtf8()+" "+db.lastError().text()));}
 
                     }
                     else
@@ -455,7 +455,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, co
                         QSqlQuery search_hash(db);
                         search_hash.prepare("SELECT Hash FROM Files WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                         if(!search_hash.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения хеш-суммы файла из базы ") << relat_path;
-                            log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ получения хеш-суммы файла из базы ") + relat_path.toUtf8()));}
+                            log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ получения хеш-суммы файла из базы ") + relat_path.toUtf8()+" "+db.lastError().text()));}
 
                         search_hash.next();
 
@@ -465,7 +465,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, co
                         QSqlQuery check_found_file(db);
                         check_found_file.prepare("UPDATE Files SET Found=1 WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                         if(!check_found_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления наличия файла ") << relat_path;
-                            log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ обновления наличия файла ") + relat_path.toUtf8()));}
+                            log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ обновления наличия файла ") + relat_path.toUtf8()+" "+db.lastError().text()));}
 
                     }
                 }
@@ -476,7 +476,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, co
                     QSqlQuery del_check(db);
                     del_check.prepare("UPDATE Files SET Del=1 WHERE File='"+file_path+"' AND Model="+QString::number(_num));
                     if(!del_check.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ пометки на удаление ") << file_path;
-                        log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ пометки на удаление ") + file_path.toUtf8()));}
+                        log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ пометки на удаление ") + file_path.toUtf8()+" "+db.lastError().text()));}
                 }
             }
             else
@@ -509,7 +509,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, co
                     insert_file.bindValue(5, info.size());
 
                     if(!insert_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления нового файла ") << file_path;
-                        log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ добавления нового файла ") + file_path.toUtf8()));}
+                        log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ добавления нового файла ") + file_path.toUtf8()+" "+db.lastError().text()));}
 
 
                 }
@@ -529,7 +529,7 @@ void tDatabaseOp::UpdateModelFiles(const qlonglong _num, const QString _path, co
     QSqlQuery files_mod(db);
     files_mod.prepare("SELECT Hash FROM Files WHERE Model="+QString::number(_num)+" ORDER BY File");
     if(!files_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки файлов модели для подсчета суммарного хеша ") << _num;
-        log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ выборки файлов модели для подсчета суммарного хеша ")+QString::number(_num)));}
+        log.Write(QString(QString("tDatabaseOp \t UpdateModelFiles \t ++ ОШИБКА ++ выборки файлов модели для подсчета суммарного хеша ")+QString::number(_num)+" "+db.lastError().text()));}
 
     while(files_mod.next())
     {
@@ -560,7 +560,7 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
     QSqlQuery mod_select(db);
     mod_select.prepare("SELECT count(*) FROM Files WHERE File='"+relat+"' AND Model="+QString::number(_num));
     if(!mod_select.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска файла модели  ") << relat << _num;
-        log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ поиска файла модели  ") + relat.toUtf8()+ " " +QString::number( _num)));}
+        log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ поиска файла модели  ") + relat.toUtf8()+ " " +QString::number( _num)+" "+db.lastError().text()));}
 
     mod_select.next();
     int s=mod_select.value(0).toInt();
@@ -577,7 +577,7 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
             QSqlQuery select_date(db);
             select_date.prepare("SELECT LastMod FROM Files WHERE File='"+relat+"' AND Model="+QString::number(_num));
             if(!select_date.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска даты-времени модификации файла модели  ") << relat << _num;
-                log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ поиска даты-времени модификации файла модели  ") + relat.toUtf8() +" "+QString::number( _num)));}
+                log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ поиска даты-времени модификации файла модели  ") + relat.toUtf8() +" "+QString::number( _num)+" "+db.lastError().text()));}
 
             select_date.next();
             QDateTime db_last_mod=select_date.value(0).toDateTime();
@@ -591,7 +591,7 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
                 QSqlQuery mod_check(db);
                 mod_check.prepare("UPDATE Files SET Found=1 WHERE File='"+relat+"' AND Model="+QString::number(_num));
                 if(!mod_check.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ пометки Found=1 файла модели  ") << relat << _num;
-                    log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ пометки Found=1 файла модели  ") + relat.toUtf8() +" "+QString::number( _num)));}
+                    log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ пометки Found=1 файла модели  ") + relat.toUtf8() +" "+QString::number( _num)+" "+db.lastError().text()));}
             }
             else
             {
@@ -604,7 +604,7 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
                 QSqlQuery update_dt_hash(db);
                 update_dt_hash.prepare("UPDATE Files SET LastMod='"+RoundDateTime(disk_last_mod).toString(Qt::ISODate)+"', Hash='"+hash+"', Size="+QString::number(info.size())+", Found=1 WHERE File='"+relat+"' AND Model="+QString::number(_num));
                 if(!update_dt_hash.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления даты-времени и хеша файла модели  ") << relat << _num;
-                    log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ обновления даты-времени и хеша файла модели  ") + relat.toUtf8() +" "+QString::number( _num)));}
+                    log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ обновления даты-времени и хеша файла модели  ") + relat.toUtf8() +" "+QString::number( _num)+" "+db.lastError().text()));}
             }
 
         }
@@ -615,7 +615,7 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
             QSqlQuery set_unfound(db);
             set_unfound.prepare("UPDATE Files SET Found=0 WHERE File='"+relat+"' AND Model="+QString::number(_num));
             if(!set_unfound.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ отметки как несуществующего файла модели  ") << relat << _num;
-                log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ отметки как несуществующего файла модели  ") + relat.toUtf8() +" "+QString::number( _num)));}
+                log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ отметки как несуществующего файла модели  ") + relat.toUtf8() +" "+QString::number( _num)+" "+db.lastError().text()));}
         }
 
 
@@ -647,7 +647,7 @@ void tDatabaseOp::CheckFile(const qlonglong _num, const QString &_path_file)
             insert_file.bindValue(5, info.size());
 
             if(!insert_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления нового файла модели ") << relat << _num;
-                log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ добавления нового файла модели ") + relat.toUtf8() +" "+QString::number( _num)));}
+                log.Write(QString(QString("tDatabaseOp \t CheckFile \t ++ ОШИБКА ++ добавления нового файла модели ") + relat.toUtf8() +" "+QString::number( _num)+" "+db.lastError().text()));}
         }
     }
 }
@@ -676,7 +676,7 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
             QSqlQuery select_info_files(db);
             select_info_files.prepare("SELECT count(*) FROM Files WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
             if(!select_info_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска файла в папке .info ") << relat+"/"+entry << _num;
-                log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ поиска файла в папке .info ") + relat.toUtf8()+"/"+entry.toUtf8() +QString::number( _num)));}
+                log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ поиска файла в папке .info ") + relat.toUtf8()+"/"+entry.toUtf8() +QString::number( _num)+" "+db.lastError().text()));}
 
             select_info_files.next();
             int s=select_info_files.value(0).toInt();
@@ -691,7 +691,7 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
                     QSqlQuery select_date(db);
                     select_date.prepare("SELECT LastMod FROM Files WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
                     if(!select_date.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска даты-времени модификации файла в папке .info  ") << relat << _num;
-                        log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ поиска даты-времени модификации файла в папке .info  ") + relat.toUtf8()+QString::number( _num)));}
+                        log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ поиска даты-времени модификации файла в папке .info  ") + relat.toUtf8()+QString::number( _num)+" "+db.lastError().text()));}
 
                     select_date.next();
                     QDateTime db_last_mod=select_date.value(0).toDateTime();
@@ -707,7 +707,7 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
                         QSqlQuery mod_check(db);
                         mod_check.prepare("UPDATE Files SET Found=1, Del=0 WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
                         if(!mod_check.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ пометки Found=1 файла в папке .info  ") << relat << _num;
-                            log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ пометки Found=1 файла в папке .info  ") + relat.toUtf8()+QString::number( _num)));}
+                            log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ пометки Found=1 файла в папке .info  ") + relat.toUtf8()+QString::number( _num)+" "+db.lastError().text()));}
 
                     }
                     else
@@ -721,7 +721,7 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
 
                         update_dt_hash.prepare("UPDATE Files SET LastMod='"+disk_last_mod.toString(Qt::ISODate)+"', Hash='"+hash+"', Found=1, Size="+QString::number(info.size())+", Del=0 WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
                         if(!update_dt_hash.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления даты-времени и хеша файла в папке .info  ") << relat << _num;
-                            log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ обновления даты-времени и хеша файла в папке .info  ") + relat.toUtf8()+QString::number( _num)));}
+                            log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ обновления даты-времени и хеша файла в папке .info  ") + relat.toUtf8()+QString::number( _num)+" "+db.lastError().text()));}
 
                     }
                 }
@@ -733,7 +733,7 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
                     QSqlQuery set_unfound(db);
                     set_unfound.prepare("UPDATE Files SET Found=0, Del=1 WHERE File='"+relat+"/"+entry+"' AND Model="+QString::number(_num));
                     if(!set_unfound.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ отметки как несуществующего файла в папке .info  ") << relat << _num;
-                        log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ отметки как несуществующего файла в папке .info  ") + relat.toUtf8()+QString::number( _num)));}
+                        log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ отметки как несуществующего файла в папке .info  ") + relat.toUtf8()+QString::number( _num)+" "+db.lastError().text()));}
 
                 }
             }
@@ -756,7 +756,7 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
                 insert_info_files.bindValue(6, 0);
 
                 if(!insert_info_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления графических инфо-файлов ") << _folder_mod+"/"+entry;
-                    log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ добавления графических инфо-файлов ") + relat.toUtf8()+"/"+entry.toUtf8()));}
+                    log.Write(QString(QString("tDatabaseOp \t CheckInfoFiles \t ++ ОШИБКА ++ добавления графических инфо-файлов ") + relat.toUtf8()+"/"+entry.toUtf8()+" "+db.lastError().text()));}
 
             }
         }
@@ -775,7 +775,7 @@ void tDatabaseOp::ClearModels()
     QSqlQuery delete_unfound_models(db);
     delete_unfound_models.prepare("DELETE FROM StructModels WHERE Found=0");
     if(!delete_unfound_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удалении не найденых на диске моделей ");
-        log.Write(QString(QString("tDatabaseOp \t ClearModels \t ++ ОШИБКА ++ удалении не найденых на диске моделей ")));}
+        log.Write(QString(QString("tDatabaseOp \t ClearModels \t ++ ОШИБКА ++ удалении не найденых на диске моделей ")+" "+db.lastError().text()));}
 
 }
 //----------------------------------------------------------
@@ -785,7 +785,7 @@ void tDatabaseOp::GetListModels(QStringList &_list)
     QSqlQuery list_struct_models(db);
     list_struct_models.prepare("SELECT Struct FROM StructModels");
     if(!list_struct_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки структуры моделей ");
-        log.Write(QString(QString("tDatabaseOp \t GetListModels \t ++ ОШИБКА ++ выборки структуры моделей ")));}
+        log.Write(QString(QString("tDatabaseOp \t GetListModels \t ++ ОШИБКА ++ выборки структуры моделей ")+" "+db.lastError().text()));}
 
     //    list_struct_models.next();
     while(list_struct_models.next())
@@ -802,7 +802,7 @@ void tDatabaseOp::GetLocalModelFiles(QString &_str, QStringList &_list)
     QString s="SELECT Files.File FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num WHERE StructModels.Struct='"+_str+"'";
     list_model_files.prepare(s);
     if(!list_model_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки файлов модели ") << _str;
-        log.Write(QString(QString("tDatabaseOp \t GetLocalModelFiles \t ++ ОШИБКА ++ выборки файлов модели ")+_str.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t GetLocalModelFiles \t ++ ОШИБКА ++ выборки файлов модели ")+_str.toUtf8()+" "+db.lastError().text()));}
 
     //    list_model_files.next();
     while(list_model_files.next())
@@ -841,6 +841,7 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
     //- LastMod
     //- Hash
     //- Серверный номер файла
+    //- Номер логина последнего изменявшего файл
     //}
 
     //}
@@ -892,7 +893,7 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
         QSqlQuery is_found_mod(db);
         is_found_mod.prepare("SELECT Count(*), Num FROM ServerStructModels WHERE DiskFile='"+DiskFile+"'");
         if(!is_found_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия серверной модели ") << DiskFile;
-            log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ проверки наличия серверной модели  ")+DiskFile));}
+            log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ проверки наличия серверной модели  ")+DiskFile+" "+db.lastError().text()));}
         is_found_mod.next();
         int c=is_found_mod.value(0).toInt();
 
@@ -921,7 +922,7 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
             insert_server_model.bindValue(10, 1);
 
             if(!insert_server_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления серверной модели ") << DiskFile;
-                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления серверной модели ")+DiskFile.toUtf8()));}
+                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления серверной модели ")+DiskFile.toUtf8()+" "+db.lastError().text()));}
 
             num_server_model=insert_server_model.lastInsertId().toLongLong();
 
@@ -936,14 +937,14 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
             QSqlQuery update_s_mod(db);
             update_s_mod.prepare("UPDATE ServerStructModels SET Title='"+Title+"', Description='"+Description+"', Struct='"+Struct+"', LastMod='"+LastMod.toString(Qt::ISODate)+"', Hash='"+Hash+"', ListFilesLastMod='"+ListFilesLastMod.toString(Qt::ISODate)+"', ListFilesHash='"+ListFilesHash+"', SummListHash='"+SummListHash+"', ServerNum="+QString::number(Num)+", Found=1  WHERE DiskFile='"+DiskFile+"'");
             if(!update_s_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления серверной модели ") << DiskFile;
-                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ обновления серверной модели  ")+DiskFile));}
+                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ обновления серверной модели  ")+DiskFile+" "+db.lastError().text()));}
 
             num_server_model=is_found_mod.value(1).toInt();
 
             QSqlQuery del_model_files(db);
             del_model_files.prepare("DELETE FROM ServerFiles WHERE Model="+QString::number(num_server_model));
             if(!del_model_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки файлов серверной модели ") << num_server_model;
-                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ очистки файлов серверной модели ")+QString::number(num_server_model)));}
+                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ очистки файлов серверной модели ")+QString::number(num_server_model)+" "+db.lastError().text()));}
 
             l="tDatabaseOp \tSaveServerModelFiles\t Удаление файлов модели из базы перед обновлением ";
             log.Write(l);
@@ -960,15 +961,17 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
             QDateTime LastMod_F;
             QString Hash_F="";
             qlonglong Num_F=0;
+            qlonglong num_who=0;
 
             out >> File;
             out >> Size;
             out >> LastMod_F;
             out >> Hash_F;
             out >> Num_F;
+            out >> num_who;
 
             QSqlQuery insert_server_files(db);
-            insert_server_files.prepare("INSERT INTO ServerFiles (Model, File, Size, lastMod, Hash, ServerNum) VALUES (?, ?, ?, ?, ?, ?);");
+            insert_server_files.prepare("INSERT INTO ServerFiles (Model, File, Size, lastMod, Hash, ServerNum, WrittenWho) VALUES (?, ?, ?, ?, ?, ?, ?);");
 
             insert_server_files.bindValue(0, num_server_model);
             insert_server_files.bindValue(1, File);
@@ -976,6 +979,7 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
             insert_server_files.bindValue(3, LastMod_F);
             insert_server_files.bindValue(4, Hash_F);
             insert_server_files.bindValue(5, Num_F);
+            insert_server_files.bindValue(6, num_who);
             if(!insert_server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления файлов серверной модели ") << num_server_model;
                 log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления файлов серверной модели ")+QString::number(num_server_model)));}
 
@@ -987,7 +991,7 @@ void tDatabaseOp::SaveServerModelFiles(QByteArray &_block)
     QSqlQuery delete_unfound_serv_mod(db);
     delete_unfound_serv_mod.prepare("DELETE FROM ServerStructModels WHERE Found=0");
     if(!delete_unfound_serv_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления ненайденых моделей из базы ");
-        log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ удаления ненайденых моделей из базы ")));}
+        log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ удаления ненайденых моделей из базы ")+" "+db.lastError().text()));}
 
     l="tDatabaseOp \tSaveServerModelFiles\t Удаление ненайденых моделей  ";
     log.Write(l);
@@ -1004,7 +1008,7 @@ void tDatabaseOp::GetServerListModels(QStringList &_list)
     QString s="SELECT Struct FROM ServerStructModels";
     models.prepare(s);
     if(!models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ составления списка серверных моделей ");
-        log.Write(QString("tDatabaseOp \t GetServerListModels \t ++ ОШИБКА ++ составления списка серверных моделей "));}
+        log.Write(QString(QString("tDatabaseOp \t GetServerListModels \t ++ ОШИБКА ++ составления списка серверных моделей ")+" "+db.lastError().text()));}
 
     while(models.next())
     {
@@ -1019,7 +1023,7 @@ void tDatabaseOp::GetServerListFiles(const QString &_str, QStringList &_list)
     QString s="SELECT ServerFiles.File FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num WHERE ServerStructModels.Struct='"+_str+"'";
     models.prepare(s);
     if(!models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ составления списка серверных файлов ");
-        log.Write(QString("tDatabaseOp \t GetServerListFiles \t ++ ОШИБКА ++ составления списка серверных файлов "));}
+        log.Write(QString(QString("tDatabaseOp \t GetServerListFiles \t ++ ОШИБКА ++ составления списка серверных файлов ")+" "+db.lastError().text()));}
 
     while(models.next())
     {
@@ -1035,7 +1039,7 @@ void tDatabaseOp::GetServerListFiles(const qlonglong _num_server_model, QStringL
     QString s="SELECT ServerFiles.File FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num WHERE ServerStructModels.Num="+QString::number(_num_server_model);
     models.prepare(s);
     if(!models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ составления списка серверных файлов ");
-        log.Write(QString("tDatabaseOp \t GetServerListFiles \t ++ ОШИБКА ++ составления списка серверных файлов "));}
+        log.Write(QString(QString("tDatabaseOp \t GetServerListFiles \t ++ ОШИБКА ++ составления списка серверных файлов ")+" "+db.lastError().text()));}
 
     while(models.next())
     {
@@ -1065,7 +1069,7 @@ QString tDatabaseOp::GetLocalHash(const QString& _name_file, bool& _sending, boo
     QSqlQuery file(db);
     file.prepare("SELECT Hash, LastMod, Count(*) FROM Files WHERE File='"+_name_file+"'");
     if(!file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения хеша локального файла ") << _name_file;
-        log.Write(QString(QString("tDatabaseOp \t GetLocalHash \t ++ ОШИБКА ++ получения хеша локального файла ")+_name_file.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t GetLocalHash \t ++ ОШИБКА ++ получения хеша локального файла ")+_name_file.toUtf8()+" "+db.lastError().text()));}
 
     file.next();
     bool existing_base=file.value(2).toInt()>0;
@@ -1124,13 +1128,13 @@ void tDatabaseOp::UpdateLocalHash(const QString &_name_file, const QDateTime _di
     QSqlQuery upd_hash(db);
     upd_hash.prepare("UPDATE Files SET LastMod='"+_disk_date_time.toString(Qt::ISODate)+"', Hash='"+_hash+"' WHERE File='"+_name_file+"'");
     if(!upd_hash.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления локального хеша ") << _name_file;
-        log.Write(QString(QString("tDatabaseOp \t UpdateLocalHash \t ++ ОШИБКА ++ обновления локального хеша ")+_name_file.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t UpdateLocalHash \t ++ ОШИБКА ++ обновления локального хеша ")+_name_file.toUtf8()+" "+db.lastError().text()));}
 
     //найти все модели которые используют этот файл
     QSqlQuery model(db);
     model.prepare("SELECT Model FROM Files WHERE File='"+_name_file+"'");
     if(!model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения модели для обновления локального хеша ") << _name_file;
-        log.Write(QString(QString("tDatabaseOp \t UpdateLocalHash \t ++ ОШИБКА ++ получения модели для обновления локального хеша ")+_name_file.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t UpdateLocalHash \t ++ ОШИБКА ++ получения модели для обновления локального хеша ")+_name_file.toUtf8()+" "+db.lastError().text()));}
 
     while(model.next())
     {
@@ -1138,7 +1142,7 @@ void tDatabaseOp::UpdateLocalHash(const QString &_name_file, const QDateTime _di
         QSqlQuery files_model(db);
         files_model.prepare("SELECT hash FROM Files WHERE Model="+QString::number(num_model));
         if(!files_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения файлов для обновления суммарного локального хеша модели ") << num_model;
-            log.Write(QString(QString("tDatabaseOp \t UpdateLocalHash \t ++ ОШИБКА ++ получения файлов для обновления суммарного локального хеша модели ")+QString::number(num_model)));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateLocalHash \t ++ ОШИБКА ++ получения файлов для обновления суммарного локального хеша модели ")+QString::number(num_model)+" "+db.lastError().text()));}
 
         tCalcHash ch;
         while(files_model.next())
@@ -1152,7 +1156,7 @@ void tDatabaseOp::UpdateLocalHash(const QString &_name_file, const QDateTime _di
         QSqlQuery update_model(db);
         update_model.prepare("UPDATE StructModels SET Hash='"+summ_hash+"' FROM  WHERE Num="+QString::number(num_model));
         if(!update_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления суммарного локального хеша модели ") << num_model;
-            log.Write(QString(QString("tDatabaseOp \t UpdateLocalHash \t ++ ОШИБКА ++ обновления суммарного локального хеша модели ")+QString::number(num_model)));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateLocalHash \t ++ ОШИБКА ++ обновления суммарного локального хеша модели ")+QString::number(num_model)+" "+db.lastError().text()));}
 
     }
 }
@@ -1163,7 +1167,7 @@ QString tDatabaseOp::GetServerHash(const QString& name_file)
     QSqlQuery file(db);
     file.prepare("SELECT Hash, Count(*) FROM ServerFiles WHERE File='"+name_file+"'");
     if(!file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения хеша серверного файла ") << name_file;
-        log.Write(QString(QString("tDatabaseOp \t GetServerHash \t ++ ОШИБКА ++ получения хеша серверного файла ")+name_file.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t GetServerHash \t ++ ОШИБКА ++ получения хеша серверного файла ")+name_file.toUtf8()+" "+db.lastError().text()));}
 
     file.next();
     //    int N=file.value(1).toInt();
@@ -1177,7 +1181,7 @@ void tDatabaseOp::DeleteingFile(const QString &_file_name)
     QSqlQuery del_file(db);
     del_file.prepare("DELETE FROM Files WHERE File='"+relat+"'");
     if(!del_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления файла ") << relat;
-        log.Write(QString(QString("tDatabaseOp \t DeleteingFile \t ++ ОШИБКА ++ удаления файла ")+relat.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t DeleteingFile \t ++ ОШИБКА ++ удаления файла ")+relat.toUtf8()+" "+db.lastError().text()));}
 
 }
 //----------------------------------------------------------
@@ -1186,7 +1190,7 @@ QDateTime tDatabaseOp::GetLastMod(const QString& _file_name)
     QSqlQuery sel_last_dt(db);
     sel_last_dt.prepare("SELECT Count(*), LastMod FROM Files WHERE File='"+_file_name+"'");
     if(!sel_last_dt.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки даты-времени модификации файла ") << _file_name;
-        log.Write(QString(QString("tDatabaseOp \t GetLastMod \t ++ ОШИБКА ++ выборки даты-времени модификации файла ")+_file_name.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t GetLastMod \t ++ ОШИБКА ++ выборки даты-времени модификации файла ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 
     sel_last_dt.next();
     QDateTime dt=sel_last_dt.value(1).toDateTime();
@@ -1199,12 +1203,12 @@ void tDatabaseOp::ClearlModConv()
     QSqlQuery clear_local_mod(db);
     clear_local_mod.prepare("Update Files Set Send=0, Delete_local=0");
     if(!clear_local_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Send и Delete_local перед началом работы конвейера моделей ");
-        log.Write(QString("tDatabaseOp \t ClearlModConv \t ++ ОШИБКА ++ сброса Send и Delete_local перед началом работы конвейера моделей "));}
+        log.Write(QString(QString("tDatabaseOp \t ClearlModConv \t ++ ОШИБКА ++ сброса Send и Delete_local перед началом работы конвейера моделей ")+" "+db.lastError().text()));}
 
     QSqlQuery clear_server_mod(db);
     clear_server_mod.prepare("Update ServerFiles Set Receive=0, Delete_server=0");
     if(!clear_server_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Receive и Delete_server перед началом работы конвейера моделей ");
-        log.Write(QString("tDatabaseOp \t ClearlModConv \t ++ ОШИБКА ++ сброса Receive и Delete_server перед началом работы конвейера моделей "));}
+        log.Write(QString(QString("tDatabaseOp \t ClearlModConv \t ++ ОШИБКА ++ сброса Receive и Delete_server перед началом работы конвейера моделей ")+" "+db.lastError().text()));}
 
 }
 //----------------------------------------------------------
@@ -1217,7 +1221,7 @@ void tDatabaseOp::PrepareSendFile(const QString &_file_name)
     QSqlQuery upd_send(db);
     upd_send.prepare("UPDATE Files SET Send=1 WHERE File='"+_file_name+"'");
     if(!upd_send.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ отметки Send файла ") << _file_name;
-        log.Write(QString(QString("tDatabaseOp \t PrepareSendFile \t ++ ОШИБКА ++ отметки Send файла ")+_file_name.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t PrepareSendFile \t ++ ОШИБКА ++ отметки Send файла ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 }
 //----------------------------------------------------------
 
@@ -1227,7 +1231,7 @@ void tDatabaseOp::PrepareDeletingServer(const QString& _file_name)
     QSqlQuery upd_del_serv(db);
     upd_del_serv.prepare("UPDATE ServerFiles SET Delete_server=1 WHERE File='"+_file_name+"'");
     if(!upd_del_serv.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ отметки Delete_server файла ") << _file_name;
-        log.Write(QString(QString("tDatabaseOp \t PrepareDeletingServer \t ++ ОШИБКА ++ отметки Delete_server файла ")+_file_name.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t PrepareDeletingServer \t ++ ОШИБКА ++ отметки Delete_server файла ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 }
 //----------------------------------------------------------
 void tDatabaseOp::PrepareReceiveFile(const QString& _file_name)
@@ -1236,7 +1240,7 @@ void tDatabaseOp::PrepareReceiveFile(const QString& _file_name)
     QSqlQuery upd_receive(db);
     upd_receive.prepare("UPDATE ServerFiles SET Receive=1 WHERE File='"+_file_name+"'");
     if(!upd_receive.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ отметки Receive файла ") << _file_name;
-        log.Write(QString(QString("tDatabaseOp \t PrepareReceiveFile \t ++ ОШИБКА ++ отметки Receive файла ")+_file_name.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t PrepareReceiveFile \t ++ ОШИБКА ++ отметки Receive файла ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 }
 //----------------------------------------------------------
 void tDatabaseOp::PrepareDeletingLocal(const QString& _file_name)
@@ -1245,31 +1249,31 @@ void tDatabaseOp::PrepareDeletingLocal(const QString& _file_name)
     QSqlQuery upd_del_loc(db);
     upd_del_loc.prepare("UPDATE Files SET Delete_local=1 WHERE File='"+_file_name+"'");
     if(!upd_del_loc.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ отметки Delete_local файла ") << _file_name;
-        log.Write(QString(QString("tDatabaseOp \t PrepareDeletingLocal \t ++ ОШИБКА ++ отметки Delete_local файла ")+_file_name.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t PrepareDeletingLocal \t ++ ОШИБКА ++ отметки Delete_local файла ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 }
 //----------------------------------------------------------
 bool tDatabaseOp::GetNextSendDelModel(QString& _name_model)
 {
-    QSqlQuery select_send_models(db);
-    select_send_models.prepare("SELECT StructModels.Struct, StructModels.Num FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num GROUP BY StructModels.Struct, Files.Send HAVING Files.Send=1");
-    if(!select_send_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на отправку моделей ");
-        log.Write(QString("tDatabaseOp \t GetNextSendDelModel \t ++ ОШИБКА ++ выборки отмеченных на отправку моделей "));}
+    QSqlQuery select_del_models(db);
+    select_del_models.prepare("SELECT ServerStructModels.Struct, ServerStructModels.Num FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num GROUP BY ServerStructModels.Struct, ServerFiles.Delete_server HAVING ServerFiles.Delete_server=1");
+    if(!select_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на удаление серверных моделей ");
+        log.Write(QString(QString("tDatabaseOp \t GetNextSendDelModel \t ++ ОШИБКА ++ выборки отмеченных на удаление серверных моделей ")+" "+db.lastError().text()));}
 
-    if(select_send_models.next())
+    if(select_del_models.next())
     {
-        _name_model=select_send_models.value(0).toString();
+        _name_model=select_del_models.value(0).toString();
         return true;
     }
     else
     {
-        QSqlQuery select_del_models(db);
-        select_del_models.prepare("SELECT ServerStructModels.Struct, ServerStructModels.Num FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num GROUP BY ServerStructModels.Struct, ServerFiles.Delete_server HAVING ServerFiles.Delete_server=1");
-        if(!select_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на удаление серверных моделей ");
-            log.Write(QString("tDatabaseOp \t GetNextSendDelModel \t ++ ОШИБКА ++ выборки отмеченных на удаление серверных моделей "));}
+        QSqlQuery select_send_models(db);
+        select_send_models.prepare("SELECT StructModels.Struct, StructModels.Num FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num GROUP BY StructModels.Struct, Files.Send HAVING Files.Send=1");
+        if(!select_send_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на отправку моделей ");
+            log.Write(QString(QString("tDatabaseOp \t GetNextSendDelModel \t ++ ОШИБКА ++ выборки отмеченных на отправку моделей ")+" "+db.lastError().text()));}
 
-        if(select_del_models.next())
+        if(select_send_models.next())
         {
-            _name_model=select_del_models.value(0).toString();
+            _name_model=select_send_models.value(0).toString();
             return true;
         }
         else
@@ -1277,6 +1281,10 @@ bool tDatabaseOp::GetNextSendDelModel(QString& _name_model)
             return false;
         }
     }
+
+
+
+
 }
 //----------------------------------------------------------
 void tDatabaseOp::GetSendModelFiles(const QString& _name_model, QStringList& _list_files)
@@ -1284,7 +1292,7 @@ void tDatabaseOp::GetSendModelFiles(const QString& _name_model, QStringList& _li
     QSqlQuery select_send_files(db);
     select_send_files.prepare("SELECT Files.File FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num WHERE StructModels.Struct='"+_name_model+"' AND Send=1");
     if(!select_send_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на отправку файлов модели ") << _name_model;
-        log.Write(QString(QString("tDatabaseOp \t GetSendModelFiles \t ++ ОШИБКА ++ выборки отмеченных на отправку файлов модели ")+_name_model.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t GetSendModelFiles \t ++ ОШИБКА ++ выборки отмеченных на отправку файлов модели ")+_name_model.toUtf8()+" "+db.lastError().text()));}
 
     while(select_send_files.next())
     {
@@ -1295,7 +1303,7 @@ void tDatabaseOp::GetSendModelFiles(const QString& _name_model, QStringList& _li
         QSqlQuery update_sending_files(db);
         update_sending_files.prepare("UPDATE Files SET Send=0  WHERE File='"+file_name+"'");
         if(!update_sending_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ снятия отметки Send с обработанной модели ") << _name_model;
-            log.Write(QString(QString("tDatabaseOp \t GetSendModelFiles \t ++ ОШИБКА ++ снятия отметки Send с обработанной модели ")+_name_model.toUtf8()));}
+            log.Write(QString(QString("tDatabaseOp \t GetSendModelFiles \t ++ ОШИБКА ++ снятия отметки Send с обработанной модели ")+_name_model.toUtf8()+" "+db.lastError().text()));}
 
     }
 }
@@ -1305,7 +1313,7 @@ void tDatabaseOp::GetDeleteServerModelFiles(const QString& _name_model, QStringL
     QSqlQuery select_server_del_files(db);
     select_server_del_files.prepare("SELECT ServerFiles.File FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num WHERE ServerStructModels.Struct='"+_name_model+"' AND Delete_server=1");
     if(!select_server_del_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на удаление с сервера файлов модели ") << _name_model;
-        log.Write(QString(QString("tDatabaseOp \t GetDeleteServerModelFiles \t ++ ОШИБКА ++ выборки отмеченных на удаление с сервера файлов модели ")+_name_model.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t GetDeleteServerModelFiles \t ++ ОШИБКА ++ выборки отмеченных на удаление с сервера файлов модели ")+_name_model.toUtf8()+" "+db.lastError().text()));}
 
     while(select_server_del_files.next())
     {
@@ -1316,7 +1324,7 @@ void tDatabaseOp::GetDeleteServerModelFiles(const QString& _name_model, QStringL
         QSqlQuery update_delete_server_files(db);
         update_delete_server_files.prepare("UPDATE ServerFiles SET Delete_server=0  WHERE File='"+file_name+"'");
         if(!update_delete_server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ снятия отметки Delete_server с обработанной модели ") << _name_model;
-            log.Write(QString(QString("tDatabaseOp \t GetDeleteServerModelFiles \t ++ ОШИБКА ++ снятия отметки Delete_server с обработанной модели ")+_name_model.toUtf8()));}
+            log.Write(QString(QString("tDatabaseOp \t GetDeleteServerModelFiles \t ++ ОШИБКА ++ снятия отметки Delete_server с обработанной модели ")+_name_model.toUtf8()+" "+db.lastError().text()));}
 
     }
 }
@@ -1331,7 +1339,7 @@ void tDatabaseOp::PrepareUpdateLastSynch(bool _send, const QString& _login)
     QSqlQuery reset_last(db);
     reset_last.prepare("UPDATE LastStructModels SET Modified=0 WHERE Login="+QString::number(num_login));
     if(!reset_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса отметок Found с Last моделей ");
-        log.Write(QString(QString("tDatabaseOp \t PrepareUpdateLastSynch \t ++ ОШИБКА ++ сброса отметок Found с Last моделей ")));}
+        log.Write(QString(QString("tDatabaseOp \t PrepareUpdateLastSynch \t ++ ОШИБКА ++ сброса отметок Found с Last моделей ")+" "+db.lastError().text()));}
 
     if(_send)
     {
@@ -1339,7 +1347,7 @@ void tDatabaseOp::PrepareUpdateLastSynch(bool _send, const QString& _login)
         QSqlQuery reset_server_table(db);
         reset_server_table.prepare("UPDATE ServerStructModels SET Modified=0");
         if(!reset_server_table.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса отметок Found с серверных моделей ");
-            log.Write(QString(QString("tDatabaseOp \t PrepareUpdateLastSynch \t ++ ОШИБКА ++ сброса отметок Found с серверных моделей ")));}
+            log.Write(QString(QString("tDatabaseOp \t PrepareUpdateLastSynch \t ++ ОШИБКА ++ сброса отметок Found с серверных моделей ")+" "+db.lastError().text()));}
     }
     else
     {
@@ -1347,7 +1355,7 @@ void tDatabaseOp::PrepareUpdateLastSynch(bool _send, const QString& _login)
         QSqlQuery reset_local_table(db);
         reset_local_table.prepare("UPDATE StructModels SET Modified=0");
         if(!reset_local_table.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса отметок Found с локальных моделей ");
-            log.Write(QString(QString("tDatabaseOp \t PrepareUpdateLastSynch \t ++ ОШИБКА ++ сброса отметок Found с локальных моделей ")));}
+            log.Write(QString(QString("tDatabaseOp \t PrepareUpdateLastSynch \t ++ ОШИБКА ++ сброса отметок Found с локальных моделей ")+" "+db.lastError().text()));}
     }
 }
 //----------------------------------------------------------
@@ -1376,7 +1384,7 @@ void tDatabaseOp::UpdateLastSynchMark(const QString& _file_name, bool _server, c
         QSqlQuery sel_models_file(db);
         sel_models_file.prepare("SELECT DISTINCT Model FROM ServerFiles  WHERE File='"+_file_name+"'");
         if(!sel_models_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения Model серверных моделей содержащих файл ") << _file_name;
-            log.Write(QString(QString("tDatabaseOp \t UpdateLastSynch \t ++ ОШИБКА ++ получения Model серверных моделей содержащих файл ")+_file_name.toUtf8()));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateLastSynch \t ++ ОШИБКА ++ получения Model серверных моделей содержащих файл ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 
         //установим отметки для последующего копирования
         while(sel_models_file.next())
@@ -1385,12 +1393,12 @@ void tDatabaseOp::UpdateLastSynchMark(const QString& _file_name, bool _server, c
             QSqlQuery update_model_file(db);
             update_model_file.prepare("UPDATE ServerStructModels SET Modified=1 WHERE Num="+QString::number(model));
             if(!update_model_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки отметок Found=1 на серверные модели содержащих файл ") << _file_name;
-                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ установки отметок Found=1 на серверные модели содержащих файл ")+_file_name.toUtf8()));}
+                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ установки отметок Found=1 на серверные модели содержащих файл ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 
             QSqlQuery sel_models_file1(db);
             sel_models_file1.prepare("SELECT DISTINCT DiskFile FROM ServerStructModels  WHERE Num="+QString::number(model));
             if(!sel_models_file1.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения DiskFile серверных моделей содержащих файл ") << _file_name;
-                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ получения DiskFile серверных моделей содержащих файл ")+_file_name.toUtf8()));}
+                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ получения DiskFile серверных моделей содержащих файл ")+_file_name.toUtf8()+" "+db.lastError().text()));}
             sel_models_file1.next();
 
             QString disk_file=sel_models_file1.value(0).toString();
@@ -1398,7 +1406,7 @@ void tDatabaseOp::UpdateLastSynchMark(const QString& _file_name, bool _server, c
             QSqlQuery update_model_file_last(db);
             update_model_file_last.prepare("UPDATE LastStructModels SET Modified=1 WHERE DiskFile='"+disk_file+"' AND Login="+QString::number(num_login));
             if(!update_model_file_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки отметок Found=1 на Last модели содержащих файл ") << _file_name;
-                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ установки отметок Found=1 на Last модели содержащих файл ")+_file_name.toUtf8()));}
+                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ установки отметок Found=1 на Last модели содержащих файл ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 
         }
 
@@ -1412,7 +1420,7 @@ void tDatabaseOp::UpdateLastSynchMark(const QString& _file_name, bool _server, c
         QSqlQuery sel_models_file(db);
         sel_models_file.prepare("SELECT DISTINCT Model FROM Files  WHERE File='"+_file_name+"'");
         if(!sel_models_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения Model локальных моделей содержащих файл ") << _file_name;
-            log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ получения Model локальных моделей содержащих файл ")+_file_name.toUtf8()));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ получения Model локальных моделей содержащих файл ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 
 
 
@@ -1424,7 +1432,7 @@ void tDatabaseOp::UpdateLastSynchMark(const QString& _file_name, bool _server, c
             QSqlQuery sel_models_file1(db);
             sel_models_file1.prepare("SELECT DiskFile FROM StructModels WHERE Num="+QString::number(model));
             if(!sel_models_file1.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения DiskFile локальных моделей содержащих файл ") << _file_name;
-                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ получения DiskFile локальных моделей содержащих файл ")+_file_name.toUtf8()));}
+                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ получения DiskFile локальных моделей содержащих файл ")+_file_name.toUtf8()+" "+db.lastError().text()));}
             sel_models_file1.next();
             QString disk_file=sel_models_file1.value(0).toString();
 
@@ -1432,13 +1440,13 @@ void tDatabaseOp::UpdateLastSynchMark(const QString& _file_name, bool _server, c
             QSqlQuery update_model_file(db);
             update_model_file.prepare("UPDATE StructModels SET Modified=1 WHERE Num="+QString::number(model));
             if(!update_model_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки отметок Found=1 на локальные модели содержащих файл ") << _file_name;
-                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ установки отметок Found=1 на локальные модели содержащих файл ")+_file_name.toUtf8()));}
+                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ установки отметок Found=1 на локальные модели содержащих файл ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 
 
             QSqlQuery update_model_file_last(db);
             update_model_file_last.prepare("UPDATE LastStructModels SET Modified=1 WHERE DiskFile='"+disk_file+"' AND Login="+QString::number(num_login));
             if(!update_model_file_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки отметок Found=1 на Last модели содержащих файл ") << _file_name;
-                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ установки отметок Found=1 на Last модели содержащих файл ")+_file_name.toUtf8()));}
+                log.Write(QString(QString("tDatabaseOp \t UpdateLastSynchMark \t ++ ОШИБКА ++ установки отметок Found=1 на Last модели содержащих файл ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 
         }
 
@@ -1457,13 +1465,15 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server, const QString& _user_login)
     QSqlQuery del_file(db);
     del_file.prepare("DELETE FROM LastStructModels WHERE Modified=1 AND Login="+QString::number(num_login));
     if(!del_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления отмеченых моделей из Last ");
-        log.Write(QString("tDatabaseOp \t UpdateLastSynch \t ++ ОШИБКА ++ установки отметок Found=1 на Last модели по серверной таблице "));}
+        log.Write(QString("tDatabaseOp \t UpdateLastSynch \t ++ ОШИБКА ++ установки отметок Found=1 на Last модели по серверной таблице "));
+    log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ установки отметок Found=1 на Last модели по серверной таблице ")+" "+db.lastError().text()));}
 
     if(_server)
     {
         QSqlQuery is_not_file(db);
         is_not_file.prepare("SELECT Count(*) FROM ServerStructModels WHERE Modified=1");
-        if(!is_not_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия файлов для передачи");}
+        if(!is_not_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия файлов для передачи");
+        log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ проверки наличия файлов для передачи ")+" "+db.lastError().text()));}
         is_not_file.next();
         int c=is_not_file.value(0).toInt();
 
@@ -1471,7 +1481,8 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server, const QString& _user_login)
         {
             QSqlQuery ls_model(db);
             ls_model.prepare("SELECT Num, DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash FROM ServerStructModels WHERE Modified=1");
-            if(!ls_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки модели для передачи");}
+            if(!ls_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки модели для передачи");
+            log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки модели для передачи ")+" "+db.lastError().text()));}
 
             while(ls_model.next())
             {
@@ -1501,7 +1512,8 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server, const QString& _user_login)
                 insert_synch_model.bindValue(8, SummListHash);
                 insert_synch_model.bindValue(9, 1);
                 insert_synch_model.bindValue(10, num_login);
-                if(!insert_synch_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления в таблицу последнего состояния моделей ") << disk_file;}
+                if(!insert_synch_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления в таблицу последнего состояния моделей ") << disk_file;
+                log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ добавления в таблицу последнего состояния моделей ")+disk_file+" "+db.lastError().text()));}
                 qlonglong num_last_mod=insert_synch_model.lastInsertId().toLongLong();
 
                 //теперь обойдем все файлы модели локальной таблицы и перенесем (обновим) данные таблицы файлов последнего состояния
@@ -1526,7 +1538,8 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server, const QString& _user_login)
                     ins_last_files.bindValue(4, Hash);
                     ins_last_files.bindValue(5, 1);
 
-                    if(!ins_last_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления последнего состояния файлов модели ") << num_last_mod;}
+                    if(!ins_last_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления последнего состояния файлов модели ") << num_last_mod;
+                    log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ добавления последнего состояния файлов модели ")+QString::number(num_last_mod)+" "+db.lastError().text()));}
                 }
 
             }
@@ -1536,7 +1549,8 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server, const QString& _user_login)
     {
         QSqlQuery is_not_file(db);
         is_not_file.prepare("SELECT Count(*) FROM StructModels WHERE Modified=1");
-        if(!is_not_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия файлов для передачи");}
+        if(!is_not_file.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия файлов для передачи");
+        log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ проверки наличия файлов для передачи ")+" "+db.lastError().text()));}
         is_not_file.next();
         int c=is_not_file.value(0).toInt();
 
@@ -1544,8 +1558,8 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server, const QString& _user_login)
         {
             QSqlQuery ls_model(db);
             ls_model.prepare("SELECT Num, DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash FROM StructModels WHERE Modified=1");
-            if(!ls_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки модели для передачи");}
-
+            if(!ls_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки модели для передачи");
+            log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки модели для передачи ")+" "+db.lastError().text()));}
             while(ls_model.next())
             {
 
@@ -1580,7 +1594,8 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server, const QString& _user_login)
                 //теперь обойдем все файлы модели локальной таблицы и перенесем (обновим) данные таблицы файлов последнего состояния
                 QSqlQuery sel_loc_file_mod(db);
                 sel_loc_file_mod.prepare("SELECT File, Size, LastMod, Hash FROM Files WHERE Model="+QString::number(num_mod));
-                if(!sel_loc_file_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки файлов модели ") << num_mod;}
+                if(!sel_loc_file_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки файлов модели ") << num_mod;
+                log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки файлов модели ")+QString::number(num_mod)+" "+db.lastError().text()));}
                 while(sel_loc_file_mod.next())
                 {
                     QString File=sel_loc_file_mod.value(0).toString();
@@ -1612,7 +1627,7 @@ bool tDatabaseOp::GetNextReceiveDelModel(QString& _name_model)
     QSqlQuery select_del_models(db);
     select_del_models.prepare("SELECT StructModels.Struct, StructModels.Num FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num GROUP BY StructModels.Struct, Files.Delete_local HAVING Files.Delete_local=1");
     if(!select_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на удаление локальных моделей ");
-        log.Write(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки отмеченных на удаление локальных моделей "));}
+    log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки отмеченных на удаление локальных моделей ")+" "+db.lastError().text()));}
     if(select_del_models.next())
     {
         _name_model=select_del_models.value(0).toString();
@@ -1623,7 +1638,7 @@ bool tDatabaseOp::GetNextReceiveDelModel(QString& _name_model)
         QSqlQuery select_rec_models(db);
         select_rec_models.prepare("SELECT ServerStructModels.Struct, ServerStructModels.Num FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num GROUP BY ServerStructModels.Struct, ServerFiles.Receive HAVING ServerFiles.Receive=1");
         if(!select_rec_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на прием моделей ");
-            log.Write(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки отмеченных на прием моделей "));}
+            log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ выборки отмеченных на прием моделей ")+" "+db.lastError().text()));}
 
         if(select_rec_models.next())
         {
@@ -1637,7 +1652,6 @@ bool tDatabaseOp::GetNextReceiveDelModel(QString& _name_model)
     }
 
 
-
 }
 //----------------------------------------------------------
 void tDatabaseOp::GetReceiveModelFiles(const QString& _name_model, QStringList& _list_files)
@@ -1646,7 +1660,7 @@ void tDatabaseOp::GetReceiveModelFiles(const QString& _name_model, QStringList& 
     QSqlQuery select_rec_files(db);
     select_rec_files.prepare("SELECT ServerFiles.File FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num WHERE ServerStructModels.Struct='"+_name_model+"' AND Receive=1");
     if(!select_rec_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на получение файлов модели ") << _name_model;
-        log.Write(QString(QString("tDatabaseOp \t GetReceiveModelFiles \t ++ ОШИБКА ++ выборки отмеченных на получение файлов модели ")+_name_model.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t GetReceiveModelFiles \t ++ ОШИБКА ++ выборки отмеченных на получение файлов модели ")+_name_model.toUtf8()+" "+db.lastError().text()));}
 
     while(select_rec_files.next())
     {
@@ -1657,7 +1671,7 @@ void tDatabaseOp::GetReceiveModelFiles(const QString& _name_model, QStringList& 
         QSqlQuery update_receive_files(db);
         update_receive_files.prepare("UPDATE ServerFiles SET Receive=0  WHERE File='"+file_name+"'");
         if(!update_receive_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ снятия отметки Receive с обработанной модели ") << _name_model;
-            log.Write(QString(QString("tDatabaseOp \t GetReceiveModelFiles \t ++ ОШИБКА ++ снятия отметки Receive с обработанной модели ")+_name_model.toUtf8()));}
+            log.Write(QString(QString("tDatabaseOp \t GetReceiveModelFiles \t ++ ОШИБКА ++ снятия отметки Receive с обработанной модели ")+_name_model.toUtf8()+" "+db.lastError().text()));}
 
     }
 }
@@ -1671,7 +1685,7 @@ void tDatabaseOp::UpdateServerTable(const QString &_name)
     QSqlQuery select_loc_date_hash(db);
     select_loc_date_hash.prepare("SELECT LastMod, Hash FROM Files WHERE File='"+_name+"'");
     if(!select_loc_date_hash.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ времени и хеша локального файла ") << _name;
-        log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ времени и хеша локального файла ")+_name.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ времени и хеша локального файла ")+_name.toUtf8()+" "+db.lastError().text()));}
 
     select_loc_date_hash.next();
     QDateTime last_mod=select_loc_date_hash.value(0).toDateTime();
@@ -1681,13 +1695,13 @@ void tDatabaseOp::UpdateServerTable(const QString &_name)
     QSqlQuery update_serv_date_hash(db);
     update_serv_date_hash.prepare("UPDATE ServerFiles SET LastMod='"+last_mod.toString(Qt::ISODate)+"', Hash='"+hash+"' WHERE File='"+_name+"'");
     if(!update_serv_date_hash.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления времени и хеша серверного файла ") << _name;
-        log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ обновления времени и хеша серверного файла ")+_name.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ обновления времени и хеша серверного файла ")+_name.toUtf8()+" "+db.lastError().text()));}
 
     //найти список серверных моделей использующих этот файл
     QSqlQuery sel_serv_mod(db);
     sel_serv_mod.prepare("SELECT Model FROM ServerFiles WHERE File='"+_name+"'");
     if(!sel_serv_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения списка серверных моделей, использующих файл ") << _name;
-        log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ получения списка серверных моделей, использующих файл ")+_name.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ получения списка серверных моделей, использующих файл ")+_name.toUtf8()+" "+db.lastError().text()));}
 
     while(sel_serv_mod.next())
     {
@@ -1697,7 +1711,7 @@ void tDatabaseOp::UpdateServerTable(const QString &_name)
         QSqlQuery serv_files_mod(db);
         serv_files_mod.prepare("SELECT Hash FROM ServerFiles WHERE Model="+QString::number(num_mod));
         if(!serv_files_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения списка хешей файлов модели ") << num_mod;
-            log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ получения списка хешей файлов модели ")+QString::number(num_mod)));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ получения списка хешей файлов модели ")+QString::number(num_mod)+" "+db.lastError().text()));}
 
         while(serv_files_mod.next())
         {
@@ -1711,7 +1725,7 @@ void tDatabaseOp::UpdateServerTable(const QString &_name)
         QSqlQuery update_summ_hash_mod(db);
         update_summ_hash_mod.prepare("UPDATE ServerStructModels SET SummListHash='"+summ_hash+"' WHERE Num="+QString::number(num_mod));
         if(!update_summ_hash_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления суммарного хеша серверной модели ") << num_mod;
-            log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ получения списка хешей файлов модели ")+QString::number(num_mod)));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateServerTable \t ++ ОШИБКА ++ получения списка хешей файлов модели ")+QString::number(num_mod)+" "+db.lastError().text()));}
 
     }
 }
@@ -1721,7 +1735,7 @@ void tDatabaseOp::GetDeleteLocalModelFiles(const QString& _name_model, QStringLi
     QSqlQuery select_local_del_files(db);
     select_local_del_files.prepare("SELECT Files.File FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num WHERE StructModels.Struct='"+_name_model+"' AND Delete_local=1");
     if(!select_local_del_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на удаление с локали файлов модели ") << _name_model;
-        log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ выборки отмеченных на удаление с локали файлов модели ")+_name_model.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ выборки отмеченных на удаление с локали файлов модели ")+_name_model.toUtf8()+" "+db.lastError().text()));}
 
     while(select_local_del_files.next())
     {
@@ -1732,7 +1746,7 @@ void tDatabaseOp::GetDeleteLocalModelFiles(const QString& _name_model, QStringLi
         QSqlQuery update_delete_local_files(db);
         update_delete_local_files.prepare("UPDATE Files SET Delete_local=0  WHERE File='"+file_name+"'");
         if(!update_delete_local_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ снятия отметки Delete_local с обработанной модели ") << _name_model;
-            log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ снятия отметки Delete_local с обработанной модели ")+_name_model.toUtf8()));}
+            log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ снятия отметки Delete_local с обработанной модели ")+_name_model.toUtf8()+" "+db.lastError().text()));}
 
     }
 }
@@ -1760,7 +1774,7 @@ void tDatabaseOp::SaveLoginPassword(QString &_login, QString &_password, bool _n
         insert_new_user.bindValue(3, 0);
 
         if(!insert_new_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления пользователя ") << _login;
-        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ добавления пользователя ")+_login.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginPassword \t ++ ОШИБКА ++ добавления пользователя ")+_login.toUtf8()+" "+db.lastError().text()));}
 
 
     }
@@ -1773,7 +1787,7 @@ void tDatabaseOp::SaveLoginPassword(QString &_login, QString &_password, bool _n
         QSqlQuery is_log_present(db);
         is_log_present.prepare("SELECT Count(*) FROM Logins WHERE Num="+QString::number(_s_num));
         if(!is_log_present.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки новизны нового логина ") << _login;
-        log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()));}
+        log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ проверки новизны нового логина ")+_login.toUtf8()+" "+db.lastError().text()));}
         is_log_present.next();
 
         int c=is_log_present.value(0).toInt();
@@ -1792,7 +1806,7 @@ void tDatabaseOp::SaveLoginPassword(QString &_login, QString &_password, bool _n
             QSqlQuery update_user(db);
             update_user.prepare("UPDATE Logins SET Login='"+_login+"', PassHash='"+ch.ResultHash()+"' WHERE Num="+QString::number(_s_num));
             if(!update_user.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления логина ") << _login;
-            log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ обновления логина ")+_login.toUtf8()));}
+            log.Write(QString(QString("tDatabaseOp \t GetDeleteLocalModelFiles \t ++ ОШИБКА ++ обновления логина ")+_login.toUtf8()+" "+db.lastError().text()));}
         }
     }
 }
@@ -1804,7 +1818,7 @@ QStringList tDatabaseOp::GetLoginsList()
     QSqlQuery get_logins(db);
     get_logins.prepare("SELECT Login FROM Logins ORDER BY Num, Login");
     if(!get_logins.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения списка логинов ");
-    log.Write(QString(QString("tDatabaseOp \t GetLoginsList \t ++ ОШИБКА ++ получения списка логинов ")));}
+    log.Write(QString(QString("tDatabaseOp \t GetLoginsList \t ++ ОШИБКА ++ получения списка логинов ")+" "+db.lastError().text()));}
 
     while(get_logins.next())
     {
@@ -1823,7 +1837,7 @@ qlonglong tDatabaseOp::GetNumLogin(const QString &_login)
     QSqlQuery search_login_num(db);
     search_login_num.prepare("SELECT Count(*), Num FROM Logins WHERE Login='"+_login+"'");
     if(!search_login_num.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения номера логина ");
-    log.Write(QString(QString("tDatabaseOp \t GetNumLogin \t ++ ОШИБКА ++ получения номера логина ")));}
+    log.Write(QString(QString("tDatabaseOp \t GetNumLogin \t ++ ОШИБКА ++ получения номера логина ")+" "+db.lastError().text()));}
 
     search_login_num.next();
 
@@ -1843,7 +1857,7 @@ qlonglong tDatabaseOp::GetNumLogin(int _row)
     QSqlQuery search_login_num(db);
     search_login_num.prepare("SELECT Num FROM Logins ORDER BY Num, Login");
     if(!search_login_num.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения номера логина ");
-    log.Write(QString(QString("tDatabaseOp \t GetNumLogin \t ++ ОШИБКА ++ получения номера логина ")));}
+    log.Write(QString(QString("tDatabaseOp \t GetNumLogin \t ++ ОШИБКА ++ получения номера логина ")+" "+db.lastError().text()));}
 
     for(int i=0; i<_row+1;i++)
     {
@@ -1861,7 +1875,7 @@ void tDatabaseOp::DeleteLogin(qlonglong _num_log)
     QSqlQuery del_login(db);
     del_login.prepare("DELETE FROM Logins WHERE Num="+QString::number(_num_log));
     if(!del_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log);
-    log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log)));}
+    log.Write(QString(QString("tDatabaseOp \t DeleteLogin \t ++ ОШИБКА ++ удаления пользователя ")+QString::number(_num_log)+" "+db.lastError().text()));}
 }
 //----------------------------------------------------------
 void tDatabaseOp::UpdateLogins(QByteArray &_block)
@@ -1918,7 +1932,7 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
         QSqlQuery select_num_login(db);
         select_num_login.prepare("SELECT Count(*) FROM Logins WHERE Num="+QString::number(Num));
         if(!select_num_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num);
-        log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)));}
+        log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)+" "+db.lastError().text()));}
 
         select_num_login.next();
         int count=select_num_login.value(0).toInt();
@@ -1935,7 +1949,7 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
             insert_login.bindValue(5, 0);
 
             if(!insert_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления нового логина ")+QString::number(Num);
-            log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ поиска логина по номеру ")+QString::number(Num)+" "+db.lastError().text()));}
         }
         else
         {
@@ -1943,7 +1957,7 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
             QSqlQuery update_login(db);
             update_login.prepare("UPDATE Logins SET Login='"+Login+"', PassHash='"+PassHash+"', NoDelete="+QString::number(NoDelete)+", Writable="+QString::number(Writable)+", Found=0 WHERE NUm="+QString::number(Num));
             if(!update_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ редактирования логина ")+QString::number(Num);
-            log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ редактирования логина ")+QString::number(Num)));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ редактирования логина ")+QString::number(Num)+" "+db.lastError().text()));}
 
         }
     }
@@ -1951,12 +1965,12 @@ void tDatabaseOp::UpdateLogins(QByteArray &_block)
     QSqlQuery delete_login(db);
     delete_login.prepare("DELETE FROM Logins WHERE Found=1");
     if(!delete_login.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления лишних логинов ");
-    log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ удаления лишних логинов ")));}
+    log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ удаления лишних логинов ")+" "+db.lastError().text()));}
 
     QSqlQuery unset_found(db);
     unset_found.prepare("UPDATE Logins SET Found=0");
     if(!unset_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found=0 ");
-    log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ установки Found=0 ")));}
+    log.Write(QString(QString("tDatabaseOp \t UpdateLogins \t ++ ОШИБКА ++ установки Found=0 ")+" "+db.lastError().text()));}
 
     db.commit();
 
@@ -1968,7 +1982,7 @@ bool tDatabaseOp::VerPassword(QString &_login, QString& _pass)
     QSqlQuery ver_pass(db);
     ver_pass.prepare("SELECT Count(*), PassHash FROM Logins WHERE Login='"+_login+"'");
     if(!ver_pass.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки логина и выборки пароля ") << _login;
-    log.Write(QString(QString("tDatabaseOp \t VerPassword \t ++ ОШИБКА ++ проверки логина и выборки пароля ")+_login));}
+    log.Write(QString(QString("tDatabaseOp \t VerPassword \t ++ ОШИБКА ++ проверки логина и выборки пароля ")+_login+" "+db.lastError().text()));}
 
     ver_pass.next();
 
@@ -2010,7 +2024,7 @@ void tDatabaseOp::ResetFoundModelAdmin()
         QSqlQuery reset_found(db);
         reset_found.prepare("UPDATE ServerStructModels SET Found=0");
         if(!reset_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ") ;
-        log.Write(QString(QString("tDatabaseOp \t ResetFoundModelAdmin \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")));}
+        log.Write(QString(QString("tDatabaseOp \t ResetFoundModelAdmin \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+" "+db.lastError().text()));}
 }
 //----------------------------------------------------------
 bool tDatabaseOp::NextModelAdmin()
@@ -2029,7 +2043,7 @@ bool tDatabaseOp::NextModelAdmin()
         QSqlQuery next_model(db);
         next_model.prepare("SELECT Count(*) FROM ServerStructModels WHERE Found=0");
         if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ServerStructModels");
-            log.Write(QString(QString("tDatabaseOp \t NextModelAdmin \t ++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ServerStructModels")));}
+            log.Write(QString(QString("tDatabaseOp \t NextModelAdmin \t ++ ОШИБКА ++ проверки наличия необработанных моделей в таблице ServerStructModels")+" "+db.lastError().text()));}
 
         next_model.next();
 
@@ -2050,7 +2064,7 @@ QStringList tDatabaseOp::NextStructListModelAdmin(QString& _login, bool& _read, 
         QSqlQuery next_model(db);
         next_model.prepare("SELECT Num, Struct, ServerNum FROM ServerStructModels WHERE Found=0");
         if(!next_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels");
-            log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels")));}
+            log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ выборки очередной модели из таблицы ServerStructModels")+" "+db.lastError().text()));}
 
         next_model.next();
 
@@ -2065,13 +2079,13 @@ QStringList tDatabaseOp::NextStructListModelAdmin(QString& _login, bool& _read, 
         QSqlQuery set_found(db);
         set_found.prepare("UPDATE ServerStructModels SET Found=1 WHERE Num="+QString::number(num));
         if(!set_found.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ пометки Found=1 модели номер ") << num <<  QString::fromUtf8("из таблицы ServerStructModels");
-            log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ пометки Found=1 модели номер ")+ QString::number(num)+ QString("из таблицы ServerStructModels")));}
+            log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ пометки Found=1 модели номер ")+ QString::number(num)+ QString("из таблицы ServerStructModels")+" "+db.lastError().text()));}
 
 
         QSqlQuery select_perm(db);
         select_perm.prepare("SELECT Count(*) FROM ModelRead WHERE Model="+QString::number(s_num)+" AND Login="+QString::number(GetNumLogin(_login)));
         if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки разрешений по логину ") << _login << " и модели " << num ;
-            log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login+" и модели "+QString::number(num)));}
+            log.Write(QString(QString("tDatabaseOp \t NextStructListModelAdmin \t ++ ОШИБКА ++ сброса Found у таблицы ServerStructModels ")+_login+" и модели "+QString::number(num)+" "+db.lastError().text()));}
         select_perm.next();
 
         int c=select_perm.value(0).toInt();
@@ -2096,7 +2110,7 @@ void tDatabaseOp::UpdateModelRead(QByteArray &_block)
     QSqlQuery del_permis(db);
     del_permis.prepare("DELETE FROM ModelRead");
     if(!del_permis.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки таблицы разрешений ");
-    log.Write(QString(QString("tDatabaseOp \t UpdateModelRead \t ++ ОШИБКА ++ очистки таблицы разрешений ")));}
+    log.Write(QString(QString("tDatabaseOp \t UpdateModelRead \t ++ ОШИБКА ++ очистки таблицы разрешений ")+" "+db.lastError().text()));}
 
 
     //записать таблицу заново
@@ -2115,7 +2129,7 @@ void tDatabaseOp::UpdateModelRead(QByteArray &_block)
     insert_permis.bindValue(1, model);
 
     if(!insert_permis.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ заполнения таблицы разрешений ");
-    log.Write(QString(QString("tDatabaseOp \t UpdateModelRead \t ++ ОШИБКА ++ заполнения таблицы разрешений ")));}
+    log.Write(QString(QString("tDatabaseOp \t UpdateModelRead \t ++ ОШИБКА ++ заполнения таблицы разрешений ")+" "+db.lastError().text()));}
 
     }
 
@@ -2138,7 +2152,7 @@ void tDatabaseOp::SaveReadPermission(QString& _login, qlonglong _mod_num, bool _
         insert_perm.bindValue(1, _mod_num);
 
         if(!insert_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления записи в таблицу разрешений ");
-        log.Write(QString(QString("tDatabaseOp \t SaveReadPermission \t ++ ОШИБКА ++ добавления записи в таблицу разрешений ")));}
+        log.Write(QString(QString("tDatabaseOp \t SaveReadPermission \t ++ ОШИБКА ++ добавления записи в таблицу разрешений ")+" "+db.lastError().text()));}
 
     }
     else
@@ -2148,7 +2162,7 @@ void tDatabaseOp::SaveReadPermission(QString& _login, qlonglong _mod_num, bool _
         QSqlQuery del_perm(db);
         del_perm.prepare("DELETE FROM ModelRead WHERE Login="+QString::number(log_num)+" AND Model="+QString::number(_mod_num));
         if(!del_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления записи из таблицы разрешений ");
-        log.Write(QString(QString("tDatabaseOp \t SaveReadPermission \t ++ ОШИБКА ++ удаления записи из таблицы разрешений ")));}
+        log.Write(QString(QString("tDatabaseOp \t SaveReadPermission \t ++ ОШИБКА ++ удаления записи из таблицы разрешений ")+" "+db.lastError().text()));}
 
     }
 
@@ -2166,7 +2180,7 @@ void tDatabaseOp::SavePermissionsToServer(qlonglong _num_login, QByteArray& _blo
     QSqlQuery count_perm(db);
     count_perm.prepare("SELECT Count(*) FROM ModelRead WHERE Login="+QString::number(_num_login));
     if(!count_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета числа передаваемых разрешений логина номер ")+QString::number(_num_login);
-    log.Write(QString(QString("tDatabaseOp \t SavePermissionsToServer \t ++ ОШИБКА ++ подсчета числа передаваемых разрешений логина номер ")+QString::number(_num_login)));}
+    log.Write(QString(QString("tDatabaseOp \t SavePermissionsToServer \t ++ ОШИБКА ++ подсчета числа передаваемых разрешений логина номер ")+QString::number(_num_login)+" "+db.lastError().text()));}
     count_perm.next();
 
     int count=count_perm.value(0).toInt();
@@ -2176,7 +2190,7 @@ void tDatabaseOp::SavePermissionsToServer(qlonglong _num_login, QByteArray& _blo
     QSqlQuery select_perm(db);
     select_perm.prepare("SELECT Model FROM ModelRead WHERE Login="+QString::number(_num_login));
     if(!select_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки передаваемых разрешений логина номер ")+QString::number(_num_login);
-    log.Write(QString(QString("tDatabaseOp \t SavePermissionsToServer \t ++ ОШИБКА ++ выборки передаваемых разрешений логина номер ")+QString::number(_num_login)));}
+    log.Write(QString(QString("tDatabaseOp \t SavePermissionsToServer \t ++ ОШИБКА ++ выборки передаваемых разрешений логина номер ")+QString::number(_num_login)+" "+db.lastError().text()));}
 
     while(select_perm.next())
     {
@@ -2199,7 +2213,7 @@ bool tDatabaseOp::VerifyUserFolders(QString& _login, QString &_project_folder, Q
     QSqlQuery sel_folders(db);
     sel_folders.prepare("SELECT ProjectFolder, TempFolder FROM Logins WHERE Num="+QString::number(num_login));
     if(!sel_folders.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login);
-    log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)));}
+    log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)+" "+db.lastError().text()));}
     sel_folders.next();
 
     project_folder=sel_folders.value(0).toString();
@@ -2226,7 +2240,7 @@ bool tDatabaseOp::VerifyUserFolders(QString& _login, QString &_project_folder, Q
             QSqlQuery sel_count_pr(db);
             sel_count_pr.prepare("SELECT Count(*) FROM Logins WHERE (ProjectFolder='"+project_folder+"' OR TempFolder='"+project_folder+"') AND Num<>"+QString::number(num_login));
             if(!sel_count_pr.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки уникальности рабочей папки ")+project_folder;
-            log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ проверки уникальности рабочей папки ")+project_folder));}
+            log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ проверки уникальности рабочей папки ")+project_folder+" "+db.lastError().text()));}
             sel_count_pr.next();
 
             int count_pr=sel_count_pr.value(0).toInt();
@@ -2234,7 +2248,7 @@ bool tDatabaseOp::VerifyUserFolders(QString& _login, QString &_project_folder, Q
             QSqlQuery sel_count_tmp(db);
             sel_count_tmp.prepare("SELECT Count(*) FROM Logins WHERE (ProjectFolder='"+temp_folder+"' OR TempFolder='"+temp_folder+"') AND Num<>"+QString::number(num_login));
             if(!sel_count_tmp.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки уникальности рабочей папки ")+temp_folder;
-            log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ проверки уникальности рабочей папки ")+temp_folder));}
+            log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ проверки уникальности рабочей папки ")+temp_folder+" "+db.lastError().text()));}
             sel_count_tmp.next();
 
             int count_tmp=sel_count_tmp.value(0).toInt();
@@ -2301,7 +2315,7 @@ void tDatabaseOp::SaveFoldersToLoginsTable(const QString& _login, const QString&
     QSqlQuery update_folders(db);
     update_folders.prepare("UPDATE Logins SET ProjectFolder='"+_project_folder+"', TempFolder='"+_temp_folder+"' WHERE Num="+QString::number(num_login));
     if(!update_folders.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ записи папок для логина ")+_login;
-    log.Write(QString(QString("tDatabaseOp \t SaveFoldersToLoginsTable \t ++ ОШИБКА ++ записи папок для логина ")+_login));}
+    log.Write(QString(QString("tDatabaseOp \t SaveFoldersToLoginsTable \t ++ ОШИБКА ++ записи папок для логина ")+_login+" "+db.lastError().text()));}
 }
 //----------------------------------------------------------
 void tDatabaseOp::SaveFoldersToSettings(const QString& _userlogin)
@@ -2310,7 +2324,7 @@ void tDatabaseOp::SaveFoldersToSettings(const QString& _userlogin)
     QSqlQuery sel_folders(db);
     sel_folders.prepare("SELECT ProjectFolder, TempFolder FROM Logins WHERE Num="+QString::number(num_login));
     if(!sel_folders.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login);
-    log.Write(QString(QString("tDatabaseOp \t SaveFoldersToSettings \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)));}
+    log.Write(QString(QString("tDatabaseOp \t SaveFoldersToSettings \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)+" "+db.lastError().text()));}
     sel_folders.next();
 
     QString project_folder=sel_folders.value(0).toString();
@@ -2326,12 +2340,12 @@ void tDatabaseOp::VerifyLastTable(const QString& _login)
     QSqlQuery update_unfound_last(db);
     update_unfound_last.prepare("DELETE FROM CompareTablesToTree");
     if(!update_unfound_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки таблицы CompareTablesToTree ");
-    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ очистки таблицы CompareTablesToTree ")));}
+    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ очистки таблицы CompareTablesToTree ")+" "+db.lastError().text()));}
 
     QSqlQuery sel_server(db);
     sel_server.prepare("SELECT Struct FROM ServerStructModels");
     if(!sel_server.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки моделей серверной таблицы для очистки Last ");
-    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ выборки папок логина номер ")));}
+    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ выборки папок логина номер ")+" "+db.lastError().text()));}
     while(sel_server.next())
     {
         QString server_struct=sel_server.value(0).toString();
@@ -2341,7 +2355,7 @@ void tDatabaseOp::VerifyLastTable(const QString& _login)
     QSqlQuery sel_local(db);
     sel_local.prepare("SELECT Struct FROM StructModels");
     if(!sel_local.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки моделей серверной таблицы для очистки Last ");
-    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ выборки папок логина номер ")));}
+    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ выборки папок логина номер ")+" "+db.lastError().text()));}
     while(sel_local.next())
     {
         QString local_struct=sel_local.value(0).toString();
@@ -2351,7 +2365,7 @@ void tDatabaseOp::VerifyLastTable(const QString& _login)
     QSqlQuery delete_unfound_last(db);
     delete_unfound_last.prepare("DELETE FROM LastStructModels WHERE Login="+QString::number(num_login)+" AND Found=0");
     if(!delete_unfound_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки таблицы Last ");
-    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ очистки таблицы Last ")));}
+    log.Write(QString(QString("tDatabaseOp \t VerifyLastTable \t ++ ОШИБКА ++ очистки таблицы Last ")+" "+db.lastError().text()));}
 
 }
 //----------------------------------------------------------
@@ -2360,7 +2374,7 @@ void tDatabaseOp::MarkLastModel(qlonglong num_login, const QString& m_struct)
     QSqlQuery update_found_last(db);
     update_found_last.prepare("UPDATE LastStructModels SET Found=1 WHERE Login="+QString::number(num_login)+" AND Struct='"+m_struct+"'");
     if(!update_found_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found таблицы Last ");
-    log.Write(QString(QString("tDatabaseOp \t MarkLastModel \t ++ ОШИБКА ++ установки Found таблицы Last ")));}
+    log.Write(QString(QString("tDatabaseOp \t MarkLastModel \t ++ ОШИБКА ++ установки Found таблицы Last ")+" "+db.lastError().text()));}
 }
 //----------------------------------------------------------
 void tDatabaseOp::WriteToCompareTablesToTree(const QString& _login)
@@ -2370,7 +2384,7 @@ void tDatabaseOp::WriteToCompareTablesToTree(const QString& _login)
     QSqlQuery select_local_mod(db);
     select_local_mod.prepare("SELECT Num, Struct, SummListHash FROM StructModels");
     if(!select_local_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выбора локальной модели для сравнения суммарных хешей ");
-    log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора локальной модели для сравнения суммарных хешей ")));}
+    log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора локальной модели для сравнения суммарных хешей ")+" "+db.lastError().text()));}
     while(select_local_mod.next())
     {
         qlonglong num=select_local_mod.value(0).toLongLong();
@@ -2383,7 +2397,7 @@ void tDatabaseOp::WriteToCompareTablesToTree(const QString& _login)
     QSqlQuery select_last_mod(db);
     select_last_mod.prepare("SELECT Num, Struct, SummListHash FROM LastStructModels WHERE Login="+QString::number(num_login));
     if(!select_last_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выбора Last модели для сравнения суммарных хешей ");
-    log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора Last модели для сравнения суммарных хешей ")));}
+    log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора Last модели для сравнения суммарных хешей ")+" "+db.lastError().text()));}
     while(select_last_mod.next())
     {
         qlonglong num=select_last_mod.value(0).toLongLong();
@@ -2396,7 +2410,7 @@ void tDatabaseOp::WriteToCompareTablesToTree(const QString& _login)
     QSqlQuery select_server_mod(db);
     select_server_mod.prepare("SELECT Num, Struct, SummListHash FROM ServerStructModels");
     if(!select_server_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выбора серверной модели для сравнения суммарных хешей ");
-    log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора серверной модели для сравнения суммарных хешей ")));}
+    log.Write(QString(QString("tDatabaseOp \t WriteToCompareTablesToTree \t ++ ОШИБКА ++ выбора серверной модели для сравнения суммарных хешей ")+" "+db.lastError().text()));}
     while(select_server_mod.next())
     {
         qlonglong num=select_server_mod.value(0).toLongLong();
@@ -2413,7 +2427,7 @@ void tDatabaseOp::UpdateCompareTable(qlonglong _num, const QString& _m_struct, c
     QSqlQuery find_compare(db);
     find_compare.prepare("SELECT Count(*) FROM CompareTablesToTree WHERE Struct='"+_m_struct+"'");
     if(!find_compare.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска наличия записи в таблице сравнения ");
-        log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ поиска наличия записи в таблице сравнения ")));}
+        log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ поиска наличия записи в таблице сравнения ")+" "+db.lastError().text()));}
     find_compare.next();
 
     int count=find_compare.value(0).toInt();
@@ -2451,7 +2465,7 @@ void tDatabaseOp::UpdateCompareTable(qlonglong _num, const QString& _m_struct, c
         }
         }
         if(!insert_comp.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления записи в таблице сравнения ");
-            log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ добавления записи в таблице сравнения ")));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ добавления записи в таблице сравнения ")+" "+db.lastError().text()));}
     }
     else
     {
@@ -2476,7 +2490,7 @@ void tDatabaseOp::UpdateCompareTable(qlonglong _num, const QString& _m_struct, c
         }
         }
         if(!update_comp.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления записи в таблице сравнения ");
-            log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ обновления записи в таблице сравнения ")));}
+            log.Write(QString(QString("tDatabaseOp \t UpdateCompareTable \t ++ ОШИБКА ++ обновления записи в таблице сравнения ")+" "+db.lastError().text()));}
     }
 }
 //----------------------------------------------------------
@@ -2494,7 +2508,7 @@ QList<CompareTableRec> tDatabaseOp::AnalyzeCompareAll()
     QSqlQuery sel_compare(db);
     sel_compare.prepare("SELECT Num, NumLocal, NumServer, Struct, Result FROM CompareTablesToTree WHERE Result<>0 Order by Struct");
     if(!sel_compare.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выделения результатов сравнения таблиц ");
-        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompareAll \t ++ ОШИБКА ++ выделения результатов сравнения таблиц ")));}
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompareAll \t ++ ОШИБКА ++ выделения результатов сравнения таблиц ")+" "+db.lastError().text()));}
     while(sel_compare.next())
     {
         CompareTableRec rec;
@@ -2555,7 +2569,7 @@ void tDatabaseOp::AnalyzeCompare(CompareRes _res)
     }
     }
     if(!upd_comp.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ анализа таблицы сравнения ");
-        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t ++ ОШИБКА ++ анализа таблицы сравнения ")));}
+        log.Write(QString(QString("tDatabaseOp \t AnalyzeCompare \t ++ ОШИБКА ++ анализа таблицы сравнения ")+" "+db.lastError().text()));}
 
 }
 //----------------------------------------------------------
@@ -2581,18 +2595,18 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
             QSqlQuery unfound_local(db);
             unfound_local.prepare("UPDATE Files SET Found=0");
             if(!unfound_local.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found у локальных файлов модели ")+QString::number(num_loc_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ сброса Found у локальных файлов модели ")+QString::number(num_loc_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ сброса Found у локальных файлов модели ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
 
             QSqlQuery unfound_server(db);
             unfound_server.prepare("UPDATE ServerFiles SET Found=0");
             if(!unfound_server.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found у серверных файлов модели ")+QString::number(num_loc_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ сброса Found у серверных файлов модели ")+QString::number(num_loc_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ сброса Found у серверных файлов модели ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
 
 
             QSqlQuery local_files(db);
             local_files.prepare("SELECT Num, File, Size, LastMod, Hash FROM Files WHERE Model="+QString::number(num_loc_mod));
             if(!local_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки локальных файлов для дерева в модель ")+QString::number(num_loc_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки локальных файлов для дерева в модель ")+QString::number(num_loc_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки локальных файлов для дерева в модель ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
             while(local_files.next())
             {
                 qlonglong num_loc_file=local_files.value(0).toInt();
@@ -2601,7 +2615,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 QSqlQuery setfound_local(db);
                 setfound_local.prepare("UPDATE Files SET Found=1 WHERE Model="+QString::number(num_loc_mod)+" AND Num="+QString::number(num_loc_file));
                 if(!setfound_local.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found у локальных файлов модели ")+QString::number(num_loc_mod);
-                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ установки Found у локальных файлов модели ")+QString::number(num_loc_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ установки Found у локальных файлов модели ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
 
 
                 QString file_name=local_files.value(1).toString();
@@ -2610,7 +2624,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 QSqlQuery server_files(db);
                 server_files.prepare("SELECT Hash, Count(*), Num FROM ServerFiles WHERE File='"+file_name+"' AND Model="+QString::number(num_serv_mod));
                 if(!server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов сравнения с локальным для дерева в модель ")+QString::number(num_loc_mod);
-                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки серверных файлов сравнения с локальным для дерева в модель ")+QString::number(num_loc_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки серверных файлов сравнения с локальным для дерева в модель ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
                 server_files.next();
 
                 qlonglong num_serv_file=server_files.value(2).toLongLong();
@@ -2619,7 +2633,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 QSqlQuery setfound_server(db);
                 setfound_server.prepare("UPDATE ServerFiles SET Found=1 WHERE Model="+QString::number(num_serv_mod)+" AND Num="+QString::number(num_serv_file));
                 if(!setfound_server.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found у серверных файлов модели ")+QString::number(num_loc_mod);
-                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ установки Found у серверных файлов модели ")+QString::number(num_loc_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ установки Found у серверных файлов модели ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
 
 
                 QString server_hash=server_files.value(0).toString();
@@ -2672,7 +2686,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
             QSqlQuery sel_unfound_server(db);
             sel_unfound_server.prepare("SELECT Num, File, Size, LastMod FROM ServerFiles WHERE Model="+QString::number(num_serv_mod)+" AND Found=0");
             if(!sel_unfound_server.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки файлов имеющихся только на сервере у модели ")+QString::number(num_serv_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки файлов имеющихся только на сервере у модели ")+QString::number(num_serv_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки файлов имеющихся только на сервере у модели ")+QString::number(num_serv_mod)+" "+db.lastError().text()));}
 
             while(sel_unfound_server.next())
             {
@@ -2703,17 +2717,17 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
             QSqlQuery unfound_local(db);
             unfound_local.prepare("UPDATE Files SET Found=0 WHERE Model="+QString::number(num_loc_mod));
             if(!unfound_local.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found у файлов модели ")+QString::number(num_loc_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ сброса Found у файлов модели ")+QString::number(num_loc_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ сброса Found у файлов модели ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
 
             QSqlQuery unfound_server(db);
             unfound_server.prepare("UPDATE ServerFiles SET Found=0 WHERE Model="+QString::number(num_serv_mod));
             if(!unfound_server.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found у файлов модели ")+QString::number(num_loc_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ сброса Found у файлов модели ")+QString::number(num_loc_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ сброса Found у файлов модели ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
 
             QSqlQuery server_files(db);
             server_files.prepare("SELECT Num, File, Size, LastMod, Hash FROM ServerFiles WHERE Model="+QString::number(num_serv_mod));
             if(!server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов для дерева в модель ")+QString::number(num_serv_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки серверных файлов для дерева в модель ")+QString::number(num_serv_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки серверных файлов для дерева в модель ")+QString::number(num_serv_mod)+" "+db.lastError().text()));}
             while(server_files.next())
             {
                 QString file_name=server_files.value(1).toString();
@@ -2723,7 +2737,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 QSqlQuery setfound_server(db);
                 setfound_server.prepare("UPDATE ServerFiles SET Found=1 WHERE Model="+QString::number(num_serv_mod)+" AND Num="+QString::number(num_serv_file));
                 if(!setfound_server.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found у серверных файлов модели ")+QString::number(num_loc_mod);
-                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ установки Found у серверных файлов модели ")+QString::number(num_loc_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ установки Found у серверных файлов модели ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
 
 
                 QString server_hash=server_files.value(4).toString();
@@ -2731,7 +2745,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 QSqlQuery local_files(db);
                 local_files.prepare("SELECT Hash, Count(*), Num FROM Files WHERE File='"+file_name+"' AND Model="+QString::number(num_loc_mod));
                 if(!local_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки локальных файлов сравнения с серверными для дерева в модель ")+QString::number(num_serv_mod);
-                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки локальных файлов сравнения с серверными для дерева в модель ")+QString::number(num_serv_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки локальных файлов сравнения с серверными для дерева в модель ")+QString::number(num_serv_mod)+" "+db.lastError().text()));}
                 local_files.next();
 
                 qlonglong num_loc_file=local_files.value(2).toLongLong();
@@ -2741,7 +2755,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
                 QSqlQuery setfound_local(db);
                 setfound_local.prepare("UPDATE Files SET Found=1 WHERE Model="+QString::number(num_loc_mod)+" AND Num="+QString::number(num_loc_file));
                 if(!setfound_local.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ установки Found у локальных файлов модели ")+QString::number(num_loc_mod);
-                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ установки Found у локальных файлов модели ")+QString::number(num_loc_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ установки Found у локальных файлов модели ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
 
 
                 if(local_hash!=server_hash)
@@ -2776,7 +2790,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
             QSqlQuery sel_unfound_local(db);
             sel_unfound_local.prepare("SELECT Num, File, Size, LastMod FROM Files WHERE Model="+QString::number(num_loc_mod)+" AND Found=0");
             if(!sel_unfound_local.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки файлов имеющихся только локально у модели ")+QString::number(num_loc_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки файлов имеющихся только локально у модели ")+QString::number(num_loc_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки файлов имеющихся только локально у модели ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
 
             while(sel_unfound_local.next())
             {
@@ -2817,7 +2831,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
             QSqlQuery server_files(db);
             server_files.prepare("SELECT Num, File, Size, LastMod FROM ServerFiles WHERE Model="+QString::number(num_serv_mod));
             if(!server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов для дерева в модель ")+QString::number(num_serv_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки серверных файлов для дерева в модель ")+QString::number(num_serv_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки серверных файлов для дерева в модель ")+QString::number(num_serv_mod)+" "+db.lastError().text()));}
             while(server_files.next())
             {
                 tFile file;
@@ -2840,7 +2854,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
             QSqlQuery local_files(db);
             local_files.prepare("SELECT Num, File, Size, LastMod FROM Files WHERE Model="+QString::number(num_loc_mod));
             if(!local_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки локальных файлов для дерева в модель ")+QString::number(num_loc_mod);
-                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки локальных файлов для дерева в модель ")+QString::number(num_loc_mod)));}
+                log.Write(QString(QString("tDatabaseOp \t AddFilesToModelsStruct \t ++ ОШИБКА ++ выборки локальных файлов для дерева в модель ")+QString::number(num_loc_mod)+" "+db.lastError().text()));}
             while(local_files.next())
             {
                 tFile file;
@@ -2861,7 +2875,7 @@ void tDatabaseOp::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
 //    db.commit();
 }
 //----------------------------------------------------------
-void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bool _from_server)
+void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model,  bool _from_server)
 {
     //заменить или добавить запись в таблицу last моделей из серверной или локальной таблицы
     //а также добавить записи файлов last моделей
@@ -2872,7 +2886,7 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
         QSqlQuery select_serv_mod(db);
         select_serv_mod.prepare("SELECT DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash FROM ServerStructModels WHERE Num="+QString::number(_num_model));
         if(!select_serv_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+QString::number(_num_model);
-            log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+QString::number(_num_model)));}
+            log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+QString::number(_num_model)+" "+db.lastError().text()));}
 
         while(select_serv_mod.next())
         {
@@ -2889,7 +2903,7 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
             QSqlQuery ver_last(db);
             ver_last.prepare("SELECT Count(*), Num FROM LastStructModels WHERE Login="+QString::number(num_login)+" AND Struct='"+Struct+"'");
             if(!ver_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия записи в таблице Last по этой модели и логину ")+_login;
-                log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+_login));}
+                log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+_login+" "+db.lastError().text()));}
             ver_last.next();
             int v=ver_last.value(0).toInt();
             qlonglong num_l_mod=ver_last.value(1).toLongLong();
@@ -2909,14 +2923,14 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
                 insert_last.bindValue(8, SummListHash);
                 insert_last.bindValue(9, num_login);
                 if(!insert_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления записи в таблицу Last по этой модели и логину ")+_login;
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ добавления записи в таблицу Last по этой модели и логину ")+_login));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ добавления записи в таблицу Last по этой модели и логину ")+_login+" "+db.lastError().text()));}
 
                 qlonglong num_las_mod=insert_last.lastInsertId().toLongLong();
 
                 QSqlQuery sel_serv_files(db);
                 sel_serv_files.prepare("SELECT File, Size, LastMod, Hash FROM ServerFiles WHERE Model="+QString::number(_num_model));
                 if(!sel_serv_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(_num_model);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(_num_model)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(_num_model)+" "+db.lastError().text()));}
                 while(sel_serv_files.next())
                 {
                 QString File=sel_serv_files.value(0).toString();
@@ -2932,7 +2946,7 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
                 insert_last_files.bindValue(3, LastMod);
                 insert_last_files.bindValue(4, Hash);
                 if(!insert_last_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model)+" "+db.lastError().text()));}
                 }
 
 
@@ -2957,17 +2971,17 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
                 update_last.prepare("UPDATE LastStructModels SET DiskFile='"+DiskFile+"', Title='"+Title+"', Description=:desc_mod, LastMod='"+LastMod.toString(Qt::ISODate)+"', Hash='"+Hash+"', ListFilesLastMod='"+ListFilesLastMod.toString(Qt::ISODate)+"', ListFilesHash='"+ListFilesHash+"', SummListHash='"+SummListHash+"' WHERE Num="+QString::number(num_l_mod));
                 update_last.bindValue(":desc_mod", Description);
                 if(!update_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления Last файлов модели ")+QString::number(_num_model);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model)+" "+db.lastError().text()));}
 
                 QSqlQuery del_last_files(db);
                 del_last_files.prepare("DELETE FROM LastFiles WHERE Model="+QString::number(num_l_mod));
                 if(!del_last_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления Last файлов модели ")+QString::number(num_l_mod);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ удаления Last файлов модели ")+QString::number(num_l_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ удаления Last файлов модели ")+QString::number(num_l_mod)+" "+db.lastError().text()));}
 
                 QSqlQuery sel_serv_files(db);
                 sel_serv_files.prepare("SELECT File, Size, LastMod, Hash FROM ServerFiles WHERE Model="+QString::number(num_l_mod));
                 if(!sel_serv_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(num_l_mod);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(num_l_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(num_l_mod)+" "+db.lastError().text()));}
                 while(sel_serv_files.next())
                 {
                 QString File=sel_serv_files.value(0).toString();
@@ -2983,7 +2997,7 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
                 insert_last_files.bindValue(3, LastMod);
                 insert_last_files.bindValue(4, Hash);
                 if(!insert_last_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(num_l_mod);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(num_l_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(num_l_mod)+" "+db.lastError().text()));}
                 }
                 }
             }
@@ -2995,10 +3009,12 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
     {
         //копируем с локальных данных
 
+//        if(_num_model!=0)
+//        {
         QSqlQuery select_serv_mod(db);
         select_serv_mod.prepare("SELECT DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash FROM StructModels WHERE Num="+QString::number(_num_model));
         if(!select_serv_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+QString::number(_num_model);
-            log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+QString::number(_num_model)));}
+            log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+QString::number(_num_model)+" "+db.lastError().text()));}
 
         while(select_serv_mod.next())
         {
@@ -3015,7 +3031,7 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
             QSqlQuery ver_last(db);
             ver_last.prepare("SELECT Count(*), Num FROM LastStructModels WHERE Login="+QString::number(num_login)+" AND Struct='"+Struct+"'");
             if(!ver_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия записи в таблице Last по этой модели и логину ")+_login;
-                log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+_login));}
+                log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов для разрешения конфликта ")+_login+" "+db.lastError().text()));}
             ver_last.next();
             int v=ver_last.value(0).toInt();
             qlonglong num_l_mod=ver_last.value(1).toLongLong();
@@ -3035,14 +3051,14 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
                 insert_last.bindValue(8, SummListHash);
                 insert_last.bindValue(9, num_login);
                 if(!insert_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления записи в таблицу Last по этой модели и логину ")+_login;
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ добавления записи в таблицу Last по этой модели и логину ")+_login));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ добавления записи в таблицу Last по этой модели и логину ")+_login+" "+db.lastError().text()));}
 
                 qlonglong num_las_mod=insert_last.lastInsertId().toLongLong();
 
                 QSqlQuery sel_serv_files(db);
                 sel_serv_files.prepare("SELECT File, Size, LastMod, Hash FROM ServerFiles WHERE Model="+QString::number(_num_model));
                 if(!sel_serv_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(_num_model);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(_num_model)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(_num_model)+" "+db.lastError().text()));}
                 while(sel_serv_files.next())
                 {
                 QString File=sel_serv_files.value(0).toString();
@@ -3058,7 +3074,7 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
                 insert_last_files.bindValue(3, LastMod);
                 insert_last_files.bindValue(4, Hash);
                 if(!insert_last_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model)+" "+db.lastError().text()));}
                 }
 
 
@@ -3083,17 +3099,17 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
                 update_last.prepare("UPDATE LastStructModels SET DiskFile='"+DiskFile+"', Title='"+Title+"', Description=:desc_mod, LastMod='"+LastMod.toString(Qt::ISODate)+"', Hash='"+Hash+"', ListFilesLastMod='"+ListFilesLastMod.toString(Qt::ISODate)+"', ListFilesHash='"+ListFilesHash+"', SummListHash='"+SummListHash+"' WHERE Num="+QString::number(num_l_mod));
                 update_last.bindValue(":desc_mod", Description);
                 if(!update_last.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления Last файлов модели ")+QString::number(_num_model);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(_num_model)+" "+db.lastError().text()));}
 
                 QSqlQuery del_last_files(db);
                 del_last_files.prepare("DELETE FROM LastFiles WHERE Model="+QString::number(num_l_mod));
                 if(!del_last_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления Last файлов модели ")+QString::number(num_l_mod);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ удаления Last файлов модели ")+QString::number(num_l_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ удаления Last файлов модели ")+QString::number(num_l_mod)+" "+db.lastError().text()));}
 
                 QSqlQuery sel_serv_files(db);
                 sel_serv_files.prepare("SELECT File, Size, LastMod, Hash FROM ServerFiles WHERE Model="+QString::number(num_l_mod));
                 if(!sel_serv_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(num_l_mod);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(num_l_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ выборки серверных файлов модели ")+QString::number(num_l_mod)+" "+db.lastError().text()));}
                 while(sel_serv_files.next())
                 {
                 QString File=sel_serv_files.value(0).toString();
@@ -3109,10 +3125,20 @@ void tDatabaseOp::ActualiseModel(const QString &_login, qlonglong _num_model, bo
                 insert_last_files.bindValue(3, LastMod);
                 insert_last_files.bindValue(4, Hash);
                 if(!insert_last_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(num_l_mod);
-                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(num_l_mod)));}
+                    log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ вставки Last файлов модели ")+QString::number(num_l_mod)+" "+db.lastError().text()));}
                 }
                 }
             }
+//        }
+//        else
+//        {
+//            //локальной версии нет, найти в таблице last моделей эту модель и удалить ее
+//            QSqlQuery del_last_model(db);
+//            del_last_model.prepare("DELETE FROM LastStructModels WHERE Num="+QString::number(_other_num_model)+" AND Login="+QString::number(num_login));
+//            if(!del_last_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления Last файла модели ")+QString::number(num_login);
+//                log.Write(QString(QString("tDatabaseOp \t ActualiseModel \t ++ ОШИБКА ++ удаления Last файла модели ")+QString::number(num_login)+" "+db.lastError().text()));}
+
+//        }
     }
 }
 //----------------------------------------------------------
@@ -3125,7 +3151,7 @@ model->insertColumn(0, QModelIndex());
 QSqlQuery get_logins(db);
 get_logins.prepare("SELECT Login, Writable FROM Logins ORDER BY Num, Login");
 if(!get_logins.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения списка логинов ");
-log.Write(QString(QString("tDatabaseOp \t GetLoginsList \t ++ ОШИБКА ++ получения списка логинов ")));}
+log.Write(QString(QString("tDatabaseOp \t GetLoginsList \t ++ ОШИБКА ++ получения списка логинов ")+" "+db.lastError().text()));}
 
 int i=0;
 while(get_logins.next())
@@ -3168,7 +3194,7 @@ void tDatabaseOp::SaveLoginsWritable(QStandardItemModel* model, int _row, bool &
             check=false;
         }
         if(!update_logins_wr.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения списка логинов ");
-        log.Write(QString(QString("tDatabaseOp \t SaveLoginsWritable \t ++ ОШИБКА ++ записи writable логинов ")));}
+        log.Write(QString(QString("tDatabaseOp \t SaveLoginsWritable \t ++ ОШИБКА ++ записи writable логинов ")+" "+db.lastError().text()));}
 
 
 }
@@ -3178,7 +3204,7 @@ void tDatabaseOp::GetPermissionsUser(const QString &user_login, bool &is_admin_u
     QSqlQuery sel_perm(db);
     sel_perm.prepare("SELECT NoDelete, Writable FROM Logins WHERE Login='"+user_login+"'");
     if(!sel_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения разрешений пользователя ") << user_login;
-    log.Write(QString(QString("tDatabaseOp \t GetPermissionsUser \t ++ ОШИБКА ++ получения разрешений пользователя ")+user_login));}
+    log.Write(QString(QString("tDatabaseOp \t GetPermissionsUser \t ++ ОШИБКА ++ получения разрешений пользователя ")+user_login+" "+db.lastError().text()));}
     sel_perm.next();
 
     is_admin_user=sel_perm.value(0).toBool();

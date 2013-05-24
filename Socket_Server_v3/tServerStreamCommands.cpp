@@ -667,7 +667,7 @@ return VerifyCollisions();
 bool tStartTransaction::ExeCommand(QDataStream &, QDataStream &_out)
 {
     ((tClient*)link)->SetTransaction(true);
-
+    InitDB(((tClient*)link)->GetDB());
     if(send_mode)
     {
         log.Write(QString(QString::fromUtf8("tStartTransaction \t ExeCommand \t СТАРТ ТРАНЗАКЦИИ НА ЗАПИСЬ ")));
@@ -690,7 +690,16 @@ bool tStartTransaction::ExeCommand(QDataStream &, QDataStream &_out)
 
         for(int i=0; i<file_list.size(); i++)
         {
-            blocker.StartWriteFile(file_list[i].file_name, login);
+            if(db_op->VerifyFile(file_list[i].file_name, file_list[i].server_hash))
+            {
+                blocker.StartWriteFile(file_list[i].file_name, login);
+            }
+            else
+            {
+                error_message=QString::fromUtf8("Устаревшие данные или попытка записи неразрешенного для чтения файла");
+                SendErrorReport(_out);
+                return false;
+            }
         }
         file_list.clear();
 
@@ -834,7 +843,7 @@ void tStartTransaction::SendErrorReport(QDataStream &_out)
     _out << comm;
     _out << num_com;
 
-    _out << "Логин: "+login;
+    _out << error_message;
 
     _out.device()->seek(0);
     quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
@@ -845,6 +854,7 @@ void tStartTransaction::SendErrorReport(QDataStream &_out)
 //----------------------------------------------------------
 bool tCommitTransaction::Initialize(QDataStream &_in)
 {
+    transfer_file_struct="";
     tLog log1(QString("(Login: "+((tClient*)link)->GetName()+")"));
     log=log1;
 
@@ -966,6 +976,16 @@ bool tCommitTransaction::ExeCommand(QDataStream &, QDataStream &_out)
         }
 
         db_op->RefreshModelsFiles();
+
+        //Список моделей в базе обновлен
+        //поищем переданную модель, конечно если передавался info файл
+        if(transfer_file_struct!="")
+        {
+            db_op->CorrectReadPermission(transfer_file_struct, login);
+        }
+
+        //пройти по списку файлов, и вписать каждому логин пользователя
+        db_op->CorrectWrittenWho(file_list, login);
 
         log.Write(QString(QString::fromUtf8("tCommitTransaction \t ExeCommand \t Разблокировка от записи файла ")));
 
@@ -1162,6 +1182,30 @@ void tCommitTransaction::Move(const QString &_entry_abs_path, const QString &_ne
     if(!file_real.exists() || file_real.remove())
     {
         QFile file_temp(_entry_abs_path);
+
+        //Нужно выбирать файлы .info, по ним определять модель
+        //и проверять есть ли разрешение для данного пользователя
+        //на чтение. Если нет - добавлять
+
+        QString ext=_entry_abs_path.right(5);
+        if(ext==".info")
+        {
+            //это описание модели
+            file_temp.open(QIODevice::ReadOnly);
+            QSettings s(_entry_abs_path, QSettings::IniFormat);
+            QTextCodec *codec =QTextCodec::codecForName("UTF-8");
+            s.setIniCodec(codec);
+
+            QString title=s.value("Title","").toString();
+            QString struct_mod=s.value("Struct","").toString();
+
+            transfer_file_struct=struct_mod+"/"+title;
+
+            //Проверим наличие такой модели
+
+            file_temp.close();
+        }
+
         if(file_temp.copy(_new_abs_path))
         {
             //копирование файла удалось
@@ -1459,6 +1503,7 @@ bool tGetFileList::ExeCommand(QDataStream &, QDataStream &_out)
     {
         QString f=list[i].right(list[i].length()-root.length());
         _out << list[i].right(list[i].length()-root.length());
+
     }
 
     _out.device()->seek(0);
@@ -1534,6 +1579,7 @@ bool tGetListModels::ExeCommand(QDataStream &, QDataStream &_out)
     //- LastMod
     //- Hash
     //- Серверный номер файла
+    //- Номер логина последнего изменявшего файл
     //}
 
     //}
