@@ -203,6 +203,8 @@ private:
     void StartReadModeles(const QString &_root, qlonglong _server_num_model);
     void ShowContextMenu(QPoint pos, bool _read);
 
+    int max_models;
+
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
 

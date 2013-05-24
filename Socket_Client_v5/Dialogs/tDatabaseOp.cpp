@@ -1252,8 +1252,24 @@ void tDatabaseOp::PrepareDeletingLocal(const QString& _file_name)
         log.Write(QString(QString("tDatabaseOp \t PrepareDeletingLocal \t ++ ОШИБКА ++ отметки Delete_local файла ")+_file_name.toUtf8()+" "+db.lastError().text()));}
 }
 //----------------------------------------------------------
-bool tDatabaseOp::GetNextSendDelModel(QString& _name_model)
+bool tDatabaseOp::GetNextSendDelModel(QString& _name_model, int &count)
 {
+    QSqlQuery select_del_models1(db);
+    select_del_models1.prepare("SELECT Count(*) FROM ServerFiles WHERE Delete_server=1");
+    if(!select_del_models1.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета количества выбраных на удаление файлов ");
+        log.Write(QString(QString("tDatabaseOp \t GetCountSendDelModels \t ++ ОШИБКА ++ подсчета количества выбраных на удаление файлов ")+" "+db.lastError().text()));}
+    select_del_models1.next();
+
+    count=count-select_del_models1.value(0).toInt();
+
+    QSqlQuery select_send_models2(db);
+    select_send_models2.prepare("SELECT Count(*) FROM Files WHERE Files.Send=1");
+    if(!select_send_models2.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета количества выбраных на отправку файлов ");
+        log.Write(QString(QString("tDatabaseOp \t GetCountSendDelModels \t ++ ОШИБКА ++ подсчета количества выбраных на отправку файлов ")+" "+db.lastError().text()));}
+    select_send_models2.next();
+
+    count=count-select_send_models2.value(0).toInt();
+
     QSqlQuery select_del_models(db);
     select_del_models.prepare("SELECT ServerStructModels.Struct, ServerStructModels.Num FROM ServerStructModels INNER JOIN ServerFiles ON ServerFiles.Model=ServerStructModels.Num GROUP BY ServerStructModels.Struct, ServerFiles.Delete_server HAVING ServerFiles.Delete_server=1");
     if(!select_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на удаление серверных моделей ");
@@ -1286,6 +1302,30 @@ bool tDatabaseOp::GetNextSendDelModel(QString& _name_model)
 
 
 }
+//----------------------------------------------------------
+int tDatabaseOp::GetCountSendDelModels()
+{
+    int count=0;
+
+    QSqlQuery select_del_models(db);
+    select_del_models.prepare("SELECT Count(*) FROM ServerFiles WHERE Delete_server=1");
+    if(!select_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета количества выбраных на удаление файлов ");
+        log.Write(QString(QString("tDatabaseOp \t GetCountSendDelModels \t ++ ОШИБКА ++ подсчета количества выбраных на удаление файлов ")+" "+db.lastError().text()));}
+    select_del_models.next();
+
+    count=select_del_models.value(0).toInt();
+
+    QSqlQuery select_send_models(db);
+    select_send_models.prepare("SELECT Count(*) FROM Files WHERE Files.Send=1");
+    if(!select_send_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета количества выбраных на отправку файлов ");
+        log.Write(QString(QString("tDatabaseOp \t GetCountSendDelModels \t ++ ОШИБКА ++ подсчета количества выбраных на отправку файлов ")+" "+db.lastError().text()));}
+    select_send_models.next();
+
+    count=count+select_send_models.value(0).toInt();
+
+    return count;
+}
+
 //----------------------------------------------------------
 void tDatabaseOp::GetSendModelFiles(const QString& _name_model, QStringList& _list_files)
 {
@@ -1622,8 +1662,28 @@ void tDatabaseOp::ExecUpdateLastSynch(bool _server, const QString& _user_login)
     }
 }
 //----------------------------------------------------------
-bool tDatabaseOp::GetNextReceiveDelModel(QString& _name_model)
+bool tDatabaseOp::GetNextReceiveDelModel(QString& _name_model, int &count)
 {
+    QSqlQuery select_count_del_models(db);
+    select_count_del_models.prepare("SELECT Count(*) FROM  Files WHERE Delete_local=1");
+    if(!select_count_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета удаляемых моделей ");
+    log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ подсчета удаляемых моделей ")+" "+db.lastError().text()));}
+    if(select_count_del_models.next())
+    {
+    count=count-select_count_del_models.value(0).toInt();
+    }
+
+    QSqlQuery select_count_rec_models(db);
+    select_count_rec_models.prepare("SELECT Count(*) FROM ServerFiles WHERE Receive=1");
+    if(!select_count_rec_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета принимаемых моделей ");
+        log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ подсчета принимаемых моделей ")+" "+db.lastError().text()));}
+    if(select_count_rec_models.next())
+    {
+    count=count-select_count_rec_models.value(0).toInt();
+    }
+
+
+
     QSqlQuery select_del_models(db);
     select_del_models.prepare("SELECT StructModels.Struct, StructModels.Num FROM StructModels INNER JOIN Files ON Files.Model=StructModels.Num GROUP BY StructModels.Struct, Files.Delete_local HAVING Files.Delete_local=1");
     if(!select_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки отмеченных на удаление локальных моделей ");
@@ -1652,6 +1712,29 @@ bool tDatabaseOp::GetNextReceiveDelModel(QString& _name_model)
     }
 
 
+}
+//----------------------------------------------------------
+int tDatabaseOp::GetCountRecDelModels()
+{
+    int count=0;
+QSqlQuery select_count_del_models(db);
+select_count_del_models.prepare("SELECT Count(*) FROM Files WHERE Delete_local=1");
+if(!select_count_del_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета удаляемых моделей ");
+log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ подсчета удаляемых моделей ")+" "+db.lastError().text()));}
+if(select_count_del_models.next())
+{
+count=select_count_del_models.value(0).toInt();
+}
+
+QSqlQuery select_count_rec_models(db);
+select_count_rec_models.prepare("SELECT Count(*) FROM ServerFiles WHERE Receive=1");
+if(!select_count_rec_models.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ подсчета принимаемых моделей ");
+    log.Write(QString(QString("tDatabaseOp \t GetNextReceiveDelModel \t ++ ОШИБКА ++ подсчета принимаемых моделей ")+" "+db.lastError().text()));}
+if(select_count_rec_models.next())
+{
+count=count+select_count_rec_models.value(0).toInt();
+}
+return count;
 }
 //----------------------------------------------------------
 void tDatabaseOp::GetReceiveModelFiles(const QString& _name_model, QStringList& _list_files)

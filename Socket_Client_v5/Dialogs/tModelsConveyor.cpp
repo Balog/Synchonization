@@ -68,11 +68,11 @@ void tModelsConveyor::EndConveyor()
     conv->Clear();
     if(send)
     {
-        StartSendDeleteFiles();
+        StartSendDeleteFiles(max_model);
     }
     else
     {
-        StartReceiveDeleteFiles(root_folder, mod_custom_copy);
+        StartReceiveDeleteFiles(root_folder, mod_custom_copy, max_model);
     }
 
 
@@ -137,7 +137,7 @@ void tModelsConveyor::DeletingLocalFile(const QString& _file_name)
     db_op->PrepareDeletingLocal(_file_name);
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::StartSendDeleteFiles()
+void tModelsConveyor::StartSendDeleteFiles(int _max_model)
 {
     l="tModelsConveyor \tStartSendDeleteFiles\tФормирование списка команд транзакции передачи и удаления файлов на сервере";
     log.Write(l);
@@ -146,9 +146,11 @@ void tModelsConveyor::StartSendDeleteFiles()
     //    Transaction=true;
     bool stop=false;
     QString name_model="";
-    if(db_op->GetNextSendDelModel(name_model))
+    max_model=_max_model;
+    count_models=max_model;
+    if(db_op->GetNextSendDelModel(name_model, count_models))
     {
-
+        emit SignalCountFiles(count_models);
         //получено имя очередной модели, некоторые файлы которой должны быть отправлены на сервер
         QStringList SendModelFiles;
         db_op->GetSendModelFiles(name_model, SendModelFiles);
@@ -224,6 +226,8 @@ void tModelsConveyor::StartSendDeleteFiles()
         l="tModelsConveyor \tStartSendDeleteFiles\t НАЧАЛО ПРОЦЕДУРЫ ОБНОВЛЕНИЯ LAST";
         log.Write(l);
 
+        emit SignalCountFiles(count_models);
+
         db_op->PrepareUpdateLastSynch(true, user_login);
 
         MarkLastTables(true, user_login);
@@ -241,7 +245,7 @@ void tModelsConveyor::MarkLastTables(bool _send, const QString& user_login)
 }
 
 //-------------------------------------------------------------------------
-void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom_copy)
+void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom_copy, int _max_model)
 {
     mod_custom_copy=_custom_copy;
     l="tModelsConveyor \tStartReceiveDeleteFiles\tФормирование списка команд транзакции приема и удаления файлов на клиенте";
@@ -253,8 +257,11 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom
     //    Transaction=true;
     bool stop=false;
     QString name_model="";
-    if(db_op->GetNextReceiveDelModel(name_model))
+    max_model=_max_model;
+    count_models=max_model;
+    if(db_op->GetNextReceiveDelModel(name_model, count_models))
     {
+        emit SignalCountFiles(count_models);
         //получено имя очередной модели что нужно получить с сервера
         QStringList ReceiveModelFiles;
         db_op->GetReceiveModelFiles(name_model, ReceiveModelFiles);
@@ -324,6 +331,7 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom
 
         ClearAllList();
         }
+        emit SignalCountFiles(max_model);
         emit EndTransactions();
     }
 }

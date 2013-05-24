@@ -60,7 +60,7 @@ public:
     void PrepareDeletingLocal(const QString& _file_name);
     void ClearlModConv();
 
-    bool GetNextSendDelModel(QString &_name_model);
+    bool GetNextSendDelModel(QString &_name_model, int &count);
     void GetSendModelFiles(const QString &_name_model, QStringList& _list_files);
     void GetDeleteServerModelFiles(const QString &_name_model, QStringList& _list_files);
 
@@ -68,7 +68,7 @@ public:
     void UpdateLastSynchMark(const QString& _file_name_, bool _server, const QString &user_login);
     void ExecUpdateLastSynch(bool _server, const QString &_user_login);
 
-    bool GetNextReceiveDelModel(QString& _name_model);
+    bool GetNextReceiveDelModel(QString& _name_model, int &count);
     void GetReceiveModelFiles(const QString& _name_model_, QStringList& _list_files);
     void UpdateServerTable(const QString &_name);
     void GetDeleteLocalModelFiles(const QString& _name_model, QStringList& _list_files);
@@ -107,6 +107,8 @@ public:
     void GetLoginsModel(QStandardItemModel* model);
     void SaveLoginsWritable(QStandardItemModel *model, int _row, bool &check);
     void GetPermissionsUser(const QString &user_login, bool &is_admin_user, bool &is_writable_user);
+    int GetCountRecDelModels();
+    int GetCountSendDelModels();
 
 private:
     typedef enum {Local, Last, Server} tTableLevel;

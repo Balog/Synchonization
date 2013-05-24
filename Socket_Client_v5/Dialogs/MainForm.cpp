@@ -81,6 +81,7 @@ ui->tabWidget->setCurrentIndex(0);
     connect(login_pass, SIGNAL(EndEditing(QString&,QString&,int,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,int,bool)));
     connect(form_new_path, SIGNAL(ContinueStrat()), this, SLOT(OnContinueStart()));
 
+    connect(mod_conv, SIGNAL(SignalCountFiles(int)), ui->progressBar, SLOT(setValue(int)));
 //    UpdateLogins();
 
     ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -180,6 +181,7 @@ void MainForm::OnDisconnect()
 //---------------------------------------------------------------------
 void MainForm::EndTransactions()
 {
+
     mod_conv->SetTransactionFlag(false);
 
     IsRequeryServerModel=true;
@@ -262,7 +264,7 @@ void MainForm::OnStartSend()
 
     }
 
-    mod_conv->StartSendDeleteFiles();
+    mod_conv->StartSendDeleteFiles(max_models);
 
 }
 //---------------------------------------------------------------------
@@ -382,7 +384,7 @@ void MainForm::OnStartReceive()
         }
     }
 
-    mod_conv->StartReceiveDeleteFiles(my_settings.GetRoot(), false);
+    mod_conv->StartReceiveDeleteFiles(my_settings.GetRoot(), false, max_models);
 
 
 }
@@ -1108,50 +1110,15 @@ void MainForm::on_pbExit_clicked()
 void MainForm::on_pbRead_clicked()
 {
 
-
+max_models=0;
 
     //начать чтение с сервера по новому
-////сначала составим списки запрашиваемых с сервера и удаляемых локально файлов
+
 
 
 //если запрашиваемый файл есть только локально а на сервере его нет то это удаление файла локально
 //остальные случаи это или создание или модификация что тут - одно и то же
     StartReadModeles(my_settings.GetRoot(), 0);
-
-//mod_conv->SetTransactionFlag(true);
-//mod_conv->Clear();
-//int is_work=false;
-//for(int i=0; i<tree_data.size();i++)
-//{
-//    if(tree_data[i].read_choice)
-//    {
-//        for(int j=0; j<tree_data[i].file.size(); j++)
-//        {
-//            QString file_name=tree_data[i].file[j].file_name;
-//            if(tree_data[i].file[j].IsFounded==1)
-//            {
-//                mod_conv->DeletingLocalFile(file_name);
-//            }
-//            else
-//            {
-//                mod_conv->ReceiveFile(file_name);
-//            }
-//            is_work=true;
-//        }
-//    }
-//}
-//if(is_work)
-//{
-//mod_conv->StartReceiveDeleteFiles();
-//}
-//else
-//{
-//    QMessageBox MB;
-//    MB.setText(QString::fromUtf8("Нет выделеных моделей для чтения"));
-//    MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-//    MB.exec();
-//}
-
 
 }
 //----------------------------------------------------------
@@ -2059,6 +2026,8 @@ void MainForm::on_tvWrite_clicked(const QModelIndex &index)
 //----------------------------------------------------------
 void MainForm::on_pbWrite_clicked()
 {
+    max_models=0;
+
 mod_conv->SetTransactionFlag(true);
 mod_conv->Clear();
 int is_work=false;
@@ -2083,7 +2052,14 @@ for(int i=0; i<tree_data.size();i++)
 }
 if(is_work)
 {
-mod_conv->StartSendDeleteFiles();
+    ui->progressBar->setMinimum(0);
+    ui->progressBar->setValue(0);
+    max_models=db_op->GetCountSendDelModels();
+    ui->progressBar->setMaximum(max_models);
+    ui->progressBar->setFormat(QString("%v"));
+    ui->progressBar->setTextVisible(true);
+
+mod_conv->StartSendDeleteFiles(max_models);
 }
 else
 {
@@ -2274,7 +2250,14 @@ void MainForm::StartReadModeles(const QString &_root, qlonglong _server_num_mode
     }
     if(is_work)
     {
-        mod_conv->StartReceiveDeleteFiles(_root, custom_copy);
+        ui->progressBar->setMinimum(0);
+        ui->progressBar->setValue(0);
+        max_models=db_op->GetCountRecDelModels();
+        ui->progressBar->setMaximum(max_models);
+        ui->progressBar->setFormat(QString("%v"));
+        ui->progressBar->setTextVisible(true);
+
+        mod_conv->StartReceiveDeleteFiles(_root, custom_copy, max_models);
     }
     else
     {

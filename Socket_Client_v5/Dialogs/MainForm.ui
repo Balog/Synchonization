@@ -748,6 +748,22 @@
     <string>Выход</string>
    </property>
   </widget>
+  <widget class="QProgressBar" name="progressBar">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>820</y>
+     <width>531</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="value">
+    <number>24</number>
+   </property>
+   <property name="format">
+    <string>%v</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>

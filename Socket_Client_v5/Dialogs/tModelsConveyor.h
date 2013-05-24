@@ -22,10 +22,10 @@ public:
     void CancelOperations();
     void Autorization(QString& _login, QString& _password);
     void OnListFiles();
-    void StartSendDeleteFiles();
+    void StartSendDeleteFiles(int _max_model);
     void ReceiveFile(const QString& _file_name);
     void DeletingLocalFile(const QString& _file_name);
-    void StartReceiveDeleteFiles(const QString &_root, bool _custom_copy);
+    void StartReceiveDeleteFiles(const QString &_root, bool _custom_copy, int max_model);
     void CorrectLastSynch(bool _server);
     bool GetIsTransaction()
     {
@@ -59,6 +59,8 @@ private:
     QString user_login;
     QString root_folder;
     bool mod_custom_copy;
+    int count_models;
+    int max_model;
     
 signals:
     void NextCommand();
@@ -69,6 +71,8 @@ signals:
     void SetVisible(bool vis);//пробросить в форму
     void EndTransactions();
     void EndTransactionsMain();
+
+    void SignalCountFiles(int count_files);
 
 private slots:
     void EndConveyor();
