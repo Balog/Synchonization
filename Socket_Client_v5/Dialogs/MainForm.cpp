@@ -2308,3 +2308,34 @@ void MainForm::ViewError(int num_error, QString& error, QString &detail, QString
     MB.setWindowTitle(QString::fromUtf8("Ошибка ")+QString::number(num_error));
     MB.exec();
 }
+//----------------------------------------------------------
+void MainForm::OnClickAddPicture()
+{
+
+    QString FileName=QFileDialog::getOpenFileName(this, "title", "text", "");
+    Image = QImage(FileName);
+    int view_width=ui->graphicsView->width()-10;
+    int view_height=ui->graphicsView->height()-10;
+
+    QGraphicsScene *scene = new QGraphicsScene(this);
+
+    scene->addPixmap(QPixmap::fromImage(Image));
+
+    ui->graphicsView->setScene(scene);
+    qreal dx=((qreal)view_width)/((qreal)Image.width());
+    qreal dy=((qreal)view_height)/((qreal)Image.height());
+
+    qreal res=0;
+
+    if(dx>dy)
+    {
+        res=dy;
+    }
+    else
+    {
+        res=dx;
+    }
+    ui->graphicsView->resetMatrix();
+ui->graphicsView->scale(res,res);
+
+}

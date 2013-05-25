@@ -15,6 +15,7 @@
 #include "tNewPath.h"
 //#include "qivbcheckindicatordelegate.h"
 #include "tProgress.h"
+#include <QImage>
 #include <vector>
 
 
@@ -208,6 +209,8 @@ private:
 
     tProgress *fProgress;
 
+    QImage Image;
+
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
 
@@ -291,12 +294,17 @@ private slots:
 
     void on_tvWrite_customContextMenuRequested(const QPoint &pos);
 
+    void OnClickAddPicture();
+
 public slots:
     void OnServerModelClick(const QModelIndex Ind);
     void OnListFilesLocal();
     void OnReceiveLoginsTable();
     void OnVerPassword();
     void OnContinueStart();
+
+
+
 
 signals:
     void RunGui(QByteArray& block);

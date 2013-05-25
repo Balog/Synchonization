@@ -34,7 +34,6 @@ signals:
     void VerifyMoveDelete(QString&, bool);
     void EndConveyor();
 
-
 };
 
 #endif // TABSTRACTGUICOMMAND_H

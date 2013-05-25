@@ -14,6 +14,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDialog>
+#include <QtGui/QGraphicsView>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
@@ -45,6 +46,7 @@ public:
     QPushButton *pbRefreshRead;
     QPushButton *pbBuildRead;
     QPlainTextEdit *pteDesRead;
+    QGraphicsView *graphicsView;
     QWidget *tab_2;
     QPushButton *pbWrite;
     QPushButton *pbBuildWrite;
@@ -90,6 +92,7 @@ public:
     QPushButton *pbClearReceiveAll;
     QLabel *label_6;
     QPushButton *pbExit;
+    QPushButton *pushButton;
 
     void setupUi(QDialog *MainForm)
     {
@@ -147,7 +150,10 @@ public:
         pbBuildRead->setGeometry(QRect(220, 718, 111, 23));
         pteDesRead = new QPlainTextEdit(tab_4);
         pteDesRead->setObjectName(QString::fromUtf8("pteDesRead"));
-        pteDesRead->setGeometry(QRect(560, 10, 491, 701));
+        pteDesRead->setGeometry(QRect(560, 380, 491, 331));
+        graphicsView = new QGraphicsView(tab_4);
+        graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
+        graphicsView->setGeometry(QRect(560, 10, 491, 361));
         tabWidget->addTab(tab_4, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -289,6 +295,9 @@ public:
         pbExit = new QPushButton(MainForm);
         pbExit->setObjectName(QString::fromUtf8("pbExit"));
         pbExit->setGeometry(QRect(990, 818, 75, 23));
+        pushButton = new QPushButton(MainForm);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setGeometry(QRect(580, 20, 75, 23));
 
         retranslateUi(MainForm);
         QObject::connect(pbConnect, SIGNAL(clicked()), MainForm, SLOT(OnConnect()));
@@ -311,6 +320,7 @@ public:
         QObject::connect(pbDelUser, SIGNAL(clicked()), MainForm, SLOT(OnDelLogin()));
         QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
         QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
+        QObject::connect(pushButton, SIGNAL(clicked()), MainForm, SLOT(OnClickAddPicture()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -364,6 +374,7 @@ public:
         label_6->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\321\207\320\270\321\202\320\260\321\202\321\214 \321\201 \321\201\320\265\321\200\320\262\320\265\321\200\320\260", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainForm", "\320\241\321\202\320\260\321\200\320\276\320\265", 0, QApplication::UnicodeUTF8));
         pbExit->setText(QApplication::translate("MainForm", "\320\222\321\213\321\205\320\276\320\264", 0, QApplication::UnicodeUTF8));
+        pushButton->setText(QApplication::translate("MainForm", "PushButton", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
