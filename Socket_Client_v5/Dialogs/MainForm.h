@@ -308,7 +308,7 @@ signals:
 
     void StartAutorizForm();
 
-    void ProgressStart(int _max);
+    void ProgressStart(int _max, int x, int y, int w, int h);
     void ProgressStop();
 
 };

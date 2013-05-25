@@ -86,7 +86,7 @@ ui->tabWidget->setCurrentIndex(0);
     connect(form_new_path, SIGNAL(ContinueStrat()), this, SLOT(OnContinueStart()));
 
     connect(mod_conv, SIGNAL(SignalCountFiles(int)), fProgress, SLOT(setValue(int)));
-    connect(this, SIGNAL(ProgressStart(int)), fProgress, SLOT(Start(int)));
+    connect(this, SIGNAL(ProgressStart(int, int, int, int, int)), fProgress, SLOT(Start(int, int, int, int, int)));
     connect(this, SIGNAL(ProgressStop()), fProgress, SLOT(Stop()));
 //    UpdateLogins();
 
@@ -2063,7 +2063,12 @@ if(is_work)
 //    ui->progressBar->setMinimum(0);
 //    ui->progressBar->setValue(0);
     max_models=db_op->GetCountSendDelModels();
-    emit ProgressStart(max_models);
+
+    int x=this->geometry().x();
+    int y=this->geometry().y();
+    int w=this->geometry().width();
+    int h=this->geometry().height();
+    emit ProgressStart(max_models, x, y, w, h);
 //    ui->progressBar->setMaximum(max_models);
 //    ui->progressBar->setFormat(QString("%v"));
 //    ui->progressBar->setTextVisible(true);
@@ -2262,7 +2267,12 @@ void MainForm::StartReadModeles(const QString &_root, qlonglong _server_num_mode
 //        ui->progressBar->setMinimum(0);
 //        ui->progressBar->setValue(0);
         max_models=db_op->GetCountRecDelModels();
-        emit ProgressStart(max_models);
+        int x=this->geometry().x();
+        int y=this->geometry().y();
+        int w=this->geometry().width();
+        int h=this->geometry().height();
+
+        emit ProgressStart(max_models, x, y, w, h);
 //        ui->progressBar->setMaximum(max_models);
 //        ui->progressBar->setFormat(QString("%v"));
 //        ui->progressBar->setTextVisible(true);
