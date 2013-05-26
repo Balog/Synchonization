@@ -15,14 +15,17 @@
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDialog>
 #include <QtGui/QGraphicsView>
+#include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
 #include <QtGui/QListView>
 #include <QtGui/QPlainTextEdit>
 #include <QtGui/QPushButton>
+#include <QtGui/QRadioButton>
 #include <QtGui/QSpinBox>
 #include <QtGui/QTabWidget>
+#include <QtGui/QTableView>
 #include <QtGui/QTreeView>
 #include <QtGui/QWidget>
 
@@ -45,8 +48,16 @@ public:
     QPushButton *pbRead;
     QPushButton *pbRefreshRead;
     QPushButton *pbBuildRead;
+    QTabWidget *tabWidget_2;
+    QWidget *tab_5;
     QPlainTextEdit *pteDesRead;
+    QWidget *tab_6;
     QGraphicsView *graphicsView;
+    QPlainTextEdit *plainTextEdit;
+    QTableView *tableView;
+    QGroupBox *groupBox;
+    QRadioButton *radioButton;
+    QRadioButton *radioButton_2;
     QWidget *tab_2;
     QPushButton *pbWrite;
     QPushButton *pbBuildWrite;
@@ -148,12 +159,38 @@ public:
         pbBuildRead = new QPushButton(tab_4);
         pbBuildRead->setObjectName(QString::fromUtf8("pbBuildRead"));
         pbBuildRead->setGeometry(QRect(220, 718, 111, 23));
-        pteDesRead = new QPlainTextEdit(tab_4);
+        tabWidget_2 = new QTabWidget(tab_4);
+        tabWidget_2->setObjectName(QString::fromUtf8("tabWidget_2"));
+        tabWidget_2->setGeometry(QRect(560, 280, 491, 431));
+        tab_5 = new QWidget();
+        tab_5->setObjectName(QString::fromUtf8("tab_5"));
+        pteDesRead = new QPlainTextEdit(tab_5);
         pteDesRead->setObjectName(QString::fromUtf8("pteDesRead"));
-        pteDesRead->setGeometry(QRect(560, 380, 491, 331));
-        graphicsView = new QGraphicsView(tab_4);
+        pteDesRead->setGeometry(QRect(3, 3, 477, 399));
+        tabWidget_2->addTab(tab_5, QString());
+        tab_6 = new QWidget();
+        tab_6->setObjectName(QString::fromUtf8("tab_6"));
+        graphicsView = new QGraphicsView(tab_6);
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        graphicsView->setGeometry(QRect(560, 10, 491, 361));
+        graphicsView->setGeometry(QRect(3, 3, 481, 371));
+        tabWidget_2->addTab(tab_6, QString());
+        graphicsView->raise();
+        pteDesRead->raise();
+        plainTextEdit = new QPlainTextEdit(tab_4);
+        plainTextEdit->setObjectName(QString::fromUtf8("plainTextEdit"));
+        plainTextEdit->setGeometry(QRect(560, 10, 491, 71));
+        tableView = new QTableView(tab_4);
+        tableView->setObjectName(QString::fromUtf8("tableView"));
+        tableView->setGeometry(QRect(560, 90, 491, 181));
+        groupBox = new QGroupBox(tab_4);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setGeometry(QRect(560, 713, 201, 32));
+        radioButton = new QRadioButton(groupBox);
+        radioButton->setObjectName(QString::fromUtf8("radioButton"));
+        radioButton->setGeometry(QRect(10, 7, 82, 18));
+        radioButton_2 = new QRadioButton(groupBox);
+        radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
+        radioButton_2->setGeometry(QRect(108, 7, 82, 18));
         tabWidget->addTab(tab_4, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
@@ -323,6 +360,7 @@ public:
         QObject::connect(pushButton, SIGNAL(clicked()), MainForm, SLOT(OnClickAddPicture()));
 
         tabWidget->setCurrentIndex(0);
+        tabWidget_2->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainForm);
@@ -341,6 +379,11 @@ public:
         pbRead->setText(QApplication::translate("MainForm", "\320\247\320\270\321\202\320\260\321\202\321\214 \321\201 \321\201\320\265\321\200\320\262\320\265\321\200\320\260", 0, QApplication::UnicodeUTF8));
         pbRefreshRead->setText(QApplication::translate("MainForm", "\320\236\320\261\320\275\320\276\320\262\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         pbBuildRead->setText(QApplication::translate("MainForm", "\320\237\320\276\321\201\321\202\321\200\320\276\320\270\321\202\321\214 \320\264\320\265\321\200\320\265\320\262\320\276", 0, QApplication::UnicodeUTF8));
+        tabWidget_2->setTabText(tabWidget_2->indexOf(tab_5), QApplication::translate("MainForm", "\320\236\320\277\320\270\321\201\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
+        tabWidget_2->setTabText(tabWidget_2->indexOf(tab_6), QApplication::translate("MainForm", "\320\237\321\200\320\265\320\262\321\214\321\216", 0, QApplication::UnicodeUTF8));
+        groupBox->setTitle(QString());
+        radioButton->setText(QApplication::translate("MainForm", "\320\233\320\276\320\272\320\260\320\273\321\214\320\275\321\213\320\271", 0, QApplication::UnicodeUTF8));
+        radioButton_2->setText(QApplication::translate("MainForm", "\320\241\320\265\321\200\320\262\320\265\321\200", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("MainForm", "\320\247\321\202\320\265\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
         pbWrite->setText(QApplication::translate("MainForm", "\320\237\320\270\321\201\320\260\321\202\321\214 \320\275\320\260 \321\201\320\265\321\200\320\262\320\265\321\200", 0, QApplication::UnicodeUTF8));
         pbBuildWrite->setText(QApplication::translate("MainForm", "\320\237\320\276\321\201\321\202\321\200\320\276\320\270\321\202\321\214 \320\264\320\265\321\200\320\265\320\262\320\276", 0, QApplication::UnicodeUTF8));

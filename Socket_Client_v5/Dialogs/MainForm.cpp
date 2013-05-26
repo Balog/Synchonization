@@ -117,6 +117,7 @@ MainForm::~MainForm()
 //    delete table_logins_model;
     delete tableModel;
     delete slm_server_list_models;
+    slm_server_list_models=NULL;
     delete adm_tree_model;
     delete read_tree_model;
     delete write_tree_model;
@@ -406,6 +407,7 @@ void MainForm::OnListFilesLocal()
 
     VerifyLastTable(user_login);
 
+    delete sLM_loc_list_models;
     sLM_loc_list_models=new QStringListModel;
     sLM_loc_list_models->setStringList(list);
     ui->lwLocalListModels->setModel(sLM_loc_list_models);
@@ -496,6 +498,7 @@ void MainForm::SaveServerModelFiles(QByteArray &_block)
     db_op->GetServerListModels(list);
 
     //отобразить список
+    delete slm_server_list_models;
     slm_server_list_models=new QStringListModel;
     slm_server_list_models->setStringList(list);
     ui->lwListModels->setModel(slm_server_list_models);
@@ -1700,20 +1703,7 @@ void MainForm::on_tvRead_clicked(const QModelIndex &index)
 {
     UpToParentFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState());
     DownToChildrensFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState(), Read);
-//    int row=index.row();
 
-
-//    int res=-1000;
-//    res=read_tree_model->itemData(index).value(Qt::UserRole+1).toInt();
-
-//    qlonglong num_loc_mod=0;
-//    qlonglong num_serv_mod=0;
-
-//    if(res!=0)
-//    {
-//        num_loc_mod=read_tree_model->itemData(index).value(Qt::UserRole+2).toInt();
-//        num_serv_mod=read_tree_model->itemData(index).value(Qt::UserRole+3).toInt();
-//    }
 }
 //----------------------------------------------------------
 void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
