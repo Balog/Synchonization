@@ -135,6 +135,7 @@ public slots:
     void VerifyMoveDelete(QString &_root_folder, bool _custom_copy);
     void OnEndTransactions();
     void OnEndConveyor();
+    void OnEndCommand();
 };
 
 #endif // TCONVEYOR_H

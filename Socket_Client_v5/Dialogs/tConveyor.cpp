@@ -141,12 +141,21 @@ void tConveyor::OnCommand(QByteArray _block)
     connect(gui_comm, SIGNAL(FinalBlockTransactions()), this, SLOT(OnEndTransactions()));
     connect(gui_comm, SIGNAL(EndConveyor()), this, SLOT(OnEndConveyor()));
 
+    connect(gui_comm, SIGNAL(EndCommand()), this, SLOT(OnEndCommand()));
+
     gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
     gui_comm->ExeCommand(out);
     if(!gui_comm) {delete gui_comm;}
     gui_comm=NULL;
 }
+//-----------------------------------------------------------------
+void tConveyor::OnEndCommand()
+{
+    delete gui_comm;
+    gui_comm=NULL;
+}
+
 //-----------------------------------------------------------------
 void tConveyor::OnRunGuiCommand(QByteArray& _block)
 {

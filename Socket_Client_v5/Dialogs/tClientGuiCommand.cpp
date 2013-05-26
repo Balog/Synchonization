@@ -206,6 +206,8 @@ void tGuiConnectConfirmReport::ExeCommand(QDataStream& _in)
     }
 
     emit StartStop(ok);
+
+    emit EndCommand();
 }
 //************************************************************************************************
 void tGuiPrepareSendFile::ExeCommand(QDataStream &_in)
@@ -641,44 +643,46 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     if(!((MainForm*)link)->IsRequeryServerModel)
     {
 
-    bool tr=((MainForm*)link)->GetIsTransaction();
-    if(tr)
-    {
-//        if(!((MainForm*)link)->IsRequeryServerModel)
-//        {
-        //СЮДА ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST
-        //НАЧАЛО В void tModelsConveyor::StartSendDeleteFiles()
-        l="tClientGuiCommand \tGetListModels\t Процесс транзакции. ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST";
-        log.Write(l);
+        bool tr=((MainForm*)link)->GetIsTransaction();
+        if(tr)
+        {
+            //        if(!((MainForm*)link)->IsRequeryServerModel)
+            //        {
+            //СЮДА ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST
+            //НАЧАЛО В void tModelsConveyor::StartSendDeleteFiles()
+            l="tClientGuiCommand \tGetListModels\t Процесс транзакции. ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST";
+            log.Write(l);
 
-        ((MainForm*)link)->CorrectLastSynch(true);
-
-
-        emit FinalBlockTransactions();
-//        }
-    }
-    else
-    {
-        //построение дерева вызвать позже
-        //сначала нужно обновить таблицу разрешений
-
-        l="tClientGuiCommand \tGetListModels\t Запуск. Обращение к серверу для обновления таблицы разрешений на чтение";
-        log.Write(l);
-
-        QByteArray block;
-        QDataStream out(&block, QIODevice::WriteOnly);
+            ((MainForm*)link)->CorrectLastSynch(true);
 
 
-        out << QString("ReceiveReadPermissions");
-        out << QString("ReceiveReadPermissions");
-
-        l="tClientGuiCommand \tGuiReportPrepareSendFile\tЗапрос таблицы разрешений на чтение моделей ";
-        log.Write(l);
-
-
-        emit RunGui(block);
+            emit FinalBlockTransactions();
+            //        }
         }
-//        ((MainForm*)link)->TreesBuildings();
+        else
+        {
+            //построение дерева вызвать позже
+            //сначала нужно обновить таблицу разрешений
+
+            l="tClientGuiCommand \tGetListModels\t Запуск. Обращение к серверу для обновления таблицы разрешений на чтение";
+            log.Write(l);
+
+            QByteArray block;
+            QDataStream out(&block, QIODevice::WriteOnly);
+
+
+            out << QString("ReceiveReadPermissions");
+            out << QString("ReceiveReadPermissions");
+
+            l="tClientGuiCommand \tGuiReportPrepareSendFile\tЗапрос таблицы разрешений на чтение моделей ";
+            log.Write(l);
+
+
+            emit RunGui(block);
+
+
+        }
+        //        ((MainForm*)link)->TreesBuildings();
     }
     else
     {
@@ -686,9 +690,10 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
         ((MainForm*)link)->EndUpdateServerModel();
         l="tClientGuiCommand \tGuiReportPrepareSendFile\t Проход по кнопке мимо всего ";
         log.Write(l);
+        emit EndCommand();
     }
 
-
+    //emit EndCommand();
 }
 //************************************************************************************************
 void tUpdateMainLocal::ExeCommand(QDataStream &)
@@ -805,6 +810,7 @@ void tGUIReportReceiveLoginsTable::ExeCommand(QDataStream &_in)
 
     ((MainForm*)link)->UpdateLoginsTable(block);
 
+    emit EndCommand();
 }
 //************************************************************************************************
 void tGUIReceiveReadPermissions::ExeCommand(QDataStream &_in)
@@ -841,6 +847,8 @@ void tGUIReportReceiveReadPermissions::ExeCommand(QDataStream &_in)
     ((MainForm*)link)->UpdateModelRead(block);
 
     ((MainForm*)link)->InternalCallBuildingTree();
+
+    emit EndCommand();
 
 }
 //************************************************************************************************
