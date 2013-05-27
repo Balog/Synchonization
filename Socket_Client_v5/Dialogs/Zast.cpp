@@ -6,7 +6,7 @@
 
 //---------------------------------------------------------------------
 Zast::Zast(QWidget *_parent) :
-    QDialog(_parent), ui(new Ui::Zast), connect_ok(false), main_form(new MainForm), dAutoriz(new Autoriz), timer1(NULL), timer2(NULL)
+    QDialog(_parent, Qt::WindowSystemMenuHint | Qt::FramelessWindowHint), ui(new Ui::Zast), connect_ok(false), main_form(new MainForm), dAutoriz(new Autoriz), timer1(NULL), timer2(NULL)
 {
     ui->setupUi(this);
     dAutoriz->setModal(true);

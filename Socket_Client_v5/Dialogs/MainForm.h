@@ -204,12 +204,14 @@ private:
     void SetToModelsTreeData(qlonglong loc_num_model, qlonglong _serv_num_model, bool _to_read, bool _choice);
     void StartReadModeles(const QString &_root, qlonglong _server_num_model);
     void ShowContextMenu(QPoint pos, bool _read);
+    void DisplayModelInfo(qlonglong loc_num, qlonglong serv_num);
 
     int max_models;
 
     tProgress *fProgress;
 
     QImage Image;
+
 
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);

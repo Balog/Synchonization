@@ -145,7 +145,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
@@ -244,8 +244,6 @@
         </rect>
        </property>
       </widget>
-      <zorder>graphicsView</zorder>
-      <zorder>pteDesRead</zorder>
      </widget>
     </widget>
     <widget class="QPlainTextEdit" name="plainTextEdit">

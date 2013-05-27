@@ -174,8 +174,6 @@ public:
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
         graphicsView->setGeometry(QRect(3, 3, 481, 371));
         tabWidget_2->addTab(tab_6, QString());
-        graphicsView->raise();
-        pteDesRead->raise();
         plainTextEdit = new QPlainTextEdit(tab_4);
         plainTextEdit->setObjectName(QString::fromUtf8("plainTextEdit"));
         plainTextEdit->setGeometry(QRect(560, 10, 491, 71));
@@ -359,7 +357,7 @@ public:
         QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
         QObject::connect(pushButton, SIGNAL(clicked()), MainForm, SLOT(OnClickAddPicture()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(3);
         tabWidget_2->setCurrentIndex(0);
 
 

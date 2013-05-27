@@ -1343,6 +1343,10 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                     {
                         int is_founded=tree_data[i].file[l].IsFounded;
                         QString name=tree_data[i].file[l].file_name;
+
+                        QString ext=name.right(5);
+                        if(ext!=".info" || ext!="files")
+                        {
                         QString last_mod1=tree_data[i].file[l].last_mod;
                         int char_t=last_mod1.indexOf("T");
                         QString last_mod=last_mod1.left(char_t)+" "+last_mod1.right(last_mod1.length()-char_t-1);
@@ -1444,6 +1448,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
 
                         file_group->appendRow(file);
 
+                    }
                     }
                     new_item->appendRow(file_group);
                     }
@@ -1581,6 +1586,10 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                     {
                         int is_founded=tree_data[i].file[l].IsFounded;
                         QString name=tree_data[i].file[l].file_name;
+
+                        QString ext=name.right(5);
+                        if(ext!=".info" || ext!="files")
+                        {
                         QString last_mod1=tree_data[i].file[l].last_mod;
                         int char_t=last_mod1.indexOf("T");
                         QString last_mod=last_mod1.left(char_t)+" "+last_mod1.right(last_mod1.length()-char_t-1);
@@ -1679,7 +1688,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                         }
 
                         file_group->appendRow(file);
-
+                        }
                     }
                     item->appendRow(file_group);
                     }
@@ -1704,6 +1713,14 @@ void MainForm::on_tvRead_clicked(const QModelIndex &index)
     UpToParentFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState());
     DownToChildrensFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState(), Read);
 
+    QStandardItem *item=read_tree_model->itemFromIndex(index);
+    qlonglong d=item->data(Qt::UserRole+1).toLongLong();
+    if(d>0)
+    {
+        qlonglong loc_num=item->data(Qt::UserRole+2).toLongLong();
+        qlonglong serv_num=item->data(Qt::UserRole+3).toLongLong();
+        DisplayModelInfo(loc_num, serv_num);
+    }
 }
 //----------------------------------------------------------
 void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
@@ -1795,10 +1812,20 @@ void MainForm::UpToParentFiles(QStandardItemModel *model, const QModelIndex &ind
 {
     const QModelIndex parent_index=model->parent(index);
     QStandardItem *parent_item=model->itemFromIndex(parent_index);
+    qlonglong p_d=-10;
+    if(parent_item!=NULL)
+    {
+    p_d=parent_item->data(Qt::UserRole+1).toLongLong();
+    }
     Qt::CheckState state=_state;
 
     QStandardItem *item=model->itemFromIndex(index);
     qlonglong d=item->data(Qt::UserRole+1).toLongLong();
+    if(state==Qt::Unchecked &&  p_d==3)
+    {
+        return;
+    }
+
     if(d==-2 || d==-3)
     {
         return;
@@ -1875,7 +1902,7 @@ void MainForm::DownToChildrensFiles(QStandardItemModel *model, QModelIndex index
     QStandardItem *item=model->itemFromIndex(index);
     QString txt=item->text();
     qlonglong s_num=item->data(Qt::UserRole+1).toLongLong();
-    if(s_num==-3)
+    if(s_num==-3 || s_num==-2)
     {
         return;
     }
@@ -2329,3 +2356,13 @@ void MainForm::OnClickAddPicture()
 ui->graphicsView->scale(res,res);
 
 }
+//----------------------------------------------------------
+void MainForm::DisplayModelInfo(qlonglong loc_num, qlonglong serv_num)
+{
+    //мне понадобятся:
+    //Название модели
+    //Description
+    //Список файлов (структура Название, размер, дата модификации, кто модифицировал)
+    //список путей к превью
+}
+//----------------------------------------------------------
