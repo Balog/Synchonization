@@ -455,7 +455,7 @@ public:
         QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
 
         tabWidget->setCurrentIndex(0);
-        tabWidget_2->setCurrentIndex(0);
+        tabWidget_2->setCurrentIndex(1);
         tabWidget_3->setCurrentIndex(0);
 
 

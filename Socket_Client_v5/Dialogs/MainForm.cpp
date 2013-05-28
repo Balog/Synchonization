@@ -2073,7 +2073,14 @@ QModelIndex MainForm::SearchIndexToModel(qlonglong current_local_num, qlonglong 
     bool b=false;
     res_item=SearchItemToModel(current_local_num, current_server_num, item, b);
 
-    return res_item->index();
+    if(!b)
+    {
+        return QModelIndex();
+    }
+    else
+    {
+        return res_item->index();
+    }
 }
 
 //----------------------------------------------------------
@@ -2468,6 +2475,15 @@ void MainForm::DisplayModelInfo(qlonglong loc_num, qlonglong serv_num)
     //Description
     //Список файлов (структура Название, размер, дата модификации, кто модифицировал)
     //список путей к превью
+    QModelIndex mi=QModelIndex();
+    if(ui->tabWidget->currentIndex()==0)
+    {
+
+    }
+    else
+    {
+
+    }
 
     current_local_model=loc_num;
     QString title_model="";
@@ -2951,6 +2967,28 @@ void MainForm::RecoveryTreeIndex()
     ui->tvRead->setCurrentIndex(ReadIndex);
     ui->tvWrite->setCurrentIndex(WriteIndex);
 
-    DisplayModelInfo(current_local_num, current_server_num);
+    if(ui->tabWidget->currentIndex()==0)
+    {
+        if(ReadIndex==QModelIndex())
+        {
+            DisplayModelInfo(0,0);
+        }
+        else
+        {
+            DisplayModelInfo(current_local_num, current_server_num);
+        }
+    }
+    else
+    {
+        if(WriteIndex==QModelIndex())
+        {
+            DisplayModelInfo(0,0);
+        }
+        else
+        {
+            DisplayModelInfo(current_local_num, current_server_num);
+        }
+    }
+
 }
 
