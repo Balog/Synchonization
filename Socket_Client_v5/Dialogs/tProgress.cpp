@@ -39,7 +39,7 @@ void tProgress::setValue(int value)
 {
     ui->progressBar->setValue(value);
     QString my_text=QString::number(value)+"%";
-    ui->progressBar->setProperty("text",QVariant(my_text));
+//    ui->progressBar->setProperty("text",QVariant(my_text));
 }
 //-----------------------------------------------------
 void tProgress::Stop()

@@ -123,6 +123,10 @@ public:
     void InternalCallBuildingTree();
 
     void ViewError(int num_error, QString& error, QString &detail, QString& client_detail);
+    void  MainForm::DisplayInfo(qlonglong loc_num, qlonglong serv_num);
+//    QModelIndex CurrentReadIndex;
+//    QModelIndex CurrentWriteIndex;
+
 
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
@@ -197,12 +201,14 @@ private:
 
 
     QStandardItemModel *read_tree_model;
+
     QStandardItemModel *write_tree_model;
+
 
     void UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state);
     void DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state, tTreeMod _direction);
     void SetToModelsTreeData(qlonglong loc_num_model, qlonglong _serv_num_model, bool _to_read, bool _choice);
-    void StartReadModeles(const QString &_root, qlonglong _server_num_model);
+    void StartReadModeles(const QString &_root, qlonglong _server_num_model,const bool _is_preview);
     void ShowContextMenu(QPoint pos, bool _read);
     void DisplayModelInfo(qlonglong loc_num, qlonglong serv_num);
 
@@ -212,6 +218,24 @@ private:
 
     QImage Image;
 
+    QStandardItemModel *table_files_model;
+    int num_preview;
+    void DisplayPreview(const QStringList &_previews);
+    QStringList previews;
+    qlonglong current_local_model;
+    void GetLoadedPreview(const qlonglong serv_num, QStringList &previews);
+    bool removeFolder(const QDir & _dir, const bool _del_dir);
+    void EditingModelFile(QString &file_name, QString &text);
+
+    qlonglong current_local_num;
+    qlonglong current_server_num;
+
+    void SearchIndex(qlonglong current_local_num, qlonglong current_server_num, QModelIndex &ReadIndex, QModelIndex &WriteIndex);
+//    QModelIndex SearchIndexToModel(qlonglong current_local_num, qlonglong current_server_num, QStandardItemModel &read_model);
+    QModelIndex SearchIndexToModel(qlonglong current_local_num, qlonglong current_server_num, QStandardItemModel *_model);
+    QStandardItem* SearchItemToModel(qlonglong current_local_num, qlonglong current_server_num, QStandardItem *item, bool &stop);
+
+    void RecoveryTreeIndex();
 
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
@@ -296,7 +320,43 @@ private slots:
 
     void on_tvWrite_customContextMenuRequested(const QPoint &pos);
 
-    void OnClickAddPicture();
+//    void OnClickAddPicture();
+
+    void on_tbFirstPreview_clicked();
+
+    void on_tbPriorPreview_clicked();
+
+    void on_tbNextPreview_clicked();
+
+
+    void on_tbLastPreview_clicked();
+
+    void on_pteDesRead_textChanged();
+
+    void on_rbSourseLoc_clicked();
+
+    void on_rbSourceServ_clicked();
+
+    void on_pbLoadPreviews_clicked();
+
+
+
+
+    void on_tbFirstPreview_2_clicked();
+
+    void on_tbPriorPreview_2_clicked();
+
+    void on_tbNextPreview_2_clicked();
+
+    void on_tbLastPreview_2_clicked();
+
+    void on_pbLoadPreviews_2_clicked();
+
+    void on_rbSourseLoc_2_clicked();
+
+    void on_rbSourceServ_2_clicked();
+
+    void on_pteDesRead_2_textChanged();
 
 public slots:
     void OnServerModelClick(const QModelIndex Ind);

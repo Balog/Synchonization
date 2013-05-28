@@ -407,7 +407,7 @@ void tConveyor::VerifyMoveDelete(QString &_root_folder, bool _custom_copy)
     }
 //    model_file=m_struct;
     bool ret=true;
-    temp=my_settings.GetTemp();
+    temp=my_settings.GetTemp()+"Receive/";
     root=_root_folder;//my_settings.GetRoot();
     QDir dir(temp);
     stopped=false;
@@ -830,7 +830,7 @@ void tConveyor::ClearTempFolder()
     l="tConveyor \tClearTempFolder\tОчистка временной папки";
     log.Write(l);
 
-    QString path=my_settings.GetTemp();
+    QString path=my_settings.GetTemp()+"Receive/";
     //удаление временной папки если она есть
     //делаем рекурсивный обход папок временной папки с удалением всех файлов
     //после чего удаляем всю папку
@@ -902,7 +902,7 @@ bool tConveyor::FolderOperation(const QDir & _dir, const int _mode)
         if(stopped) return false;
 
         QString entry_abs_path = _dir.absolutePath() + "/" + entry;
-        QString relat_path=entry_abs_path.right(entry_abs_path.length()-my_settings.GetTemp().length());
+        QString relat_path=entry_abs_path.right(entry_abs_path.length()-temp.length());
         QString new_abs_path=root+relat_path;
 
         QFile::setPermissions(new_abs_path, QFile::ReadOwner | QFile::WriteOwner);
@@ -928,7 +928,7 @@ bool tConveyor::FolderOperation(const QDir & _dir, const int _mode)
         if(stopped) return false;
 
         QString entry_abs_path = _dir.absolutePath() + "/" + entry;
-        QString new_abs_path=root+entry_abs_path.right(entry_abs_path.length()-my_settings.GetTemp().length()); //root+entry;
+        QString new_abs_path=root+entry_abs_path.right(entry_abs_path.length()-temp.length()); //root+entry;
         QDir dir(entry_abs_path);
         if(dir.mkpath(new_abs_path))
         {
@@ -1094,7 +1094,8 @@ void tConveyor::VerifyReplacedFiles(bool _custom_copy)
     for(int i=0; i<file_list.size(); i++)
     {
         QString name=file_list[i].file_name;
-        QFileInfo info(root+"/"+name);
+        QString full_path=root+"/"+name;
+        QFileInfo info(full_path);
         if(!_custom_copy)
         {
         if(info.exists())

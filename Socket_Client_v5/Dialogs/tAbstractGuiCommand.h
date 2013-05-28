@@ -35,6 +35,7 @@ signals:
     void EndConveyor();
     void EndCommand();
 
+
 };
 
 #endif // TABSTRACTGUICOMMAND_H

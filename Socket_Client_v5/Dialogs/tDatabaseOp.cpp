@@ -3295,3 +3295,142 @@ void tDatabaseOp::GetPermissionsUser(const QString &user_login, bool &is_admin_u
 
     is_writable_user=is_admin_user || is_writable_user;
 }
+//----------------------------------------------------------
+void tDatabaseOp::GetModelInfo(qlonglong loc_num, QString& title_model, QString &description, QList<tFile> &files_model, QStringList& previews)
+{
+    previews.clear();
+    QSqlQuery sel_info_mod(db);
+    sel_info_mod.prepare("SELECT Title, Description FROM StructModels WHERE Num="+QString::number(loc_num));
+    if(!sel_info_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения информации о модели ") << loc_num;
+    log.Write(QString(QString("tDatabaseOp \t GetModelInfo \t ++ ОШИБКА ++ получения информации о модели ")+QString::number(loc_num)+" "+db.lastError().text()));}
+    sel_info_mod.next();
+
+    title_model=sel_info_mod.value(0).toString();
+    description=sel_info_mod.value(1).toString();
+
+    QSqlQuery sel_files_info(db);
+    sel_files_info.prepare("SELECT File, Size, LastMod FROM Files WHERE Model="+QString::number(loc_num));
+    if(!sel_files_info.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения информации о файлах модели ") << loc_num;
+    log.Write(QString(QString("tDatabaseOp \t GetModelInfo \t ++ ОШИБКА ++ получения информации о файлах модели ")+QString::number(loc_num)+" "+db.lastError().text()));}
+    while(sel_files_info.next())
+    {
+        tFile file;
+        QString file_name=sel_files_info.value(0).toString();
+        //нужно отбросить содержимое папки .info
+//        QDir d(file_name);
+        QFileInfo fi(file_name);
+        QString path=fi.path();
+        if(path.right(5)==".info")
+        {
+            QString suffix=fi.suffix();
+            if(suffix=="bmp" | suffix=="jpg" | suffix=="jpeg" | suffix=="gif" | suffix=="png")
+            {
+                previews.push_back(my_settings.GetRoot()+file_name);
+            }
+        }
+        else
+        {
+            file.file_name=file_name;
+            file.size=sel_files_info.value(1).toLongLong();
+
+            QString last_mod1=sel_files_info.value(2).toDateTime().toString(Qt::ISODate);
+            int char_t=last_mod1.indexOf("T");
+            file.last_mod=last_mod1.left(char_t)+" "+last_mod1.right(last_mod1.length()-char_t-1);
+
+            files_model.push_back(file);
+        }
+    }
+}
+//----------------------------------------------------------
+void tDatabaseOp::SaveDescription(const qlonglong _num, const QString &text, QString & file_name)
+{
+    QSqlQuery upd_descr(db);
+    upd_descr.prepare("UPDATE StructModels SET Description='"+text+"' WHERE Num="+QString::number(_num));
+    if(!upd_descr.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ записи Description модели  ") << _num;
+    log.Write(QString(QString("tDatabaseOp \t GetModelInfo \t ++ ОШИБКА ++ записи Description модели ")+QString::number(_num)+" "+db.lastError().text()));}
+
+    QSqlQuery sel_file_name(db);
+    sel_file_name.prepare("SELECT DiskFile FROM StructModels WHERE Num="+QString::number(_num));
+    if(!sel_file_name.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ поиска файла модели  ") << _num;
+    log.Write(QString(QString("tDatabaseOp \t GetModelInfo \t ++ ОШИБКА ++ поиска файла модели ")+QString::number(_num)+" "+db.lastError().text()));}
+    sel_file_name.next();
+
+    file_name=sel_file_name.value(0).toString();
+
+}
+//----------------------------------------------------------
+void tDatabaseOp::GetServerListPreviews(const qlonglong _server_num_model, QStringList &_list)
+{
+    QSqlQuery sel_serv_files(db);
+    sel_serv_files.prepare("SELECT File FROM ServerFiles WHERE Model="+QString::number(_server_num_model));
+    if(!sel_serv_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ выборки файлов серверной модели  ") << _server_num_model;
+    log.Write(QString(QString("tDatabaseOp \t GetServerListPreviews \t ++ ОШИБКА ++ выборки файлов серверной модели ")+QString::number(_server_num_model)+" "+db.lastError().text()));}
+    while(sel_serv_files.next())
+    {
+        QString name_file=sel_serv_files.value(0).toString();
+        QFileInfo fi(name_file);
+        QString path=fi.path();
+        if(path.right(5)==".info")
+        {
+            QString suffix=fi.suffix();
+            if(suffix=="bmp" | suffix=="jpg" | suffix=="jpeg" | suffix=="gif" | suffix=="png")
+            {
+                _list.push_back(name_file);
+            }
+        }
+    }
+}
+//----------------------------------------------------------
+void tDatabaseOp::GetServerModelInfo(qlonglong serv_num, QString& title_model, QString &description, QList<tFile> &files_model)
+{
+    QSqlQuery sel_info_mod(db);
+    sel_info_mod.prepare("SELECT Title, Description FROM ServerStructModels WHERE Num="+QString::number(serv_num));
+    if(!sel_info_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения информации о серверной модели ") << serv_num;
+    log.Write(QString(QString("tDatabaseOp \t GetServerModelInfo \t ++ ОШИБКА ++ получения информации о серверной модели ")+QString::number(serv_num)+" "+db.lastError().text()));}
+    sel_info_mod.next();
+
+    title_model=sel_info_mod.value(0).toString();
+    description=sel_info_mod.value(1).toString();
+
+    QSqlQuery sel_files_info(db);
+    sel_files_info.prepare("SELECT File, Size, LastMod FROM ServerFiles WHERE Model="+QString::number(serv_num));
+    if(!sel_files_info.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения информации о файлах сервреной модели ") << serv_num;
+    log.Write(QString(QString("tDatabaseOp \t GetServerModelInfo \t ++ ОШИБКА ++ получения информации о файлах серверной модели ")+QString::number(serv_num)+" "+db.lastError().text()));}
+    while(sel_files_info.next())
+    {
+        tFile file;
+        QString file_name=sel_files_info.value(0).toString();
+        //нужно отбросить содержимое папки .info
+//        QDir d(file_name);
+        QFileInfo fi(file_name);
+        QString path=fi.path();
+        if(path.right(5)!=".info")
+        {
+            file.file_name=file_name;
+            file.size=sel_files_info.value(1).toLongLong();
+
+            QString last_mod1=sel_files_info.value(2).toDateTime().toString(Qt::ISODate);
+            int char_t=last_mod1.indexOf("T");
+            file.last_mod=last_mod1.left(char_t)+" "+last_mod1.right(last_mod1.length()-char_t-1);
+
+            files_model.push_back(file);
+        }
+    }
+}
+//----------------------------------------------------------
+QString tDatabaseOp::GetServerModelPath(qlonglong _num_server)
+{
+    QString ret="";
+
+    QSqlQuery sel_path(db);
+    sel_path.prepare("SELECT DiskFile FROM ServerStructModels WHERE Num="+QString::number(_num_server));
+    if(!sel_path.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения файла серверной модели ") << _num_server;
+    log.Write(QString(QString("tDatabaseOp \t GetServerModelPath \t ++ ОШИБКА ++ получения файла серверной модели ")+QString::number(_num_server)+" "+db.lastError().text()));}
+    sel_path.next();
+
+    QString file=sel_path.value(0).toString();
+    QFileInfo fi(file);
+    ret=fi.path();
+
+    return ret;
+}

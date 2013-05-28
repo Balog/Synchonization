@@ -25,7 +25,7 @@ public:
     void StartSendDeleteFiles(int _max_model);
     void ReceiveFile(const QString& _file_name);
     void DeletingLocalFile(const QString& _file_name);
-    void StartReceiveDeleteFiles(const QString &_root, bool _custom_copy, int max_model);
+    void StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int max_model);
     void CorrectLastSynch(bool _server);
     bool GetIsTransaction()
     {
@@ -58,7 +58,7 @@ private:
     tLog log;
     QString user_login;
     QString root_folder;
-    bool mod_custom_copy;
+    int mod_custom_copy;
     int count_models;
     int max_model;
     

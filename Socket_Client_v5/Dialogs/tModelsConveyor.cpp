@@ -245,7 +245,7 @@ void tModelsConveyor::MarkLastTables(bool _send, const QString& user_login)
 }
 
 //-------------------------------------------------------------------------
-void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom_copy, int _max_model)
+void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int _max_model)
 {
     mod_custom_copy=_custom_copy;
     l="tModelsConveyor \tStartReceiveDeleteFiles\tФормирование списка команд транзакции приема и удаления файлов на клиенте";
@@ -259,6 +259,8 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom
     QString name_model="";
     max_model=_max_model;
     count_models=max_model;
+//    if(_custom_copy!=2)
+//    {
     if(db_op->GetNextReceiveDelModel(name_model, count_models))
     {
         emit SignalCountFiles(count_models);
@@ -319,7 +321,7 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom
         l="tModelsConveyor \tStartReceiveDeleteFiles\tВсе модели приняты";
         log.Write(l);
 
-        if(!_custom_copy)
+        if(_custom_copy==0)
         {
         //нужна команда GetListModels
 
@@ -334,6 +336,20 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, bool _custom
         emit SignalCountFiles(max_model);
         emit EndTransactions();
     }
+//    }
+//    else
+//    {
+
+
+
+
+//        conv->AddStartTransaction(send);
+//        stop=conv->AddReceiveCommand(_root);
+//        //        conv->AddDelCommand();
+
+//        conv->AddCommitTransaction(send, root_folder, _custom_copy);
+//        conv->StartExecution();
+//    }
 }
 //-------------------------------------------------------------------------
 void tModelsConveyor::CorrectLastSynch(bool _server)

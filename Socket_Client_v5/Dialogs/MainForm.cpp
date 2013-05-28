@@ -29,9 +29,11 @@ MainForm::MainForm(QWidget *parent) :
     sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL),
     login_pass(new tEditLoginPass), adm_tree_model(NULL), form_new_path(new tNewPath),
     read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel()),
-    fProgress(new tProgress)
+    fProgress(new tProgress),table_files_model(NULL), previews(NULL)
 {
+
 //    constr_mod_tree=NULL;
+    current_local_model=0;
     fProgress->setVisible(false);
 
     IsRequeryServerModel=false;
@@ -51,6 +53,8 @@ MainForm::MainForm(QWidget *parent) :
 //    tab_log_model=new tLoginRowModel();
 
     ui->setupUi(this);
+
+
 
     ui->pbBuildRead->setVisible(false);
     ui->pbBuildWrite->setVisible(false);
@@ -129,7 +133,7 @@ MainForm::~MainForm()
     delete db_op;
     db_op=NULL;
 
-
+    delete table_files_model;
 
     delete ui;
 
@@ -200,6 +204,7 @@ void MainForm::EndTransactions()
     ConstructTree(Read, list_compare);
     ConstructTree(Write, list_compare);
 
+    DisplayInfo(current_local_num, current_server_num);
     emit ProgressStop();
     tLog log;
     log.Write(tr("Работа завершена"));
@@ -393,7 +398,7 @@ void MainForm::OnStartReceive()
         }
     }
 
-    mod_conv->StartReceiveDeleteFiles(my_settings.GetRoot(), false, max_models);
+    mod_conv->StartReceiveDeleteFiles(my_settings.GetRoot(), 0, max_models);
 
 
 }
@@ -835,7 +840,7 @@ void MainForm::TreesBuildings(QString& _login)
 //                log.Write(QString("Новая ветвь. Установлено - выключено "+new_item->text().toUtf8()));
                 }
                 new_item->setEditable(false);
-                new_item->setSelectable(false);
+                new_item->setSelectable(true);
 //                QIcon icon(":/Icons/Tree/Del_sm.ico");
 //                new_item->setIcon(icon);
 
@@ -1120,7 +1125,7 @@ void MainForm::on_pbExit_clicked()
 
 void MainForm::on_pbRead_clicked()
 {
-
+DisplayModelInfo(0, 0);
 max_models=0;
 
     //начать чтение с сервера по новому
@@ -1129,7 +1134,7 @@ max_models=0;
 
 //если запрашиваемый файл есть только локально а на сервере его нет то это удаление файла локально
 //остальные случаи это или создание или модификация что тут - одно и то же
-    StartReadModeles(my_settings.GetRoot(), 0);
+    StartReadModeles(my_settings.GetRoot(), 0, false);
 
 }
 //----------------------------------------------------------
@@ -1248,6 +1253,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
             {
 //                QString T=list_model[j];
                 QStandardItem *new_item=new QStandardItem(list_model[j]);
+                new_item->setSelectable(false);
                 QFont font;
                 if(j==list_model.size()-1)
                 {
@@ -1272,7 +1278,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             new_item->setCheckState(Qt::Unchecked);
                             new_item->setCheckable(true);
                             new_item->setTristate(true);
-                            new_item->setSelectable(false);
+                            new_item->setSelectable(true);
                             new_item->setEditable(false);
                             QIcon icon(":/Icons/Tree/Triangle_right.ico");
                             new_item->setIcon(icon);
@@ -1284,7 +1290,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             new_item->setCheckState(Qt::Unchecked);
                             new_item->setCheckable(true);
                             new_item->setTristate(true);
-                            new_item->setSelectable(false);
+                            new_item->setSelectable(true);
                             new_item->setEditable(false);
                             QIcon icon(":/Icons/Tree/Triangle_left.ico");
                             new_item->setIcon(icon);
@@ -1296,7 +1302,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             new_item->setCheckState(Qt::Unchecked);
                             new_item->setCheckable(true);
                             new_item->setTristate(true);
-                            new_item->setSelectable(false);
+                            new_item->setSelectable(true);
                             new_item->setEditable(false);
                             if(_read)
                             {
@@ -1317,7 +1323,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             new_item->setCheckState(Qt::Unchecked);
                             new_item->setCheckable(true);
                             new_item->setTristate(true);
-                            new_item->setSelectable(false);
+                            new_item->setSelectable(true);
                             new_item->setEditable(false);
                             if(_read)
                             {
@@ -1355,7 +1361,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                         qlonglong size=tree_data[i].file[l].size;
 
                         QStandardItem *file=new QStandardItem(name);
-                        file->setSelectable(false);
+                        file->setSelectable(true);
                         file->setEditable(false);
                         QFont file_font;
 //                        QBrush file_brush;
@@ -1468,7 +1474,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                     new_item->setCheckState(Qt::Unchecked);
                     new_item->setCheckable(true);
                     new_item->setTristate(true);
-                    new_item->setSelectable(false);
+//                    new_item->setSelectable(false);
                     new_item->setEditable(false);
                     new_item->setData(-1, Qt::UserRole+1);
                     font.setBold(false);
@@ -1481,7 +1487,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                 //                log.Write(QString("Новая ветвь. Установлено - выключено "+new_item->text().toUtf8()));
 
                 new_item->setEditable(false);
-                new_item->setSelectable(false);
+//                new_item->setSelectable(false);
                 //                QIcon icon(":/Icons/Tree/Del_sm.ico");
                 //                new_item->setIcon(icon);
 
@@ -1515,7 +1521,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             item->setCheckState(Qt::Unchecked);
                             item->setCheckable(true);
                             item->setTristate(true);
-                            item->setSelectable(false);
+                            item->setSelectable(true);
                             item->setEditable(false);
                             QIcon icon(":/Icons/Tree/Triangle_right.ico");
                             item->setIcon(icon);
@@ -1527,7 +1533,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             item->setCheckState(Qt::Unchecked);
                             item->setCheckable(true);
                             item->setTristate(true);
-                            item->setSelectable(false);
+                            item->setSelectable(true);
                             item->setEditable(false);
                             QIcon icon(":/Icons/Tree/Triangle_left.ico");
                             item->setIcon(icon);
@@ -1539,7 +1545,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             item->setCheckState(Qt::Unchecked);
                             item->setCheckable(true);
                             item->setTristate(true);
-                            item->setSelectable(false);
+                            item->setSelectable(true);
                             item->setEditable(false);
                             if(_read)
                             {
@@ -1560,7 +1566,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                             item->setCheckState(Qt::Unchecked);
                             item->setCheckable(true);
                             item->setTristate(true);
-                            item->setSelectable(false);
+                            item->setSelectable(true);
                             item->setEditable(false);
                             if(_read)
                             {
@@ -1710,17 +1716,30 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
 //----------------------------------------------------------
 void MainForm::on_tvRead_clicked(const QModelIndex &index)
 {
+//    CurrentReadIndex=index;
+
     UpToParentFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState());
     DownToChildrensFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState(), Read);
 
     QStandardItem *item=read_tree_model->itemFromIndex(index);
     qlonglong d=item->data(Qt::UserRole+1).toLongLong();
-    if(d>0)
+
+    if(d>0 || d==-2)
     {
-        qlonglong loc_num=item->data(Qt::UserRole+2).toLongLong();
-        qlonglong serv_num=item->data(Qt::UserRole+3).toLongLong();
-        DisplayModelInfo(loc_num, serv_num);
+        current_local_num=item->data(Qt::UserRole+2).toLongLong();
+        current_server_num=item->data(Qt::UserRole+3).toLongLong();
     }
+    else
+    {
+        current_local_num=-1;
+        current_server_num=-1;
+    }
+
+    ui->pbLoadPreviews->setEnabled( ui->rbSourceServ->isChecked() && (d>0 || d==-2));
+    ui->pbLoadPreviews_2->setEnabled( ui->rbSourceServ_2->isChecked() && (d>0 || d==-2));
+
+    DisplayInfo(current_local_num, current_server_num);
+
 }
 //----------------------------------------------------------
 void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
@@ -1806,6 +1825,8 @@ void MainForm::EndUpdateServerModel()
     BuildingTree(user_login);
     ConstructTree(Read, list_compare);
     ConstructTree(Write, list_compare);
+
+    RecoveryTreeIndex();
 }
 //----------------------------------------------------------
 void MainForm::UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state)
@@ -2025,9 +2046,66 @@ void MainForm::on_pbRefreshRead_clicked()
 
     IsRequeryServerModel=true;
     OnListFiles();
+
+
+
 //    BuildingTree(user_login);
 //    ConstructTree(Read, list_compare);
 }
+//----------------------------------------------------------
+void MainForm::SearchIndex(qlonglong current_local_num, qlonglong current_server_num, QModelIndex &ReadIndex, QModelIndex &WriteIndex)
+{
+    QStandardItemModel *read_model=(QStandardItemModel*)ui->tvRead->model();
+
+    ReadIndex=SearchIndexToModel(current_local_num, current_server_num, read_model);
+
+    QStandardItemModel *write_model=(QStandardItemModel*)ui->tvWrite->model();
+
+    WriteIndex=SearchIndexToModel(current_local_num, current_server_num, write_model);
+}
+
+//----------------------------------------------------------
+QModelIndex MainForm::SearchIndexToModel(qlonglong current_local_num, qlonglong current_server_num, QStandardItemModel *_model)
+{
+
+    QStandardItem *res_item=NULL;
+    QStandardItem *item=_model->invisibleRootItem();
+    bool b=false;
+    res_item=SearchItemToModel(current_local_num, current_server_num, item, b);
+
+    return res_item->index();
+}
+
+//----------------------------------------------------------
+QStandardItem* MainForm::SearchItemToModel(qlonglong current_local_num, qlonglong current_server_num, QStandardItem *item, bool &stop)
+{
+
+    QStandardItem *res;
+    qlonglong loc_num=item->data(Qt::UserRole+2).toLongLong();
+    qlonglong serv_num=item->data(Qt::UserRole+3).toLongLong();
+    if(loc_num==current_local_num && serv_num==current_server_num)
+    {
+        stop=true;
+        res=item;
+        return res;
+    }
+    else
+    {
+        for(int i=0; i<item->rowCount(); i++)
+        {
+            item=item->child(i);
+
+            res=SearchItemToModel(current_local_num, current_server_num, item, stop);
+            if(stop)
+            {
+                break;
+            }
+        }
+    }
+
+    return res;
+}
+
 //----------------------------------------------------------
 void MainForm::on_pbRefresh_Write_clicked()
 {
@@ -2047,6 +2125,34 @@ void MainForm::on_tvWrite_clicked(const QModelIndex &index)
 {
     UpToParentFiles(write_tree_model, index, write_tree_model->itemFromIndex(index)->checkState());
     DownToChildrensFiles(write_tree_model, index, write_tree_model->itemFromIndex(index)->checkState(), Write);
+
+    QStandardItem *item=write_tree_model->itemFromIndex(index);
+    qlonglong d=item->data(Qt::UserRole+1).toLongLong();
+
+    if(d>0 || d==-2)
+    {
+        current_local_num=item->data(Qt::UserRole+2).toLongLong();
+        current_server_num=item->data(Qt::UserRole+3).toLongLong();
+    }
+    else
+    {
+        current_local_num=-1;
+        current_server_num=-1;
+    }
+
+    ui->pbLoadPreviews->setEnabled( ui->rbSourceServ->isChecked() && (d>0 || d==-2));
+    ui->pbLoadPreviews_2->setEnabled( ui->rbSourceServ_2->isChecked() && (d>0 || d==-2));
+
+    DisplayInfo(current_local_num, current_server_num);
+
+//    if(index.isValid())
+//    {
+//       current_local_num=write_tree_model->data(index, Qt::UserRole+1).toLongLong();
+//       current_server_num=write_tree_model->data(index, Qt::UserRole+2).toLongLong();
+//    }
+////    CurrentWriteIndex=index;
+//    UpToParentFiles(write_tree_model, index, write_tree_model->itemFromIndex(index)->checkState());
+//    DownToChildrensFiles(write_tree_model, index, write_tree_model->itemFromIndex(index)->checkState(), Write);
 }
 //----------------------------------------------------------
 void MainForm::on_pbWrite_clicked()
@@ -2166,14 +2272,14 @@ void MainForm::ShowContextMenu(QPoint pos, bool _read)
 
             if(local_num!=0)
             {
-            QAction *action1=new QAction(QString::fromUtf8("Принять актуальной локальную версию"), this);
+            QAction *action1=new QAction(QString::fromUtf8("Принять актуальной серверную версию"), this);
             action1->setData(1);
             menu.addAction(action1);
             }
 
             if(server_num)
             {
-            QAction *action2=new QAction(QString::fromUtf8("Принять актуальной серверную версию"), this);
+            QAction *action2=new QAction(QString::fromUtf8("Принять актуальной локальную версию"), this);
             action2->setData(2);
             menu.addAction(action2);
             }
@@ -2201,6 +2307,8 @@ void MainForm::ShowContextMenu(QPoint pos, bool _read)
                     BuildingTree(user_login);
                     ConstructTree(Read, list_compare);
                     ConstructTree(Write, list_compare);
+
+                    RecoveryTreeIndex();
                     break;
                 }
                 case 2:
@@ -2209,6 +2317,8 @@ void MainForm::ShowContextMenu(QPoint pos, bool _read)
                     BuildingTree(user_login);
                     ConstructTree(Read, list_compare);
                     ConstructTree(Write, list_compare);
+
+                    RecoveryTreeIndex();
                     break;
                 }
                 case 3:
@@ -2216,7 +2326,7 @@ void MainForm::ShowContextMenu(QPoint pos, bool _read)
                     QString Analys_folder=QFileDialog::getExistingDirectory(0, QString::fromUtf8(QString("Укажи куда скопировать модель").toAscii()),"/home",QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
                     if(Analys_folder!="")
                     {
-                    StartReadModeles(Analys_folder+"/", server_num);
+                    StartReadModeles(Analys_folder+"/", server_num, false);
                     }
                     break;
                 }
@@ -2239,62 +2349,80 @@ void MainForm::InternalCallBuildingTree()
     }
 }
 //----------------------------------------------------------
-void MainForm::StartReadModeles(const QString &_root, qlonglong _server_num_model)
+void MainForm::StartReadModeles(const QString &_root, qlonglong _server_num_model,const bool _is_preview)
 {
+    max_models=-1;
+    QString destination=_root;
     mod_conv->SetTransactionFlag(true);
     mod_conv->Clear();
     int is_work=false;
-    bool custom_copy=false;
+    int custom_copy=0;
     if(_server_num_model==0)
     {
 
-    for(int i=0; i<tree_data.size();i++)
-    {
-        if(tree_data[i].read_choice)
+        for(int i=0; i<tree_data.size();i++)
         {
-            for(int j=0; j<tree_data[i].file.size(); j++)
+            if(tree_data[i].read_choice)
             {
-                QString file_name=tree_data[i].file[j].file_name;
-                if(tree_data[i].file[j].IsFounded==1)
+                for(int j=0; j<tree_data[i].file.size(); j++)
                 {
-                    mod_conv->DeletingLocalFile(file_name);
+                    QString file_name=tree_data[i].file[j].file_name;
+                    if(tree_data[i].file[j].IsFounded==1)
+                    {
+                        mod_conv->DeletingLocalFile(file_name);
+                    }
+                    else
+                    {
+                        mod_conv->ReceiveFile(file_name);
+                    }
+                    is_work=true;
                 }
-                else
-                {
-                    mod_conv->ReceiveFile(file_name);
-                }
-                is_work=true;
             }
         }
-    }
     }
     else
     {
         QStringList files_list;
-        db_op->GetServerListFiles(_server_num_model, files_list);
+        if(_is_preview)
+        {
+            db_op->GetServerListPreviews(_server_num_model, files_list);
+            custom_copy=2;
+            destination=_root;
+        }
+        else
+        {
+            db_op->GetServerListFiles(_server_num_model, files_list);
+            custom_copy=1;
+            destination=_root;
+        }
+        max_models=1;
         for(int i=0; i<files_list.size(); i++)
         {
             mod_conv->ReceiveFile(files_list[i]);
         }
+
         is_work=true;
-        custom_copy=true;
+
     }
     if(is_work)
     {
-//        ui->progressBar->setMinimum(0);
-//        ui->progressBar->setValue(0);
+        //        ui->progressBar->setMinimum(0);
+        //        ui->progressBar->setValue(0);
+        if(max_models<0)
+        {
         max_models=db_op->GetCountRecDelModels();
+        }
         int x=this->geometry().x();
         int y=this->geometry().y();
         int w=this->geometry().width();
         int h=this->geometry().height();
 
         emit ProgressStart(max_models, x, y, w, h);
-//        ui->progressBar->setMaximum(max_models);
-//        ui->progressBar->setFormat(QString("%v"));
-//        ui->progressBar->setTextVisible(true);
+        //        ui->progressBar->setMaximum(max_models);
+        //        ui->progressBar->setFormat(QString("%v"));
+        //        ui->progressBar->setTextVisible(true);
 
-        mod_conv->StartReceiveDeleteFiles(_root, custom_copy, max_models);
+        mod_conv->StartReceiveDeleteFiles(destination, custom_copy, max_models);
     }
     else
     {
@@ -2326,11 +2454,240 @@ void MainForm::ViewError(int num_error, QString& error, QString &detail, QString
     MB.exec();
 }
 //----------------------------------------------------------
-void MainForm::OnClickAddPicture()
-{
+//void MainForm::OnClickAddPicture()
+//{
 
-    QString FileName=QFileDialog::getOpenFileName(this, "title", "text", "");
-    Image = QImage(FileName);
+
+
+//}
+//----------------------------------------------------------
+void MainForm::DisplayModelInfo(qlonglong loc_num, qlonglong serv_num)
+{
+    //мне понадобятся:
+    //Название модели
+    //Description
+    //Список файлов (структура Название, размер, дата модификации, кто модифицировал)
+    //список путей к превью
+
+    current_local_model=loc_num;
+    QString title_model="";
+    QString description="";
+    QList<tFile> files_model;
+
+    if(ui->rbSourseLoc->isChecked())
+    {
+        //локальные данные
+        db_op->GetModelInfo(loc_num, title_model, description, files_model, previews);
+
+    ui->leModelTitle->setText(QString("Модель: ")+title_model);
+    ui->leModelTitle_2->setText(QString("Модель: ")+title_model);
+    ui->pteDesRead->setPlainText(description);
+    ui->pteDesRead_2->setPlainText(description);
+
+
+    delete table_files_model;
+    table_files_model= new QStandardItemModel(files_model.size(),3,this);
+    for(int i=0; i<files_model.size();i++)
+    {
+//        QStandardItem *col_name=new QStandardItem(files_model[i].file_name);
+
+//        QStandardItem *col_size=new QStandardItem(QString::number(files_model[i].size));
+
+//        QStandardItem *col_last_mod=new QStandardItem(files_model[i].last_mod);
+
+
+//        table_files_model->appendColumn(col_name);
+//        table_files_model->appendColumn(col_size);
+//        table_files_model->appendColumn(col_last_mod);
+        QModelIndex i_col_name=table_files_model->index(i, 0, QModelIndex());
+        QModelIndex i_col_size=table_files_model->index(i, 1, QModelIndex());
+        QModelIndex i_col_last_mod=table_files_model->index(i, 2, QModelIndex());
+
+        table_files_model->setData(i_col_name, files_model[i].file_name);
+
+        table_files_model->setData(i_col_size, QString::number(files_model[i].size)+" b");
+
+        table_files_model->setData(i_col_last_mod, files_model[i].last_mod);
+
+        table_files_model->item(i,0)->setEditable(false);
+        table_files_model->item(i,1)->setEditable(false);
+        table_files_model->item(i,2)->setEditable(false);
+    }
+    QStringList header;
+    header << QString("Имя файла") << QString("Размер") << QString("Изменен");
+    table_files_model->setHorizontalHeaderLabels(header);
+
+    ui->tabvListFiles->setModel(table_files_model);
+    ui->tabvListFiles->setColumnWidth(0,(ui->tabvListFiles->width()-20)*0.5);
+    ui->tabvListFiles->setColumnWidth(1,(ui->tabvListFiles->width()-20)*0.2);
+    ui->tabvListFiles->setColumnWidth(2,(ui->tabvListFiles->width()-20)*0.3);
+    ui->tabvListFiles->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    ui->tabvListFiles_2->setModel(table_files_model);
+    ui->tabvListFiles_2->setColumnWidth(0,(ui->tabvListFiles->width()-20)*0.5);
+    ui->tabvListFiles_2->setColumnWidth(1,(ui->tabvListFiles->width()-20)*0.2);
+    ui->tabvListFiles_2->setColumnWidth(2,(ui->tabvListFiles->width()-20)*0.3);
+    ui->tabvListFiles_2->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    if(previews.size()>0)
+    {
+        //есть превью
+        num_preview=0;
+        ui->tbFirstPreview->setEnabled(true);
+        ui->tbPriorPreview->setEnabled(true);
+        ui->tbNextPreview->setEnabled(true);
+        ui->tbLastPreview->setEnabled(true);
+        ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+        ui->leNumPreview->setEnabled(true);
+
+        ui->tbFirstPreview_2->setEnabled(true);
+        ui->tbPriorPreview_2->setEnabled(true);
+        ui->tbNextPreview_2->setEnabled(true);
+        ui->tbLastPreview_2->setEnabled(true);
+        ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+        ui->leNumPreview_2->setEnabled(true);
+
+        DisplayPreview(previews);
+    }
+    else
+    {
+        //нет превью
+        ui->tbFirstPreview->setEnabled(false);
+        ui->tbPriorPreview->setEnabled(false);
+        ui->tbNextPreview->setEnabled(false);
+        ui->tbLastPreview->setEnabled(false);
+        ui->leNumPreview->setText("");
+        ui->leNumPreview->setEnabled(false);
+
+        ui->tbFirstPreview_2->setEnabled(false);
+        ui->tbPriorPreview_2->setEnabled(false);
+        ui->tbNextPreview_2->setEnabled(false);
+        ui->tbLastPreview_2->setEnabled(false);
+        ui->leNumPreview_2->setText("");
+        ui->leNumPreview_2->setEnabled(false);
+
+        DisplayPreview(previews);
+    }
+    }
+    else
+    {
+        //серверные данные
+        db_op->GetServerModelInfo(serv_num, title_model, description, files_model);
+
+    ui->leModelTitle->setText(QString("Модель: ")+title_model);
+    ui->pteDesRead->setPlainText(description);
+
+    ui->leModelTitle_2->setText(QString("Модель: ")+title_model);
+    ui->pteDesRead_2->setPlainText(description);
+
+
+    delete table_files_model;
+    table_files_model= new QStandardItemModel(files_model.size(),3,this);
+    for(int i=0; i<files_model.size();i++)
+    {
+        QModelIndex i_col_name=table_files_model->index(i, 0, QModelIndex());
+        QModelIndex i_col_size=table_files_model->index(i, 1, QModelIndex());
+        QModelIndex i_col_last_mod=table_files_model->index(i, 2, QModelIndex());
+
+        table_files_model->setData(i_col_name, files_model[i].file_name);
+
+        table_files_model->setData(i_col_size, QString::number(files_model[i].size)+" b");
+
+        table_files_model->setData(i_col_last_mod, files_model[i].last_mod);
+
+        table_files_model->item(i,0)->setEditable(false);
+        table_files_model->item(i,1)->setEditable(false);
+        table_files_model->item(i,2)->setEditable(false);
+    }
+    QStringList header;
+    header << QString("Имя файла") << QString("Размер") << QString("Изменен");
+    table_files_model->setHorizontalHeaderLabels(header);
+
+    ui->tabvListFiles->setModel(table_files_model);
+    ui->tabvListFiles->setColumnWidth(0,(ui->tabvListFiles->width()-20)*0.5);
+    ui->tabvListFiles->setColumnWidth(1,(ui->tabvListFiles->width()-20)*0.2);
+    ui->tabvListFiles->setColumnWidth(2,(ui->tabvListFiles->width()-20)*0.3);
+    ui->tabvListFiles->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+    ui->tabvListFiles_2->setModel(table_files_model);
+    ui->tabvListFiles_2->setColumnWidth(0,(ui->tabvListFiles->width()-20)*0.5);
+    ui->tabvListFiles_2->setColumnWidth(1,(ui->tabvListFiles->width()-20)*0.2);
+    ui->tabvListFiles_2->setColumnWidth(2,(ui->tabvListFiles->width()-20)*0.3);
+    ui->tabvListFiles_2->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+//    QStringList previews;
+
+    GetLoadedPreview(serv_num, previews);
+
+    if(previews.size()==0)
+    {
+    ui->tbFirstPreview->setEnabled(false);
+    ui->tbPriorPreview->setEnabled(false);
+    ui->tbNextPreview->setEnabled(false);
+    ui->tbLastPreview->setEnabled(false);
+    ui->leNumPreview->setText("");
+    ui->leNumPreview->setEnabled(false);
+
+    ui->tbFirstPreview_2->setEnabled(false);
+    ui->tbPriorPreview_2->setEnabled(false);
+    ui->tbNextPreview_2->setEnabled(false);
+    ui->tbLastPreview_2->setEnabled(false);
+    ui->leNumPreview_2->setText("");
+    ui->leNumPreview_2->setEnabled(false);
+    }
+    else
+    {
+        num_preview=0;
+        ui->tbFirstPreview->setEnabled(true);
+        ui->tbPriorPreview->setEnabled(true);
+        ui->tbNextPreview->setEnabled(true);
+        ui->tbLastPreview->setEnabled(true);
+        ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+        ui->leNumPreview->setEnabled(true);
+
+        ui->tbFirstPreview_2->setEnabled(true);
+        ui->tbPriorPreview_2->setEnabled(true);
+        ui->tbNextPreview_2->setEnabled(true);
+        ui->tbLastPreview_2->setEnabled(true);
+        ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+        ui->leNumPreview_2->setEnabled(true);
+    }
+    DisplayPreview(previews);
+//    mod_conv->StartReceiveDeleteFiles(my_settings.GetTemp()+"Previews/", 2, 1);
+    }
+}
+//----------------------------------------------------------
+void MainForm::GetLoadedPreview(const qlonglong serv_num, QStringList &previews)
+{
+    previews.clear();
+
+
+    QString path=my_settings.GetTemp()+"Previews/"+QString::number(serv_num)+"/"+db_op->GetServerModelPath(serv_num)+"/";
+    QDir dir(path);
+    QStringList all_files=dir.entryList(QDir::Files | QDir::Hidden);
+    for(int i=0; i<all_files.size(); i++)
+    {
+        QFileInfo fi(all_files[i]);
+        QString suffix=fi.suffix();
+        if(suffix=="bmp" | suffix=="jpg" | suffix=="jpeg" | suffix=="gif" | suffix=="png")
+        {
+            previews.push_back(path+all_files[i]);
+        }
+    }
+}
+
+//----------------------------------------------------------
+void MainForm::DisplayPreview(const QStringList &_previews)
+{
+    if(_previews.size()==0)
+    {
+        Image = QImage();
+    }
+    else
+    {
+       Image = QImage(_previews[num_preview]);
+    }
+
     int view_width=ui->graphicsView->width()-10;
     int view_height=ui->graphicsView->height()-10;
 
@@ -2339,6 +2696,8 @@ void MainForm::OnClickAddPicture()
     scene->addPixmap(QPixmap::fromImage(Image));
 
     ui->graphicsView->setScene(scene);
+    ui->graphicsView_2->setScene(scene);
+
     qreal dx=((qreal)view_width)/((qreal)Image.width());
     qreal dy=((qreal)view_height)/((qreal)Image.height());
 
@@ -2355,14 +2714,243 @@ void MainForm::OnClickAddPicture()
     ui->graphicsView->resetMatrix();
 ui->graphicsView->scale(res,res);
 
+ui->graphicsView_2->resetMatrix();
+ui->graphicsView_2->scale(res,res);
 }
 //----------------------------------------------------------
-void MainForm::DisplayModelInfo(qlonglong loc_num, qlonglong serv_num)
+void MainForm::on_tbFirstPreview_clicked()
 {
-    //мне понадобятся:
-    //Название модели
-    //Description
-    //Список файлов (структура Название, размер, дата модификации, кто модифицировал)
-    //список путей к превью
+    num_preview=0;
+    ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    DisplayPreview(previews);
 }
 //----------------------------------------------------------
+void MainForm::on_tbPriorPreview_clicked()
+{
+    num_preview--;
+    if(num_preview<0)
+    {
+        num_preview=0;
+    }
+    ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    DisplayPreview(previews);
+}
+//----------------------------------------------------------
+void MainForm::on_tbNextPreview_clicked()
+{
+    num_preview++;
+    if(num_preview>previews.size()-1)
+    {
+        num_preview=previews.size()-1;
+    }
+    ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    DisplayPreview(previews);
+}
+//----------------------------------------------------------
+
+void MainForm::on_tbLastPreview_clicked()
+{
+    num_preview=previews.size()-1;
+    ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    DisplayPreview(previews);
+}
+//----------------------------------------------------------
+void MainForm::on_pteDesRead_textChanged()
+{
+    if(ui->tabWidget->currentIndex()==0)
+    {
+    QString text=ui->pteDesRead->toPlainText();
+    QString file_name="";
+    db_op->SaveDescription(current_local_model, text, file_name);
+    EditingModelFile(file_name, text);
+
+    ui->pteDesRead_2->setPlainText(text);
+    }
+}
+//----------------------------------------------------------
+void MainForm::on_pteDesRead_2_textChanged()
+{
+    if(ui->tabWidget->currentIndex()==1)
+    {
+    QString text=ui->pteDesRead_2->toPlainText();
+    QString file_name="";
+    db_op->SaveDescription(current_local_model, text, file_name);
+    EditingModelFile(file_name, text);
+
+    ui->pteDesRead->setPlainText(text);
+    }
+}
+//----------------------------------------------------------
+void MainForm::EditingModelFile(QString &file_name, QString& _text)
+{
+//    QFile file(my_settings.GetRoot()+file_name);
+//    file.open(QFile::WriteOnly);
+    QSettings s(my_settings.GetRoot()+file_name, QSettings::IniFormat);
+    QTextCodec *codec =QTextCodec::codecForName("UTF-8");
+    s.setIniCodec(codec);
+
+//    QString title=s.value("Title","").toString();
+//    QString desc=s.value("Description","").toString();
+//    QString struct_mod=s.value("Struct","").toString();
+
+    s.setValue("Description", _text);
+}
+//----------------------------------------------------------
+void MainForm::on_rbSourseLoc_clicked()
+{
+    ui->rbSourseLoc_2->setChecked(ui->rbSourseLoc->isChecked());
+ui->pbLoadPreviews->setEnabled(false);
+ui->pbLoadPreviews_2->setEnabled(false);
+
+DisplayInfo(current_local_num, current_server_num);
+}
+//----------------------------------------------------------
+void MainForm::on_rbSourceServ_clicked()
+{
+        ui->rbSourceServ_2->setChecked(ui->rbSourceServ->isChecked());
+        if(current_local_num>0 || current_server_num>0)
+        {
+            ui->pbLoadPreviews->setEnabled(true);
+            ui->pbLoadPreviews_2->setEnabled(true);
+
+            DisplayInfo(current_local_num, current_server_num);
+        }
+
+
+
+}
+//----------------------------------------------------------
+void  MainForm::DisplayInfo(qlonglong loc_num, qlonglong serv_num)
+{
+
+
+    if(loc_num>0 || serv_num>0)
+    {
+
+        DisplayModelInfo(loc_num, serv_num);
+    }
+    else
+    {
+        DisplayModelInfo(0, 0);
+    }
+
+}
+//----------------------------------------------------------
+void MainForm::on_pbLoadPreviews_clicked()
+{
+    //Загрузка превью с сервера
+
+        if(current_local_num>0 || current_server_num>0)
+        {
+            QString prev_path=my_settings.GetTemp()+"Previews/"+QString::number(current_server_num)+"/";
+            QDir dir;
+            dir.setPath(prev_path);
+            removeFolder(dir, true);
+
+            StartReadModeles(prev_path, current_server_num, true);
+//            mod_conv->StartReceiveDeleteFiles(prev_path, 2, 1);
+        }
+
+}
+//----------------------------------------------------------
+bool MainForm::removeFolder(const QDir & _dir, const bool _del_dir)
+{
+    bool res = false;
+    //Получаем список каталогов
+    QStringList lst_dirs = _dir.entryList(QDir::Dirs |
+                                          QDir::AllDirs |
+                                          QDir::NoDotAndDotDot | QDir::Hidden);
+    //Получаем список файлов
+    QStringList lst_files = _dir.entryList(QDir::Files | QDir::Hidden);
+
+    //Удаляем файлы
+    foreach (QString entry, lst_files)
+    {
+        QString entry_abs_path = _dir.absolutePath() + "/" + entry;
+        QFile::setPermissions(entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
+        QFile::remove(entry_abs_path);
+    }
+
+    //Для папок делаем рекурсивный вызов
+    foreach (QString entry, lst_dirs)
+    {
+        QString entry_abs_path = _dir.absolutePath() + "/" + entry;
+        QDir dr(entry_abs_path);
+        removeFolder(dr, true);
+    }
+
+    //Удаляем обрабатываемую папку
+    if(_del_dir)
+    {
+        SetFileAttributes((LPCWSTR)(_dir.path()).data(), !FILE_ATTRIBUTE_HIDDEN);
+        QFile::setPermissions(_dir.absolutePath(), QFile::ReadOwner | QFile::WriteOwner);
+        if (!QDir().rmdir(_dir.absolutePath()))
+        {
+            res = true;
+        }
+        else
+        {
+            res=false;
+        }
+    }
+    else
+    {
+        res = true;
+    }
+    return res;
+}
+//----------------------------------------------------------
+void MainForm::on_tbFirstPreview_2_clicked()
+{
+on_tbFirstPreview_clicked();
+}
+//----------------------------------------------------------
+void MainForm::on_tbPriorPreview_2_clicked()
+{
+    on_tbPriorPreview_clicked();
+}
+//----------------------------------------------------------
+void MainForm::on_tbNextPreview_2_clicked()
+{
+    on_tbNextPreview_clicked();
+}
+//----------------------------------------------------------
+void MainForm::on_tbLastPreview_2_clicked()
+{
+    on_tbLastPreview_clicked();
+}
+//----------------------------------------------------------
+void MainForm::on_pbLoadPreviews_2_clicked()
+{
+    on_pbLoadPreviews_clicked();
+}
+//----------------------------------------------------------
+void MainForm::on_rbSourseLoc_2_clicked()
+{
+    ui->rbSourseLoc->setChecked(ui->rbSourseLoc_2->isChecked());
+    on_rbSourseLoc_clicked();
+}
+//----------------------------------------------------------
+void MainForm::on_rbSourceServ_2_clicked()
+{
+    ui->rbSourceServ->setChecked(ui->rbSourceServ_2->isChecked());
+    on_rbSourceServ_clicked();
+}
+//----------------------------------------------------------
+void MainForm::RecoveryTreeIndex()
+{
+    QModelIndex ReadIndex=QModelIndex();
+    QModelIndex WriteIndex=QModelIndex();
+
+    SearchIndex(current_local_num, current_server_num, ReadIndex, WriteIndex);
+
+    ui->tvRead->setCurrentIndex(ReadIndex);
+    ui->tvWrite->setCurrentIndex(WriteIndex);
+
+    DisplayModelInfo(current_local_num, current_server_num);
+}
+

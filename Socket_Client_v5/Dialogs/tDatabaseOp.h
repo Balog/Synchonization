@@ -14,6 +14,7 @@ struct tFile
     qint64 size;
     QString last_mod;
     int IsFounded;
+    qlonglong NumLoginMod;
 
 } ;
 
@@ -84,9 +85,7 @@ public:
 
     bool VerPassword(QString &login, QString &_pass);
 
-//    QStringList GetTreeHierarchyModel(int _table);   //_table = 0 - локальная таблица моделей
-//                                                //_table = 1 - серверная таблица моделей
-//                                                //_table = 2 - Last таблица моделей
+
     void ResetFoundModelAdmin();
     bool NextModelAdmin();
     QStringList NextStructListModelAdmin(QString &_login, bool &_read, qlonglong &_server_num);
@@ -109,6 +108,12 @@ public:
     void GetPermissionsUser(const QString &user_login, bool &is_admin_user, bool &is_writable_user);
     int GetCountRecDelModels();
     int GetCountSendDelModels();
+
+    void GetModelInfo(qlonglong loc_num, QString& title_model, QString &description, QList<tFile> &files_model, QStringList& previews);
+    void SaveDescription(const qlonglong _num, const QString &text, QString &file_name);
+    void GetServerListPreviews(const qlonglong _server_num_model, QStringList &_list);
+    void GetServerModelInfo(qlonglong serv_num, QString& title_model, QString &description, QList<tFile> &files_model);
+    QString GetServerModelPath(qlonglong _num_server);
 
 private:
     typedef enum {Local, Last, Server} tTableLevel;

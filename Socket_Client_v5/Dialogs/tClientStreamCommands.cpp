@@ -26,7 +26,7 @@ bool tStreamReceiveFile::Initialize(QDataStream& _in)
     //    l="tStreamReceiveFile \tInitialize\t Инициализация приема файла "+file_name.toUtf8();
     //    log.Write(l);
 
-    root=my_settings.GetTemp();
+    root=my_settings.GetTemp()+"Receive/";
 
     file.setFileName(root+file_name);
 
