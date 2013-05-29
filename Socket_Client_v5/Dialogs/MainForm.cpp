@@ -2475,15 +2475,7 @@ void MainForm::DisplayModelInfo(qlonglong loc_num, qlonglong serv_num)
     //Description
     //Список файлов (структура Название, размер, дата модификации, кто модифицировал)
     //список путей к превью
-    QModelIndex mi=QModelIndex();
-    if(ui->tabWidget->currentIndex()==0)
-    {
 
-    }
-    else
-    {
-
-    }
 
     current_local_model=loc_num;
     QString title_model="";
