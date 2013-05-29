@@ -919,7 +919,7 @@ void MainForm::UpdateModelRead(QByteArray &_block)
 }
 //----------------------------------------------------------
 
-void MainForm::on_lvLogins_clicked(const QModelIndex &index)
+void MainForm::on_lvLogins_clicked(const QModelIndex &)
 {
 //    admin_logins_index=index;
 //    QString S=sLM_Logins->stringList().value(index.row());
@@ -1125,6 +1125,8 @@ void MainForm::on_pbExit_clicked()
 
 void MainForm::on_pbRead_clicked()
 {
+    SaveDescriptionModel(ui->pteDesRead->toPlainText());
+
 DisplayModelInfo(0, 0);
 max_models=0;
 
@@ -1237,7 +1239,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                 if(ch_text==mod_text)
                 {
                     //                    log.Write(QString("Потомок найден "));
-                    Qt::CheckState st=item->child(k)->checkState();
+//                    Qt::CheckState st=item->child(k)->checkState();
 //                    item->setCheckable(true);
 
 //                    item->child(k)->setCheckState(Qt::Unchecked);
@@ -1356,8 +1358,8 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                         QString last_mod1=tree_data[i].file[l].last_mod;
                         int char_t=last_mod1.indexOf("T");
                         QString last_mod=last_mod1.left(char_t)+" "+last_mod1.right(last_mod1.length()-char_t-1);
-                        bool local=tree_data[i].file[l].Local;
-                        qlonglong num=tree_data[i].file[l].num;
+//                        bool local=tree_data[i].file[l].Local;
+//                        qlonglong num=tree_data[i].file[l].num;
                         qlonglong size=tree_data[i].file[l].size;
 
                         QStandardItem *file=new QStandardItem(name);
@@ -1599,8 +1601,8 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
                         QString last_mod1=tree_data[i].file[l].last_mod;
                         int char_t=last_mod1.indexOf("T");
                         QString last_mod=last_mod1.left(char_t)+" "+last_mod1.right(last_mod1.length()-char_t-1);
-                        bool local=tree_data[i].file[l].Local;
-                        qlonglong num=tree_data[i].file[l].num;
+//                        bool local=tree_data[i].file[l].Local;
+//                        qlonglong num=tree_data[i].file[l].num;
                         qlonglong size=tree_data[i].file[l].size;
 
                         QStandardItem *file=new QStandardItem(name);
@@ -1754,7 +1756,7 @@ void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
     {
         int prop=item->child(k)->data(Qt::UserRole+1).toLongLong();
         QString ch_txt=item->child(k)->text();
-        int par_prop=item->data(Qt::UserRole+1).toLongLong();
+//        int par_prop=item->data(Qt::UserRole+1).toLongLong();
         QString par_txt=item->text();
         if((prop<0 || txt=="") && prop!=-3)
         {
@@ -1816,17 +1818,23 @@ void MainForm::TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod)
     }
 }
 //----------------------------------------------------------
-void MainForm::EndUpdateServerModel()
+void MainForm::EndUpdateServerModel(bool rebuild)
 {
     //формирование дерева чтения по полученым и имеющимся данным после обновления данных с сервера
 
     OnListFilesLocal();
 
+//    if(rebuild)
+//    {
     BuildingTree(user_login);
+//    }
     ConstructTree(Read, list_compare);
     ConstructTree(Write, list_compare);
+    if(rebuild)
+    {
 
     RecoveryTreeIndex();
+    }
 }
 //----------------------------------------------------------
 void MainForm::UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state)
@@ -2043,7 +2051,7 @@ void MainForm::SetToModelsTreeData(qlonglong loc_num_model, qlonglong _serv_num_
 void MainForm::on_pbRefreshRead_clicked()
 {
     //Обновление серверных таблиц
-
+SaveDescriptionModel(ui->pteDesRead->toPlainText());
     IsRequeryServerModel=true;
     OnListFiles();
 
@@ -2116,6 +2124,7 @@ QStandardItem* MainForm::SearchItemToModel(qlonglong current_local_num, qlonglon
 //----------------------------------------------------------
 void MainForm::on_pbRefresh_Write_clicked()
 {
+    SaveDescriptionModel(ui->pteDesRead_2->toPlainText());
     IsRequeryServerModel=true;
     OnListFiles();
 //    BuildingTree(user_login);
@@ -2164,6 +2173,7 @@ void MainForm::on_tvWrite_clicked(const QModelIndex &index)
 //----------------------------------------------------------
 void MainForm::on_pbWrite_clicked()
 {
+    SaveDescriptionModel(ui->pteDesRead_2->toPlainText());
     max_models=0;
 
 mod_conv->SetTransactionFlag(true);
@@ -2279,19 +2289,19 @@ void MainForm::ShowContextMenu(QPoint pos, bool _read)
 
             if(local_num!=0)
             {
-            QAction *action1=new QAction(QString::fromUtf8("Принять актуальной серверную версию"), this);
+            QAction *action1=new QAction(QString::fromUtf8("Принять актуальной локальную версию"), this);
             action1->setData(1);
             menu.addAction(action1);
             }
 
-            if(server_num)
+            if(server_num!=0)
             {
-            QAction *action2=new QAction(QString::fromUtf8("Принять актуальной локальную версию"), this);
+            QAction *action2=new QAction(QString::fromUtf8("Принять актуальной серверную версию"), this);
             action2->setData(2);
             menu.addAction(action2);
             }
         }
-        if(d>0 && d!=4 || d==-2)
+        if((d>0 && d!=4 || d==-2) && server_num!=0)
         {
             QAction *action3=new QAction(QString::fromUtf8("Скопировать модель с сервера для анализа"), this);
             action3->setData(3);
@@ -2308,9 +2318,7 @@ void MainForm::ShowContextMenu(QPoint pos, bool _read)
                 {
                 case 1:
                 {
-                    db_op->ActualiseModel(user_login, local_num, false);
-//                    ConstructTree(Read, list_compare);
-//                    ConstructTree(Write, list_compare);
+                    db_op->ActualiseModel(user_login, server_num, true);
                     BuildingTree(user_login);
                     ConstructTree(Read, list_compare);
                     ConstructTree(Write, list_compare);
@@ -2320,7 +2328,9 @@ void MainForm::ShowContextMenu(QPoint pos, bool _read)
                 }
                 case 2:
                 {
-                    db_op->ActualiseModel(user_login, server_num, true);
+                    db_op->ActualiseModel(user_login, local_num, false);
+//                    ConstructTree(Read, list_compare);
+//                    ConstructTree(Write, list_compare);
                     BuildingTree(user_login);
                     ConstructTree(Read, list_compare);
                     ConstructTree(Write, list_compare);
@@ -2485,6 +2495,17 @@ void MainForm::DisplayModelInfo(qlonglong loc_num, qlonglong serv_num)
     if(ui->rbSourseLoc->isChecked())
     {
         //локальные данные
+        if(loc_num!=0)
+        {
+        ui->pteDesRead->setReadOnly(false);
+        ui->pteDesRead_2->setReadOnly(false);
+        }
+        else
+        {
+            ui->pteDesRead->setReadOnly(true);
+            ui->pteDesRead_2->setReadOnly(true);
+        }
+
         db_op->GetModelInfo(loc_num, title_model, description, files_model, previews);
 
     ui->leModelTitle->setText(QString("Модель: ")+title_model);
@@ -2580,6 +2601,9 @@ void MainForm::DisplayModelInfo(qlonglong loc_num, qlonglong serv_num)
     else
     {
         //серверные данные
+        ui->pteDesRead->setReadOnly(true);
+        ui->pteDesRead_2->setReadOnly(true);
+
         db_op->GetServerModelInfo(serv_num, title_model, description, files_model);
 
     ui->leModelTitle->setText(QString("Модель: ")+title_model);
@@ -2590,12 +2614,13 @@ void MainForm::DisplayModelInfo(qlonglong loc_num, qlonglong serv_num)
 
 
     delete table_files_model;
-    table_files_model= new QStandardItemModel(files_model.size(),3,this);
+    table_files_model= new QStandardItemModel(files_model.size(),4,this);
     for(int i=0; i<files_model.size();i++)
     {
         QModelIndex i_col_name=table_files_model->index(i, 0, QModelIndex());
         QModelIndex i_col_size=table_files_model->index(i, 1, QModelIndex());
         QModelIndex i_col_last_mod=table_files_model->index(i, 2, QModelIndex());
+        QModelIndex i_col_who=table_files_model->index(i, 3, QModelIndex());
 
         table_files_model->setData(i_col_name, files_model[i].file_name);
 
@@ -2603,24 +2628,29 @@ void MainForm::DisplayModelInfo(qlonglong loc_num, qlonglong serv_num)
 
         table_files_model->setData(i_col_last_mod, files_model[i].last_mod);
 
+        table_files_model->setData(i_col_who, db_op->LoginFromNum(files_model[i].NumLoginMod));
+
         table_files_model->item(i,0)->setEditable(false);
         table_files_model->item(i,1)->setEditable(false);
         table_files_model->item(i,2)->setEditable(false);
+        table_files_model->item(i,3)->setEditable(false);
     }
     QStringList header;
-    header << QString("Имя файла") << QString("Размер") << QString("Изменен");
+    header << QString("Имя файла") << QString("Размер") << QString("Изменен") << QString("Кем изменен");
     table_files_model->setHorizontalHeaderLabels(header);
 
     ui->tabvListFiles->setModel(table_files_model);
     ui->tabvListFiles->setColumnWidth(0,(ui->tabvListFiles->width()-20)*0.5);
-    ui->tabvListFiles->setColumnWidth(1,(ui->tabvListFiles->width()-20)*0.2);
-    ui->tabvListFiles->setColumnWidth(2,(ui->tabvListFiles->width()-20)*0.3);
+    ui->tabvListFiles->setColumnWidth(1,(ui->tabvListFiles->width()-20)*0.15);
+    ui->tabvListFiles->setColumnWidth(2,(ui->tabvListFiles->width()-20)*0.2);
+    ui->tabvListFiles->setColumnWidth(3,(ui->tabvListFiles->width()-20)*0.15);
     ui->tabvListFiles->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     ui->tabvListFiles_2->setModel(table_files_model);
     ui->tabvListFiles_2->setColumnWidth(0,(ui->tabvListFiles->width()-20)*0.5);
-    ui->tabvListFiles_2->setColumnWidth(1,(ui->tabvListFiles->width()-20)*0.2);
-    ui->tabvListFiles_2->setColumnWidth(2,(ui->tabvListFiles->width()-20)*0.3);
+    ui->tabvListFiles_2->setColumnWidth(1,(ui->tabvListFiles->width()-20)*0.15);
+    ui->tabvListFiles_2->setColumnWidth(2,(ui->tabvListFiles->width()-20)*0.2);
+    ui->tabvListFiles_2->setColumnWidth(3,(ui->tabvListFiles->width()-20)*0.15);
     ui->tabvListFiles_2->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 //    QStringList previews;
@@ -2769,34 +2799,117 @@ void MainForm::on_tbLastPreview_clicked()
 //----------------------------------------------------------
 void MainForm::on_pteDesRead_textChanged()
 {
-    if(ui->tabWidget->currentIndex()==0)
-    {
-    QString text=ui->pteDesRead->toPlainText();
-    QString file_name="";
-    db_op->SaveDescription(current_local_model, text, file_name);
-    EditingModelFile(file_name, text);
+//    if(ui->tabWidget->currentIndex()==0)
+//    {
+//        QString text=ui->pteDesRead->toPlainText();
+//        QString file_name="";
+//        QString hash="";
+//        QDateTime last_mod;
+//        qint64 size=0;
 
-    ui->pteDesRead_2->setPlainText(text);
-    }
+//        //Записать изменения в базу, определить имя файла информации о модели
+//        db_op->SaveDescription(current_local_model, text, file_name);
+
+//        //Сверить, в самом ли деле отличается то что в файле с тем что в окне
+//        //Если отличается - записать, пересчитать хэш и узнать время модификации
+//        EditingModelFile(file_name, text, hash, last_mod, size);
+
+//        //если файл менялся то хэш не будет пустым
+
+//        if(hash!="")
+//        {
+//            //и нужно переписать хэш самого файла в таблице локальных файлов
+//            //а также дату модификации
+//            //после этого пересчитать общий хэш модели, и исправить общий хэш в локальной таблице моделей
+//            db_op->UpdateInfoData(current_local_model, file_name, hash, last_mod);
+
+
+//            EndUpdateServerModel(false);
+////            //Перерисовать деревья
+////            ConstructTree(Read, tree_data);
+////            ConstructTree(Write, tree_data);
+
+//        }
+
+//        ui->pteDesRead_2->setPlainText(text);
+//    }
 }
 //----------------------------------------------------------
 void MainForm::on_pteDesRead_2_textChanged()
 {
-    if(ui->tabWidget->currentIndex()==1)
-    {
-    QString text=ui->pteDesRead_2->toPlainText();
-    QString file_name="";
-    db_op->SaveDescription(current_local_model, text, file_name);
-    EditingModelFile(file_name, text);
+//    if(ui->tabWidget->currentIndex()==1)
+//    {
+//        QString text=ui->pteDesRead_2->toPlainText();
+//        QString file_name="";
+//        QString hash="";
+//        QDateTime last_mod;
+//        qint64 size=0;
 
-    ui->pteDesRead->setPlainText(text);
-    }
+//        //Записать изменения в базу, определить имя файла информации о модели
+//        db_op->SaveDescription(current_local_model, text, file_name);
+
+//        //Сверить, в самом ли деле отличается то что в файле с тем что в окне
+//        //Если отличается - записать, пересчитать хэш и узнать время модификации
+//        EditingModelFile(file_name, text, hash, last_mod, size);
+
+//        //если файл менялся то хэш не будет пустым
+
+//        if(hash!="")
+//        {
+//            //и нужно переписать хэш самого файла в таблице локальных файлов
+//            //а также дату модификации
+//            //после этого пересчитать общий хэш модели, и исправить общий хэш в локальной таблице моделей
+//            db_op->UpdateInfoData(current_local_model, file_name, hash, last_mod);
+
+//            EndUpdateServerModel(false);
+////            //Перерисовать деревья
+////            ConstructTree(Read, tree_data);
+////            ConstructTree(Write, tree_data);
+
+//        }
+
+//        ui->pteDesRead->setPlainText(text);
+//    }
 }
 //----------------------------------------------------------
-void MainForm::EditingModelFile(QString &file_name, QString& _text)
+void MainForm::SaveDescriptionModel(QString &text)
 {
-//    QFile file(my_settings.GetRoot()+file_name);
-//    file.open(QFile::WriteOnly);
+//    QString text=ui->pteDesRead_2->toPlainText();
+    QString file_name="";
+    QString hash="";
+    QDateTime last_mod;
+    qint64 size=0;
+
+    //Записать изменения в базу, определить имя файла информации о модели
+    db_op->SaveDescription(current_local_model, text, file_name);
+
+    //Сверить, в самом ли деле отличается то что в файле с тем что в окне
+    //Если отличается - записать, пересчитать хэш и узнать время модификации
+    EditingModelFile(file_name, text, hash, last_mod, size);
+
+    //если файл менялся то хэш не будет пустым
+
+    if(hash!="")
+    {
+        //и нужно переписать хэш самого файла в таблице локальных файлов
+        //а также дату модификации
+        //после этого пересчитать общий хэш модели, и исправить общий хэш в локальной таблице моделей
+        db_op->UpdateInfoData(current_local_model, file_name, hash, last_mod);
+
+        EndUpdateServerModel(false);
+//            //Перерисовать деревья
+//            ConstructTree(Read, tree_data);
+//            ConstructTree(Write, tree_data);
+
+    }
+}
+
+//----------------------------------------------------------
+void MainForm::EditingModelFile(QString &file_name, QString& _text, QString& hash, QDateTime &dt, qint64 &size)
+{
+
+    if(file_name!="")
+    {
     QSettings s(my_settings.GetRoot()+file_name, QSettings::IniFormat);
     QTextCodec *codec =QTextCodec::codecForName("UTF-8");
     s.setIniCodec(codec);
@@ -2804,8 +2917,20 @@ void MainForm::EditingModelFile(QString &file_name, QString& _text)
 //    QString title=s.value("Title","").toString();
 //    QString desc=s.value("Description","").toString();
 //    QString struct_mod=s.value("Struct","").toString();
-
+    QString cur_text=s.value("Description", "").toString();
+    if(cur_text!=_text)
+    {
     s.setValue("Description", _text);
+
+    //Найти новые дату модификации и хэш файла
+    QFileInfo fi(my_settings.GetRoot()+file_name);
+    dt=fi.lastModified();
+    tCalcHash ch;
+    ch.GetFileHash(my_settings.GetRoot()+file_name);
+    hash=ch.ResultHash();
+    size=fi.size();
+    }
+    }
 }
 //----------------------------------------------------------
 void MainForm::on_rbSourseLoc_clicked()

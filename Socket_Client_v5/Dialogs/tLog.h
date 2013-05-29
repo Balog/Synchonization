@@ -8,7 +8,7 @@ class tLog
 public:
     tLog();
     ~tLog();
-    void Write(QString &_text, bool flag = true);
+    void Write(QString &_text, bool flag = true) const;
 
 private:
     QString file_name;

@@ -114,6 +114,8 @@ public:
     void GetServerListPreviews(const qlonglong _server_num_model, QStringList &_list);
     void GetServerModelInfo(qlonglong serv_num, QString& title_model, QString &description, QList<tFile> &files_model);
     QString GetServerModelPath(qlonglong _num_server);
+    void UpdateInfoData(qlonglong num_model, QString& file_name, QString& hash, QDateTime& last_mod);
+    QString LoginFromNum(qlonglong _num_login) const;
 
 private:
     typedef enum {Local, Last, Server} tTableLevel;

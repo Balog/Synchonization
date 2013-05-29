@@ -687,7 +687,7 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     else
     {
         ((MainForm*)link)->IsRequeryServerModel=false;
-        ((MainForm*)link)->EndUpdateServerModel();
+        ((MainForm*)link)->EndUpdateServerModel(true);
         l="tClientGuiCommand \tGuiReportPrepareSendFile\t Проход по кнопке мимо всего ";
         log.Write(l);
         emit EndCommand();

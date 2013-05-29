@@ -118,7 +118,7 @@ public:
     void VerifyLastTable(const QString& user_login);
 
     void ConstructTreeModel(QStandardItemModel *_tree_model, bool _read);
-    void EndUpdateServerModel();
+    void EndUpdateServerModel(bool rebuild);
 
     void InternalCallBuildingTree();
 
@@ -225,7 +225,7 @@ private:
     qlonglong current_local_model;
     void GetLoadedPreview(const qlonglong serv_num, QStringList &previews);
     bool removeFolder(const QDir & _dir, const bool _del_dir);
-    void EditingModelFile(QString &file_name, QString &text);
+    void EditingModelFile(QString &file_name, QString& _text, QString& hash, QDateTime &dt, qint64 &size);
 
     qlonglong current_local_num;
     qlonglong current_server_num;
@@ -236,6 +236,7 @@ private:
     QStandardItem* SearchItemToModel(qlonglong current_local_num, qlonglong current_server_num, QStandardItem *item, bool &stop);
 
     void RecoveryTreeIndex();
+    void SaveDescriptionModel(QString &text);
 
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
@@ -283,7 +284,7 @@ private slots:
 
     void on_tvAdminTree_clicked(const QModelIndex &index);
 
-    void on_lvLogins_clicked(const QModelIndex &index);
+    void on_lvLogins_clicked(const QModelIndex &);
 
     void on_pbListFiles_clicked();
 
