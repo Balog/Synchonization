@@ -42,6 +42,7 @@ public:
         lePassword = new QLineEdit(tEditLoginPass);
         lePassword->setObjectName(QString::fromUtf8("lePassword"));
         lePassword->setGeometry(QRect(60, 40, 211, 20));
+        lePassword->setEchoMode(QLineEdit::Password);
         label = new QLabel(tEditLoginPass);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(12, 13, 46, 13));

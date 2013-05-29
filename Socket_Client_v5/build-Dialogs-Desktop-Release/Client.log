@@ -7864,3 +7864,419 @@
 2013-05-20 08:33:38 Конец работы клиента
 2013-05-20 08:33:38 tSettings 	sync	Save parameters 
 ----------------------------------------------------
+----------------------------------------------------
+2013-05-30 01:45:49 tSettings 	SetFilePath	Read parameters 
+2013-05-30 01:45:49 tSettings 	sync	Save parameters 
+2013-05-30 01:45:49 tDatabaseOp 	DatabaseOp	Подключение базы данных  
+2013-05-30 01:45:49 Начало работы клиента
+2013-05-30 01:45:49 socket 	Initialize	Создание сокета 
+2013-05-30 01:45:49 Zast 	FindServer	Начало поиска сервера 
+2013-05-30 01:45:49 socket 	ReadReport	Report: 3
+2013-05-30 01:45:49 tConnectConfirmReport 	ExeCommand	 Подтверждение соединения 
+2013-05-30 01:45:49 tConveyor 	OnCommand	Выполнение команды из сокета ConnectConfirmReport
+2013-05-30 01:45:49 tClientGuiCommand 	GuiConnectConfirmReport	Подключение разрешено
+2013-05-30 01:45:49 Zast 	AutorizStart	Сервер найден 
+2013-05-30 01:45:50 tModelsConveyor 	ReceiveLoginsTable	 Запрос таблицы логинов
+2013-05-30 01:45:50 tConveyor 	OnCommand	Выполнение команды из GUI GUIReceiveLoginsTable
+2013-05-30 01:45:50 tClientGuiCommand 	tGUIGetLoginsTable	 Передача команды запроса таблицы логинов 
+2013-05-30 01:45:50 socket 	OnCommand	Получена команда ReceiveLoginsTable
+2013-05-30 01:45:50 tGetLoginsTable 	ExeCommand	 Команда запроса таблицы логинов 
+2013-05-30 01:45:50 socket 	ReadReport	Report: 14
+2013-05-30 01:45:50 tStreamReportReceiveLoginsTable 	ExeCommand	 Получение списка логинов с сервера 
+2013-05-30 01:45:50 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportReceiveLoginsTable
+2013-05-30 01:45:50 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	Обновление таблицы логинов  
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Количество полученых логинов 4
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Номер 1
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Логин a
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Хэш 86f7e437faa5a7fce15d1ddcb9eaeaea377667b8
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 NoDelete 1
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Writable 1
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Номер 9
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Логин 3
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Хэш 77de68daecd823babbb58edb1c8e14d7106e83bb
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 NoDelete 0
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Writable 1
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Номер 14
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Логин 1
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Хэш 356a192b7913b04c54574d18c28d46e6395428ab
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 NoDelete 0
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Writable 1
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Номер 24
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Логин 2
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Хэш da4b9237bacccdf19c0760cab7aec4a8359010b0
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 NoDelete 0
+2013-05-30 01:45:50 tDatabaseOp 	UpdateLogins	 Writable 0
+2013-05-30 01:45:50 показ формы авторизации
+2013-05-30 01:45:53 Отправка авторизации Логин: a
+2013-05-30 01:45:53 tConveyor 	OnCommand	Выполнение команды из GUI SendAutorization
+2013-05-30 01:45:53 tClientGuiCommand 	GuiSendAutorization	Отправка логина и пароля Логин: a
+2013-05-30 01:45:53 socket 	OnCommand	Получена команда SendAutorization
+2013-05-30 01:45:53 tStreamSendAutorization 	ExeCommand	 Отправка авторизации  a
+2013-05-30 01:45:53 socket 	ReadReport	Report: 5
+2013-05-30 01:45:53 tStreamReportAutorization 	ExeCommand	 Авторизация успешна 
+2013-05-30 01:45:53 tConveyor 	OnCommand	Выполнение команды из сокета ReportAutorization
+2013-05-30 01:45:53 tClientGuiCommand 	GuiReportAutorization	Отчет об авторизации. Авторизация принята 
+2013-05-30 01:45:53 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-30 01:45:55 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-30 01:45:55 MainForm 	 OnListFiles 	 Запрос с главной формы GetListModels через RunGui
+2013-05-30 01:45:55 tConveyor 	OnCommand	Выполнение команды из GUI GetListModels
+2013-05-30 01:45:55 tClientGuiCommand 	GetListModels	 Запрос списка моделей с сервера
+2013-05-30 01:45:55 socket 	OnCommand	Получена команда GetListModels
+2013-05-30 01:45:55 tGetServerListModels 	ExeCommand	 Запрос списка моделей с сервера 
+2013-05-30 01:45:55 socket 	ReadReport	Report: 11
+2013-05-30 01:45:55 tReportGetListServerModels 	ExeCommand	 Получение списка моделей с сервера 
+2013-05-30 01:45:55 tConveyor 	OnCommand	Выполнение команды из сокета ReportGetListServerModels
+2013-05-30 01:45:55 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-30 01:45:55 tClientGuiCommand 	GetListModels	 Вызов обновления серверных таблиц
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	Обновление серверных таблиц по информации с сервера  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Сброс Found серверных моделей. Число моделей 6
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Ил-2
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Такой модели нет 
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Модель добавлена. Новый номер 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Орудие 30мм
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Такой модели нет 
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Модель добавлена. Новый номер 3250
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Танк T-90
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Кабина танка Т-90
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Такой модели нет 
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Модель добавлена. Новый номер 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Фугасная авиабомба ФАБ-100 (3-1)
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Танк T-34
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:45:55 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Удаление ненайденых моделей  
+2013-05-30 01:45:55 tDatabaseOp 	SaveServerModelFiles	 Обновление серверных таблиц завершено  
+2013-05-30 01:45:55 tClientGuiCommand 	GetListModels	 Запуск. Обращение к серверу для обновления таблицы разрешений на чтение
+2013-05-30 01:45:55 tClientGuiCommand 	GuiReportPrepareSendFile	Запрос таблицы разрешений на чтение моделей 
+2013-05-30 01:45:55 tConveyor 	OnCommand	Выполнение команды из GUI ReceiveReadPermissions
+2013-05-30 01:45:55 tClientGuiCommand 	tGUIReceiveReadPermissions	 Передача команды запроса таблицы разрешений 
+2013-05-30 01:45:55 socket 	OnCommand	Получена команда ReceiveReadPermissions
+2013-05-30 01:45:55 tStreamReceiveReadPermissions 	ExeCommand	 Команда запроса таблицы разрешений на чтение 
+2013-05-30 01:45:55 socket 	ReadReport	Report: 15
+2013-05-30 01:45:55 tStreamReportReceiveLoginsTable 	ExeCommand	 Получение списка разрешений на чтение моделей с сервера 
+2013-05-30 01:45:55 tConveyor 	OnCommand	Выполнение команды из сокета GUIReportReceiveReadPermissions
+2013-05-30 01:45:55 tClientGuiCommand 	tGUIReportReceiveReadPermissions	 Отчет запроса списка разрешений на чтение моделей с сервера
+2013-05-30 01:45:55 tDatabaseOp 	UpdateLogins	Обновление таблицы разрешений на чтение моделей  
+2013-05-30 01:45:57 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем конфликты 
+2013-05-30 01:45:57 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем отсутствие изменений 
+2013-05-30 01:45:57 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем локальные изменения 
+2013-05-30 01:45:57 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем серверные изменения 
+2013-05-30 01:45:57 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем новые на локальном 
+2013-05-30 01:45:57 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем новые на сервере 
+2013-05-30 01:46:24 MainForm 	 OnListFiles 	 Запрос с главной формы GetListModels через RunGui
+2013-05-30 01:46:24 tConveyor 	OnCommand	Выполнение команды из GUI GetListModels
+2013-05-30 01:46:24 tClientGuiCommand 	GetListModels	 Запрос списка моделей с сервера
+2013-05-30 01:46:24 socket 	OnCommand	Получена команда GetListModels
+2013-05-30 01:46:24 tGetServerListModels 	ExeCommand	 Запрос списка моделей с сервера 
+2013-05-30 01:46:24 socket 	ReadReport	Report: 11
+2013-05-30 01:46:24 tReportGetListServerModels 	ExeCommand	 Получение списка моделей с сервера 
+2013-05-30 01:46:24 tConveyor 	OnCommand	Выполнение команды из сокета ReportGetListServerModels
+2013-05-30 01:46:24 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-30 01:46:24 tClientGuiCommand 	GetListModels	 Вызов обновления серверных таблиц
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	Обновление серверных таблиц по информации с сервера  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Сброс Found серверных моделей. Число моделей 6
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Ил-2
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Орудие 30мм
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3250
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Танк T-90
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Кабина танка Т-90
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Фугасная авиабомба ФАБ-100 (3-1)
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Танк T-34
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:46:24 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:46:24 tDatabaseOp 	SaveServerModelFiles	 Удаление ненайденых моделей  
+2013-05-30 01:46:25 tDatabaseOp 	SaveServerModelFiles	 Обновление серверных таблиц завершено  
+2013-05-30 01:46:25 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-30 01:46:29 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем конфликты 
+2013-05-30 01:46:29 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем отсутствие изменений 
+2013-05-30 01:46:29 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем локальные изменения 
+2013-05-30 01:46:29 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем серверные изменения 
+2013-05-30 01:46:29 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем новые на локальном 
+2013-05-30 01:46:29 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем новые на сервере 
+2013-05-30 01:46:31 tClientGuiCommand 	GuiReportPrepareSendFile	 Проход по кнопке мимо всего 
+2013-05-30 01:46:45 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем конфликты 
+2013-05-30 01:46:45 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем отсутствие изменений 
+2013-05-30 01:46:45 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем локальные изменения 
+2013-05-30 01:46:45 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем серверные изменения 
+2013-05-30 01:46:45 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем новые на локальном 
+2013-05-30 01:46:45 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем новые на сервере 
+2013-05-30 01:47:19 MainForm 	 OnListFiles 	 Запрос с главной формы GetListModels через RunGui
+2013-05-30 01:47:19 tConveyor 	OnCommand	Выполнение команды из GUI GetListModels
+2013-05-30 01:47:19 tClientGuiCommand 	GetListModels	 Запрос списка моделей с сервера
+2013-05-30 01:47:19 socket 	OnCommand	Получена команда GetListModels
+2013-05-30 01:47:19 tGetServerListModels 	ExeCommand	 Запрос списка моделей с сервера 
+2013-05-30 01:47:19 socket 	ReadReport	Report: 11
+2013-05-30 01:47:19 tReportGetListServerModels 	ExeCommand	 Получение списка моделей с сервера 
+2013-05-30 01:47:19 tConveyor 	OnCommand	Выполнение команды из сокета ReportGetListServerModels
+2013-05-30 01:47:19 tClientGuiCommand 	GetListModels	 Отчет запроса списка моделей с сервера
+2013-05-30 01:47:19 tClientGuiCommand 	GetListModels	 Вызов обновления серверных таблиц
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	Обновление серверных таблиц по информации с сервера  
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Сброс Found серверных моделей. Число моделей 5
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Ил-2
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3249
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Танк T-90
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3244
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Кабина танка Т-90
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3251
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Фугасная авиабомба ФАБ-100 (3-1)
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:47:19 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:47:19 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3242
+2013-05-30 01:47:20 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:47:20 tDatabaseOp 	SaveServerModelFiles	 Получение данных о модели Танк T-34
+2013-05-30 01:47:20 tDatabaseOp 	SaveServerModelFiles	 Проверка наличия модели в базе 
+2013-05-30 01:47:20 tDatabaseOp 	SaveServerModelFiles	 Такая модель есть  
+2013-05-30 01:47:20 tDatabaseOp 	SaveServerModelFiles	 Удаление файлов модели из базы перед обновлением 
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:47:20 tDatabaseOp 	 SaveServerModelFiles 	 ++ ОШИБКА ++ добавления файлов серверной модели 3243
+2013-05-30 01:47:20 tDatabaseOp 	SaveServerModelFiles	 Файлы модели добавлены  
+2013-05-30 01:47:20 tDatabaseOp 	SaveServerModelFiles	 Удаление ненайденых моделей  
+2013-05-30 01:47:20 tDatabaseOp 	SaveServerModelFiles	 Обновление серверных таблиц завершено  
+2013-05-30 01:47:20 tDatabaseOp 	RefreshModelsFiles	Обновление локальных таблиц по файлам на диске  
+2013-05-30 01:47:21 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем конфликты 
+2013-05-30 01:47:21 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем отсутствие изменений 
+2013-05-30 01:47:21 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем локальные изменения 
+2013-05-30 01:47:21 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем серверные изменения 
+2013-05-30 01:47:22 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем новые на локальном 
+2013-05-30 01:47:22 tDatabaseOp 	 AnalyzeCompare 	 Отмечаем новые на сервере 
+2013-05-30 01:47:22 tClientGuiCommand 	GuiReportPrepareSendFile	 Проход по кнопке мимо всего 
+2013-05-30 01:47:27 socket 	Initialize	Отключение и удаление сокета 
+2013-05-30 01:47:27 socket 	OnDisconnected	Отключение сервером 
+2013-05-30 01:47:27 tDatabaseOp 	DatabaseOp	Отключение базы данных  
+2013-05-30 01:47:27 Конец работы клиента
+2013-05-30 01:47:27 tSettings 	sync	Save parameters 
+----------------------------------------------------

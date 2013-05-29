@@ -1740,6 +1740,54 @@ void MainForm::on_tvRead_clicked(const QModelIndex &index)
     ui->pbLoadPreviews->setEnabled( ui->rbSourceServ->isChecked() && (d>0 || d==-2));
     ui->pbLoadPreviews_2->setEnabled( ui->rbSourceServ_2->isChecked() && (d>0 || d==-2));
 
+    switch (d)
+    {
+    case 3:
+    {
+        //есть только на сервере
+        ui->rbSourseLoc->setEnabled(false);
+        ui->rbSourseLoc_2->setEnabled(false);
+
+        ui->rbSourceServ->setEnabled(true);
+        ui->rbSourceServ_2->setEnabled(true);
+
+        ui->rbSourceServ->setChecked(true);
+        ui->rbSourceServ_2->setChecked(true);
+
+        ui->pbLoadPreviews->setEnabled(true);
+        ui->pbLoadPreviews_2->setEnabled(true);
+
+        break;
+    }
+
+    case 4:
+    {
+        //есть только на клиенте
+        ui->rbSourseLoc->setEnabled(true);
+        ui->rbSourseLoc_2->setEnabled(true);
+
+        ui->rbSourceServ->setEnabled(false);
+        ui->rbSourceServ_2->setEnabled(false);
+
+        ui->rbSourseLoc->setChecked(true);
+        ui->rbSourseLoc_2->setChecked(true);
+
+        ui->pbLoadPreviews->setEnabled(false);
+        ui->pbLoadPreviews_2->setEnabled(false);
+
+        break;
+    }
+    default:
+    {
+        ui->rbSourseLoc->setEnabled(true);
+        ui->rbSourseLoc_2->setEnabled(true);
+
+        ui->rbSourceServ->setEnabled(true);
+        ui->rbSourceServ_2->setEnabled(true);
+
+        break;
+    }
+    }
     DisplayInfo(current_local_num, current_server_num);
 
 }
