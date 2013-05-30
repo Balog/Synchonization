@@ -1719,6 +1719,7 @@ void MainForm::ConstructTreeModel(QStandardItemModel *_tree_model, bool _read)
 void MainForm::on_tvRead_clicked(const QModelIndex &index)
 {
 //    CurrentReadIndex=index;
+SaveDescriptionModel(ui->pteDesRead->toPlainText());
 
     UpToParentFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState());
     DownToChildrensFiles(read_tree_model, index, read_tree_model->itemFromIndex(index)->checkState(), Read);
@@ -2187,6 +2188,8 @@ void MainForm::on_pbBuildWrite_clicked()
 //----------------------------------------------------------
 void MainForm::on_tvWrite_clicked(const QModelIndex &index)
 {
+    SaveDescriptionModel(ui->pteDesRead_2->toPlainText());
+
     UpToParentFiles(write_tree_model, index, write_tree_model->itemFromIndex(index)->checkState());
     DownToChildrensFiles(write_tree_model, index, write_tree_model->itemFromIndex(index)->checkState(), Write);
 
@@ -2755,7 +2758,7 @@ void MainForm::GetLoadedPreview(const qlonglong serv_num, QStringList &previews)
     {
         QFileInfo fi(all_files[i]);
         QString suffix=fi.suffix();
-        if(suffix=="bmp" | suffix=="jpg" | suffix=="jpeg" | suffix=="gif" | suffix=="png")
+        if(suffix.toLower()=="bmp" | suffix.toLower()=="jpg" | suffix.toLower()=="jpeg" | suffix.toLower()=="gif" | suffix.toLower()=="png")
         {
             previews.push_back(path+all_files[i]);
         }

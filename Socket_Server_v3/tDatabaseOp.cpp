@@ -748,7 +748,7 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
     {
         QFileInfo info(NormalizePathFiles(info_folder+"/"+entry));
         QString suffix=info.suffix().toLower();
-        if(suffix=="bmp" | suffix=="jpg" | suffix=="jpeg" | suffix=="gif" | suffix=="png")
+        if(suffix.toLower()=="bmp" | suffix.toLower()=="jpg" | suffix.toLower()=="jpeg" | suffix.toLower()=="gif" | suffix.toLower()=="png")
         {
             log.Write(QString(QString::fromUtf8("tDatabaseOp \t CheckInfoFiles \t На диске найден файл ")+relat+"/"+entry));
             //проверяем есть ли такой файл в базе

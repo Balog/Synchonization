@@ -670,7 +670,7 @@ void tDatabaseOp::CheckInfoFiles(const qlonglong _num, const QString &_folder_mo
 
         QFileInfo info(NormalizePathFiles(info_folder+"/"+entry));
         QString suffix=info.suffix().toLower();
-        if(suffix=="bmp" | suffix=="jpg" | suffix=="jpeg" | suffix=="gif" | suffix=="png")
+        if(suffix.toLower()=="bmp" | suffix.toLower()=="jpg" | suffix.toLower()=="jpeg" | suffix.toLower()=="gif" | suffix.toLower()=="png")
         {
             //проверяем есть ли такой файл в базе
             QSqlQuery select_info_files(db);
@@ -3323,7 +3323,7 @@ void tDatabaseOp::GetModelInfo(qlonglong loc_num, QString& title_model, QString 
         if(path.right(5)==".info")
         {
             QString suffix=fi.suffix();
-            if(suffix=="bmp" | suffix=="jpg" | suffix=="jpeg" | suffix=="gif" | suffix=="png")
+            if(suffix.toLower()=="bmp" | suffix.toLower()=="jpg" | suffix.toLower()=="jpeg" | suffix.toLower()=="gif" | suffix.toLower()=="png")
             {
                 previews.push_back(my_settings.GetRoot()+file_name);
             }
@@ -3376,7 +3376,7 @@ void tDatabaseOp::GetServerListPreviews(const qlonglong _server_num_model, QStri
         if(path.right(5)==".info")
         {
             QString suffix=fi.suffix();
-            if(suffix=="bmp" | suffix=="jpg" | suffix=="jpeg" | suffix=="gif" | suffix=="png")
+            if(suffix.toLower()=="bmp" | suffix.toLower()=="jpg" | suffix.toLower()=="jpeg" | suffix.toLower()=="gif" | suffix.toLower()=="png")
             {
                 _list.push_back(name_file);
             }
