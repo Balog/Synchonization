@@ -11,7 +11,6 @@
 #include <QList>
 #include "tSettings.h"
 #include <QDir>
-//#include <QtSql>
 #include "tDatabaseOp.h"
 
 #include <vector>
@@ -35,7 +34,7 @@ public:
     ~tConveyor();
     void StartServer(const QString &_addr, const int _port);
 
-    void AddCommand(QByteArray _block);
+    void AddCommand(const QByteArray _block);
 
     void Clear();
 
@@ -43,7 +42,7 @@ public:
     bool ReceiveFile(const QString &_file_name, QStringList &_all_files);
     bool DeletingFile(const QString &_file_name, QStringList &_all_files, const bool _send);
 
-    void AddCommitTransaction(const bool _send, QString &_root, bool _custom_copy);
+    void AddCommitTransaction(const bool _send, const QString &_root, const bool _custom_copy);
     void AddCommitTransactionDel();
 
     bool AddSendCommand();
@@ -59,7 +58,7 @@ public:
 
     void GetListServerModels();
 
-    void CorrectLastSynch(QStringList &_all_files, bool _server);
+    void CorrectLastSynch(const QStringList &_all_files, const bool _server);
     void GetServerModels();
     void ClearTempFolder();
     void SetLogin(const QString& _user_login);

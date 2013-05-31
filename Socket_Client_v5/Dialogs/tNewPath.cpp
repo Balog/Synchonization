@@ -15,7 +15,7 @@ tNewPath::~tNewPath()
     delete ui;
 }
 //-------------------------------------------------------
-void tNewPath::SetMessage(QString& _mess)
+void tNewPath::SetMessage(const QString& _mess)
 {
     ui->teMessage->setText(_mess);
 }
@@ -58,8 +58,6 @@ void tNewPath::on_pbOk_clicked()
         //и передать в глобальные установки
 
         db_op->SaveFoldersToLoginsTable(login, pr_folder, temp_folder);
-//        my_settings.SetRoot(pr_folder);
-//        my_settings.SetTemp(temp_folder);
         this->setVisible(false);
         ui->leProjectFolder->setText("");
         ui->leTempFolder->setText("");
@@ -72,7 +70,7 @@ void tNewPath::SetDatabase(tDatabaseOp* _db)
     db_op=_db;
 }
 //-----------------------------------------------------
-void tNewPath::SetLogin(QString& _login)
+void tNewPath::SetLogin(const QString& _login)
 {
     login=_login;
 }

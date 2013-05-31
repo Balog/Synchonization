@@ -35,7 +35,7 @@ public:
 
     QTcpSocket* socket;
     bool IsTransaction();
-    void SetTransaction(bool _trans);
+    void SetTransaction(const bool _trans);
 
 private:
     bool WaitPackage();

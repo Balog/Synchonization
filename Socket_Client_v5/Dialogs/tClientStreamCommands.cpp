@@ -12,7 +12,6 @@ bool tStreamReceiveFile::Initialize(QDataStream& _in)
     enabled=true;
     read_size=0;
 
-    //    _in.device()->reset();
     _in >> file_name;
     _in >> file_size;
 
@@ -23,8 +22,6 @@ bool tStreamReceiveFile::Initialize(QDataStream& _in)
     _in >> permission;
     _in >> hash;
 
-    //    l="tStreamReceiveFile \tInitialize\t Инициализация приема файла "+file_name.toUtf8();
-    //    log.Write(l);
 
     root=my_settings.GetTemp()+"Receive/";
 
@@ -227,9 +224,6 @@ bool tPrepareReceiveFile::Initialize(QDataStream &_in)
 
     error_detected=file.exists() && !file.isOpen();
 
-    //    l="tPrepareReceiveFile \tInitialize\t Инициализация подготовки приема файла "+f.toUtf8();
-    //    log.Write(l);
-
     return true;
 }
 //-----------------------------------------------------------------
@@ -297,14 +291,6 @@ bool tSendFile::Initialize(QDataStream &_in)
     root=my_settings.GetRoot();
     _in >> file_name;
 
-    //    out << file_name;
-    //    out << num_err;
-    //    out << error;
-    //    out << detail;
-    //    out << client_detail;
-    //    out << Hash;
-
-
     num_err=0;
     error="";
     detail="";
@@ -358,8 +344,6 @@ bool tSendFile::ExeCommand(QDataStream &_out)
         QDateTime create_date_time=info.created();
         QDateTime last_modified=info.lastModified();
         int permission=info.permissions();
-        //        tCalcHash ch;
-        //        QString hash=ch.GetFileHash(root+file_name);
 
         _out << hidden;
         _out << create_date_time;
@@ -505,9 +489,6 @@ bool tStreamPrepareSendFile::Initialize(QDataStream &_in)
     file_name="";
 
     _in >> file_name;
-
-    //    l="tStreamPrepareSendFile \tInitialize\t Инициализация подготовки передачи файла "+file_name.toUtf8();
-    //    log.Write(l);
 
     return true;
 }
@@ -861,16 +842,6 @@ bool tStreamCommitTransaction::ExeCommand(QDataStream &_out)
     for(int i=0; i<num_files; i++)
     {
         _out << file_list[i].file_name;
-        //        if(send)
-        //        {
-        //            //отправка файла
-        //            _out << file_list[i].client_hash;
-        //        }
-        //        else
-        //        {
-        //            //прием файла
-        //            _out << file_list[i].server_hash;
-        //        }
         _out << file_list[i].client_hash;
         _out << file_list[i].server_hash;
     }
@@ -970,8 +941,6 @@ void tStreamCancelTransaction::ProcessError(QDataStream &)
     log.Write(l);
 
     emit Result(block);
-
-    //    return true;
 }
 
 //-----------------------------------------------------------------

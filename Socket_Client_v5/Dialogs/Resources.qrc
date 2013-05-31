@@ -5,4 +5,7 @@
         <file>Triangle_right.ico</file>
         <file>New_sm.ico</file>
     </qresource>
+    <qresource prefix="/Pictures">
+        <file>Zast.png</file>
+    </qresource>
 </RCC>

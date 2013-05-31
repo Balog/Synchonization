@@ -125,8 +125,6 @@ void tSocket::ReadReport()
                 if(comm->Initialize(in))
                 {
                     comm->ExeCommand(in);
-                    //                    l="socket \tReadReport\tКоманда выполнена";
-                    //                    log.Write(l);
                 }
                 else
                 {

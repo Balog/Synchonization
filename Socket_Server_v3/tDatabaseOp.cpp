@@ -854,7 +854,7 @@ void tDatabaseOp::ClearModels()
     log.Write(QString::fromUtf8("tDatabaseOp \t ClearModels \t +++ ОШИБКА +++ удалении не найденых на диске моделей "));}
 }
 //----------------------------------------------------------
-void tDatabaseOp::GetListModels(QDataStream &_out, QString& _login)
+void tDatabaseOp::GetListModels(QDataStream &_out, const QString& _login)
 {
     log.Write(QString(QString::fromUtf8("tDatabaseOp \t RefreshModelsFiles \t Формирование списка моделей ")));
     db.transaction();
@@ -1135,7 +1135,7 @@ QString tDatabaseOp::SaveLoginPass(QString& _login, QString& _pass, bool _new_us
     return ret;
 }
 //----------------------------------------------------------
-QString tDatabaseOp::DeleteLogin(qlonglong num_login)
+QString tDatabaseOp::DeleteLogin(const qlonglong num_login)
 {
     QString ret="";
     log.Write(QString(QString::fromUtf8("tDatabaseOp \t DeleteLogin \t Удаление логина номер ")+QString::number(num_login)));
@@ -1299,7 +1299,7 @@ void tDatabaseOp::SavePermissions(QByteArray _block)
     }
 }
 //----------------------------------------------------------
-qlonglong tDatabaseOp::GetNumLogin(QString &_login)
+qlonglong tDatabaseOp::GetNumLogin(const QString &_login)
 {
     qlonglong num_log;
 
@@ -1319,7 +1319,7 @@ qlonglong tDatabaseOp::GetNumLogin(QString &_login)
     return num_log;
 }
 //----------------------------------------------------------
-bool tDatabaseOp::IsNoDelete(QString& _login)
+bool tDatabaseOp::IsNoDelete(const QString& _login)
 {
     qlonglong num_log=GetNumLogin(_login);
     QSqlQuery sel_no_del(db);
@@ -1332,7 +1332,7 @@ bool tDatabaseOp::IsNoDelete(QString& _login)
 
 }
 //----------------------------------------------------------
-void tDatabaseOp::SaveLoginWritable(int row, bool writ)
+void tDatabaseOp::SaveLoginWritable(const int row, const bool writ)
 {
     QSqlQuery sel_login(db);
     sel_login.prepare("SELECT Num FROM Logins ORDER BY Num, Login");
@@ -1361,7 +1361,7 @@ void tDatabaseOp::SaveLoginWritable(int row, bool writ)
 
 }
 //----------------------------------------------------------
-bool tDatabaseOp::VerifyFile(QString& name_file, QString& server_hash)
+bool tDatabaseOp::VerifyFile(const QString& name_file, const QString& server_hash) const
 {
     QSqlQuery sel_hash_file(db);
     sel_hash_file.prepare("SELECT Hash FROM Files WHERE File='"+name_file+"'");
@@ -1377,7 +1377,7 @@ bool tDatabaseOp::VerifyFile(QString& name_file, QString& server_hash)
     return base_hash==server_hash;
 }
 //----------------------------------------------------------
-void tDatabaseOp::CorrectReadPermission(QString& _trans_model, QString& _login)
+void tDatabaseOp::CorrectReadPermission(const QString& _trans_model, const QString& _login)
 {
     qlonglong num_login=GetNumLogin(_login);
     QSqlQuery sel_num_model(db);
@@ -1412,7 +1412,7 @@ void tDatabaseOp::CorrectReadPermission(QString& _trans_model, QString& _login)
     }
 }
 //----------------------------------------------------------
-void tDatabaseOp::CorrectWrittenWho(QList<tFileList> list, QString& login)
+void tDatabaseOp::CorrectWrittenWho(QList<tFileList> list, const QString& login)
 {
     qlonglong num_login=GetNumLogin(login);
     for(int i=0; i<list.size(); i++)

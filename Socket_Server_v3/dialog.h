@@ -31,7 +31,7 @@ private:
 private slots:
     void OnConnect();
     void OnDisconnect();
-    void OnConnectClient(int _handle, int _count_client);
+    void OnConnectClient(int _handle, const int _count_client);
     void OnAddNew();
     void OnClearModels();
 

@@ -4,7 +4,6 @@
 #include <QDialog>
 #include <QFileDialog>
 #include "tDatabaseOp.h"
-//#include "tSettings.h"
 
 namespace Ui {
 class tNewPath;
@@ -17,9 +16,9 @@ class tNewPath : public QDialog
 public:
     explicit tNewPath(QWidget *parent = 0);
     ~tNewPath();
-    void SetMessage(QString& _mess);
+    void SetMessage(const QString &_mess);
     void SetDatabase(tDatabaseOp* _db);
-    void SetLogin(QString& _login);
+    void SetLogin(const QString &_login);
     
 private slots:
     void on_tbProjectFolder_clicked();

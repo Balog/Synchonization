@@ -88,7 +88,7 @@ void Dialog::OnDisconnect()
     log.Write("Dialog \t Dialog \t Сервер отключен вручную");
 }
 //---------------------------------------------------------------------
-void Dialog::OnConnectClient(int , int _count_client)
+void Dialog::OnConnectClient(int , const int _count_client)
 {
     ui->leCountClients->setText(QString::number(_count_client));
 }

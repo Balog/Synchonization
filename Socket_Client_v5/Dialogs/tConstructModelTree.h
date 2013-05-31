@@ -7,10 +7,10 @@
 class tConstructModelTree
 {
 public:
-    tConstructModelTree(tDatabaseOp *_db_op, QString& _login);
+    tConstructModelTree(tDatabaseOp *_db_op, const QString& _login);
     ~tConstructModelTree();
     bool NextModelAdmin();
-    QStringList ListAdmin(bool &_read, qlonglong &server_num);
+    QStringList ListAdmin(bool &_read, qlonglong &_server_num);
 
 private:
     tConstructModelTree();

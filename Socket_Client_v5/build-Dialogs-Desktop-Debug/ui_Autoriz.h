@@ -37,6 +37,8 @@ public:
         if (Autoriz->objectName().isEmpty())
             Autoriz->setObjectName(QString::fromUtf8("Autoriz"));
         Autoriz->resize(291, 101);
+        Autoriz->setMinimumSize(QSize(291, 101));
+        Autoriz->setMaximumSize(QSize(291, 101));
         leLogin = new QLineEdit(Autoriz);
         leLogin->setObjectName(QString::fromUtf8("leLogin"));
         leLogin->setGeometry(QRect(60, 10, 221, 20));

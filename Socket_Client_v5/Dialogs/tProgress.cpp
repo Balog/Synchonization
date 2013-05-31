@@ -16,8 +16,7 @@ tProgress::~tProgress()
 //-----------------------------------------------------
 void tProgress::Start(int max, int _x, int _y, int _w, int _h)
 {
-//    int x=this->geometry().x();
-//    int y=this->geometry().y();
+
     int w=this->geometry().width();
     int h=this->geometry().height();
 
@@ -35,11 +34,11 @@ void tProgress::Start(int max, int _x, int _y, int _w, int _h)
     this->setVisible(true);
 }
 //-----------------------------------------------------
-void tProgress::setValue(int value)
+void tProgress::setValue(int _value)
 {
-    ui->progressBar->setValue(value);
-    QString my_text=QString::number(value)+"%";
-//    ui->progressBar->setProperty("text",QVariant(my_text));
+    ui->progressBar->setValue(_value);
+
+
 }
 //-----------------------------------------------------
 void tProgress::Stop()

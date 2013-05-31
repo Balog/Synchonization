@@ -10,13 +10,31 @@
     <height>846</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>1184</width>
+    <height>846</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1184</width>
+    <height>846</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Главная форма</string>
   </property>
   <widget class="QLineEdit" name="leRoot">
    <property name="geometry">
     <rect>
-     <x>610</x>
+     <x>720</x>
      <y>820</y>
      <width>141</width>
      <height>20</height>
@@ -32,7 +50,7 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>550</x>
+     <x>660</x>
      <y>822</y>
      <width>51</width>
      <height>16</height>
@@ -109,7 +127,7 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>760</x>
+     <x>870</x>
      <y>822</y>
      <width>51</width>
      <height>16</height>
@@ -122,7 +140,7 @@
   <widget class="QLineEdit" name="leTemp">
    <property name="geometry">
     <rect>
-     <x>820</x>
+     <x>930</x>
      <y>820</y>
      <width>141</width>
      <height>20</height>
@@ -144,8 +162,26 @@
      <height>771</height>
     </rect>
    </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>1171</width>
+     <height>771</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1171</width>
+     <height>771</height>
+    </size>
+   </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
@@ -213,7 +249,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_5">
       <attribute name="title">
@@ -468,7 +504,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_7">
       <attribute name="title">
@@ -719,7 +755,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>720</y>
+       <y>717</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -734,8 +770,8 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>104</x>
-       <y>720</y>
+       <x>100</x>
+       <y>717</y>
        <width>91</width>
        <height>23</height>
       </rect>
@@ -750,8 +786,8 @@
      </property>
      <property name="geometry">
       <rect>
-       <x>210</x>
-       <y>720</y>
+       <x>206</x>
+       <y>717</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -765,7 +801,7 @@
       <rect>
        <x>290</x>
        <y>40</y>
-       <width>761</width>
+       <width>871</width>
        <height>671</height>
       </rect>
      </property>
@@ -1120,7 +1156,7 @@
   <widget class="QPushButton" name="pbExit">
    <property name="geometry">
     <rect>
-     <x>990</x>
+     <x>1100</x>
      <y>818</y>
      <width>75</width>
      <height>23</height>

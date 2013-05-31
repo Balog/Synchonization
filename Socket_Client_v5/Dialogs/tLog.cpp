@@ -14,7 +14,7 @@ tLog::~tLog()
 
 }
 //---------------------------------------------------------
-void tLog::Write(QString &_text, bool flag) const
+void tLog::Write(const QString &_text, const bool flag) const
 {
     QFile file(file_name);
     if(file.exists() && file.open(QFile::Append))

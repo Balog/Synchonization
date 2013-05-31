@@ -36,6 +36,8 @@ public:
         if (tEditLoginPass->objectName().isEmpty())
             tEditLoginPass->setObjectName(QString::fromUtf8("tEditLoginPass"));
         tEditLoginPass->resize(362, 70);
+        tEditLoginPass->setMinimumSize(QSize(362, 70));
+        tEditLoginPass->setMaximumSize(QSize(362, 70));
         leLogin = new QLineEdit(tEditLoginPass);
         leLogin->setObjectName(QString::fromUtf8("leLogin"));
         leLogin->setGeometry(QRect(60, 10, 211, 20));

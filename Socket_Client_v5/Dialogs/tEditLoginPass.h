@@ -15,9 +15,9 @@ public:
     explicit tEditLoginPass(QWidget *parent = 0);
     ~tEditLoginPass();
 
-    void SetLogin(QString &_login);
-    QString GetLogin();
-    QString GetPassword();
+    void SetLogin(const QString &_login);
+    QString GetLogin() const;
+    QString GetPassword() const;
     bool new_user;
     void ClearAll();
 
@@ -33,9 +33,6 @@ private slots:
 
 signals:
     void EndEditing(QString& _login, QString& _password, int row, bool new_user);
-
-//public slots:
-//    void OnVisible(bool Vis);
 };
 
 #endif // TEDITLOGINPASS_H

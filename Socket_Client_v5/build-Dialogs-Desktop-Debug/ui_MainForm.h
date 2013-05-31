@@ -131,13 +131,20 @@ public:
         if (MainForm->objectName().isEmpty())
             MainForm->setObjectName(QString::fromUtf8("MainForm"));
         MainForm->resize(1184, 846);
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainForm->sizePolicy().hasHeightForWidth());
+        MainForm->setSizePolicy(sizePolicy);
+        MainForm->setMinimumSize(QSize(1184, 846));
+        MainForm->setMaximumSize(QSize(1184, 846));
         leRoot = new QLineEdit(MainForm);
         leRoot->setObjectName(QString::fromUtf8("leRoot"));
-        leRoot->setGeometry(QRect(610, 820, 141, 20));
+        leRoot->setGeometry(QRect(720, 820, 141, 20));
         leRoot->setReadOnly(true);
         label = new QLabel(MainForm);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(550, 822, 51, 16));
+        label->setGeometry(QRect(660, 822, 51, 16));
         pbConnect = new QPushButton(MainForm);
         pbConnect->setObjectName(QString::fromUtf8("pbConnect"));
         pbConnect->setEnabled(false);
@@ -157,14 +164,18 @@ public:
         pbDisconnect->setGeometry(QRect(280, 10, 81, 23));
         label_2 = new QLabel(MainForm);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(760, 822, 51, 16));
+        label_2->setGeometry(QRect(870, 822, 51, 16));
         leTemp = new QLineEdit(MainForm);
         leTemp->setObjectName(QString::fromUtf8("leTemp"));
-        leTemp->setGeometry(QRect(820, 820, 141, 20));
+        leTemp->setGeometry(QRect(930, 820, 141, 20));
         leTemp->setReadOnly(true);
         tabWidget = new QTabWidget(MainForm);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setGeometry(QRect(10, 40, 1171, 771));
+        sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
+        tabWidget->setSizePolicy(sizePolicy);
+        tabWidget->setMinimumSize(QSize(1171, 771));
+        tabWidget->setMaximumSize(QSize(1171, 771));
         tab_4 = new QWidget();
         tab_4->setObjectName(QString::fromUtf8("tab_4"));
         tvRead = new QTreeView(tab_4);
@@ -328,18 +339,18 @@ public:
         label_11->setGeometry(QRect(13, 12, 46, 13));
         pbAddUser = new QPushButton(tab_3);
         pbAddUser->setObjectName(QString::fromUtf8("pbAddUser"));
-        pbAddUser->setGeometry(QRect(10, 720, 75, 23));
+        pbAddUser->setGeometry(QRect(10, 717, 75, 23));
         pbEditUser = new QPushButton(tab_3);
         pbEditUser->setObjectName(QString::fromUtf8("pbEditUser"));
         pbEditUser->setEnabled(false);
-        pbEditUser->setGeometry(QRect(104, 720, 91, 23));
+        pbEditUser->setGeometry(QRect(100, 717, 91, 23));
         pbDelUser = new QPushButton(tab_3);
         pbDelUser->setObjectName(QString::fromUtf8("pbDelUser"));
         pbDelUser->setEnabled(false);
-        pbDelUser->setGeometry(QRect(210, 720, 75, 23));
+        pbDelUser->setGeometry(QRect(206, 717, 75, 23));
         tvAdminTree = new QTreeView(tab_3);
         tvAdminTree->setObjectName(QString::fromUtf8("tvAdminTree"));
-        tvAdminTree->setGeometry(QRect(290, 40, 761, 671));
+        tvAdminTree->setGeometry(QRect(290, 40, 871, 671));
         tabWidget->addTab(tab_3, QString());
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
@@ -430,7 +441,7 @@ public:
         tabWidget->addTab(tab, QString());
         pbExit = new QPushButton(MainForm);
         pbExit->setObjectName(QString::fromUtf8("pbExit"));
-        pbExit->setGeometry(QRect(990, 818, 75, 23));
+        pbExit->setGeometry(QRect(1100, 818, 75, 23));
 
         retranslateUi(MainForm);
         QObject::connect(pbConnect, SIGNAL(clicked()), MainForm, SLOT(OnConnect()));
@@ -454,9 +465,9 @@ public:
         QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
         QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
 
-        tabWidget->setCurrentIndex(1);
-        tabWidget_2->setCurrentIndex(1);
-        tabWidget_3->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
+        tabWidget_2->setCurrentIndex(0);
+        tabWidget_3->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainForm);

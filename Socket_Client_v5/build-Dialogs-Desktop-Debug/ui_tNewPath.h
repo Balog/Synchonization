@@ -41,6 +41,8 @@ public:
         if (tNewPath->objectName().isEmpty())
             tNewPath->setObjectName(QString::fromUtf8("tNewPath"));
         tNewPath->resize(416, 139);
+        tNewPath->setMinimumSize(QSize(416, 139));
+        tNewPath->setMaximumSize(QSize(416, 139));
         pbOk = new QPushButton(tNewPath);
         pbOk->setObjectName(QString::fromUtf8("pbOk"));
         pbOk->setGeometry(QRect(330, 20, 75, 23));

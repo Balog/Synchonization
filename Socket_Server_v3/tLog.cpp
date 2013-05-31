@@ -24,7 +24,7 @@ tLog::~tLog()
 
 }
 //---------------------------------------------------------
-void tLog::Write(QString &_text, bool flag)
+void tLog::Write(const QString &_text, const bool flag) const
 {
     QFile file(file_name);
     if(file.exists() && file.open(QFile::Append))
@@ -48,7 +48,7 @@ void tLog::Write(QString &_text, bool flag)
 
 }
 //---------------------------------------------------------
-void tLog::Write(char* _text, bool flag)
+void tLog::Write(const char* _text, const bool flag)
 {
     QString text=QString::fromUtf8(_text);
     Write(text, flag);

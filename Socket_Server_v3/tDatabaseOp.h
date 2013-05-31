@@ -19,23 +19,23 @@ public:
     ~tDatabaseOp();
     void RefreshModelsFiles();
     void ClearModels();
-    void GetListModels(QDataStream &_out, QString &_login);
+    void GetListModels(QDataStream &_out, const QString &_login);
     void GetLocalModelFiles(const QString &_str, QStringList &_list);
     QString GetHash(const QString &name_file) const;
     QDateTime GetLastMod(const QString &name_file) const;
     QDateTime RoundDateTime(const QDateTime &_dt) const;
     void Update_LastMod_Hash(const QString &_file_name, const QDateTime &_last_mod, const QString &_hash);
     QString SaveLoginPass(QString& _login, QString& _pass, bool _new_user, qlonglong &num_log);
-    QString DeleteLogin(qlonglong num_login);
+    QString DeleteLogin(const qlonglong num_login);
     void SendLoginTable(QDataStream &_out);
     void SendReadPermissions(QDataStream &_out);
     bool VerifyAutorization(QString& _login, QString& _password);
     void SavePermissions(QByteArray _block);
-    qlonglong GetNumLogin(QString &_login);
-    void SaveLoginWritable(int row, bool writ);
-    bool VerifyFile(QString& name_file, QString& server_hash);
-    void CorrectReadPermission(QString& _trans_model, QString& _login);
-    void CorrectWrittenWho(QList<tFileList> list, QString& login);
+    qlonglong GetNumLogin(const QString &_login);
+    void SaveLoginWritable(const int row, const bool writ);
+    bool VerifyFile(const QString &name_file, const QString &server_hash) const;
+    void CorrectReadPermission(const QString &_trans_model, const QString &_login);
+    void CorrectWrittenWho(QList<tFileList> list, const QString &login);
 
 private:
     QSqlDatabase db;
@@ -49,7 +49,7 @@ private:
     void CheckInfoFiles(const qlonglong _num, const QString &_folder_mod);
 
     tLog log;
-    bool IsNoDelete(QString& _login);
+    bool IsNoDelete(const QString &_login);
 
 };
 

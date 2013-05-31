@@ -296,7 +296,7 @@ bool tClient::IsTransaction()
     return Transaction;
 }
 //---------------------------------------------------------------------------------------
-void tClient::SetTransaction(bool _trans)
+void tClient::SetTransaction(const bool _trans)
 {
     Transaction=_trans;
 }

@@ -9,6 +9,10 @@ Zast::Zast(QWidget *_parent) :
     QDialog(_parent, Qt::WindowSystemMenuHint | Qt::FramelessWindowHint), ui(new Ui::Zast), connect_ok(false), main_form(new MainForm), dAutoriz(new Autoriz), timer1(NULL), timer2(NULL)
 {
     ui->setupUi(this);
+
+    QPixmap myPixmap(":/Pictures/Zast.png");
+    ui->label->setPixmap(myPixmap);
+
     dAutoriz->setModal(true);
 
     connect(dAutoriz, SIGNAL(SendAutorization(QString&, QString&, bool)), main_form, SLOT(Autorization(QString&, QString&, bool)));
@@ -43,7 +47,7 @@ void Zast::OnTimerTrue()
         //сюда встроить команду запроса списка логинов
         emit ReceiveLoginsTable();
         //эту команду вставить в конце обработки списка логинов
-//        dAutoriz->show();
+
     }
 }
 //---------------------------------------------------------------------
@@ -79,7 +83,7 @@ void Zast::mousePressEvent(QMouseEvent* event)
 //---------------------------------------------------------------------
 void Zast::AutorizStart()
 {
-    //    this->setVisible(true);
+
     l="Zast \tAutorizStart\tСервер найден ";
     log.Write(l);
 

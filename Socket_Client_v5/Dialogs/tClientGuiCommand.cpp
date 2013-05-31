@@ -306,13 +306,11 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
         //запросить обновление логинов а потом доступов на чтение
 
 
-//        ((MainForm*)link)->OnListFiles();
-
         bool ver=((MainForm*)link)->VerifyUserFolders();
         if(ver)
         {
             //все в порядке, продолжаем запуск
-//            ((MainForm*)link)->OnListFiles();
+
 
             ((MainForm*)link)->OnContinueStart();
         }
@@ -397,8 +395,6 @@ void tGuiCommitTransaction::ExeCommand(QDataStream &_in)
 
     QString model_file="";
 
-    //    _in >> model_file;
-    //    out << model_file;
 
     int num_files=-1;
     _in >> num_files;
@@ -510,7 +506,6 @@ void tGuiReportDeleteFile::ExeCommand(QDataStream &_in)
     _in >> file_name;
 
     QString l="tClientGuiCommand \tGuiReportDeleteFile\tОтчет об удалении файла на сервере ";
-    //    l=l1.toUtf8()+file_name.toUtf8();
     log.Write(l);
 
     emit NextCommand();
@@ -541,7 +536,7 @@ void tReportGuiGetListFiles::ExeCommand(QDataStream &_in)
 {
     l="tClientGuiCommand \tReportGuiGetListFiles\tОтчет запроса списка файлов с сервера ";
     log.Write(l);
-    //    slm_list=NULL;
+
     QStringList list;
 
     int num=-1;
@@ -552,7 +547,7 @@ void tReportGuiGetListFiles::ExeCommand(QDataStream &_in)
         _in >> file;
         list.push_back(my_settings.GetRoot()+file);
     }
-    //(tClient*)link)
+
     ((MainForm*)link)->LocalListFile(list);
 
 }
@@ -646,8 +641,7 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
         bool tr=((MainForm*)link)->GetIsTransaction();
         if(tr)
         {
-            //        if(!((MainForm*)link)->IsRequeryServerModel)
-            //        {
+
             //СЮДА ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST
             //НАЧАЛО В void tModelsConveyor::StartSendDeleteFiles()
             l="tClientGuiCommand \tGetListModels\t Процесс транзакции. ОКОНЧАНИЕ ПРОЦЕДУР ОБНОВЛЕНИЯ ТАБЛИЦ LAST";
@@ -657,7 +651,7 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
 
 
             emit FinalBlockTransactions();
-            //        }
+
         }
         else
         {
@@ -682,7 +676,6 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
 
 
         }
-        //        ((MainForm*)link)->TreesBuildings();
     }
     else
     {
@@ -861,7 +854,7 @@ void tGUISavePermissions::ExeCommand(QDataStream &_in)
     _in >> comm;
 
     QByteArray block1;
-//    _in >> block1;
+
     block1=_in.device()->readAll();
 
 

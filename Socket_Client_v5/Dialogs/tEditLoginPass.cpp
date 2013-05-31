@@ -25,23 +25,18 @@ void tEditLoginPass::OnCancel()
     this->setVisible(false);
 }
 //-------------------------------------------------------------------------
-//void tEditLoginPass::OnVisible(bool Vis)
-//{
-//    this->setVisible(Vis);
-//}
-//-------------------------------------------------------------------------
-void tEditLoginPass::SetLogin(QString &_login)
+void tEditLoginPass::SetLogin(const QString &_login)
 {
     ui->leLogin->setText(_login);
 
 }
 //-------------------------------------------------------------------------
-QString tEditLoginPass::GetLogin()
+QString tEditLoginPass::GetLogin() const
 {
     return ui->leLogin->text();
 }
 //-------------------------------------------------------------------------
-QString tEditLoginPass::GetPassword()
+QString tEditLoginPass::GetPassword() const
 {
     return ui->lePassword->text();
 }

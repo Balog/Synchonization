@@ -62,18 +62,13 @@ tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QOb
 //-----------------------------------------------------------------
 tConveyor::~tConveyor()
 {
-    //    Db.close();
-
-
     delete client_th;
     client_th=NULL;
 }
 //-----------------------------------------------------------------
-void tConveyor::AddCommand(QByteArray _block)
+void tConveyor::AddCommand(const QByteArray _block)
 {
     v_conv.push_back(_block);
-
-
 }
 //-----------------------------------------------------------------
 void tConveyor::NextCommand()
@@ -179,7 +174,6 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
     connect(gui_comm, SIGNAL(VerifyMoveDelete(QString&, bool)), this, SLOT(VerifyMoveDelete(QString&, bool)));
     connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
     connect(gui_comm, SIGNAL(EndConveyor()), this, SLOT(OnEndConveyor()));
-    //    connect(gui_comm, SIGNAL(EndTransactions()), this, SIGNAL(OnEndTransactions()));
 
     gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
@@ -281,12 +275,9 @@ void tConveyor::GetServerModels()
 }
 
 //--------------------------------------------------------------------------------
-void tConveyor::AddCommitTransaction(const bool _send, QString& _root, bool _custom_copy)
+void tConveyor::AddCommitTransaction(const bool _send, const QString& _root, const bool _custom_copy)
 {
 
-
-
-    //    Transaction=true;
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
 
@@ -388,13 +379,12 @@ void tConveyor::AddCommitTransactionDel()
 }
 
 //--------------------------------------------------------------------------------
-void tConveyor::VerifyMoveDelete(QString &_root_folder, bool _custom_copy)
+void tConveyor::VerifyMoveDelete( QString &_root_folder,  bool _custom_copy)
 {
     if(!_custom_copy)
     {
     db_op->PrepareUpdateLastSynch(false, user_login);
 
-    //    MarkLastTables(false);
     for(int i=0; i<file_list.size();i++)
     {
         db_op->UpdateLastSynchMark(file_list[i].file_name, false, user_login);
@@ -405,10 +395,9 @@ void tConveyor::VerifyMoveDelete(QString &_root_folder, bool _custom_copy)
         db_op->UpdateLastSynchMark(file_list1[i].file_name, false, user_login);
     }
     }
-//    model_file=m_struct;
     bool ret=true;
     temp=my_settings.GetTemp()+"Receive/";
-    root=_root_folder;//my_settings.GetRoot();
+    root=_root_folder;
     QDir dir(temp);
     stopped=false;
     error_file="";
@@ -1029,7 +1018,6 @@ bool tConveyor::Delete(const QString &_new_abs_path, QString &_error_file) const
 //----------------------------------------------------------
 bool tConveyor::DeleteEmptyFolders(const QString &_root) const
 {
-    //    bool res = false;
     QDir dir(_root);
     //Получаем список каталогов
     QStringList lst_dirs = dir.entryList(QDir::Dirs |
@@ -1147,7 +1135,7 @@ void tConveyor::VerifyDeletedFiles()
     }
 }
 //----------------------------------------------------------
-void tConveyor::CorrectLastSynch(QStringList &_all_files, bool _server)
+void tConveyor::CorrectLastSynch(const QStringList &_all_files, const bool _server)
 {
 
     l="tConveyor \tCorrectLastSynch\tКорректировка таблиц Last ";

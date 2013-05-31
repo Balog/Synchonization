@@ -13,37 +13,36 @@ class tModelsConveyor : public QObject
 public:
     explicit tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp* _db_op, QObject *parent = 0);
     ~tModelsConveyor();
-    //    void SetLink(QObject* _link){link=_link;}
     void SetDatabaseOperator(tDatabaseOp *_db_op){ db_op=_db_op;}
-    void StartServer(const QString &_addr, const int _port);//Пробросить к конвейру
+    void StartServer(const QString &_addr, const int _port);
     void Clear();
     void SendFile(const QString &_file_name);
     void DeletingServerFile(const QString &_file_name);
     void CancelOperations();
-    void Autorization(QString& _login, QString& _password);
+    void Autorization(const QString &_login, const QString &_password);
     void OnListFiles();
-    void StartSendDeleteFiles(int _max_model);
+    void StartSendDeleteFiles(const int _max_model);
     void ReceiveFile(const QString& _file_name);
     void DeletingLocalFile(const QString& _file_name);
     void StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int max_model);
-    void CorrectLastSynch(bool _server);
+    void CorrectLastSynch(const bool _server);
     bool GetIsTransaction()
     {
         return Transaction;
     }
 
-    void SetTransactionFlag(bool _flag);
-    void MarkLastTables(bool _send, const QString &user_login);
+    void SetTransactionFlag(const bool _flag);
+    void MarkLastTables(const bool _send, const QString &_user_login);
 
-    void SendLoginPassword(QString &_login, QString &_password, int _row, bool _new_user);
-    void SendDeleteLogin(int _row);
+    void SendLoginPassword(const QString &_login, const QString &_password, const int _row, const bool _new_user);
+    void SendDeleteLogin(const int _row);
 
     void ReceiveLoginsTable();
-    void SavePermissionsToServer(qlonglong _num_login);
+    void SavePermissionsToServer(const qlonglong _num_login);
     void SetLogin(const QString& _user_login);
 
     void ClearAllList();
-    void SaveLoginWritable(QStandardItemModel* model, int _row);
+    void SaveLoginWritable(const QStandardItemModel *_model, const int _row);
 
 private:
     QObject *link;
@@ -64,11 +63,11 @@ private:
     
 signals:
     void NextCommand();
-    void RunGui(QByteArray& block);//пробросить к конвейеру
+    void RunGui(QByteArray& block);
     void Disconnecting();
-    void AutorizStart();//Пробросить в форму
-    void CloseMain();//Пробросить в форму
-    void SetVisible(bool vis);//пробросить в форму
+    void AutorizStart();
+    void CloseMain();
+    void SetVisible(bool vis);
     void EndTransactions();
     void EndTransactionsMain();
 

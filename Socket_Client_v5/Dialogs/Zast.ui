@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>480</width>
-    <height>300</height>
+    <width>320</width>
+    <height>238</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,19 +16,14 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>80</y>
-     <width>431</width>
-     <height>111</height>
+     <x>0</x>
+     <y>0</y>
+     <width>320</width>
+     <height>238</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <pointsize>48</pointsize>
-    </font>
-   </property>
    <property name="text">
-    <string>Типа заставка</string>
+    <string/>
    </property>
   </widget>
  </widget>

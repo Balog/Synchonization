@@ -9,7 +9,7 @@ tConstructModelTree::~tConstructModelTree()
     db_op->ResetFoundModelAdmin();
 }
 //--------------------------------------------------------------------
-tConstructModelTree::tConstructModelTree(tDatabaseOp *_db_op, QString &_login)
+tConstructModelTree::tConstructModelTree(tDatabaseOp *_db_op, const QString &_login)
 {
 //    table_name=_table;
     login=_login;
@@ -24,9 +24,9 @@ bool tConstructModelTree::NextModelAdmin()
     return db_op->NextModelAdmin();
 }
 //--------------------------------------------------------------------
-QStringList tConstructModelTree::ListAdmin(bool &_read, qlonglong& server_num)
+QStringList tConstructModelTree::ListAdmin(bool &_read, qlonglong& _server_num)
 {
-    return db_op->NextStructListModelAdmin(login, _read, server_num);
+    return db_op->NextStructListModelAdmin(login, _read, _server_num);
 
 }
 //--------------------------------------------------------------------

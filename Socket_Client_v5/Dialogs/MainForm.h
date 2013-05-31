@@ -21,90 +21,46 @@
 
 using namespace std;
 
-//class tLoginRow
-//{
-//public:
-//    tLoginRow();
-//    QString login;
-//    bool writable;
-//};
-
-
-//class tLoginRowModel : public QAbstractTableModel
-//{
-//    Q_OBJECT
-//public:
-//    explicit tLoginRowModel(QObject *parent=0);
-
-//    QList<tLoginRow*> list;
-//    QStringList header_data;
-
-//    QVariant data(const QModelIndex &index, int role) const;
-//    bool setData(const QModelIndex &index, const QVariant &value, int role);
-
-//    int rowCount(const QModelIndex &parent=QModelIndex()) const;
-//    int columnCount(const QModelIndex &parent) const;
-
-//    QVariant headerData(int section, Qt::Orientation orientation, int role=Qt::DisplayRole) const;
-//    Qt::ItemFlags flags(const QModelIndex &index) const;
-
-//signals:
-
-//public slots:
-
-//};
-
-
 class TableModel : public QStandardItemModel
 {
 public:
-TableModel(){}
-virtual Qt::ItemFlags flags ( const QModelIndex & index ) const;
+    TableModel(){}
+    virtual Qt::ItemFlags flags ( const QModelIndex & index ) const;
 };
-
-
-
-
-
-
-
-//
-
+//*************************************************************
 namespace Ui {
 class MainForm;
 }
-
 
 class MainForm : public QDialog
 {
     Q_OBJECT
 private:
-typedef enum{Read, Write} tTreeMod;
+    typedef enum{Read, Write} tTreeMod;
 
 public:
     explicit MainForm(QWidget *parent = 0);
     ~MainForm();
-    void LocalListFile(const QStringList &list);
+    void LocalListFile(const QStringList &_list);
     void CancelAllOperations();
-    //    void ServerListModels(QStringList &list);
 
     void SaveServerModelFiles(QByteArray &_block);
     QStringListModel *slm_server_list_models;//модель списка серверных моделей
     int NumCelServModel;
 
-    void CorrectLastSynch(bool _server);
+    void CorrectLastSynch(const bool _server);
     bool GetIsTransaction()
     {
         bool tr=mod_conv->GetIsTransaction();
         return tr;
     }
 
-    void RegisterUser(qlonglong _s_num);
+    void RegisterUser(const qlonglong _s_num);
     void UpdateLogins();
-    void DeleteUser(qlonglong _s_num);
+    void DeleteUser(const qlonglong _s_num);
 
     void UpdateLoginsTable(QByteArray &_block);
-    void TreesBuildings(QString &_login);
+    void TreesBuildings(const QString &_login);
 
     void StartAutoriz();
     void UpdateModelRead(QByteArray &_block);
@@ -112,21 +68,18 @@ public:
     bool IsRequeryServerModel;
     void OnListFiles();
 
-    bool VerifyUserFolders();
+    bool VerifyUserFolders() const;
 
-    void BuildingTree(const QString &user_login);
-    void VerifyLastTable(const QString& user_login);
+    void BuildingTree(const QString &_user_login);
+    void VerifyLastTable(const QString& _user_login);
 
-    void ConstructTreeModel(QStandardItemModel *_tree_model, bool _read);
-    void EndUpdateServerModel(bool rebuild);
+    void ConstructTreeModel(const QStandardItemModel *_tree_model, const bool _read);
+    void EndUpdateServerModel(const bool _rebuild);
 
     void InternalCallBuildingTree();
 
-    void ViewError(int num_error, QString& error, QString &detail, QString& client_detail);
-    void  MainForm::DisplayInfo(qlonglong loc_num, qlonglong serv_num);
-//    QModelIndex CurrentReadIndex;
-//    QModelIndex CurrentWriteIndex;
-
+    void ViewError(const int _num_error, const QString &_error, const QString &_detail, const QString &_client_detail);
+    void  MainForm::DisplayInfo(const qlonglong _loc_num, const qlonglong _serv_num);
 
 private:
     QStringListModel *sLM_loc_list_models;//модель локальных моделей
@@ -159,8 +112,8 @@ private:
     QStringList listDelLoc;
     QStringListModel *sLM_DelLoc;
 
-    void CreateFileList(const QString &start_folder, QStringList& list);
-    void SearchFiles(const QDir &dir, QStringList &list);
+    void CreateFileList(const QString &_start_folder, QStringList& _list);
+    void SearchFiles(const QDir &_dir, QStringList &_list);
 
     void SearchModelsOnDatabase(QStringList &_list);
 
@@ -171,31 +124,23 @@ private:
 
     QStandardItemModel* tableModel;
 
-//    QStandardItemModel *table_logins_model;
-//    tLoginRowModel *tab_log_model;
-
     QModelIndex mi;
 
     QStandardItemModel *adm_tree_model;
 
     QModelIndex admin_logins_index;
 
-//    tConstructModelTree *constr_mod_tree;
-    void UpToParent(QModelIndex index, Qt::CheckState _state);
-    void DownToChildrens(QModelIndex index, Qt::CheckState _state);
+    void UpToParent(const QModelIndex _index, const Qt::CheckState _state);
+    void DownToChildrens(const QModelIndex _index, const Qt::CheckState _state);
 
-
-
-    QString user_login;
+    QString _user_login;
     bool modify_folder;
 
     tNewPath* form_new_path;
 
     QList<CompareTableRec> list_compare;
 
-
-
-    void ConstructTree(tTreeMod _tree_mod, QList<CompareTableRec> _comp_table);
+    void ConstructTree(const tTreeMod _tree_mod, QList<CompareTableRec> _comp_table);
 
     QList<CompareTableRec> tree_data;
 
@@ -205,12 +150,12 @@ private:
     QStandardItemModel *write_tree_model;
 
 
-    void UpToParentFiles(QStandardItemModel *model, const QModelIndex &index, Qt::CheckState _state);
-    void DownToChildrensFiles(QStandardItemModel *model, QModelIndex index, Qt::CheckState _state, tTreeMod _direction);
-    void SetToModelsTreeData(qlonglong loc_num_model, qlonglong _serv_num_model, bool _to_read, bool _choice);
-    void StartReadModeles(const QString &_root, qlonglong _server_num_model,const bool _is_preview);
-    void ShowContextMenu(QPoint pos, bool _read);
-    void DisplayModelInfo(qlonglong loc_num, qlonglong serv_num);
+    void UpToParentFiles(const QStandardItemModel *_model, const QModelIndex &_index, const Qt::CheckState _state);
+    void DownToChildrensFiles(const QStandardItemModel *_model, const QModelIndex _index, const Qt::CheckState _state, const tTreeMod _direction);
+    void SetToModelsTreeData(const qlonglong _loc_num_model, const qlonglong _serv_num_model, const bool _to_read, const bool _choice);
+    void StartReadModeles(const QString &_root, const qlonglong _server_num_model, const bool _is_preview);
+    void ShowContextMenu(const QPoint _pos, const bool _read);
+    void DisplayModelInfo(const qlonglong _loc_num, const qlonglong _serv_num);
 
     int max_models;
 
@@ -223,20 +168,20 @@ private:
     void DisplayPreview(const QStringList &_previews);
     QStringList previews;
     qlonglong current_local_model;
-    void GetLoadedPreview(const qlonglong serv_num, QStringList &previews);
+    void GetLoadedPreview(const qlonglong _serv_num, QStringList &_previews);
     bool removeFolder(const QDir & _dir, const bool _del_dir);
-    void EditingModelFile(QString &file_name, QString& _text, QString& hash, QDateTime &dt, qint64 &size);
+    void EditingModelFile(const QString &_file_name, const QString &_text, QString& _hash, QDateTime &_dt, qint64 &_size);
 
-    qlonglong current_local_num;
-    qlonglong current_server_num;
+    qlonglong _current_local_num;
+    qlonglong _current_server_num;
 
-    void SearchIndex(qlonglong current_local_num, qlonglong current_server_num, QModelIndex &ReadIndex, QModelIndex &WriteIndex);
-//    QModelIndex SearchIndexToModel(qlonglong current_local_num, qlonglong current_server_num, QStandardItemModel &read_model);
-    QModelIndex SearchIndexToModel(qlonglong current_local_num, qlonglong current_server_num, QStandardItemModel *_model);
-    QStandardItem* SearchItemToModel(qlonglong current_local_num, qlonglong current_server_num, QStandardItem *item, bool &stop);
+    void SearchIndex(const qlonglong _current_local_num, const qlonglong _current_server_num, QModelIndex &_read_index, QModelIndex &_write_index);
+
+    QModelIndex SearchIndexToModel(const qlonglong _current_local_num, const qlonglong _current_server_num, const QStandardItemModel *_model);
+    QStandardItem* SearchItemToModel(const qlonglong _current_local_num, const qlonglong _current_server_num, QStandardItem *_item, bool &_stop);
 
     void RecoveryTreeIndex();
-    void SaveDescriptionModel(QString &text);
+    void SaveDescriptionModel(const QString &_text);
 
 private slots:
     void Autorization(QString &_login, QString &_password, bool _modify_folder);
@@ -244,12 +189,10 @@ private slots:
     void OnConnect();
     void OnDisconnect();
 
-    //    void EndConveyor();
     void EndTransactions();
-    //    void ErrorConveyor();
 
     void OnAutorizStart();
-    void OnSetVisible(const bool vis);
+    void OnSetVisible(const bool _vis);
     void OnDisconnecting();
 
     void OnAddSend();
@@ -271,36 +214,32 @@ private slots:
 
     void OnClearModels();
 
-    void OnLocalModelClick(const QModelIndex Ind);
+    void OnLocalModelClick(const QModelIndex _ind);
 
     void OnNewLogin();
     void OnEditLogin();
     void OnDelLogin();
 
-    void OnEndEditLoginPassword(QString& _login, QString& _password, int _row, bool _new_user);
+    void OnEndEditLoginPassword(QString &_login, QString &_password, int _row, bool _new_user);
 
-    void OnLoginsClicked(QModelIndex Ind);
+    void OnLoginsClicked(const QModelIndex _ind);
 
 
     void on_tvAdminTree_clicked(const QModelIndex &index);
 
-    void on_lvLogins_clicked(const QModelIndex &);
+
 
     void on_pbListFiles_clicked();
 
 
     void on_pbExit_clicked();
 
-//    void on_pbRefresh_clicked();
-
     void on_pbRead_clicked();
 
     void on_pbBuildRead_clicked();
 
-    void on_tvRead_clicked(const QModelIndex &index);
-    void TreeCustomCollapsed(QStandardItem *item, tTreeMod _tree_mod);
-
-//    void on_pbRefresh_2_clicked();
+    void on_tvRead_clicked(const QModelIndex &_index);
+    void TreeCustomCollapsed(const QStandardItem *_item, const tTreeMod _tree_mod);
 
     void on_pbRefreshRead_clicked();
 
@@ -308,20 +247,13 @@ private slots:
 
     void on_pbBuildWrite_clicked();
 
-    void on_tvWrite_clicked(const QModelIndex &index);
+    void on_tvWrite_clicked(const QModelIndex &_index);
 
     void on_pbWrite_clicked();
 
-//    void showContextMenuRead(QPoint pos);
-//    void showContextMenuWrite(QPoint pos);
+    void on_tvRead_customContextMenuRequested(const QPoint &_pos);
 
-
-
-    void on_tvRead_customContextMenuRequested(const QPoint &pos);
-
-    void on_tvWrite_customContextMenuRequested(const QPoint &pos);
-
-//    void OnClickAddPicture();
+    void on_tvWrite_customContextMenuRequested(const QPoint &_pos);
 
     void on_tbFirstPreview_clicked();
 
@@ -359,8 +291,14 @@ private slots:
 
     void on_pteDesRead_2_textChanged();
 
+//    void on_lvLogins_customContextMenuRequested(const QPoint &_pos);
+//void OnLoginContextMenu(QPoint _pos);
+
+
+void on_lvLogins_customContextMenuRequested(const QPoint &_pos);
+
 public slots:
-    void OnServerModelClick(const QModelIndex Ind);
+    void OnServerModelClick(const QModelIndex _ind);
     void OnListFilesLocal();
     void OnReceiveLoginsTable();
     void OnVerPassword();

@@ -28,13 +28,10 @@ public:
     {
         if (Zast->objectName().isEmpty())
             Zast->setObjectName(QString::fromUtf8("Zast"));
-        Zast->resize(480, 300);
+        Zast->resize(320, 238);
         label = new QLabel(Zast);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(20, 80, 431, 111));
-        QFont font;
-        font.setPointSize(48);
-        label->setFont(font);
+        label->setGeometry(QRect(0, 0, 320, 238));
 
         retranslateUi(Zast);
 
@@ -44,7 +41,7 @@ public:
     void retranslateUi(QDialog *Zast)
     {
         Zast->setWindowTitle(QApplication::translate("Zast", "\320\227\320\260\321\201\321\202\320\260\320\262\320\272\320\260", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("Zast", "\320\242\320\270\320\277\320\260 \320\267\320\260\321\201\321\202\320\260\320\262\320\272\320\260", 0, QApplication::UnicodeUTF8));
+        label->setText(QString());
     } // retranslateUi
 
 };

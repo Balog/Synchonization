@@ -31,10 +31,6 @@ void tSettings::SetFilePath(const QString &_ini_file)
     port=s.value("port", 1234).toInt();
     s.endGroup();
 
-//    s.beginGroup("client");
-//    root=s.value("root", "D:/Proba/").toString();
-//    temp=s.value("temp", "D:/Temp/").toString();
-//    s.endGroup();
 }
 //-----------------------------------------------------------------
 void tSettings::sync()
@@ -48,9 +44,5 @@ void tSettings::sync()
     s.setValue("port", port);
     s.endGroup();
 
-//    s.beginGroup("client");
-//    s.setValue("root", root);
-//    s.setValue("temp", temp);
-//    s.endGroup();
 }
 //-----------------------------------------------------------------

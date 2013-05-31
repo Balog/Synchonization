@@ -15,7 +15,6 @@ class tStreamReceiveFile : public tFileStreamCommand
 {
     Q_OBJECT
 public:
-    //    tStreamReceiveFile() {}
     ~tStreamReceiveFile();
     virtual bool Initialize(QDataStream &_in);
     virtual bool ExeCommand(QDataStream &in);
@@ -240,7 +239,6 @@ private:
         QString server_hash;
     };
     QList<tFileList>file_list;
-    //    QString model_file;
     int send;
 };
 inline tAbstractStreamCommand* Create_tStreamCommitTransaction()

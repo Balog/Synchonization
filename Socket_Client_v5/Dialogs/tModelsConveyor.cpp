@@ -97,7 +97,7 @@ void tModelsConveyor::ErrorConveyor()
     EndConveyor();
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::Autorization(QString& _login, QString& _password)
+void tModelsConveyor::Autorization(const QString& _login, const QString& _password)
 {
     l="tModelsConveyor \tAutorization\tОтправка команды авторизации";
     log.Write(l);
@@ -137,7 +137,7 @@ void tModelsConveyor::DeletingLocalFile(const QString& _file_name)
     db_op->PrepareDeletingLocal(_file_name);
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::StartSendDeleteFiles(int _max_model)
+void tModelsConveyor::StartSendDeleteFiles(const int _max_model)
 {
     l="tModelsConveyor \tStartSendDeleteFiles\tФормирование списка команд транзакции передачи и удаления файлов на сервере";
     log.Write(l);
@@ -236,11 +236,11 @@ void tModelsConveyor::StartSendDeleteFiles(int _max_model)
 
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::MarkLastTables(bool _send, const QString& user_login)
+void tModelsConveyor::MarkLastTables(const bool _send, const QString& _user_login)
 {
     for(int i=0; i<all_files.size(); i++)
     {
-        db_op->UpdateLastSynchMark(all_files[i], _send, user_login);
+        db_op->UpdateLastSynchMark(all_files[i], _send, _user_login);
     }
 }
 
@@ -254,13 +254,12 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, int _custom_
 
     conv->ClearTempFolder();
     send=false;
-    //    Transaction=true;
+
     bool stop=false;
     QString name_model="";
     max_model=_max_model;
     count_models=max_model;
-//    if(_custom_copy!=2)
-//    {
+
     if(db_op->GetNextReceiveDelModel(name_model, count_models))
     {
         emit SignalCountFiles(count_models);
@@ -312,7 +311,6 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, int _custom_
             l="tModelsConveyor \tStartReceiveDeleteFiles\tЛокальный файл изменился. Выполнение списка отменено";
             log.Write(l);
 
-            //            conv->Clear();
             EndConveyor();
         }
     }
@@ -336,29 +334,16 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, int _custom_
         emit SignalCountFiles(max_model);
         emit EndTransactions();
     }
-//    }
-//    else
-//    {
 
-
-
-
-//        conv->AddStartTransaction(send);
-//        stop=conv->AddReceiveCommand(_root);
-//        //        conv->AddDelCommand();
-
-//        conv->AddCommitTransaction(send, root_folder, _custom_copy);
-//        conv->StartExecution();
-//    }
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::CorrectLastSynch(bool _server)
+void tModelsConveyor::CorrectLastSynch(const bool _server)
 {
     conv->CorrectLastSynch(all_files, _server);
     all_files.clear();
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::SetTransactionFlag(bool _flag)
+void tModelsConveyor::SetTransactionFlag(const bool _flag)
 {
     Transaction=_flag;
 }
@@ -369,7 +354,7 @@ void tModelsConveyor::OnEndTransactions()
     emit EndTransactionsMain();
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::SendLoginPassword(QString &_login, QString &_password, int _row, bool _new_user)
+void tModelsConveyor::SendLoginPassword(const QString &_login, const QString &_password, const int _row, const bool _new_user)
 {
     l="tModelsConveyor \tSendLoginPassword\tПроверка и регистрация пользователя на сервере";
     log.Write(l);
@@ -394,7 +379,7 @@ void tModelsConveyor::SendLoginPassword(QString &_login, QString &_password, int
     conv->OnRunGuiCommand(block);
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::SendDeleteLogin(int _row)
+void tModelsConveyor::SendDeleteLogin(const int _row)
 {
     l="tModelsConveyor \tSendDeleteLogin\t Удаление пользователя с сервера";
     log.Write(l);
@@ -425,7 +410,7 @@ void tModelsConveyor::ReceiveLoginsTable()
     conv->OnRunGuiCommand(block);
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::SavePermissionsToServer(qlonglong _num_login)
+void tModelsConveyor::SavePermissionsToServer(const qlonglong _num_login)
 {
     l="tModelsConveyor \tSavePermissionsToServer\t Запись на сервер таблицы разрешений";
     log.Write(l);
@@ -453,18 +438,12 @@ void tModelsConveyor::ClearAllList()
 
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::SaveLoginWritable(QStandardItemModel* model, int _row)
+void tModelsConveyor::SaveLoginWritable(const QStandardItemModel* _model, const int _row)
 {
     bool check=false;
-    db_op->SaveLoginsWritable(model, _row, check);
+    db_op->SaveLoginsWritable(_model, _row, check);
     l="tModelsConveyor \tSaveLoginWritable\tЗапись разрешения на запись на сервере";
     log.Write(l);
-
-//    qlonglong num_log=0;
-//    if(!_new_user)
-//    {
-//        num_log=db_op->GetNumLogin(_row);
-//    }
 
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
