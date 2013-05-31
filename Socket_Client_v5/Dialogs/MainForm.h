@@ -4,7 +4,6 @@
 #include <QDialog>
 
 #include "tSettings.h"
-//#include "tConveyor.h"
 #include "tModelsConveyor.h"
 #include <QMessageBox>
 #include <QStringListModel>
@@ -13,7 +12,6 @@
 #include "tConstructModelTree.h"
 #include <QStandardItemModel>
 #include "tNewPath.h"
-//#include "qivbcheckindicatordelegate.h"
 #include "tProgress.h"
 #include <QImage>
 #include <vector>
@@ -41,11 +39,9 @@ private:
 public:
     explicit MainForm(QWidget *parent = 0);
     ~MainForm();
-    void LocalListFile(const QStringList &_list);
     void CancelAllOperations();
 
     void SaveServerModelFiles(QByteArray &_block);
-    QStringListModel *slm_server_list_models;//модель списка серверных моделей
     int NumCelServModel;
 
     void CorrectLastSynch(const bool _server);
@@ -82,35 +78,24 @@ public:
     void  MainForm::DisplayInfo(const qlonglong _loc_num, const qlonglong _serv_num);
 
 private:
-    QStringListModel *sLM_loc_list_models;//модель локальных моделей
     QStringListModel *sLM_loc_list_files;//модель локальных файлов
-
-    QStringListModel *slm_list;
-    QStringListModel *sLM_server_list_files;//модель серверного списка файлов
-
-
     Ui::MainForm *ui;
 
     void StartServer();
     vector <QByteArray> pr;
 
-    //    tConveyor* conv;
     tModelsConveyor *mod_conv;
     tDatabaseOp* db_op;
 
     QStringList listSend;
-    QStringListModel *sLM_Send;
 
     QStringList listDel;
-    QStringListModel *sLM_Del;
 
     QStringListModel *sLM_list;
 
     QStringList listRec;
-    QStringListModel *sLM_Rec;
 
     QStringList listDelLoc;
-    QStringListModel *sLM_DelLoc;
 
     void CreateFileList(const QString &_start_folder, QStringList& _list);
     void SearchFiles(const QDir &_dir, QStringList &_list);
@@ -195,26 +180,16 @@ private slots:
     void OnSetVisible(const bool _vis);
     void OnDisconnecting();
 
-    void OnAddSend();
     void OnStartSend();
     void OnClearSendAll();
 
-    void OnAddDelete();
     void OnClearDelete();
 
-
-
-    void OnAddReceive();
     void OnReceiveClear();
-    void OnDeleteLocal();
     void OnClearDeleteLocal();
     void OnStartReceive();
 
-    void OnUpdateStruct();
-
     void OnClearModels();
-
-    void OnLocalModelClick(const QModelIndex _ind);
 
     void OnNewLogin();
     void OnEditLogin();
@@ -229,14 +204,12 @@ private slots:
 
 
 
-    void on_pbListFiles_clicked();
+//    void on_pbListFiles_clicked();
 
 
     void on_pbExit_clicked();
 
     void on_pbRead_clicked();
-
-    void on_pbBuildRead_clicked();
 
     void on_tvRead_clicked(const QModelIndex &_index);
     void TreeCustomCollapsed(const QStandardItem *_item, const tTreeMod _tree_mod);
@@ -244,8 +217,6 @@ private slots:
     void on_pbRefreshRead_clicked();
 
     void on_pbRefresh_Write_clicked();
-
-    void on_pbBuildWrite_clicked();
 
     void on_tvWrite_clicked(const QModelIndex &_index);
 
@@ -291,14 +262,10 @@ private slots:
 
     void on_pteDesRead_2_textChanged();
 
-//    void on_lvLogins_customContextMenuRequested(const QPoint &_pos);
-//void OnLoginContextMenu(QPoint _pos);
-
-
 void on_lvLogins_customContextMenuRequested(const QPoint &_pos);
 
 public slots:
-    void OnServerModelClick(const QModelIndex _ind);
+
     void OnListFilesLocal();
     void OnReceiveLoginsTable();
     void OnVerPassword();

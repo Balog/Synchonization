@@ -1,6 +1,6 @@
 #include "tClientGuiCommand.h"
 #include "MainForm.h"
-#include "ui_MainForm.h"
+//#include "ui_MainForm.h"
 #include <QMessageBox>
 
 extern tSettings my_settings;
@@ -532,23 +532,23 @@ void tGuiGetListFiles::ExeCommand(QDataStream &_in)
     emit SendCommand(block);
 }
 //************************************************************************************************
-void tReportGuiGetListFiles::ExeCommand(QDataStream &_in)
+void tReportGuiGetListFiles::ExeCommand(QDataStream &)
 {
     l="tClientGuiCommand \tReportGuiGetListFiles\tОтчет запроса списка файлов с сервера ";
     log.Write(l);
 
-    QStringList list;
+//    QStringList list;
 
-    int num=-1;
-    _in >> num;
-    for(int i=0; i<num;i++)
-    {
-        QString file="";
-        _in >> file;
-        list.push_back(my_settings.GetRoot()+file);
-    }
+//    int num=-1;
+//    _in >> num;
+//    for(int i=0; i<num;i++)
+//    {
+//        QString file="";
+//        _in >> file;
+//        list.push_back(my_settings.GetRoot()+file);
+//    }
 
-    ((MainForm*)link)->LocalListFile(list);
+//    ((MainForm*)link)->LocalListFile(list);
 
 }
 //************************************************************************************************

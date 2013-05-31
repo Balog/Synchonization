@@ -13,6 +13,8 @@ Zast::Zast(QWidget *_parent) :
     QPixmap myPixmap(":/Pictures/Zast.png");
     ui->label->setPixmap(myPixmap);
 
+    this->setVisible(true);
+    this->setModal(true);
     dAutoriz->setModal(true);
 
     connect(dAutoriz, SIGNAL(SendAutorization(QString&, QString&, bool)), main_form, SLOT(Autorization(QString&, QString&, bool)));
@@ -98,9 +100,8 @@ void Zast::FindServer()
     l="Zast \tFindServer\tНачало поиска сервера ";
     log.Write(l);
 
-    connect_ok=false;
-    this->setVisible(true);
-    this->setModal(true);
+//    connect_ok=false;
+
     timer2=new QTimer();
     connect(timer2, SIGNAL(timeout()), this, SLOT(OnTimerFalse()));
     timer2->start(10000);

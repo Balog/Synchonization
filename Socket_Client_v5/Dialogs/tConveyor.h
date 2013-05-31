@@ -30,7 +30,7 @@ class tConveyor : public QObject
 {
     Q_OBJECT
 public:
-    explicit tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QObject *parent);
+    explicit tConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *parent);
     ~tConveyor();
     void StartServer(const QString &_addr, const int _port);
 
@@ -65,7 +65,7 @@ public:
 
 private:
     QObject *link;
-    Ui::MainForm *ui;
+//    Ui::MainForm *ui;
     vector <QByteArray> v_conv;
     typedef vector <QByteArray> t_conv;
     t_conv::const_iterator it_conv;

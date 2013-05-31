@@ -6,8 +6,8 @@
 
 extern tSettings my_settings;
 
-tConveyor::tConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
-    QObject(parent), ui(_ui), gui_comm(NULL), db_op(_db_op), link(_link), send_mode(0), user_login("")
+tConveyor::tConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
+    QObject(parent), gui_comm(NULL), db_op(_db_op), link(_link), send_mode(0), user_login("")
 {
 //    root=my_settings.GetRoot();
     v_conv.clear();
@@ -138,7 +138,7 @@ void tConveyor::OnCommand(QByteArray _block)
 
     connect(gui_comm, SIGNAL(EndCommand()), this, SLOT(OnEndCommand()));
 
-    gui_comm->Initialize(ui);
+//    gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
     gui_comm->ExeCommand(out);
     if(!gui_comm) {delete gui_comm;}
@@ -175,7 +175,7 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
     connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
     connect(gui_comm, SIGNAL(EndConveyor()), this, SLOT(OnEndConveyor()));
 
-    gui_comm->Initialize(ui);
+//    gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
     gui_comm->ExeCommand(out);
 
@@ -217,9 +217,9 @@ void tConveyor::OnStart(const bool _res)
 {
     if(_res)
     {
+
+
         emit SetVisible(true);
-        ui->pbConnect->setEnabled(false);
-        ui->pbDisconnect->setEnabled(true);
     }
     else
     {

@@ -3,7 +3,7 @@
 #include <QDataStream>
 #include <QtCore>
 #include <QDialog>
-#include "ui_MainForm.h"
+//#include "ui_MainForm.h"
 #include "tLog.h"
 
 
@@ -11,13 +11,14 @@ class tAbstractGuiCommand : public QObject
 {
     Q_OBJECT
 public:
-    virtual void Initialize(Ui::MainForm *_ui){ui=_ui;}
+    //Ui::MainForm *_ui
+//    virtual void Initialize(){}
     virtual void ExeCommand(QDataStream& in) = 0;
     virtual void SetLink(QObject* _link) {link=_link;}
 
 protected:
 
-    Ui::MainForm *ui;
+//    Ui::MainForm *ui;
     QObject* link;
 
     QString l;

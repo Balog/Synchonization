@@ -15,34 +15,17 @@ Qt::ItemFlags TableModel::flags ( const QModelIndex & index ) const
 }
 
 MainForm::MainForm(QWidget *parent) :
-    ui(new Ui::MainForm), QDialog(parent,Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint),mod_conv(NULL), db_op(NULL),
-    sLM_loc_list_models(NULL), slm_server_list_models(NULL), slm_list(NULL),
-    login_pass(new tEditLoginPass), adm_tree_model(NULL), form_new_path(new tNewPath),
+    ui(new Ui::MainForm), QDialog(parent,Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint),
+    mod_conv(NULL), sLM_Logins(new QStringListModel), adm_tree_model(new QStandardItemModel), tableModel(new TableModel),
+    login_pass(new tEditLoginPass), form_new_path(new tNewPath),
     read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel()),
-    fProgress(new tProgress),table_files_model(NULL), previews(NULL)
+    fProgress(new tProgress),table_files_model(NULL), previews(NULL),db_op(new tDatabaseOp),  current_local_model(0),
+    IsRequeryServerModel(false), _user_login("")
 {
 
 
-    current_local_model=0;
-    fProgress->setVisible(false);
-
-    IsRequeryServerModel=false;
-    _user_login="";
-
-
-    sLM_Send=new QStringListModel;
-    sLM_Del=new QStringListModel;
-    sLM_Rec=new QStringListModel;
-    sLM_DelLoc=new QStringListModel;
-    sLM_Logins=new QStringListModel;
-
-    adm_tree_model= new QStandardItemModel();
-    tableModel = new TableModel();
-
     ui->setupUi(this);
 
-    ui->pbBuildRead->setVisible(false);
-    ui->pbBuildWrite->setVisible(false);
     ui->tabWidget->removeTab(3);
     ui->tabWidget->setCurrentIndex(0);
     ui->tabWidget_2->setCurrentIndex(0);
@@ -55,14 +38,11 @@ MainForm::MainForm(QWidget *parent) :
     my_settings.SetServerPort(ui->sbPort->value());
     my_settings.sync();
 
-    db_op=new tDatabaseOp();
+    mod_conv= new tModelsConveyor(this, db_op);
 
+    mod_conv->StartServer(my_settings.GetServerAddr(), my_settings.GetServerPort());
 
-
-    mod_conv= new tModelsConveyor(ui, this, db_op);
-
-    mod_conv->StartServer(ui->leAddr->text(), ui->sbPort->value());
-
+    fProgress->setVisible(false);
     login_pass->setVisible(false);
     connect(login_pass, SIGNAL(EndEditing(QString&,QString&,int,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,int,bool)));
     connect(form_new_path, SIGNAL(ContinueStrat()), this, SLOT(OnContinueStart()));
@@ -71,15 +51,11 @@ MainForm::MainForm(QWidget *parent) :
     connect(this, SIGNAL(ProgressStart(int, int, int, int, int)), fProgress, SLOT(Start(int, int, int, int, int)));
     connect(this, SIGNAL(ProgressStop()), fProgress, SLOT(Stop()));
 
-//    Qt::ContextMenuPolicy policy=
     ui->lvLogins->setContextMenuPolicy(Qt::CustomContextMenu);
-
-
     ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->tvWrite->setContextMenuPolicy(Qt::CustomContextMenu);
 
     tLog log;
-
     log.Write(tr("Начало работы клиента"));
 }
 //--------------------------------------------------------------------------------
@@ -90,17 +66,9 @@ MainForm::~MainForm()
     delete form_new_path;
     delete login_pass;
 
-    delete sLM_loc_list_models;
-    delete slm_list;
-
-    delete sLM_Send;
-    delete sLM_Del;
-    delete sLM_Rec;
-    delete sLM_DelLoc;
     delete sLM_Logins;
     delete tableModel;
-    delete slm_server_list_models;
-    slm_server_list_models=NULL;
+
     delete adm_tree_model;
     delete read_tree_model;
     delete write_tree_model;
@@ -199,36 +167,13 @@ void MainForm::OnAutorizStart()
 void MainForm::OnSetVisible(const bool _vis)
 {
     this->setVisible(_vis);
+    ui->pbConnect->setEnabled(false);
+    ui->pbDisconnect->setEnabled(true);
 }
 //---------------------------------------------------------------------
 void MainForm::OnDisconnecting()
 {
     emit Disconnecting();
-}
-//---------------------------------------------------------------------
-void MainForm::OnAddSend()
-{
-    QModelIndex MI=ui->lvLocalListFiles->currentIndex();
-
-    int N=MI.row();
-    if(N<0)
-    {
-        QMessageBox MB;
-        MB.setText(QString::fromUtf8("Выделите клиентскую модель"));
-        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-        MB.exec();
-    }
-    else
-    {
-        QStringListModel *M=new QStringListModel;
-        M=(QStringListModel *)MI.model();
-
-        QString S=M->stringList().value(N);
-
-        listSend.push_back(S);
-        sLM_Send->setStringList(listSend);
-        ui->lvSendingFiles->setModel(sLM_Send);
-    }
 }
 //---------------------------------------------------------------------
 void MainForm::OnStartSend()
@@ -261,28 +206,11 @@ void MainForm::OnStartSend()
 void MainForm::OnClearSendAll()
 {
     listSend.clear();
-    sLM_Send->setStringList(listSend);
-}
-//---------------------------------------------------------------------
-void MainForm::OnAddDelete()
-{
-    QModelIndex MI=ui->lvListFiles->currentIndex();
-
-    int N=MI.row();
-    QStringListModel *M=new QStringListModel;
-    M=(QStringListModel *)MI.model();
-
-    QString S=M->stringList().value(N);
-
-    listDel.push_back(S);
-    sLM_Del->setStringList(listDel);
-    ui->lvDeletingFiles->setModel(sLM_Del);
 }
 //---------------------------------------------------------------------
 void MainForm::OnClearDelete()
 {
     listDel.clear();
-    sLM_Del->setStringList(listDel);
 }
 //---------------------------------------------------------------------
 void MainForm::OnListFiles()
@@ -299,56 +227,14 @@ void MainForm::OnListFiles()
     emit RunGui(block);
 }
 //---------------------------------------------------------------------
-void MainForm::OnAddReceive()
-{
-    QModelIndex MI=ui->lvListFiles->currentIndex();
-
-    int N=MI.row();
-    if(N<0)
-    {
-        QMessageBox MB;
-        MB.setText(QString::fromUtf8("Выделите серверную модель"));
-        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
-        MB.exec();
-    }
-    else
-    {
-        QStringListModel *M=new QStringListModel;
-        M=(QStringListModel *)MI.model();
-
-        QString S=M->stringList().value(N);
-
-        listRec.push_back(S);
-        sLM_Rec->setStringList(listRec);
-        ui->lvReceiveFiles->setModel(sLM_Rec);
-    }
-}
-//---------------------------------------------------------------------
 void MainForm::OnReceiveClear()
 {
     listRec.clear();
-    sLM_Rec->setStringList(listRec);
-}
-//---------------------------------------------------------------------
-void MainForm::OnDeleteLocal()
-{
-    QModelIndex MI=ui->lvLocalListFiles->currentIndex();
-
-    int N=MI.row();
-    QStringListModel *M=new QStringListModel;
-    M=(QStringListModel *)MI.model();
-
-    QString S=M->stringList().value(N);
-
-    listDelLoc.push_back(S);
-    sLM_DelLoc->setStringList(listDelLoc);
-    ui->lvLocalDeletingFiles->setModel(sLM_DelLoc);
 }
 //---------------------------------------------------------------------
 void MainForm::OnClearDeleteLocal()
 {
     listDelLoc.clear();
-    sLM_DelLoc->setStringList(listDelLoc);
 
 }
 //---------------------------------------------------------------------
@@ -381,16 +267,9 @@ void MainForm::OnStartReceive()
 //---------------------------------------------------------------------
 void MainForm::OnListFilesLocal()
 {
-    QStringList list;
     db_op->RefreshModelsFiles();
-    SearchModelsOnDatabase(list);
 
     VerifyLastTable(_user_login);
-
-    delete sLM_loc_list_models;
-    sLM_loc_list_models=new QStringListModel;
-    sLM_loc_list_models->setStringList(list);
-    ui->lwLocalListModels->setModel(sLM_loc_list_models);
 }
 //---------------------------------------------------------------------
 void MainForm::CreateFileList(const QString &_start_folder, QStringList& _list)
@@ -428,18 +307,6 @@ void MainForm::SearchModelsOnDatabase(QStringList &_list)
     db_op->GetListModels(_list);
 }
 //----------------------------------------------------------
-void MainForm::OnUpdateStruct()
-{
-
-}
-//----------------------------------------------------------
-void MainForm::LocalListFile(const QStringList &_list)
-{
-    slm_list=new QStringListModel;
-    slm_list->setStringList(_list);
-    ui->lvListFiles->setModel(slm_list);
-}
-//----------------------------------------------------------
 void MainForm::CancelAllOperations()
 {
     OnClearSendAll();
@@ -455,48 +322,11 @@ void MainForm::OnClearModels()
     db_op->ClearModels();
 }
 //----------------------------------------------------------
-void MainForm::OnLocalModelClick(const QModelIndex _ind)
-{
-    //выбор локальной модели для отображения файлов
-    int N=_ind.row();
-    QString str=sLM_loc_list_models->stringList().at(N);
 
-    QStringList list;
-    db_op->GetLocalModelFiles(str, list);
-
-    sLM_loc_list_files=new QStringListModel;
-    sLM_loc_list_files->setStringList(list);
-    ui->lvLocalListFiles->setModel(sLM_loc_list_files);
-}
-//----------------------------------------------------------
 void MainForm::SaveServerModelFiles(QByteArray &_block)
 {
-    //распарсить переданый блок и записать в папки серверного состояния моделей и их файлов
+//    //распарсить переданый блок и записать в папки серверного состояния моделей и их файлов
     db_op->SaveServerModelFiles(_block);
-    QStringList list;
-    //Получить из папки серверного состояния моделей список моделей
-    db_op->GetServerListModels(list);
-
-    //отобразить список
-    delete slm_server_list_models;
-    slm_server_list_models=new QStringListModel;
-    slm_server_list_models->setStringList(list);
-    ui->lwListModels->setModel(slm_server_list_models);
-}
-//----------------------------------------------------------
-void MainForm::OnServerModelClick(const QModelIndex _ind)
-{
-    //выбор серверной модели для отображения файлов
-    int N=_ind.row();
-    QString str=slm_server_list_models->stringList().at(N);
-
-    QStringList list;
-
-    db_op->GetServerListFiles(str, list);
-
-    sLM_server_list_files=new QStringListModel;
-    sLM_server_list_files->setStringList(list);
-    ui->lvListFiles->setModel(sLM_server_list_files);
 }
 //----------------------------------------------------------
 void MainForm::CorrectLastSynch(const bool _server)
@@ -965,12 +795,12 @@ void MainForm::DownToChildrens(const QModelIndex _index, const Qt::CheckState _s
 }
 //----------------------------------------------------------
 
-void MainForm::on_pbListFiles_clicked()
-{
-    //старая кнопка
-    IsRequeryServerModel=true;
-    OnListFiles();
-}
+//void MainForm::on_pbListFiles_clicked()
+//{
+//    //старая кнопка
+//    IsRequeryServerModel=true;
+//    OnListFiles();
+//}
 //----------------------------------------------------------
 bool MainForm::VerifyUserFolders() const
 {
@@ -1072,14 +902,6 @@ void MainForm::BuildingTree(const QString& _user_login)
     db_op->AddFilesToModelsStruct(list_compare);
 
 
-
-}
-//----------------------------------------------------------
-void MainForm::on_pbBuildRead_clicked()
-{
-    BuildingTree(_user_login);
-    ConstructTree(Read, list_compare);
-    ConstructTree(Write, list_compare);
 
 }
 //----------------------------------------------------------
@@ -1970,31 +1792,36 @@ QModelIndex MainForm::SearchIndexToModel(const qlonglong _current_local_num, con
 //----------------------------------------------------------
 QStandardItem* MainForm::SearchItemToModel(const qlonglong _current_local_num, const qlonglong _current_server_num, QStandardItem *_item, bool &_stop)
 {
+QStandardItem *res=NULL;
 
-    QStandardItem *res;
+
+if(_item==NULL)
+{
+    return res;
+}
     qlonglong loc_num=_item->data(Qt::UserRole+2).toLongLong();
     qlonglong serv_num=_item->data(Qt::UserRole+3).toLongLong();
+    QString item_text=_item->data(Qt::EditRole).toString();
     if(loc_num==_current_local_num && serv_num==_current_server_num)
     {
         _stop=true;
         res=_item;
         return res;
     }
-    else
-    {
-        for(int i=0; i<_item->rowCount(); i++)
-        {
-            _item=_item->child(i);
 
-            res=SearchItemToModel(_current_local_num, _current_server_num, _item, _stop);
-            if(_stop)
-            {
-                break;
-            }
-        }
+
+int count_children=_item->rowCount();
+for(int i=0; i<count_children; i++)
+{
+    if(_stop)
+    {
+        return res;
     }
 
-    return res;
+    res=SearchItemToModel(_current_local_num, _current_server_num, _item->child(i), _stop);
+}
+return res;
+
 }
 
 //----------------------------------------------------------
@@ -2003,12 +1830,6 @@ void MainForm::on_pbRefresh_Write_clicked()
     SaveDescriptionModel(ui->pteDesRead_2->toPlainText());
     IsRequeryServerModel=true;
     OnListFiles();
-}
-//----------------------------------------------------------
-void MainForm::on_pbBuildWrite_clicked()
-{
-    BuildingTree(_user_login);
-    ConstructTree(Write, list_compare);
 }
 //----------------------------------------------------------
 void MainForm::on_tvWrite_clicked(const QModelIndex &_index)
@@ -2214,8 +2035,8 @@ void MainForm::ShowContextMenu(const QPoint _pos, const bool _read)
                     else
                     {
                         QMessageBox MB;
-                        MB.setText(QString::fromUtf8("Путь для копирования не должен лежать /nвнутри временной или рабочей папки пользователей"));
-                        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+                        MB.setText(mess);
+                        MB.setWindowTitle(QString("Ошибка"));
                         MB.exec();
                     }
                 }
@@ -2669,7 +2490,6 @@ void MainForm::on_pteDesRead_2_textChanged()
 //----------------------------------------------------------
 void MainForm::SaveDescriptionModel(const QString &_text)
 {
-    //    QString text=ui->pteDesRead_2->toPlainText();
     QString file_name="";
     QString hash="";
     QDateTime last_mod;

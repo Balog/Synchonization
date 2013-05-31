@@ -3364,7 +3364,27 @@ QString tDatabaseOp::VerifyCustomCopyPath(const QString& path) const
 {
     QString ret="";
 
+    QSqlQuery sel_patch(db);
+    sel_patch.prepare("SELECT ProjectFolder, TempFolder From Logins");
+    if(!sel_patch.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения списка рабочих и временных папок пользователей ");
+        log.Write(QString(QString("tDatabaseOp \t VerifyCustomCopyPath \t ++ ОШИБКА ++ получения списка рабочих и временных папок пользователей ")+db.lastError().text()));}
+    while(sel_patch.next())
+    {
+        QString pr=sel_patch.value(0).toString();
+        QString tmp=sel_patch.value(1).toString();
 
+        if(pr.length()>0 && tmp.length()>0)
+        {
+            if(path.length()>=pr.length() || path.length()>=tmp.length())
+            {
+                if(path.left(pr.length())==pr || path.left(tmp.length())==tmp)
+                {
+                    ret="Путь для копирования не должен лежать /nвнутри временной или рабочей папок пользователей";
+                    break;
+                }
+            }
+        }
+    }
 
     return ret;
 }

@@ -228,7 +228,7 @@ class tReportGuiGetListFiles : public tAbstractGuiCommand
 {
     Q_OBJECT
 public:
-    virtual void ExeCommand(QDataStream &_in);
+    virtual void ExeCommand(QDataStream &);
 
 
 };

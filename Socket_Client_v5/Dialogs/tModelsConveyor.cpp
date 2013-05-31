@@ -1,12 +1,12 @@
 #include "tModelsConveyor.h"
 #include <QMessageBox>
 
-tModelsConveyor::tModelsConveyor(Ui::MainForm *_ui, QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
-    QObject(parent), ui(_ui), db_op(_db_op), link(_link),Transaction(false), user_login("")
+tModelsConveyor::tModelsConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
+    QObject(parent), db_op(_db_op), link(_link),Transaction(false), user_login("")
 {
 
     mod_custom_copy=false;
-    conv=new tConveyor(ui, link, db_op, 0);
+    conv=new tConveyor(link, db_op, 0);
 
 
     connect(_link, SIGNAL(NextCommand()), conv, SLOT(NextCommand()));

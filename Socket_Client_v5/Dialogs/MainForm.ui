@@ -35,7 +35,7 @@
    <property name="geometry">
     <rect>
      <x>720</x>
-     <y>820</y>
+     <y>822</y>
      <width>141</width>
      <height>20</height>
     </rect>
@@ -51,7 +51,7 @@
    <property name="geometry">
     <rect>
      <x>660</x>
-     <y>822</y>
+     <y>824</y>
      <width>51</width>
      <height>16</height>
     </rect>
@@ -60,75 +60,11 @@
     <string>Root path</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pbConnect">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="geometry">
-    <rect>
-     <x>200</x>
-     <y>10</y>
-     <width>75</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Connect</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="leAddr">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>113</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>127.0.0.1</string>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-  </widget>
-  <widget class="QSpinBox" name="sbPort">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>10</y>
-     <width>61</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="readOnly">
-    <bool>true</bool>
-   </property>
-   <property name="maximum">
-    <number>9999</number>
-   </property>
-   <property name="value">
-    <number>1234</number>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pbDisconnect">
-   <property name="geometry">
-    <rect>
-     <x>280</x>
-     <y>10</y>
-     <width>81</width>
-     <height>23</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Disconnect</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
      <x>870</x>
-     <y>822</y>
+     <y>824</y>
      <width>51</width>
      <height>16</height>
     </rect>
@@ -141,7 +77,7 @@
    <property name="geometry">
     <rect>
      <x>930</x>
-     <y>820</y>
+     <y>822</y>
      <width>141</width>
      <height>20</height>
     </rect>
@@ -156,10 +92,10 @@
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>40</y>
+     <x>3</x>
+     <y>3</y>
      <width>1171</width>
-     <height>771</height>
+     <height>815</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -171,17 +107,17 @@
    <property name="minimumSize">
     <size>
      <width>1171</width>
-     <height>771</height>
+     <height>815</height>
     </size>
    </property>
    <property name="maximumSize">
     <size>
      <width>1171</width>
-     <height>771</height>
+     <height>815</height>
     </size>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
@@ -193,7 +129,7 @@
        <x>10</x>
        <y>10</y>
        <width>541</width>
-       <height>701</height>
+       <height>741</height>
       </rect>
      </property>
      <property name="horizontalScrollBarPolicy">
@@ -204,7 +140,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>718</y>
+       <y>760</y>
        <width>101</width>
        <height>23</height>
       </rect>
@@ -217,7 +153,7 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>718</y>
+       <y>760</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -226,30 +162,17 @@
       <string>Проверить</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pbBuildRead">
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>718</y>
-       <width>111</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Построить дерево</string>
-     </property>
-    </widget>
     <widget class="QTabWidget" name="tabWidget_2">
      <property name="geometry">
       <rect>
        <x>560</x>
        <y>280</y>
        <width>601</width>
-       <height>431</height>
+       <height>471</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_5">
       <attribute name="title">
@@ -261,7 +184,7 @@
          <x>3</x>
          <y>3</y>
          <width>591</width>
-         <height>399</height>
+         <height>441</height>
         </rect>
        </property>
       </widget>
@@ -276,7 +199,7 @@
          <x>3</x>
          <y>3</y>
          <width>591</width>
-         <height>371</height>
+         <height>411</height>
         </rect>
        </property>
       </widget>
@@ -284,7 +207,7 @@
        <property name="geometry">
         <rect>
          <x>270</x>
-         <y>380</y>
+         <y>420</y>
          <width>51</width>
          <height>20</height>
         </rect>
@@ -300,7 +223,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>380</y>
+         <y>420</y>
          <width>25</width>
          <height>19</height>
         </rect>
@@ -313,7 +236,7 @@
        <property name="geometry">
         <rect>
          <x>210</x>
-         <y>380</y>
+         <y>420</y>
          <width>25</width>
          <height>19</height>
         </rect>
@@ -326,7 +249,7 @@
        <property name="geometry">
         <rect>
          <x>360</x>
-         <y>380</y>
+         <y>420</y>
          <width>25</width>
          <height>19</height>
         </rect>
@@ -339,7 +262,7 @@
        <property name="geometry">
         <rect>
          <x>330</x>
-         <y>380</y>
+         <y>420</y>
          <width>25</width>
          <height>19</height>
         </rect>
@@ -355,7 +278,7 @@
        <property name="geometry">
         <rect>
          <x>518</x>
-         <y>380</y>
+         <y>420</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -383,7 +306,7 @@
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>713</y>
+       <y>754</y>
        <width>201</width>
        <height>32</height>
       </rect>
@@ -395,7 +318,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>7</y>
+        <y>8</y>
         <width>82</width>
         <height>18</height>
        </rect>
@@ -411,7 +334,7 @@
       <property name="geometry">
        <rect>
         <x>108</x>
-        <y>7</y>
+        <y>8</y>
         <width>82</width>
         <height>18</height>
        </rect>
@@ -449,7 +372,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>718</y>
+       <y>760</y>
        <width>101</width>
        <height>23</height>
       </rect>
@@ -458,26 +381,13 @@
       <string>Писать на сервер</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pbBuildWrite">
-     <property name="geometry">
-      <rect>
-       <x>220</x>
-       <y>718</y>
-       <width>111</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Построить дерево</string>
-     </property>
-    </widget>
     <widget class="QTreeView" name="tvWrite">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>10</y>
        <width>541</width>
-       <height>701</height>
+       <height>741</height>
       </rect>
      </property>
     </widget>
@@ -485,7 +395,7 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>718</y>
+       <y>760</y>
        <width>75</width>
        <height>23</height>
       </rect>
@@ -500,11 +410,11 @@
        <x>560</x>
        <y>280</y>
        <width>601</width>
-       <height>431</height>
+       <height>471</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="tab_7">
       <attribute name="title">
@@ -516,7 +426,7 @@
          <x>3</x>
          <y>3</y>
          <width>591</width>
-         <height>399</height>
+         <height>441</height>
         </rect>
        </property>
       </widget>
@@ -531,7 +441,7 @@
          <x>3</x>
          <y>3</y>
          <width>591</width>
-         <height>371</height>
+         <height>411</height>
         </rect>
        </property>
       </widget>
@@ -539,7 +449,7 @@
        <property name="geometry">
         <rect>
          <x>270</x>
-         <y>380</y>
+         <y>420</y>
          <width>51</width>
          <height>20</height>
         </rect>
@@ -555,7 +465,7 @@
        <property name="geometry">
         <rect>
          <x>240</x>
-         <y>380</y>
+         <y>420</y>
          <width>25</width>
          <height>19</height>
         </rect>
@@ -568,7 +478,7 @@
        <property name="geometry">
         <rect>
          <x>210</x>
-         <y>380</y>
+         <y>420</y>
          <width>25</width>
          <height>19</height>
         </rect>
@@ -581,7 +491,7 @@
        <property name="geometry">
         <rect>
          <x>360</x>
-         <y>380</y>
+         <y>420</y>
          <width>25</width>
          <height>19</height>
         </rect>
@@ -594,7 +504,7 @@
        <property name="geometry">
         <rect>
          <x>330</x>
-         <y>380</y>
+         <y>420</y>
          <width>25</width>
          <height>19</height>
         </rect>
@@ -610,7 +520,7 @@
        <property name="geometry">
         <rect>
          <x>518</x>
-         <y>380</y>
+         <y>420</y>
          <width>75</width>
          <height>23</height>
         </rect>
@@ -657,7 +567,7 @@
      <property name="geometry">
       <rect>
        <x>560</x>
-       <y>713</y>
+       <y>754</y>
        <width>201</width>
        <height>32</height>
       </rect>
@@ -669,7 +579,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>7</y>
+        <y>8</y>
         <width>82</width>
         <height>18</height>
        </rect>
@@ -685,7 +595,7 @@
       <property name="geometry">
        <rect>
         <x>108</x>
-        <y>7</y>
+        <y>8</y>
         <width>82</width>
         <height>18</height>
        </rect>
@@ -807,357 +717,12 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab">
-    <attribute name="title">
-     <string>Старое</string>
-    </attribute>
-    <widget class="QPushButton" name="pbLocalListFiles">
-     <property name="geometry">
-      <rect>
-       <x>970</x>
-       <y>690</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>List models</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_9">
-     <property name="geometry">
-      <rect>
-       <x>7</x>
-       <y>534</y>
-       <width>141</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Файлы модели на сервере</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_7">
-     <property name="geometry">
-      <rect>
-       <x>537</x>
-       <y>375</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Модели на локальном</string>
-     </property>
-    </widget>
-    <widget class="QListView" name="lvLocalListFiles">
-     <property name="geometry">
-      <rect>
-       <x>537</x>
-       <y>554</y>
-       <width>421</width>
-       <height>141</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QListView" name="lwListModels">
-     <property name="geometry">
-      <rect>
-       <x>7</x>
-       <y>390</y>
-       <width>421</width>
-       <height>141</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbAddDelete">
-     <property name="geometry">
-      <rect>
-       <x>437</x>
-       <y>583</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add Delete</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbListFiles">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>690</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>List models</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_5">
-     <property name="geometry">
-      <rect>
-       <x>7</x>
-       <y>375</y>
-       <width>101</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Модели на сервере</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbClearDelete">
-     <property name="geometry">
-      <rect>
-       <x>437</x>
-       <y>230</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Clear Delete</string>
-     </property>
-    </widget>
-    <widget class="QListView" name="lvDeletingFiles">
-     <property name="geometry">
-      <rect>
-       <x>7</x>
-       <y>230</y>
-       <width>421</width>
-       <height>141</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QListView" name="lvReceiveFiles">
-     <property name="geometry">
-      <rect>
-       <x>537</x>
-       <y>30</y>
-       <width>421</width>
-       <height>181</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbClearAll">
-     <property name="geometry">
-      <rect>
-       <x>437</x>
-       <y>30</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Clear All</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbAddReceive">
-     <property name="geometry">
-      <rect>
-       <x>437</x>
-       <y>553</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add Receive</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_4">
-     <property name="geometry">
-      <rect>
-       <x>7</x>
-       <y>210</y>
-       <width>101</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Удалить с сервера</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbStartReceive">
-     <property name="geometry">
-      <rect>
-       <x>970</x>
-       <y>720</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Start Rec&amp;&amp;Del</string>
-     </property>
-    </widget>
-    <widget class="QListView" name="lwLocalListModels">
-     <property name="geometry">
-      <rect>
-       <x>537</x>
-       <y>390</y>
-       <width>421</width>
-       <height>141</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbAddSend">
-     <property name="geometry">
-      <rect>
-       <x>967</x>
-       <y>552</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add Send</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_10">
-     <property name="geometry">
-      <rect>
-       <x>537</x>
-       <y>532</y>
-       <width>141</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Файлы модели на клиенте</string>
-     </property>
-    </widget>
-    <widget class="QListView" name="lvLocalDeletingFiles">
-     <property name="geometry">
-      <rect>
-       <x>537</x>
-       <y>230</y>
-       <width>421</width>
-       <height>141</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_8">
-     <property name="geometry">
-      <rect>
-       <x>537</x>
-       <y>210</y>
-       <width>121</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Удалить с локального</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbAddLocalDelete">
-     <property name="geometry">
-      <rect>
-       <x>967</x>
-       <y>582</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Add Delete</string>
-     </property>
-    </widget>
-    <widget class="QListView" name="lvListFiles">
-     <property name="geometry">
-      <rect>
-       <x>7</x>
-       <y>554</y>
-       <width>421</width>
-       <height>141</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbStartSend">
-     <property name="geometry">
-      <rect>
-       <x>440</x>
-       <y>720</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Start Send&amp;&amp;Del</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>10</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Передать на сервер</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbClearDeleteLocal">
-     <property name="geometry">
-      <rect>
-       <x>967</x>
-       <y>230</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Clear Delete</string>
-     </property>
-    </widget>
-    <widget class="QListView" name="lvSendingFiles">
-     <property name="geometry">
-      <rect>
-       <x>7</x>
-       <y>30</y>
-       <width>421</width>
-       <height>181</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pbClearReceiveAll">
-     <property name="geometry">
-      <rect>
-       <x>967</x>
-       <y>30</y>
-       <width>81</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Clear All</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_6">
-     <property name="geometry">
-      <rect>
-       <x>540</x>
-       <y>10</y>
-       <width>111</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Прочитать с сервера</string>
-     </property>
-    </widget>
-   </widget>
   </widget>
   <widget class="QPushButton" name="pbExit">
    <property name="geometry">
     <rect>
      <x>1100</x>
-     <y>818</y>
+     <y>821</y>
      <width>75</width>
      <height>23</height>
     </rect>
@@ -1166,297 +731,73 @@
     <string>Выход</string>
    </property>
   </widget>
+  <widget class="QSpinBox" name="sbPort">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>822</y>
+     <width>61</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+   <property name="maximum">
+    <number>9999</number>
+   </property>
+   <property name="value">
+    <number>1234</number>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbConnect">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>822</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Connect</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="leAddr">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>822</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>127.0.0.1</string>
+   </property>
+   <property name="readOnly">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbDisconnect">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>822</y>
+     <width>81</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Disconnect</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>pbConnect</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnConnect()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>228</x>
-     <y>25</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>228</x>
-     <y>40</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbDisconnect</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnDisconnecting()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>322</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>320</x>
-     <y>48</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbAddSend</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnAddSend()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1052</x>
-     <y>635</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>367</x>
-     <y>44</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbStartSend</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnStartSend()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>519</x>
-     <y>803</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>367</x>
-     <y>80</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbClearAll</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnClearSendAll()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>495</x>
-     <y>102</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>367</x>
-     <y>114</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbAddDelete</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnAddDelete()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>489</x>
-     <y>666</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>276</x>
-     <y>134</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbClearDelete</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnClearDelete()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>479</x>
-     <y>313</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>291</x>
-     <y>225</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbAddReceive</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnAddReceive()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>481</x>
-     <y>636</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>946</x>
-     <y>23</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbClearReceiveAll</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnReceiveClear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1035</x>
-     <y>107</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1010</x>
-     <y>121</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbAddLocalDelete</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnDeleteLocal()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1007</x>
-     <y>665</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>982</x>
-     <y>140</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbClearDeleteLocal</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnClearDeleteLocal()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1036</x>
-     <y>313</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>996</x>
-     <y>399</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbStartReceive</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnStartReceive()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1027</x>
-     <y>803</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1004</x>
-     <y>267</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbLocalListFiles</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnListFilesLocal()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>982</x>
-     <y>773</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>928</x>
-     <y>556</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lwLocalListModels</sender>
-   <signal>clicked(QModelIndex)</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnLocalModelClick(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>927</x>
-     <y>510</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>974</x>
-     <y>488</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>lwListModels</sender>
-   <signal>clicked(QModelIndex)</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnServerModelClick(QModelIndex)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>403</x>
-     <y>521</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>466</x>
-     <y>501</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbAddUser</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnNewLogin()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>44</x>
-     <y>803</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>22</x>
-     <y>847</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbEditUser</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnEditLogin()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>168</x>
-     <y>803</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>105</x>
-     <y>846</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pbDelUser</sender>
-   <signal>clicked()</signal>
-   <receiver>MainForm</receiver>
-   <slot>OnDelLogin()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>269</x>
-     <y>803</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>289</x>
-     <y>845</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>lvLogins</sender>
    <signal>clicked(QModelIndex)</signal>
@@ -1474,18 +815,98 @@
    </hints>
   </connection>
   <connection>
+   <sender>pbAddUser</sender>
+   <signal>clicked()</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnNewLogin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>46</x>
+     <y>764</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>22</x>
+     <y>847</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbDelUser</sender>
+   <signal>clicked()</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnDelLogin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>271</x>
+     <y>764</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>289</x>
+     <y>845</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>pbVerPassword</sender>
    <signal>clicked()</signal>
    <receiver>MainForm</receiver>
    <slot>OnVerPassword()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>271</x>
-     <y>80</y>
+     <x>273</x>
+     <y>55</y>
     </hint>
     <hint type="destinationlabel">
      <x>405</x>
      <y>24</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbEditUser</sender>
+   <signal>clicked()</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnEditLogin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>170</x>
+     <y>764</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>105</x>
+     <y>846</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbConnect</sender>
+   <signal>clicked()</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnConnect()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>238</x>
+     <y>830</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>196</x>
+     <y>820</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pbDisconnect</sender>
+   <signal>clicked()</signal>
+   <receiver>MainForm</receiver>
+   <slot>OnDisconnecting()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>322</x>
+     <y>831</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>432</x>
+     <y>830</y>
     </hint>
    </hints>
   </connection>
