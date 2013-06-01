@@ -22,5 +22,5 @@ MainForm::~MainForm()
 //---------------------------------------------------------------------
 void MainForm::OnProba()
 {
-
+    qDebug() << "Proba";
 }

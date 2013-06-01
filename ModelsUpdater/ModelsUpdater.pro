@@ -31,8 +31,7 @@ HEADERS  += \
     Autoriz.h \
     tProgress.h \
     tLog.h \
-    ../ModelUpdater/ModelUpdater/MainModule.h \
-    ../ModelUpdater/ModelUpdater/tDatabaseOp.h
+    ../ModelUpdater/ModelUpdater/MainModule.h
 
 
 FORMS += \
