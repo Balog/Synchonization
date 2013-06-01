@@ -4,10 +4,8 @@
 #
 #-------------------------------------------------
 
-QT += sql
-
 QT       += core gui
-
+QT += sql
 QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -20,8 +18,10 @@ VERSION = 1.0.0
 
 SOURCES += main.cpp\
         ModelUpdater.cpp \
+    tModelsConveyor.cpp \
     tLog.cpp \
     tDatabaseOp.cpp \
+    tConveyor.cpp \
     tConstructModelTree.cpp \
     tClientThread.cpp \
     tClientStreamCommands.cpp \
@@ -29,16 +29,16 @@ SOURCES += main.cpp\
     tCalcHash.cpp \
     socket.cpp \
     tSettings.cpp \
-    MainModule.cpp \
-    tModelsConveyor.cpp \
-    tConveyor.cpp
+    MainModule.cpp
 
 
 HEADERS  += ModelUpdater.h \
     MyLibrary_global.h \
+    tModelsConveyor.h \
     tLog.h \
     tFileStreamCommand.h \
     tDatabaseOp.h \
+    tConveyor.h \
     tConstructModelTree.h \
     tClientThread.h \
     tClientStreamCommands.h \
@@ -47,11 +47,10 @@ HEADERS  += ModelUpdater.h \
     tAbstractStreamCommand.h \
     tAbstractGuiCommand.h \
     socket.h \
+    Settings.h \
     ClassFactory.h \
     tSettings.h \
-    MainModule.h \
-    tModelsConveyor.h \
-    tConveyor.h
+    MainModule.h
 
 
 HEADERS += \
