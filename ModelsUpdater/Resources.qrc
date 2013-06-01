@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/Icons/Tree">
+        <file>Del_sm.ico</file>
+        <file>Triangle_left.ico</file>
+        <file>Triangle_right.ico</file>
+        <file>New_sm.ico</file>
+    </qresource>
+    <qresource prefix="/Pictures">
+        <file>Zast.png</file>
+    </qresource>
+</RCC>

@@ -1,5 +1,5 @@
 #include "tEditLoginPass.h"
-#include "ui_tEditLoginPass.h"
+//#include "ui_tEditLoginPass.h"
 
 tEditLoginPass::tEditLoginPass(QWidget *parent) :
     QDialog(parent),

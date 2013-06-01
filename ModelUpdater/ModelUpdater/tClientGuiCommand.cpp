@@ -1,6 +1,6 @@
 #include "tClientGuiCommand.h"
 #include "tSettings.h"
-
+#include "MainModule.h"
 #include <QMessageBox>
 
 extern tSettings my_settings;

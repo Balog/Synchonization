@@ -16,6 +16,7 @@ private:
 
 public:
     MainModule(QObject *parent = 0);
+    ~MainModule();
     bool GetIsTransaction();
     void ViewError(const int _num_error, const QString &_error, const QString &_detail, const QString &_client_detail);
     void UpdateLogins();

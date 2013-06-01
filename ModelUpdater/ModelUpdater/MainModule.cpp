@@ -12,6 +12,29 @@ MainModule::MainModule(QObject *parent) :
     mod_conv->StartServer(my_settings.GetServerAddr(), my_settings.GetServerPort());
 }
 //---------------------------------------------------------
+MainModule::~MainModule()
+{
+//    delete form_new_path;
+//    delete login_pass;
+
+//    delete sLM_Logins;
+//    delete tableModel;
+
+//    delete adm_tree_model;
+//    delete read_tree_model;
+//    delete write_tree_model;
+//    delete fProgress;
+
+    delete mod_conv;
+    mod_conv=NULL;
+
+    delete db_op;
+    db_op=NULL;
+
+//    delete table_files_model;
+}
+
+//---------------------------------------------------------
 bool MainModule::GetIsTransaction()
 {
     return mod_conv->GetIsTransaction();

@@ -12,11 +12,10 @@
 #include "tSettings.h"
 #include <QDir>
 #include "tDatabaseOp.h"
-
-#include <vector>
 #include "tLog.h"
 
-using namespace std;
+//#include <vector>
+//using namespace std;
 
 struct tFileList
 {

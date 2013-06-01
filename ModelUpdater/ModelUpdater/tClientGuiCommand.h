@@ -2,7 +2,7 @@
 #define TCLIENTGUICOMMAND_H
 #include "tAbstractGuiCommand.h"
 #include <QStringListModel>
-#include "MainModule.h"
+//#include "MainModule.h"
 
 
 
