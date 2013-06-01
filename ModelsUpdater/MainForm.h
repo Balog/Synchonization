@@ -2,6 +2,7 @@
 #define MAINFORM_H
 
 #include <QDialog>
+#include "../ModelUpdater/ModelUpdater/MainModule.h"
 
 namespace Ui {
 class MainForm;
@@ -18,11 +19,12 @@ public:
 
 private:
     Ui::MainForm *ui;
+    MainModule *MModule;
 
 private slots:
 
 public slots:
-
+    void OnProba();
 
 signals:
 

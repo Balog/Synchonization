@@ -81,6 +81,8 @@ void tSocket::Initialize()
     QHostAddress addr(address);
     socket->connectToHost(addr, port);
 
+    log.Write(QString("Адрес ")+addr.toString()+QString("Порт ")+QString::number(port));
+
     connect(socket, SIGNAL(readyRead()),this, SLOT(ReadReport()));
     connect(socket, SIGNAL(disconnected()), this, SLOT(OnDisconnected()));
     connect(this, SIGNAL(Result(QByteArray)), owner, SLOT(OnCommandToGui(QByteArray)));

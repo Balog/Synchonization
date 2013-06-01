@@ -4,9 +4,10 @@
 #include <QObject>
 #include"tModelsConveyor.h"
 #include "tDatabaseOp.h"
+#include "MyLibrary_global.h"
 
 
-class MainModule : public QObject
+class Q_DECL_EXPORT  MainModule : public QObject
 {
     Q_OBJECT
 private:
@@ -35,6 +36,8 @@ public:
     void StartAutoriz();
     void UpdateModelRead(QByteArray &_block);
     void InternalCallBuildingTree();
+
+    void SetProba();
 private:
 
 //    tDatabaseOp* db_op;
@@ -45,6 +48,7 @@ private:
     QStringList listRec;
     QStringList listDelLoc;
     QList<CompareTableRec> list_compare;
+    tLog log;
 
 
 signals:
@@ -56,6 +60,8 @@ signals:
     void StartAutorizForm();//сигнал о том что можно показывать форму авторизации при запуске
     void VisibleMain(bool visible);//Сигнал о том что нужно изменить видимость главной формы
     void RebuildTrees(QList<CompareTableRec> list_compare);//Сигнал о том что нужно перестроить деревья разницы
+
+    void Proba();
     
 public slots:
     void OnContinueStart();

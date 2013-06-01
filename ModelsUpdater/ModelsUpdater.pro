@@ -5,6 +5,8 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT += sql
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,7 +20,8 @@ SOURCES += main.cpp\
     tEditLoginPass.cpp \
     MainForm.cpp \
     Autoriz.cpp \
-    tProgress.cpp
+    tProgress.cpp \
+    tLog.cpp
 
 HEADERS  += \
     Zast.h \
@@ -26,7 +29,11 @@ HEADERS  += \
     tEditLoginPass.h \
     MainForm.h \
     Autoriz.h \
-    tProgress.h
+    tProgress.h \
+    tLog.h \
+    ../ModelUpdater/ModelUpdater/MainModule.h \
+    ../ModelUpdater/ModelUpdater/tDatabaseOp.h
+
 
 FORMS += \
     Zast.ui \
@@ -38,3 +45,11 @@ FORMS += \
 
 RESOURCES += \
     Resources.qrc
+
+OTHER_FILES +=
+
+
+LIBS += -L../ModelUpdater -lModelUpdater1
+
+
+INCLUDEPATH += ../ModelUpdater/ModelUpdater/MainModule.h

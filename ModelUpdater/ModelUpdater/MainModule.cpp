@@ -7,11 +7,19 @@ extern tSettings my_settings;
 MainModule::MainModule(QObject *parent) :
     QObject(parent), db_op(new tDatabaseOp)
 {
+    log.Write(QString("Конструктор MainModule"));
     mod_conv= new tModelsConveyor(this, db_op);
 
     mod_conv->StartServer(my_settings.GetServerAddr(), my_settings.GetServerPort());
+
+
 }
 //---------------------------------------------------------
+void MainModule::SetProba()
+{
+        emit Proba();
+}
+
 MainModule::~MainModule()
 {
 //    delete form_new_path;
