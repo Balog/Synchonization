@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "tZastModule.h"
+#include"tLog.h"
 
 class Q_DECL_EXPORT tExportZast : public QObject
 {
@@ -11,17 +12,20 @@ public:
     explicit tExportZast(QObject *parent = 0);
     ~tExportZast();
     bool GetConnect();
+    void StartFindServer();
 
 private:
     tZastModule* zast_mod;
-
+    tLog log;
     
 signals:
-    void FindServerFalse();
+    void FindServer(bool ok);
+//    void FindServerTrue();
     
 public slots:
-    void OnFindServerFalse();
-    
+    void OnFindServer(bool ok);
+//    void OnServerFinding();
+
 };
 
 #endif // TEXPORTZAST_H

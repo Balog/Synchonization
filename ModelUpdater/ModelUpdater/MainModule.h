@@ -4,6 +4,7 @@
 #include <QObject>
 #include"tModelsConveyor.h"
 #include "tDatabaseOp.h"
+#include "tZastModule.h"
 
 
 class MainModule : public QObject
@@ -12,7 +13,17 @@ class MainModule : public QObject
 private:
 
     tDatabaseOp* db_op;
-        tModelsConveyor* mod_conv;
+    tModelsConveyor* mod_conv;
+    tZastModule* zast_mod;
+    QString _user_login;
+    bool modify_folder;
+    QStringList listSend;
+    QStringList listDel;
+    QStringList listRec;
+    QStringList listDelLoc;
+    QList<CompareTableRec> list_compare;
+    tLog log;
+
 
 public:
     MainModule(QObject *parent = 0);
@@ -37,17 +48,6 @@ public:
     void InternalCallBuildingTree();
 
 
-private:
-
-//    tDatabaseOp* db_op;
-    QString _user_login;
-    bool modify_folder;
-    QStringList listSend;
-    QStringList listDel;
-    QStringList listRec;
-    QStringList listDelLoc;
-    QList<CompareTableRec> list_compare;
-    tLog log;
 
 
 signals:
@@ -59,12 +59,13 @@ signals:
     void StartAutorizForm();//сигнал о том что можно показывать форму авторизации при запуске
     void VisibleMain(bool visible);//Сигнал о том что нужно изменить видимость главной формы
     void RebuildTrees(QList<CompareTableRec> list_compare);//Сигнал о том что нужно перестроить деревья разницы
-
+    void FindServerTrue();//Сигнал о том что сервер обнаружен
 
     
 public slots:
     void OnContinueStart();
     void OnListFilesLocal();
+    void OnAutorizStart();
 
 private slots:
     void OnClearSendAll();

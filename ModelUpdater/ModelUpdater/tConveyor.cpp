@@ -205,6 +205,8 @@ void tConveyor::OnStartStop(const bool _res)
 {
     if(_res)
     {
+        l="tConveyor \tOnStartStop\tПодключение разрешено ";
+        log.Write(l);
         emit AutorizStart();
     }
     else

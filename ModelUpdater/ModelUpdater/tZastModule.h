@@ -12,6 +12,8 @@ public:
     explicit tZastModule(QObject *parent = 0);
     ~tZastModule();
     bool GetConnect();
+    void StartFindServer();
+
 private:
     bool connect_ok;
 //    QTimer *timer1;
@@ -19,10 +21,14 @@ private:
     tLog log;
     
 signals:
-    void FindServerFalse(); //Сигнал что отведенное на поиск сервера время истекло
+    void FindServer(bool ok); //Сигнал что отведенное на поиск сервера время истекло
+    void ServerFinding(); //Сигнал что сервер найден
+    void Reconnect();
     
 public slots:
     void OnTimerFalse();
+    void OnTimerTrue();
+    void OnReconnect();
     
 };
 

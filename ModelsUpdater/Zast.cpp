@@ -16,9 +16,11 @@ Zast::Zast(QWidget *_parent) :
     this->setVisible(true);
     this->setModal(true);
 
-         connect(zast, SIGNAL(FindServerFalse()), this, SLOT(OnFindServerFalse()));
-
+        connect(zast, SIGNAL(FindServer(bool)), this, SLOT(OnFindServer(bool)));
+//        connect(zast, SIGNAL(FindServerTrue()), this, SLOT(OnFindServerTrue()));
+//        connect(zast, SIGNAL(Reconnect()), this, SLOT(OnReconnect()));
 //    FindServer();
+    zast->StartFindServer();
 }
 //---------------------------------------------------------------------
 Zast::~Zast()
@@ -38,15 +40,31 @@ void Zast::mousePressEvent(QMouseEvent* event)
 
 }
 //---------------------------------------------------------------------
-void Zast::OnFindServerFalse()
+void Zast::OnFindServer(bool ok)
 {
+    if(ok)
+    {
+
+        this->setVisible(false);
+        this->setModal(false);
+    }
+    else
+    {
         this->close();
 
-    QMessageBox mb;
-    mb.setText(QString::fromUtf8("Не обнаружен сервер"));
-    mb.setWindowTitle(QString::fromUtf8("Подключение"));
-    mb.exec();
+        QMessageBox mb;
+        mb.setText(QString::fromUtf8("Не обнаружен сервер"));
+        mb.setWindowTitle(QString::fromUtf8("Подключение"));
+        mb.exec();
+    }
+}
+//---------------------------------------------------------------------
 
+//---------------------------------------------------------------------
+void Zast::OnReconnect()
+{
+    this->setVisible(true);
+    this->setModal(true);
 }
 
 //void Zast::OnTimerTrue()

@@ -39,7 +39,9 @@ protected:
 
 private slots:
 //    void OnTimerFalse();
-    void OnFindServerFalse();
+    void OnFindServer(bool ok);
+//    void OnFindServerTrue();
+    void OnReconnect();
 
 
 signals:

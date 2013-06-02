@@ -5,7 +5,7 @@
 tSettings my_settings;
 
 MainModule::MainModule(QObject *parent) :
-    QObject(parent), db_op(new tDatabaseOp)
+    QObject(parent), db_op(new tDatabaseOp), zast_mod(new tZastModule)
 {
     log.Write(QString("Конструктор MainModule"));
     QString S=QCoreApplication::applicationDirPath()+QDir::separator()+"Settings.ini";
@@ -15,6 +15,7 @@ MainModule::MainModule(QObject *parent) :
 
     mod_conv->StartServer(my_settings.GetServerAddr(), my_settings.GetServerPort());
 
+    connect(this, SIGNAL(FindServerTrue()), zast_mod, SLOT(OnTimerTrue()));
 
 }
 //---------------------------------------------------------
@@ -30,6 +31,8 @@ MainModule::~MainModule()
 //    delete read_tree_model;
 //    delete write_tree_model;
 //    delete fProgress;
+    delete zast_mod;
+    zast_mod=NULL;
 
     delete mod_conv;
     mod_conv=NULL;
@@ -40,6 +43,13 @@ MainModule::~MainModule()
 //    delete table_files_model;
 }
 
+//---------------------------------------------------------
+void MainModule::OnAutorizStart()
+{
+    tLog log;
+    log.Write(tr("MainForm \t OnAutorizStart \t Подключение разрешено"));
+    emit FindServerTrue();
+}
 //---------------------------------------------------------
 bool MainModule::GetIsTransaction()
 {
