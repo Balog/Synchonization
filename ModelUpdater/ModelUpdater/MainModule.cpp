@@ -5,18 +5,47 @@
 tSettings my_settings;
 
 MainModule::MainModule(QObject *parent) :
-    QObject(parent), db_op(new tDatabaseOp), zast_mod(new tZastModule)
+    QObject(parent), db_op(new tDatabaseOp)
 {
+    qDebug() << "Конструктор MainModule";
     log.Write(QString("Конструктор MainModule"));
     QString S=QCoreApplication::applicationDirPath()+QDir::separator()+"Settings.ini";
     my_settings.SetFilePath(S);
 
+    timer1=new QTimer();
+
+    connect(timer1, SIGNAL(timeout()), this, SLOT(ContinueStart()));
+    timer1->start(3000);
+
+    timer=new QTimer();
+
+    connect(timer, SIGNAL(timeout()),this, SLOT(OnFindServerFalse()));
+
+    timer->setInterval(10000);
+    timer->start();
+
+    qDebug() << "База данных" << db_op;
     mod_conv= new tModelsConveyor(this, db_op);
 
+
+
+//    connect(this, SIGNAL(FindServerTrue()), zast_mod, SLOT(OnTimerTrue()));
+
+}
+//---------------------------------------------------------
+void MainModule::OnFindServerFalse()
+{
+    qDebug() << "Время истекло";
+    tLog log;
+    log.Write(tr("MainForm \t OnFindServerFalse \t Время истекло"));
+    emit FindServer(false);
+}
+//---------------------------------------------------------
+void MainModule::ContinueStart()
+{
+    delete timer1;
+    timer1=NULL;
     mod_conv->StartServer(my_settings.GetServerAddr(), my_settings.GetServerPort());
-
-    connect(this, SIGNAL(FindServerTrue()), zast_mod, SLOT(OnTimerTrue()));
-
 }
 //---------------------------------------------------------
 MainModule::~MainModule()
@@ -31,8 +60,13 @@ MainModule::~MainModule()
 //    delete read_tree_model;
 //    delete write_tree_model;
 //    delete fProgress;
-    delete zast_mod;
-    zast_mod=NULL;
+//    delete zast_mod;
+//    zast_mod=NULL;
+    delete timer;
+    timer=NULL;
+
+    delete timer1;
+    timer1=NULL;
 
     delete mod_conv;
     mod_conv=NULL;
@@ -48,7 +82,13 @@ void MainModule::OnAutorizStart()
 {
     tLog log;
     log.Write(tr("MainForm \t OnAutorizStart \t Подключение разрешено"));
-    emit FindServerTrue();
+
+    delete timer;
+    timer=NULL;
+
+    mod_conv->ReceiveLoginsTable();
+
+    emit FindServer(true);
 }
 //---------------------------------------------------------
 bool MainModule::GetIsTransaction()

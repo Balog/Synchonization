@@ -207,7 +207,7 @@ void tGuiConnectConfirmReport::ExeCommand(QDataStream& _in)
 
     emit StartStop(ok);
 
-    emit EndCommand();
+//    emit EndCommand();
 }
 //************************************************************************************************
 void tGuiPrepareSendFile::ExeCommand(QDataStream &_in)

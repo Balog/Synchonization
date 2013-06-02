@@ -14,4 +14,9 @@ Autoriz::~Autoriz()
 {
     delete ui;
 }
-
+//-----------------------------------------------------------------
+void Autoriz::OnStartAutorizForm()
+{
+    this->setVisible(true);
+    this->setModal(true);
+}

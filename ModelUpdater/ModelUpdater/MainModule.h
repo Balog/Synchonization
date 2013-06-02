@@ -24,6 +24,8 @@ private:
     QList<CompareTableRec> list_compare;
     tLog log;
 
+    QTimer* timer;
+    QTimer* timer1;
 
 public:
     MainModule(QObject *parent = 0);
@@ -59,7 +61,7 @@ signals:
     void StartAutorizForm();//сигнал о том что можно показывать форму авторизации при запуске
     void VisibleMain(bool visible);//Сигнал о том что нужно изменить видимость главной формы
     void RebuildTrees(QList<CompareTableRec> list_compare);//Сигнал о том что нужно перестроить деревья разницы
-    void FindServerTrue();//Сигнал о том что сервер обнаружен
+    void FindServer(bool ok);//Сигнал о том что сервер обнаружен или нет
 
     
 public slots:
@@ -72,6 +74,8 @@ private slots:
     void OnClearDelete();
     void OnReceiveClear();
     void OnClearDeleteLocal();
+    void OnFindServerFalse();
+    void ContinueStart();
 };
 
 #endif // MAINMODULE_H

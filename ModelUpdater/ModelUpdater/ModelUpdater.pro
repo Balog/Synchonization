@@ -32,7 +32,6 @@ SOURCES += main.cpp\
     tModelsConveyor.cpp \
     tConveyor.cpp \
     tExportMain.cpp \
-    tExportZast.cpp \
     tZastModule.cpp
 
 
@@ -54,7 +53,6 @@ HEADERS  += \
     tModelsConveyor.h \
     tConveyor.h \
     tExportMain.h \
-    tExportZast.h \
     tZastModule.h
 
 

@@ -19,6 +19,8 @@ tDatabaseOp::tDatabaseOp()
     db.setDatabaseName("Database.db");
     if(!db.open()){qDebug() << db.lastError().text();
         log.Write(QString(codec->toUnicode("tDatabaseOp \tDatabaseOp\t++ ОШИБКА ++ открытия базы данных ")+db.lastError().text()));}
+
+    qDebug() << "База данных подключена";
 }
 //----------------------------------------------------------------------
 tDatabaseOp::~tDatabaseOp()

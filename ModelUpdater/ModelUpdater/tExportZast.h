@@ -5,7 +5,7 @@
 #include "tZastModule.h"
 #include"tLog.h"
 
-class Q_DECL_EXPORT tExportZast : public QObject
+class tExportZast : public QObject
 {
     Q_OBJECT
 public:

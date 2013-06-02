@@ -22,7 +22,8 @@ private:
 
 signals:
 
-
+public slots:
+    void OnStartAutorizForm();
 private slots:
 
 

@@ -122,7 +122,7 @@ void tConveyor::OnCommand(QByteArray _block)
     QString command="";
 
     out >> command;
-
+    qDebug() << "tConveyor \tOnCommand\tВыполнение команды из сокета " << command;
     l="tConveyor \tOnCommand\tВыполнение команды из сокета "+command;
     log.Write(l);
 
@@ -147,6 +147,7 @@ void tConveyor::OnCommand(QByteArray _block)
 //-----------------------------------------------------------------
 void tConveyor::OnEndCommand()
 {
+    qDebug() << "Удаление команды ГУИ";
     delete gui_comm;
     gui_comm=NULL;
 }

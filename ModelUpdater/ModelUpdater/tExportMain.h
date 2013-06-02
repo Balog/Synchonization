@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "MainModule.h"
+#include "tZastModule.h"
 
 class Q_DECL_EXPORT tExportMain : public QObject
 {
@@ -13,10 +14,18 @@ public:
 
 private:
     MainModule* MModule;
+//    tZastModule* zast_mod;
+    void StartFindServer();
     
 signals:
+    void FindServer(bool ok);
+    void StartAutorizForm();
     
 public slots:
+    void OnFindServer(bool ok);
+
+private slots:
+    void OnStartAutorizForm();
     
 };
 

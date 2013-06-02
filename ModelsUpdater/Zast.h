@@ -7,7 +7,7 @@
 #include <QMouseEvent>
 #include "tLog.h"
 
-#include "MainForm.h"
+//#include "MainForm.h"
 #include "../ModelUpdater/ModelUpdater/tExportZast.h"
 
 
@@ -31,8 +31,8 @@ private:
 
 //    void FindServer();
     tLog log;
-    MainForm *main_form;
-    tExportZast* zast;
+//    MainForm *main_form;
+//    tExportZast* zast;
 
 protected:
     virtual void mousePressEvent(QMouseEvent* event);
@@ -42,6 +42,7 @@ private slots:
     void OnFindServer(bool ok);
 //    void OnFindServerTrue();
     void OnReconnect();
+    void FormVisible(bool vis);
 
 
 signals:
