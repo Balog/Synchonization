@@ -4,10 +4,9 @@
 #include <QObject>
 #include"tModelsConveyor.h"
 #include "tDatabaseOp.h"
-#include "MyLibrary_global.h"
 
 
-class Q_DECL_EXPORT  MainModule : public QObject
+class MainModule : public QObject
 {
     Q_OBJECT
 private:
@@ -37,7 +36,7 @@ public:
     void UpdateModelRead(QByteArray &_block);
     void InternalCallBuildingTree();
 
-    void SetProba();
+
 private:
 
 //    tDatabaseOp* db_op;
@@ -61,7 +60,7 @@ signals:
     void VisibleMain(bool visible);//Сигнал о том что нужно изменить видимость главной формы
     void RebuildTrees(QList<CompareTableRec> list_compare);//Сигнал о том что нужно перестроить деревья разницы
 
-    void Proba();
+
     
 public slots:
     void OnContinueStart();

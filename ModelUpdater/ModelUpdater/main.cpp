@@ -1,16 +1,18 @@
 #include "ModelUpdater.h"
 #include <QApplication>
-#include "tSettings.h"
+//#include "tSettings.h"
 #include <QDir>
+//#include "tLog.h"
 
-tSettings my_settings;
+//tSettings my_settings;
 int main(int argc, char *argv[])
 {
+//    tLog log;
+//    log.Write(QString("Чтение установок"));
     QApplication a(argc, argv);
-    QString S=a.applicationDirPath()+QDir::separator()+"Settings.ini";
-    my_settings.SetFilePath(S);
-    ModelUpdater w;
-    w.show();
+
+//    ModelUpdater w;
+//    w.show();
     
     return a.exec();
 }

@@ -19,7 +19,6 @@ DESTDIR = ..
 VERSION = 1.0.0
 
 SOURCES += main.cpp\
-        ModelUpdater.cpp \
     tLog.cpp \
     tDatabaseOp.cpp \
     tConstructModelTree.cpp \
@@ -31,11 +30,13 @@ SOURCES += main.cpp\
     tSettings.cpp \
     MainModule.cpp \
     tModelsConveyor.cpp \
-    tConveyor.cpp
+    tConveyor.cpp \
+    tExportMain.cpp \
+    tExportZast.cpp \
+    tZastModule.cpp
 
 
-HEADERS  += ModelUpdater.h \
-    MyLibrary_global.h \
+HEADERS  += \
     tLog.h \
     tFileStreamCommand.h \
     tDatabaseOp.h \
@@ -51,10 +52,12 @@ HEADERS  += ModelUpdater.h \
     tSettings.h \
     MainModule.h \
     tModelsConveyor.h \
-    tConveyor.h
+    tConveyor.h \
+    tExportMain.h \
+    tExportZast.h \
+    tZastModule.h
 
 
-HEADERS += \
-    MyLibrary_global.h
+HEADERS +=
 
 DEFINES += MyLibrary_LIBRARY

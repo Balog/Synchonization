@@ -3,24 +3,20 @@
 
 MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm), QDialog(parent,Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint),
-    MModule(NULL)
+    main(new tExportMain)
 {
     ui->setupUi(this);
 
-    MModule=new MainModule;
-    connect(MModule, SIGNAL(Proba()), this, SLOT(OnProba()));
-    MModule->SetProba();
+
+
 }
 //--------------------------------------------------------------------------------
 MainForm::~MainForm()
 {
 
-    delete MModule;
+    delete main;
     delete ui;
 
 }
 //---------------------------------------------------------------------
-void MainForm::OnProba()
-{
-    qDebug() << "Proba";
-}
+

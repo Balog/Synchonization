@@ -6,8 +6,9 @@
 #include "Autoriz.h"
 #include <QMouseEvent>
 #include "tLog.h"
-#include <QTimer>
+
 #include "MainForm.h"
+#include "../ModelUpdater/ModelUpdater/tExportZast.h"
 
 
 namespace Ui {
@@ -23,22 +24,22 @@ class Zast : public QDialog
 public:
     explicit Zast(QWidget *parent = 0);
     ~Zast();
-    void OnTimerTrue();
+//    void OnTimerTrue();
     
 private:
     Ui::Zast *ui;
-    bool connect_ok;
-    QTimer *timer1;
-    QTimer *timer2;
-    void FindServer();
+
+//    void FindServer();
     tLog log;
     MainForm *main_form;
+    tExportZast* zast;
 
 protected:
     virtual void mousePressEvent(QMouseEvent* event);
 
 private slots:
-    void OnTimerFalse();
+//    void OnTimerFalse();
+    void OnFindServerFalse();
 
 
 signals:
