@@ -2,6 +2,7 @@
 #define AUTORIZ_H
 
 #include <QDialog>
+#include "tLog.h"
 
 namespace Ui {
 class Autoriz;
@@ -18,15 +19,20 @@ public:
     
 private:
     Ui::Autoriz *ui;
+    QString login;
+    QString password;
+    tLog log;
 
 
 signals:
+    void SendAutorization(QString& _login, QString& _password, bool _mod_fold);
 
 public slots:
     void OnStartAutorizForm();
 private slots:
 
 
+    void on_pbOk_clicked();
 };
 
 #endif // AUTORIZ_H

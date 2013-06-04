@@ -5,7 +5,7 @@
 #include <QString>
 #include <QFile>
 
-class tCalcHash
+class Q_DECL_EXPORT tCalcHash
 {
 public:
     tCalcHash();

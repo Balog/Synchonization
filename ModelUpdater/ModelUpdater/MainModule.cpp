@@ -91,6 +91,24 @@ void MainModule::OnAutorizStart()
     emit FindServer(true);
 }
 //---------------------------------------------------------
+void MainModule::OnSendAutorization(QString& _login, QString& _password, bool _mod_folder)
+{
+    qDebug() << "MainModule::OnSendAutorization" << _login << _password;
+    user_login=_login;
+    mod_conv->SetLogin(_login);
+    modify_folder=_mod_folder;
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("SendAutorization");
+    out << tr("SendAutorization");
+    out << _login;
+    out << _password;
+
+    emit RunGui(block);
+}
+//---------------------------------------------------------
 bool MainModule::GetIsTransaction()
 {
     return mod_conv->GetIsTransaction();
@@ -118,14 +136,14 @@ bool MainModule::VerifyUserFolders()
     QString message="";
     QString project_folder="";
     QString temp_folder="";
-    if(!modify_folder && db_op->VerifyUserFolders(_user_login, project_folder, temp_folder, message))
+    if(!modify_folder && db_op->VerifyUserFolders(user_login, project_folder, temp_folder, message))
     {
 
         return true;
     }
     else
     {
-        emit ErrorUserFolders(db_op, _user_login, message, true);
+        emit ErrorUserFolders(db_op, user_login, message, true);
 //        form_new_path->SetDatabase(db_op);
 //        form_new_path->SetLogin(_user_login);
 //        form_new_path->SetMessage(message);
@@ -137,14 +155,14 @@ bool MainModule::VerifyUserFolders()
 //----------------------------------------------------------
 void MainModule::OnContinueStart()
 {
-    db_op->SaveFoldersToSettings(_user_login);
+    db_op->SaveFoldersToSettings(user_login);
 
     //Это все можно сделать из главной формы по окончании старта
 //    ui->leRoot->setText(my_settings.GetRoot());
 //    ui->leTemp->setText(my_settings.GetTemp());
     bool is_admin_user=false;
     bool is_writable_user=false;
-    db_op->GetPermissionsUser(_user_login, is_admin_user, is_writable_user);
+    db_op->GetPermissionsUser(user_login, is_admin_user, is_writable_user);
 
     //Это можно сделать по окончании старта, проверить переменные и все сделать в главной форме
 //    if(!is_admin_user)
@@ -187,7 +205,7 @@ void MainModule::OnListFilesLocal()
 {
     db_op->RefreshModelsFiles();
 
-    VerifyLastTable(_user_login);
+    VerifyLastTable(user_login);
 }
 //---------------------------------------------------------------------
 void MainModule::OnListFiles()
@@ -242,9 +260,9 @@ void MainModule::SaveServerModelFiles(QByteArray &_block)
 void MainModule::CorrectLastSynch(const bool _server)
 {
 
-    mod_conv->MarkLastTables(_server, _user_login);
+    mod_conv->MarkLastTables(_server, user_login);
 
-    db_op->ExecUpdateLastSynch(_server, _user_login);
+    db_op->ExecUpdateLastSynch(_server, user_login);
     mod_conv->ClearAllList();
 }
 //----------------------------------------------------------
@@ -254,17 +272,10 @@ void MainModule::EndUpdateServerModel(const bool _rebuild)
 
     OnListFilesLocal();
 
-    BuildingTree(_user_login);
+    BuildingTree(user_login);
 
     emit EndUpdatingFromServer(list_compare, _rebuild);
-    //Это все переместить в форму, там ему самое место
-//    ConstructTree(Read, list_compare);
-//    ConstructTree(Write, list_compare);
-//    if(_rebuild)
-//    {
 
-//        RecoveryTreeIndex();
-//    }
 }
 //----------------------------------------------------------
 void MainModule::BuildingTree(const QString& _user_login)
@@ -342,7 +353,7 @@ void MainModule::InternalCallBuildingTree()
 {
     if(!GetIsTransaction())
     {
-        BuildingTree(_user_login);
+        BuildingTree(user_login);
 
         emit RebuildTrees(list_compare);
 //        ConstructTree(Read, list_compare);
@@ -350,3 +361,103 @@ void MainModule::InternalCallBuildingTree()
     }
 }
 //----------------------------------------------------------
+//tDatabaseOp* MainModule::GetDatabase()
+//{
+//    return db_op;
+//}
+//----------------------------------------------------------
+QString MainModule::GetTemp()
+{
+    return my_settings.GetTemp();
+}
+//----------------------------------------------------------
+void MainModule::GetModelInfo(const qlonglong _loc_num, QString& _title_model, QString &_description, QList<tFile> &_files_model, QStringList& _previews)
+{
+    db_op->GetModelInfo(_loc_num, _title_model, _description, _files_model, _previews);
+}
+//----------------------------------------------------------
+QString MainModule::LoginFromNum(const qlonglong _num_login) const
+{
+    return db_op->LoginFromNum(_num_login);
+}
+//----------------------------------------------------------
+QString MainModule::GetServerModelPath(const qlonglong _num_server) const
+{
+    return db_op->GetServerModelPath(_num_server);
+}
+//----------------------------------------------------------
+void MainModule::GetServerModelInfo(const qlonglong _serv_num, QString& _title_model, QString &_description, QList<tFile> &_files_model)
+{
+    db_op->GetServerModelInfo(_serv_num, _title_model, _description, _files_model);
+}
+//----------------------------------------------------------
+void MainModule::SaveDescription(const qlonglong _num, const QString &_text, QString &_file_name)
+{
+    db_op->SaveDescription(_num, _text, _file_name);
+}
+//----------------------------------------------------------
+void MainModule::UpdateInfoData(const qlonglong _num_model, const QString &_file_name, const QString &_hash, const QDateTime &_last_mod)
+{
+    db_op->UpdateInfoData(_num_model, _file_name, _hash, _last_mod);
+}
+//----------------------------------------------------------
+QString MainModule::GetRoot()
+{
+    return my_settings.GetRoot();
+}
+//----------------------------------------------------------
+void MainModule::WriteToCompareTablesToTree(const QString& _login)
+{
+    db_op->WriteToCompareTablesToTree(_login);
+}
+//----------------------------------------------------------
+QList<CompareTableRec> MainModule::AnalyzeCompareAll()
+{
+    return db_op->AnalyzeCompareAll();
+}
+//----------------------------------------------------------
+void MainModule::AddFilesToModelsStruct(QList<CompareTableRec> &comp_models)
+{
+    db_op->AddFilesToModelsStruct(comp_models);
+}
+//----------------------------------------------------------
+void MainModule::SetTransactionFlag(const bool _flag)
+{
+    mod_conv->SetTransactionFlag(_flag);
+}
+//----------------------------------------------------------
+void MainModule::ClearConveyor()
+{
+    mod_conv->Clear();
+}
+//----------------------------------------------------------
+void MainModule::DeletingLocalFile(const QString& _file_name)
+{
+    mod_conv->DeletingLocalFile(_file_name);
+}
+//----------------------------------------------------------
+void MainModule::ReceiveFile(const QString& _file_name)
+{
+    mod_conv->ReceiveFile(_file_name);
+}
+//----------------------------------------------------------
+void MainModule::GetServerListPreviews(const qlonglong _server_num_model, QStringList &_list)
+{
+    db_op->GetServerListPreviews(_server_num_model, _list);
+}
+//----------------------------------------------------------
+void MainModule::GetServerListFiles(const qlonglong _num_server_model, QStringList &_list)
+{
+    db_op->GetServerListFiles(_num_server_model, _list);
+}
+//----------------------------------------------------------
+int MainModule::GetCountRecDelModels()
+{
+    return db_op->GetCountRecDelModels();
+}
+//----------------------------------------------------------
+void MainModule::StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int max_model)
+{
+    mod_conv->StartReceiveDeleteFiles(_root, _custom_copy, max_model);
+}
+
