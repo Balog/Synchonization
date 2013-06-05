@@ -328,7 +328,7 @@ public:
         QObject::connect(pbConnect, SIGNAL(clicked()), MainForm, SLOT(OnConnect()));
         QObject::connect(pbDisconnect, SIGNAL(clicked()), MainForm, SLOT(OnDisconnecting()));
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         tabWidget_2->setCurrentIndex(1);
         tabWidget_3->setCurrentIndex(1);
 

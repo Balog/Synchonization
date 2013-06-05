@@ -69,6 +69,13 @@ public:
     void GetServerListFiles(const qlonglong _num_server_model, QStringList &_list);
     int GetCountRecDelModels();
     void StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int max_model);
+    void DeletingServerFile(const QString &_file_name);
+    void SendFile(const QString &_file_name);
+    int GetCountSendDelModels();
+    void StartSendDeleteFiles(const int _max_model);
+    void ActualiseModel(const QString &_login, const qlonglong _num_model, const bool _from_server);
+    QString VerifyCustomCopyPath(const QString& path) const;
+    void OnRunGui(QByteArray& block);
 
 
 
@@ -83,6 +90,9 @@ signals:
     void VisibleMain(bool visible);//Сигнал о том что нужно изменить видимость главной формы
     void RebuildTrees(QList<CompareTableRec> list_compare);//Сигнал о том что нужно перестроить деревья разницы
     void FindServer(bool ok);//Сигнал о том что сервер обнаружен или нет
+    void SignalCountFiles(int _value);
+    void EndTransactions();
+//    void retEndUpdateServerModel(bool);
 
     
 public slots:
@@ -90,6 +100,8 @@ public slots:
     void OnListFilesLocal();
     void OnAutorizStart();
     void OnSendAutorization(QString& _login, QString& _password, bool _mod_folder);
+    void setValue(int _value);
+
 
 private slots:
     void OnClearSendAll();
@@ -98,6 +110,7 @@ private slots:
     void OnClearDeleteLocal();
     void OnFindServerFalse();
     void ContinueStart();
+    void OnEndTransactions();
 };
 
 #endif // MAINMODULE_H

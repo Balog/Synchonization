@@ -72,6 +72,9 @@ signals:
 
     void SignalCountFiles(int count_files);
 
+public slots:
+    void OnRunGui(QByteArray& _block);
+
 private slots:
     void EndConveyor();
     void OnDisconnect();

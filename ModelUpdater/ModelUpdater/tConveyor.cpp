@@ -1153,6 +1153,7 @@ void tConveyor::CorrectLastSynch(const QStringList &_all_files, const bool _serv
 //----------------------------------------------------------
 void tConveyor::OnEndTransactions()
 {
+    qDebug() << "///////////////Конец транзакций////////////";
     l="tConveyor \tOnEndTransactions\tКонец списка транзакций  ";
     log.Write(l);
     emit EndTransactions();

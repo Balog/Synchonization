@@ -9,6 +9,10 @@ tExportMain::tExportMain(QObject *parent) :
     connect(this, SIGNAL(SendAutorization(QString&,QString&,bool)), MModule, SLOT(OnSendAutorization(QString&,QString&, bool)));
 
     connect(MModule, SIGNAL(EndUpdatingFromServer(QList<CompareTableRec>,bool)),this,SLOT(OnEndUpdatingFromServer(QList<CompareTableRec>,bool)));
+    connect(MModule, SIGNAL(SignalCountFiles(int)), this, SLOT(setValue(int)));
+    connect(MModule, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));
+    connect(MModule, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
+//    connect(MModule, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
 
 //    StartFindServer();
 }
@@ -154,7 +158,62 @@ void tExportMain::StartReceiveDeleteFiles(const QString &_root, int _custom_copy
 {
     MModule->StartReceiveDeleteFiles(_root, _custom_copy, max_model);
 }
+//----------------------------------------------------------
+void tExportMain::setValue(int _value)
+{
+    emit SignalCountFiles(_value);
+}
+//----------------------------------------------------------
+void tExportMain::OnEndTransactions()
+{
+    emit EndTransactions();
+}
+//----------------------------------------------------------
+void tExportMain::DeletingServerFile(const QString &_file_name)
+{
+    MModule->DeletingServerFile(_file_name);
+}
+//----------------------------------------------------------
+void tExportMain::SendFile(const QString &_file_name)
+{
+    MModule->SendFile(_file_name);
+}
+//----------------------------------------------------------
+int tExportMain::GetCountSendDelModels()
+{
+    return MModule->GetCountSendDelModels();
+}
+//----------------------------------------------------------
+void tExportMain::StartSendDeleteFiles(const int _max_model)
+{
+    MModule->StartSendDeleteFiles(_max_model);
+}
+//----------------------------------------------------------
+void tExportMain::ActualiseModel(const QString &_login, const qlonglong _num_model, const bool _from_server)
+{
+    MModule->ActualiseModel(_login, _num_model, _from_server);
+}
+//----------------------------------------------------------
+QString tExportMain::VerifyCustomCopyPath(const QString& path) const
+{
+    return MModule->VerifyCustomCopyPath(path);
+}
+//----------------------------------------------------------
+void tExportMain::RunGui(QByteArray& block)
+{
+    qDebug() << "tExportMain::RunGui";
+    MModule->OnRunGui(block);
+}
+//----------------------------------------------------------
+void tExportMain::OnRebuildTrees(QList<CompareTableRec> _list)
+{
+    qDebug() << "tExportMain::OnRebuildTrees";
+//    emit RebuildTrees(_list);
+    EndUpdatingFromServer(_list, true);
+}
 
-
-
-
+//void tExportMain::OnretEndUpdateServerModel(bool _rebuild)
+//{
+//    qDebug() << " tExportMain::OnretEndUpdateServerModel";
+//    emit retEndUpdateServerModel(_rebuild);
+//}

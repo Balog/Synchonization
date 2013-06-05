@@ -9,18 +9,19 @@ tModelsConveyor::tModelsConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *p
     conv=new tConveyor(link, db_op, 0);
 
 
-    connect(_link, SIGNAL(NextCommand()), conv, SLOT(NextCommand()));
+
     connect(conv, SIGNAL(EndCommands()), this, SLOT(EndConveyor()));
 
-    connect(_link, SIGNAL(RunGui(QByteArray&)), conv, SLOT(OnRunGuiCommand(QByteArray&)));
+    connect(_link, SIGNAL(NextCommand()), conv, SLOT(NextCommand()));
+    connect(this, SIGNAL(RunGui(QByteArray&)), conv, SLOT(OnRunGuiCommand(QByteArray&)));
     connect(conv, SIGNAL(Disconnect()), _link, SLOT(OnDisconnect()));
     connect(conv, SIGNAL(CloseMain()), _link, SLOT(close()));
     connect(conv, SIGNAL(AutorizStart()), _link, SLOT(OnAutorizStart()));
     connect(conv, SIGNAL(SetVisible(bool)),_link, SLOT(OnSetVisible(bool)));
     connect(_link, SIGNAL(Disconnecting()), conv, SLOT(OnDisconnecting()));
+    connect(conv, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));
+    connect(this, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));
 
-    connect(conv, SIGNAL(EndTransactions()), _link, SLOT(EndTransactions()));
-    connect(this, SIGNAL(EndTransactions()), _link, SLOT(EndTransactions()));
     connect(conv, SIGNAL(EndConveyor()), this, SLOT(EndConveyor()));
 
 
@@ -350,6 +351,9 @@ void tModelsConveyor::SetTransactionFlag(const bool _flag)
 //-------------------------------------------------------------------------
 void tModelsConveyor::OnEndTransactions()
 {
+    qDebug() << "*** КОНЕЦ ТРАНЗАКЦИЙ ***";
+    l="tModelsConveyor \t OnEndTransactions \t ОКОНЧАНИЕ ТРАНЗАКЦИЙ";
+    log.Write(l);
     db_op->RefreshModelsFiles();
     emit EndTransactionsMain();
 }
@@ -454,4 +458,10 @@ void tModelsConveyor::SaveLoginWritable(const QStandardItemModel* _model, const 
     out << check;
 
     conv->OnRunGuiCommand(block);
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::OnRunGui(QByteArray& _block)
+{
+    qDebug() << "tModelsConveyor::OnRunGui";
+    emit RunGui(_block);
 }

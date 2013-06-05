@@ -33,6 +33,13 @@ public:
     void GetServerListFiles(const qlonglong _num_server_model, QStringList &_list);
     int GetCountRecDelModels();
     void StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int max_model);
+    void DeletingServerFile(const QString &_file_name);
+    void SendFile(const QString &_file_name);
+    int GetCountSendDelModels();
+    void StartSendDeleteFiles(const int _max_model);
+    void ActualiseModel(const QString &_login, const qlonglong _num_model, const bool _from_server);
+    QString VerifyCustomCopyPath(const QString& path) const;
+    void RunGui(QByteArray& block);
 
 private:
     MainModule* MModule;
@@ -44,6 +51,9 @@ signals:
     void StartAutorizForm();
     void SendAutorization(QString& _login, QString& _password, bool _mod_folder);
     void EndUpdatingFromServer(QList<CompareTableRec> _list_compare, bool _rebuild);
+    void SignalCountFiles(int _value);
+    void EndTransactions();
+    void retEndUpdateServerModel(bool _rebuild);
     
 public slots:
     void OnFindServer(bool ok);
@@ -52,6 +62,10 @@ public slots:
 
 private slots:
     void OnStartAutorizForm();
+    void setValue(int _value);
+    void OnEndTransactions();
+    void OnRebuildTrees(QList<CompareTableRec> _list);
+//    void OnretEndUpdateServerModel(bool _rebuild);
 
     
 };

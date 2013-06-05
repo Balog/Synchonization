@@ -6,6 +6,7 @@
 #include "../ModelUpdater/ModelUpdater/tExportMain.h"
 #include "Autoriz.h"
 #include "tNewPath.h"
+#include "tProgress.h"
 
 namespace Ui {
 class MainForm;
@@ -30,6 +31,8 @@ private:
     QString user_login;
     bool modify_folder;
     tNewPath* form_new_path;
+    tProgress *fProgress;
+
     void ConstructTree(const tTreeMod _tree_mod, QList<CompareTableRec> _comp_table);
     void RecoveryTreeIndex();
     void DisplayModelInfo(const qlonglong _loc_num, const qlonglong _serv_num);
@@ -62,6 +65,9 @@ private:
     QList<CompareTableRec> list_compare;
     int max_models;
     void StartReadModeles(const QString &_root, const qlonglong _server_num_model, const bool _is_preview);
+    bool IsRequeryServerModel;
+    void OnListFiles();
+    void ShowContextMenu(const QPoint _pos, const bool _read);
 
 
 private slots:
@@ -74,8 +80,21 @@ private slots:
     void on_tvWrite_clicked(const QModelIndex &_index);
 
     void on_pbRead_clicked();
+    void EndTransactions();
+
+    void on_pbWrite_clicked();
+
+    void on_tvWrite_customContextMenuRequested(const QPoint &_pos);
+
+    void on_tvRead_customContextMenuRequested(const QPoint &_pos);
+
+    void on_pbRefreshRead_clicked();
+
+    void on_pbRefresh_Write_clicked();
+    void OnRebuildTrees(QList<CompareTableRec> _list);
 
 public slots:
+//    void OnretEndUpdateServerModel(bool _rebuild);
 
 
 
@@ -84,6 +103,8 @@ signals:
     void ZastVisible(bool vis);
     void SendAutorization(QString& _login, QString& _password, bool _mod_folder);
     void ProgressStart(int _max, int x, int y, int w, int h);
+    void ProgressStop();
+    void RunGui(QByteArray& block);
 
 };
 

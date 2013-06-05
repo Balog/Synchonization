@@ -1,16 +1,20 @@
 #include "MainForm.h"
 #include "ui_MainForm.h"
 #include <QMessageBox>
+#include <QMenu>
+#include <QFileDialog>
 
 MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm), QDialog(parent,Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint),
     main(new tExportMain), zast( new Zast), autoriz(new Autoriz), form_new_path(new tNewPath),
     read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel()),
-    table_files_model(NULL), previews(NULL)
+    table_files_model(NULL), previews(NULL), fProgress(new tProgress)
 {
 
     ui->setupUi(this);
     this->setVisible(false);
+    fProgress->setVisible(false);
+
     connect(this, SIGNAL(ZastVisible(bool)), zast, SLOT(FormVisible(bool)));
     connect(main, SIGNAL(FindServer(bool)), this, SLOT(OnFindServer(bool)));
     connect(this, SIGNAL(FindServer(bool)), zast, SLOT(OnFindServer(bool)));
@@ -18,6 +22,16 @@ MainForm::MainForm(QWidget *parent) :
     connect(autoriz, SIGNAL(SendAutorization(QString&,QString&,bool)),this, SLOT(OnSendAutorization(QString&,QString&,bool)));
     connect(this, SIGNAL(SendAutorization(QString&,QString&,bool)),main, SLOT(OnSendAutorization(QString&,QString&,bool)));
     connect(main, SIGNAL(EndUpdatingFromServer(QList<CompareTableRec>,bool)), this, SLOT(OnEndUpdatingFromServer(QList<CompareTableRec>,bool)));
+
+    connect(main, SIGNAL(SignalCountFiles(int)), fProgress, SLOT(setValue(int)));
+    connect(this, SIGNAL(ProgressStart(int, int, int, int, int)), fProgress, SLOT(Start(int, int, int, int, int)));
+    connect(this, SIGNAL(ProgressStop()), fProgress, SLOT(Stop()));
+    connect(main, SIGNAL(EndTransactions()), this, SLOT(EndTransactions()));
+//    connect(main, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
+    connect(main, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
+
+    ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->tvWrite->setContextMenuPolicy(Qt::CustomContextMenu);
 
     emit ZastVisible(true);
 }
@@ -1354,7 +1368,7 @@ void MainForm::EditingModelFile(const QString &_file_name, const QString& _text,
 void MainForm::EndUpdateServerModel(const bool _rebuild)
 {
     //формирование дерева чтения по полученым и имеющимся данным после обновления данных с сервера
-
+    qDebug() << "MainForm::EndUpdateServerModel";
     main->OnListFilesLocal();
 
     BuildingTree(user_login);
@@ -1482,3 +1496,256 @@ void MainForm::StartReadModeles(const QString &_root, const qlonglong _server_nu
 
 
 //----------------------------------------------------------
+void MainForm::EndTransactions()
+{
+
+    main->SetTransactionFlag(false);
+
+    IsRequeryServerModel=true;
+    OnListFiles();
+
+    BuildingTree(user_login);
+    //строим дерево и модели помечаем в соответствии с анализом (нулевой результат пропускаем)
+    ConstructTree(Read, list_compare);
+    ConstructTree(Write, list_compare);
+
+    DisplayInfo(_current_local_num, _current_server_num);
+    emit ProgressStop();
+    tLog log;
+    log.Write(tr("Работа завершена"));
+
+
+}
+//---------------------------------------------------------------------
+void MainForm::OnListFiles()
+{
+    tLog log;
+    log.Write(tr("MainForm \t OnListFiles \t Запрос с главной формы GetListModels через RunGui"));
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    out << tr("GetListModels");
+    out << tr("GetListModels");
+
+    main->RunGui(block);
+//    emit RunGui(block);
+}
+//---------------------------------------------------------------------
+void MainForm::on_pbWrite_clicked()
+{
+    SaveDescriptionModel(ui->pteDesRead_2->toPlainText());
+    max_models=0;
+
+    main->SetTransactionFlag(true);
+    main->ClearConveyor();
+    int is_work=false;
+    for(int i=0; i<tree_data.size();i++)
+    {
+        if(tree_data[i].write_choice)
+        {
+            for(int j=0; j<tree_data[i].file.size(); j++)
+            {
+                QString file_name=tree_data[i].file[j].file_name;
+                if(tree_data[i].file[j].IsFounded==2)
+                {
+                    main->DeletingServerFile(file_name);
+                }
+                else
+                {
+                    main->SendFile(file_name);
+                }
+                is_work=true;
+            }
+        }
+    }
+    if(is_work)
+    {
+        max_models=main->GetCountSendDelModels();
+
+        int x=this->geometry().x();
+        int y=this->geometry().y();
+        int w=this->geometry().width();
+        int h=this->geometry().height();
+        emit ProgressStart(max_models, x, y, w, h);
+
+        main->StartSendDeleteFiles(max_models);
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Нет выделеных моделей для записи"));
+        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+        MB.exec();
+    }
+}
+//---------------------------------------------------------------------
+void MainForm::on_tvWrite_customContextMenuRequested(const QPoint &_pos)
+{
+    ShowContextMenu(_pos, false);
+}
+//----------------------------------------------------------
+void MainForm::ShowContextMenu(const QPoint _pos, const bool _read)
+{
+    QPoint global_pos;
+    if(sender()->inherits("QAbstractScrollArea"))
+    {
+        global_pos=((QAbstractScrollArea*)sender())->viewport()->mapToGlobal(_pos);
+    }
+    else
+    {
+        if(_read)
+        {
+            global_pos=ui->tvRead->mapToGlobal(_pos);
+        }
+        else
+        {
+            global_pos=ui->tvWrite->mapToGlobal(_pos);
+        }
+    }
+
+    QModelIndex click_index;
+    if(_read)
+    {
+        click_index=ui->tvRead->indexAt(_pos);
+    }
+    else
+    {
+        click_index=ui->tvWrite->indexAt(_pos);
+    }
+
+    bool valid=click_index.isValid();
+
+    if(valid)
+    {
+
+        QStandardItem *item;
+        if(_read)
+        {
+            item=read_tree_model->itemFromIndex(click_index);
+        }
+        else
+        {
+            item=write_tree_model->itemFromIndex(click_index);
+        }
+
+        QString txt=item->text();
+        qlonglong d=item->data(Qt::UserRole+1).toLongLong();
+        QMenu menu;
+        qlonglong local_num=item->data(Qt::UserRole+2).toLongLong();
+        qlonglong server_num=item->data(Qt::UserRole+3).toLongLong();
+        if(d==-2)
+        {
+
+
+            if(local_num!=0)
+            {
+                QAction *action1=new QAction(QString::fromUtf8("Принять актуальной локальную версию"), this);
+                action1->setData(1);
+                menu.addAction(action1);
+            }
+
+            if(server_num!=0)
+            {
+                QAction *action2=new QAction(QString::fromUtf8("Принять актуальной серверную версию"), this);
+                action2->setData(2);
+                menu.addAction(action2);
+            }
+        }
+        if((d>0 && d!=4 || d==-2) && server_num!=0)
+        {
+            QAction *action3=new QAction(QString::fromUtf8("Скопировать модель с сервера для анализа"), this);
+            action3->setData(3);
+            menu.addAction(action3);
+        }
+
+        if(menu.actions().size()>0)
+        {
+        QAction* selectedItem=menu.exec(global_pos);
+
+
+        if(selectedItem)
+        {
+            int menu_id=selectedItem->data().toInt();
+
+            switch(menu_id)
+            {
+            case 1:
+            {
+                main->ActualiseModel(user_login, server_num, true);
+                BuildingTree(user_login);
+                ConstructTree(Read, list_compare);
+                ConstructTree(Write, list_compare);
+
+                RecoveryTreeIndex();
+                break;
+            }
+            case 2:
+            {
+                main->ActualiseModel(user_login, local_num, false);
+
+                BuildingTree(user_login);
+                ConstructTree(Read, list_compare);
+                ConstructTree(Write, list_compare);
+
+                RecoveryTreeIndex();
+                break;
+            }
+            case 3:
+            {
+                QString Analys_folder=QFileDialog::getExistingDirectory(0, QString::fromUtf8(QString("Укажи куда скопировать модель").toAscii()),"/home",QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+                if(Analys_folder!="")
+                {
+                    QString mess=main->VerifyCustomCopyPath(Analys_folder);
+                    if(mess=="")
+                    {
+                    StartReadModeles(Analys_folder+"/", server_num, false);
+                    }
+                    else
+                    {
+                        QMessageBox MB;
+                        MB.setText(mess);
+                        MB.setWindowTitle(QString("Ошибка"));
+                        MB.exec();
+                    }
+                }
+                break;
+            }
+
+            }
+        }
+}
+
+    }
+}
+//----------------------------------------------------------
+void MainForm::on_tvRead_customContextMenuRequested(const QPoint &_pos)
+{
+    ShowContextMenu(_pos, true);
+}
+//----------------------------------------------------------
+void MainForm::on_pbRefreshRead_clicked()
+{
+    //Обновление серверных таблиц
+    SaveDescriptionModel(ui->pteDesRead->toPlainText());
+    IsRequeryServerModel=true;
+    OnListFiles();
+}
+//----------------------------------------------------------
+void MainForm::on_pbRefresh_Write_clicked()
+{
+    SaveDescriptionModel(ui->pteDesRead_2->toPlainText());
+    IsRequeryServerModel=true;
+    OnListFiles();
+}
+//----------------------------------------------------------
+void MainForm::OnRebuildTrees(QList<CompareTableRec> _list)
+{
+    qDebug() << "MainForm::OnRebuildTrees";
+    OnEndUpdatingFromServer(_list, true);
+}
+
+//void MainForm::OnretEndUpdateServerModel(bool _rebuild)
+//{
+//    EndUpdateServerModel(_rebuild);
+//}

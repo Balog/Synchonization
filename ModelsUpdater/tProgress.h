@@ -19,6 +19,9 @@ private:
     Ui::tProgress *ui;
 
 public slots:
+    void Start(int max, int _x, int _y, int _w, int _h);
+    void Stop();
+    void setValue(int _value);
 
 };
 

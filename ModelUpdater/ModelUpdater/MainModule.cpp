@@ -27,7 +27,9 @@ MainModule::MainModule(QObject *parent) :
     qDebug() << "База данных" << db_op;
     mod_conv= new tModelsConveyor(this, db_op);
 
-
+    connect(mod_conv, SIGNAL(SignalCountFiles(int)), this, SLOT(setValue(int)));
+    connect(mod_conv, SIGNAL(EndTransactionsMain()), this, SLOT(OnEndTransactions()));
+    connect(this, SIGNAL(RunGui(QByteArray&)),mod_conv, SLOT(OnRunGui(QByteArray&)));
 
 //    connect(this, SIGNAL(FindServerTrue()), zast_mod, SLOT(OnTimerTrue()));
 
@@ -268,6 +270,8 @@ void MainModule::CorrectLastSynch(const bool _server)
 //----------------------------------------------------------
 void MainModule::EndUpdateServerModel(const bool _rebuild)
 {
+    qDebug() << "MainModule::EndUpdateServerModel";
+
     //формирование дерева чтения по полученым и имеющимся данным после обновления данных с сервера
 
     OnListFilesLocal();
@@ -275,11 +279,14 @@ void MainModule::EndUpdateServerModel(const bool _rebuild)
     BuildingTree(user_login);
 
     emit EndUpdatingFromServer(list_compare, _rebuild);
-
+//emit retEndUpdateServerModel(_rebuild);
 }
 //----------------------------------------------------------
 void MainModule::BuildingTree(const QString& _user_login)
 {
+    qDebug() << "MainModule::BuildingTree";
+    OnListFilesLocal();
+
     //В таблицу CompareTablesToTree из локальной, ласт и серверной таблиц занести ориентируясь на Struct суммарные хеши моделей
     db_op->WriteToCompareTablesToTree(_user_login);
 
@@ -353,6 +360,7 @@ void MainModule::InternalCallBuildingTree()
 {
     if(!GetIsTransaction())
     {
+        qDebug() << "MainModule::InternalCallBuildingTree";
         BuildingTree(user_login);
 
         emit RebuildTrees(list_compare);
@@ -460,4 +468,50 @@ void MainModule::StartReceiveDeleteFiles(const QString &_root, int _custom_copy,
 {
     mod_conv->StartReceiveDeleteFiles(_root, _custom_copy, max_model);
 }
-
+//----------------------------------------------------------
+void MainModule::setValue(int _value)
+{
+    emit SignalCountFiles(_value);
+}
+//----------------------------------------------------------
+void MainModule::OnEndTransactions()
+{
+    log.Write(tr("MainModule \t OnEndTransactions \t КОНЕЦ ТРАНЗАКЦИЙ"));
+    qDebug() << "КОНЕЦ ТРАНЗАКЦИЙ";
+    emit EndTransactions();
+}
+//----------------------------------------------------------
+void MainModule::DeletingServerFile(const QString &_file_name)
+{
+    mod_conv->DeletingServerFile(_file_name);
+}
+//----------------------------------------------------------
+void MainModule::SendFile(const QString &_file_name)
+{
+    mod_conv->SendFile(_file_name);
+}
+//----------------------------------------------------------
+int MainModule::GetCountSendDelModels()
+{
+    return db_op->GetCountSendDelModels();
+}
+//----------------------------------------------------------
+void MainModule::StartSendDeleteFiles(const int _max_model)
+{
+    mod_conv->StartSendDeleteFiles(_max_model);
+}
+//----------------------------------------------------------
+void MainModule::ActualiseModel(const QString &_login, const qlonglong _num_model, const bool _from_server)
+{
+    db_op->ActualiseModel(_login, _num_model, _from_server);
+}
+//----------------------------------------------------------
+QString MainModule::VerifyCustomCopyPath(const QString& path) const
+{
+    return db_op->VerifyCustomCopyPath(path);
+}
+//----------------------------------------------------------
+void MainModule::OnRunGui(QByteArray& _block)
+{
+    emit RunGui(_block);
+}
