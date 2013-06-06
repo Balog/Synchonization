@@ -77,12 +77,17 @@ public:
     QString VerifyCustomCopyPath(const QString& path) const;
     void OnRunGui(QByteArray& block);
 
+    void SetServerParameters(const QString& _addr, const int _port);
+    void StartServer();
+    void GetServerParameters(QString &_addr, int& _port);
+    void OnDisconnectingFromClient();
+    void GetFolderParameters(const QString& login, QString& roor_folder, QString& temp_folder, QString& mess);
 
 
 
 signals:
     void Update_Logins();//сигнал в главную форму на обновление модели представления логинов
-    void ErrorUserFolders(tDatabaseOp* db_op, QString& user_login, QString& message, bool visible);//сигнал форме задания путей что пути у пользователя неверны
+    void ErrorUserFolders(QString& user_login, QString& message);//сигнал форме задания путей что пути у пользователя неверны
     void RunGui(QByteArray& block);//Запуск команды конвейера из ГУИ
     void EndUpdatingFromServer(QList<CompareTableRec> list_compare, bool _rebuild);//Окончание обновлений с сервера, можно перестраивать дерево разницы моделей
     void ShowEditLogin(bool visible, bool modal);//сигнал в форму редактирования логинов на очистку и скрытие формы
@@ -92,7 +97,11 @@ signals:
     void FindServer(bool ok);//Сигнал о том что сервер обнаружен или нет
     void SignalCountFiles(int _value);
     void EndTransactions();
+    void Disconnecting();
+    void DisconnectingFromServer();
+//    void Disconnect();
 //    void retEndUpdateServerModel(bool);
+//    void OnDisconnecting();
 
     
 public slots:
@@ -111,6 +120,8 @@ private slots:
     void OnFindServerFalse();
     void ContinueStart();
     void OnEndTransactions();
+
+    void OnDisconnectingFromServer();
 };
 
 #endif // MAINMODULE_H

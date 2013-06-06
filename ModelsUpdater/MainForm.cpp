@@ -7,7 +7,7 @@
 MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm), QDialog(parent,Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint),
     main(new tExportMain), zast( new Zast), autoriz(new Autoriz), form_new_path(new tNewPath),
-    read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel()),
+    read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel()), adm_tree_model(new QStandardItemModel()),
     table_files_model(NULL), previews(NULL), fProgress(new tProgress)
 {
 
@@ -29,6 +29,9 @@ MainForm::MainForm(QWidget *parent) :
     connect(main, SIGNAL(EndTransactions()), this, SLOT(EndTransactions()));
 //    connect(main, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
     connect(main, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
+    connect(main, SIGNAL(Disconnect()), this, SLOT(OnDisconnect()));
+    connect(main, SIGNAL(ErrorUserFolders(QString&, QString&)), form_new_path, SLOT(Visible(QString&, QString&)));
+
 
     ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->tvWrite->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -44,6 +47,7 @@ MainForm::~MainForm()
 
 }
 //---------------------------------------------------------------------
+
 void MainForm::OnFindServer(bool ok)
 {
 
@@ -55,12 +59,30 @@ void MainForm::OnSendAutorization(QString& _login, QString& _password, bool _mod
     user_login=_login;
     this->setWindowTitle(QString::fromUtf8(QString("Главная форма (Пользователь '"+user_login+"')").toAscii()));
     modify_folder=_modify_folder;
+
+    QString root_folder="";
+    QString temp_folder="";
+    QString mess="";
+
+    main->GetFolderParameters(user_login, root_folder, temp_folder, mess);
+
+    ui->leRoot->setText(root_folder);
+    ui->leTemp->setText(temp_folder);
+
     emit SendAutorization(_login, _password, _modify_folder);
 }
 //---------------------------------------------------------------------
 void MainForm::OnEndUpdatingFromServer(QList<CompareTableRec> _list_compare,bool _rebuild)
 {
     qDebug() << "Возврат в главную с таблицей разницы моделей";
+
+    QString addr="";
+    int port=0;
+
+    main->GetServerParameters(addr, port);
+
+    ui->leAddr->setText(addr);
+    ui->sbPort->setValue(port);
 
     this->setVisible(true);
     ConstructTree(Read, _list_compare);
@@ -1749,3 +1771,52 @@ void MainForm::OnRebuildTrees(QList<CompareTableRec> _list)
 //{
 //    EndUpdateServerModel(_rebuild);
 //}
+//----------------------------------------------------------
+void MainForm::on_pbConnect_clicked()
+{
+//    QString addr="";
+//    int port=0;
+
+//    main->GetServerParameters(addr, port);
+
+//    ui->leAddr->setText(addr);
+//    ui->sbPort->setValue(port);
+
+    adm_tree_model->clear();
+    ui->pbConnect->setEnabled(false);
+    ui->pbDisconnect->setEnabled(true);
+    ui->leAddr->setReadOnly(true);
+    ui->sbPort->setReadOnly(true);
+
+
+
+
+    main->SetServerParameters(ui->leAddr->text(), ui->sbPort->value());
+
+    this->setVisible(false);
+
+
+    main->StartServer();
+
+
+//    emit FindServer(true);
+    emit ZastVisible(true);
+}
+//----------------------------------------------------------
+void MainForm::on_pbDisconnect_clicked()
+{
+    main->Disconnecting();
+    ui->pbDisconnect->setEnabled(false);
+    ui->pbConnect->setEnabled(true);
+    ui->leAddr->setReadOnly(false);
+    ui->sbPort->setReadOnly(false);
+}
+//----------------------------------------------------------
+void MainForm::OnDisconnect()
+{
+    ui->pbDisconnect->setEnabled(false);
+    ui->pbConnect->setEnabled(true);
+    ui->leAddr->setReadOnly(false);
+    ui->sbPort->setReadOnly(false);
+}
+//---------------------------------------------------------------------

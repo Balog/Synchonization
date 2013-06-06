@@ -243,6 +243,7 @@ void tSocket::OnDisconnected()
 {
     l="socket \tOnDisconnected\tОтключение сервером ";
     log.Write(l);
+    qDebug() << "tSocket::OnDisconnected";
 
     emit DisconnectSocket();
 }

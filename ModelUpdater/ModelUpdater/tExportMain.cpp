@@ -12,6 +12,8 @@ tExportMain::tExportMain(QObject *parent) :
     connect(MModule, SIGNAL(SignalCountFiles(int)), this, SLOT(setValue(int)));
     connect(MModule, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));
     connect(MModule, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
+    connect(MModule, SIGNAL(DisconnectingFromServer()), this, SLOT(OnDisconnectingFromServer()));
+    connect(MModule, SIGNAL(ErrorUserFolders(QString&,QString&)), this, SLOT(OnErrorUserFolders(QString&,QString&)));
 //    connect(MModule, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
 
 //    StartFindServer();
@@ -21,6 +23,13 @@ tExportMain::~tExportMain()
 {
     delete MModule;
 }
+//----------------------------------------------------------
+void tExportMain::OnDisconnectingFromServer()
+{
+    qDebug() << "tExportMain::OnDisconnectingFromServer";
+    emit Disconnect();
+}
+
 //----------------------------------------------------------
 void tExportMain::StartFindServer()
 {
@@ -211,9 +220,42 @@ void tExportMain::OnRebuildTrees(QList<CompareTableRec> _list)
 //    emit RebuildTrees(_list);
     EndUpdatingFromServer(_list, true);
 }
+//----------------------------------------------------------
+void tExportMain::Disconnecting()
+{
+    MModule->OnDisconnectingFromClient();
+}
+//----------------------------------------------------------
+void tExportMain::SetServerParameters(const QString &_addr, const int _port)
+{
+    MModule->SetServerParameters(_addr, _port);
 
-//void tExportMain::OnretEndUpdateServerModel(bool _rebuild)
-//{
-//    qDebug() << " tExportMain::OnretEndUpdateServerModel";
-//    emit retEndUpdateServerModel(_rebuild);
-//}
+}
+//----------------------------------------------------------
+void tExportMain::StartServer()
+{
+    MModule->StartServer();
+}
+//----------------------------------------------------------
+void tExportMain::GetServerParameters(QString &_addr, int& _port)
+{
+    MModule->GetServerParameters(_addr, _port);
+}
+//----------------------------------------------------------
+void tExportMain::ReStartServer()
+{
+    delete MModule;
+    MModule=new MainModule();
+//    MModule->StartServer();
+}
+//----------------------------------------------------------
+void tExportMain::GetFolderParameters(const QString& login, QString& roor_folder, QString& temp_folder, QString& mess)
+{
+    MModule->GetFolderParameters(login, roor_folder, temp_folder, mess);
+    qDebug() << "tExportMain::GetFolderParameters" << roor_folder << temp_folder << mess;
+}
+//----------------------------------------------------------
+void tExportMain::OnErrorUserFolders(QString& _login,QString& _mess)
+{
+    emit ErrorUserFolders(_login, _mess);
+}

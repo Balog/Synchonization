@@ -730,6 +730,7 @@ bool tConveyor::ReceiveFile(const QString &_file_name, QStringList &_all_files)
 //--------------------------------------------------------------------------------
 void tConveyor::OnDisconnecting()
 {
+qDebug() << "tConveyor::OnDisconnecting";
     emit DisconnectFromServer();
 }
 //--------------------------------------------------------------------------------

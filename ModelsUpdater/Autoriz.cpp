@@ -19,6 +19,7 @@ void Autoriz::OnStartAutorizForm()
 {
     this->setVisible(true);
     this->setModal(true);
+    ui->leLogin->setFocus();
 }
 //-----------------------------------------------------------------
 void Autoriz::on_pbOk_clicked()

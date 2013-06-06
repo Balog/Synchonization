@@ -63,12 +63,13 @@ private:
 signals:
     void NextCommand();
     void RunGui(QByteArray& block);
-    void Disconnecting();
+//    void Disconnecting();
     void AutorizStart();
     void CloseMain();
     void SetVisible(bool vis);
     void EndTransactions();
     void EndTransactionsMain();
+    void Disconnecting();
 
     void SignalCountFiles(int count_files);
 
@@ -81,6 +82,7 @@ private slots:
     void OnAutorizStart();
     void ErrorConveyor();
     void OnEndTransactions();
+
 
 
 

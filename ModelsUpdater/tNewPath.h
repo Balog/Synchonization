@@ -15,11 +15,14 @@ public:
     explicit tNewPath(QWidget *parent = 0);
     ~tNewPath();
     
+public slots:
+    void Visible(QString& _login, QString& _message);
 private slots:
 
 
 private:
         Ui::tNewPath *ui;
+        QString login;
 
 signals:
 

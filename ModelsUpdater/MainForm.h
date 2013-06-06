@@ -68,6 +68,7 @@ private:
     bool IsRequeryServerModel;
     void OnListFiles();
     void ShowContextMenu(const QPoint _pos, const bool _read);
+    QStandardItemModel *adm_tree_model;
 
 
 private slots:
@@ -93,6 +94,11 @@ private slots:
     void on_pbRefresh_Write_clicked();
     void OnRebuildTrees(QList<CompareTableRec> _list);
 
+    void on_pbConnect_clicked();
+
+    void on_pbDisconnect_clicked();
+    void OnDisconnect();
+
 public slots:
 //    void OnretEndUpdateServerModel(bool _rebuild);
 
@@ -105,6 +111,7 @@ signals:
     void ProgressStart(int _max, int x, int y, int w, int h);
     void ProgressStop();
     void RunGui(QByteArray& block);
+
 
 };
 

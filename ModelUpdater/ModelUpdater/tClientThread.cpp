@@ -35,6 +35,7 @@ tClientThread::~tClientThread()
 //-----------------------------------------------------------------------------------------------------------
 void tClientThread::OnDisconnect()
 {
+    qDebug() << "tClientThread::OnDisconnect";
     emit Disconnect();
 }
 //-----------------------------------------------------------------------------------------------------------
@@ -50,6 +51,7 @@ void tClientThread::OnCommandToGui(QByteArray block)
 //-----------------------------------------------------------------------------------------------------------
 void tClientThread::OnDisconnecting()
 {
+    qDebug() << "tClientThread::OnDisconnecting";
     emit DisconnectFromServer();
 }
 //-----------------------------------------------------------------------------------------------------------

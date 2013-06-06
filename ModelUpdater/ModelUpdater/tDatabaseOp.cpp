@@ -2237,7 +2237,7 @@ void tDatabaseOp::SavePermissionsToServer(const qlonglong _num_login, QByteArray
     _block=_block+block;
 }
 //----------------------------------------------------------
-bool tDatabaseOp::VerifyUserFolders(const QString& _login, const QString &_project_folder, const QString &_temp_folder, QString& _message) const
+bool tDatabaseOp::VerifyUserFolders(const QString& _login,  QString &_project_folder,  QString &_temp_folder, QString& _message) const
 {
     QString project_folder="";
     QString temp_folder="";
@@ -2252,8 +2252,10 @@ bool tDatabaseOp::VerifyUserFolders(const QString& _login, const QString &_proje
             log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)+" "+db.lastError().text()));}
         sel_folders.next();
 
-        project_folder=sel_folders.value(0).toString();
-        temp_folder=sel_folders.value(1).toString();
+        _project_folder=sel_folders.value(0).toString();
+        _temp_folder=sel_folders.value(1).toString();
+        qDebug() << "tDatabaseOp::VerifyUserFolders РАННИЙ ВЫХОД";
+        return true;
     }
     else
     {
@@ -2266,7 +2268,6 @@ bool tDatabaseOp::VerifyUserFolders(const QString& _login, const QString &_proje
     {
         //пути не пустые
 
-        //наличие путей на диске реализую позже когда новые пути будут вводиться
         QDir pr_dir(project_folder);
         QDir tmp_dir(temp_folder);
         if(pr_dir.exists() && tmp_dir.exists())
@@ -2341,7 +2342,7 @@ bool tDatabaseOp::VerifyUserFolders(const QString& _login, const QString &_proje
     {
         _message=QString::fromUtf8("Нужно указать оба пути");
     }
-
+    qDebug() << " tDatabaseOp::VerifyUserFolders" << "project_folder" << project_folder << "temp_folder" << temp_folder << "_message" << _message << "ret" << ret;
     return ret;
 }
 //----------------------------------------------------------

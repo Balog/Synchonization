@@ -90,7 +90,7 @@ public:
     void SaveReadPermission(const QString &_login, const qlonglong _mod_num, const bool _state);
     void SavePermissionsToServer(const qlonglong _num_log, QByteArray &_block);
 
-    bool VerifyUserFolders(const QString& _login, const QString &_project_folder, const QString &_temp_folder, QString &_message) const;
+    bool VerifyUserFolders(const QString& _login, QString &_project_folder, QString &_temp_folder, QString &_message) const;
     void SaveFoldersToLoginsTable(const QString& _login, const QString& _project_folder, const QString& _temp_folder);
     void SaveFoldersToSettings(const QString& _userlogin);
 

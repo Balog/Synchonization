@@ -14,7 +14,7 @@ tModelsConveyor::tModelsConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *p
 
     connect(_link, SIGNAL(NextCommand()), conv, SLOT(NextCommand()));
     connect(this, SIGNAL(RunGui(QByteArray&)), conv, SLOT(OnRunGuiCommand(QByteArray&)));
-    connect(conv, SIGNAL(Disconnect()), _link, SLOT(OnDisconnect()));
+    connect(conv, SIGNAL(Disconnect()), this, SLOT(OnDisconnect()));
     connect(conv, SIGNAL(CloseMain()), _link, SLOT(close()));
     connect(conv, SIGNAL(AutorizStart()), _link, SLOT(OnAutorizStart()));
     connect(conv, SIGNAL(SetVisible(bool)),_link, SLOT(OnSetVisible(bool)));
@@ -34,6 +34,12 @@ tModelsConveyor::~tModelsConveyor()
     conv=NULL;
 }
 
+//-------------------------------------------------------------------------
+void tModelsConveyor::OnDisconnect()
+{
+    qDebug() << "tModelsConveyor::OnDisconnect";
+    emit Disconnecting();
+}
 //-------------------------------------------------------------------------
 void tModelsConveyor::StartServer(const QString &_addr, const int _port)
 {
@@ -79,10 +85,10 @@ void tModelsConveyor::EndConveyor()
 
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::OnDisconnect()
-{
-    emit Disconnecting();
-}
+//void tModelsConveyor::OnDisconnect()
+//{
+//    emit Disconnecting();
+//}
 //-------------------------------------------------------------------------
 void tModelsConveyor::OnAutorizStart()
 {

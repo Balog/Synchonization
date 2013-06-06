@@ -40,6 +40,12 @@ public:
     void ActualiseModel(const QString &_login, const qlonglong _num_model, const bool _from_server);
     QString VerifyCustomCopyPath(const QString& path) const;
     void RunGui(QByteArray& block);
+    void Disconnecting();
+    void SetServerParameters(const QString &_addr, const int _port);
+    void StartServer();
+    void GetServerParameters(QString &_addr, int& _port);
+    void ReStartServer();
+    void GetFolderParameters(const QString& login, QString& roor_folder, QString& temp_folder, QString& mess);
 
 private:
     MainModule* MModule;
@@ -54,6 +60,8 @@ signals:
     void SignalCountFiles(int _value);
     void EndTransactions();
     void retEndUpdateServerModel(bool _rebuild);
+    void Disconnect();
+    void ErrorUserFolders(QString& user_login, QString& message);
     
 public slots:
     void OnFindServer(bool ok);
@@ -65,6 +73,8 @@ private slots:
     void setValue(int _value);
     void OnEndTransactions();
     void OnRebuildTrees(QList<CompareTableRec> _list);
+    void OnDisconnectingFromServer();
+    void OnErrorUserFolders(QString& _login,QString& _mess);
 //    void OnretEndUpdateServerModel(bool _rebuild);
 
     

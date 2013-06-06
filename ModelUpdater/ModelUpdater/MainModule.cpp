@@ -30,9 +30,16 @@ MainModule::MainModule(QObject *parent) :
     connect(mod_conv, SIGNAL(SignalCountFiles(int)), this, SLOT(setValue(int)));
     connect(mod_conv, SIGNAL(EndTransactionsMain()), this, SLOT(OnEndTransactions()));
     connect(this, SIGNAL(RunGui(QByteArray&)),mod_conv, SLOT(OnRunGui(QByteArray&)));
+    connect(mod_conv, SIGNAL(Disconnecting()), this, SLOT(OnDisconnectingFromServer()));
 
 //    connect(this, SIGNAL(FindServerTrue()), zast_mod, SLOT(OnTimerTrue()));
 
+}
+//---------------------------------------------------------
+void MainModule::OnDisconnectingFromServer()
+{
+    qDebug() << "MainModule::OnDisconnectingFromServer";
+    emit DisconnectingFromServer();
 }
 //---------------------------------------------------------
 void MainModule::OnFindServerFalse()
@@ -135,17 +142,19 @@ void MainModule::UpdateLogins()
 //---------------------------------------------------------
 bool MainModule::VerifyUserFolders()
 {
+    qDebug() << "MainModule::VerifyUserFolders" << modify_folder;
     QString message="";
     QString project_folder="";
     QString temp_folder="";
     if(!modify_folder && db_op->VerifyUserFolders(user_login, project_folder, temp_folder, message))
     {
-
+        qDebug() << "MainModule::VerifyUserFolders" << user_login << project_folder << temp_folder << message;
         return true;
     }
     else
     {
-        emit ErrorUserFolders(db_op, user_login, message, true);
+        qDebug() << "ErrorUserFolders" << user_login << message;
+        emit ErrorUserFolders(user_login, message);
 //        form_new_path->SetDatabase(db_op);
 //        form_new_path->SetLogin(_user_login);
 //        form_new_path->SetMessage(message);
@@ -514,4 +523,33 @@ QString MainModule::VerifyCustomCopyPath(const QString& path) const
 void MainModule::OnRunGui(QByteArray& _block)
 {
     emit RunGui(_block);
+}
+//----------------------------------------------------------
+void MainModule::OnDisconnectingFromClient()
+{
+    emit Disconnecting();
+}
+//----------------------------------------------------------
+void MainModule::SetServerParameters(const QString &_addr, const int _port)
+{
+    my_settings.SetServerAddr(_addr);
+    my_settings.SetServerPort(_port);
+    my_settings.sync();
+}
+//----------------------------------------------------------
+void MainModule::StartServer()
+{
+    mod_conv->StartServer(my_settings.GetServerAddr(), my_settings.GetServerPort());
+}
+//----------------------------------------------------------
+void MainModule::GetServerParameters(QString &_addr, int& _port)
+{
+    _addr=my_settings.GetServerAddr();
+    _port=my_settings.GetServerPort();
+}
+//----------------------------------------------------------
+void MainModule::GetFolderParameters(const QString& login, QString& roor_folder, QString& temp_folder, QString& mess)
+{
+    db_op->VerifyUserFolders(login, roor_folder, temp_folder, mess);
+    qDebug() << "MainModule::GetFolderParameters" << roor_folder << temp_folder << mess;
 }
