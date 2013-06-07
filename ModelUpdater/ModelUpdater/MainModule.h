@@ -35,6 +35,7 @@ public:
     void ViewError(const int _num_error, const QString &_error, const QString &_detail, const QString &_client_detail);
     void UpdateLogins();
     bool VerifyUserFolders();
+    bool VerifyUserFolders(QString& _login, QString& _pr_folder, QString& _temp_folder, QString& _message);
     void CancelAllOperations();
     void OnListFiles();
     void VerifyLastTable(const QString& user_login);
@@ -82,6 +83,23 @@ public:
     void GetServerParameters(QString &_addr, int& _port);
     void OnDisconnectingFromClient();
     void GetFolderParameters(const QString& login, QString& roor_folder, QString& temp_folder, QString& mess);
+    void SaveFoldersToLoginsTable(const QString &_login, const QString &_pr_folder, const QString &_temp_folder);
+    void SaveFoldersToSettings(const QString &_user_login);
+    void GetPermissionsUser(const QString& _login, bool &_is_admin_user, bool &_is_writable_user);
+    void RefreshModelsFiles();
+    bool removeFolder(const QDir & _dir, const bool _del_dir);
+    void SendDeleteLogin(int _num);
+    void SaveLoginWritable(const QStandardItemModel *_model, const int _row);
+    void GetLoginsModel(QStandardItemModel *model);
+    bool VerPassword(const QString &login, const QString &_pass);
+    void SavePermissionsToServer(const qlonglong _num_login);
+    qlonglong GetNumLogin(const int _row) const;
+    qlonglong GetNumLogin(const QString &_login) const;
+    void SaveReadPermission(const QString &_login, const qlonglong _mod_num, const bool _state);
+    void ResetFoundModelAdmin();
+    bool NextModelAdmin() const;
+    QStringList NextStructListModelAdmin(const QString &_login, bool &_read, qlonglong &_server_num) const;
+    void SendLoginPassword(const QString &_login, const QString &_password, const int _row, const bool _new_user);
 
 
 

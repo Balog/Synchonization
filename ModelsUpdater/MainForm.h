@@ -4,13 +4,23 @@
 #include <QDialog>
 #include "Zast.h"
 #include "../ModelUpdater/ModelUpdater/tExportMain.h"
+#include "../ModelUpdater/ModelUpdater/tConstructModelTree.h"
 #include "Autoriz.h"
 #include "tNewPath.h"
 #include "tProgress.h"
+#include "tEditLoginPass.h"
 
 namespace Ui {
 class MainForm;
 }
+
+class TableModel : public QStandardItemModel
+{
+public:
+    TableModel(){}
+    virtual Qt::ItemFlags flags ( const QModelIndex & index ) const;
+};
+//**********************************************************************
 
 class MainForm : public QDialog
 {
@@ -69,6 +79,18 @@ private:
     void OnListFiles();
     void ShowContextMenu(const QPoint _pos, const bool _read);
     QStandardItemModel *adm_tree_model;
+    void OnEditLogin();
+    void OnDelLogin();
+
+    void DownToChildrens(const QModelIndex _index, const Qt::CheckState _state);
+    QStandardItemModel* tableModel;
+    tEditLoginPass *login_pass;
+    QModelIndex admin_logins_index;
+    void TreesBuildings(const QString &_login);
+    void UpToParent(const QModelIndex _index, const Qt::CheckState _state);
+    void OnNewLogin();
+
+
 
 
 private slots:
@@ -99,6 +121,50 @@ private slots:
     void on_pbDisconnect_clicked();
     void OnDisconnect();
 
+    void Visible(QString& user_login, QString& message);
+//    void OnContinueStart();
+
+    void on_rbSourseLoc_clicked();
+
+    void on_rbSourceServ_clicked();
+
+    void on_rbSourseLoc_2_clicked();
+
+    void on_rbSourceServ_2_clicked();
+
+    void on_tbFirstPreview_clicked();
+
+    void on_tbPriorPreview_clicked();
+
+    void on_tbNextPreview_clicked();
+
+    void on_tbLastPreview_clicked();
+
+    void on_tbFirstPreview_2_clicked();
+
+    void on_tbPriorPreview_2_clicked();
+
+    void on_tbNextPreview_2_clicked();
+
+    void on_tbLastPreview_2_clicked();
+
+    void on_pbLoadPreviews_clicked();
+
+    void on_pbLoadPreviews_2_clicked();
+
+    void on_lvLogins_clicked(const QModelIndex &_ind);
+
+    void on_pbVerPassword_clicked();
+
+    void on_tvAdminTree_clicked(const QModelIndex &_index);
+
+    void on_lvLogins_customContextMenuRequested(const QPoint &_pos);
+    void UpdateLogins();
+
+    void on_pbExit_clicked();
+
+    void OnEndEditLoginPassword(QString &_login, QString &_password, int _row, bool _new_user);
+
 public slots:
 //    void OnretEndUpdateServerModel(bool _rebuild);
 
@@ -111,6 +177,7 @@ signals:
     void ProgressStart(int _max, int x, int y, int w, int h);
     void ProgressStop();
     void RunGui(QByteArray& block);
+    void ErrorUserFolders(QString& user_login, QString& message, tExportMain *main);
 
 
 };

@@ -164,6 +164,11 @@ bool MainModule::VerifyUserFolders()
 
 }
 //----------------------------------------------------------
+bool MainModule::VerifyUserFolders(QString& _login, QString& _pr_folder, QString& _temp_folder, QString& _message)
+{
+    return db_op->VerifyUserFolders(_login, _pr_folder, _temp_folder, _message);
+}
+//----------------------------------------------------------
 void MainModule::OnContinueStart()
 {
     db_op->SaveFoldersToSettings(user_login);
@@ -171,9 +176,10 @@ void MainModule::OnContinueStart()
     //Это все можно сделать из главной формы по окончании старта
 //    ui->leRoot->setText(my_settings.GetRoot());
 //    ui->leTemp->setText(my_settings.GetTemp());
-    bool is_admin_user=false;
-    bool is_writable_user=false;
-    db_op->GetPermissionsUser(user_login, is_admin_user, is_writable_user);
+
+//    bool is_admin_user=false;
+//    bool is_writable_user=false;
+//    db_op->GetPermissionsUser(user_login, is_admin_user, is_writable_user);
 
     //Это можно сделать по окончании старта, проверить переменные и все сделать в главной форме
 //    if(!is_admin_user)
@@ -552,4 +558,131 @@ void MainModule::GetFolderParameters(const QString& login, QString& roor_folder,
 {
     db_op->VerifyUserFolders(login, roor_folder, temp_folder, mess);
     qDebug() << "MainModule::GetFolderParameters" << roor_folder << temp_folder << mess;
+}
+//----------------------------------------------------------
+void MainModule::SaveFoldersToLoginsTable(const QString &_login, const QString &_pr_folder, const QString &_temp_folder)
+{
+    db_op->SaveFoldersToLoginsTable(_login, _pr_folder, _temp_folder);
+}
+//----------------------------------------------------------
+void MainModule::SaveFoldersToSettings(const QString& _user_login)
+{
+    db_op->SaveFoldersToSettings(_user_login);
+}
+//----------------------------------------------------------
+void MainModule::GetPermissionsUser(const QString& _login, bool& _is_admin_user, bool& _is_writable_user)
+{
+    db_op->GetPermissionsUser(_login, _is_admin_user, _is_writable_user);
+}
+//----------------------------------------------------------
+void MainModule::RefreshModelsFiles()
+{
+    db_op->RefreshModelsFiles();
+}
+//----------------------------------------------------------
+bool MainModule::removeFolder(const QDir & _dir, const bool _del_dir)
+{
+    bool res = false;
+    //Получаем список каталогов
+    QStringList lst_dirs = _dir.entryList(QDir::Dirs |
+                                          QDir::AllDirs |
+                                          QDir::NoDotAndDotDot | QDir::Hidden);
+    //Получаем список файлов
+    QStringList lst_files = _dir.entryList(QDir::Files | QDir::Hidden);
+
+    //Удаляем файлы
+    foreach (QString entry, lst_files)
+    {
+        QString entry_abs_path = _dir.absolutePath() + "/" + entry;
+        QFile::setPermissions(entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
+        QFile::remove(entry_abs_path);
+    }
+
+    //Для папок делаем рекурсивный вызов
+    foreach (QString entry, lst_dirs)
+    {
+        QString entry_abs_path = _dir.absolutePath() + "/" + entry;
+        QDir dr(entry_abs_path);
+        removeFolder(dr, true);
+    }
+
+    //Удаляем обрабатываемую папку
+    if(_del_dir)
+    {
+        SetFileAttributes((LPCWSTR)(_dir.path()).data(), !FILE_ATTRIBUTE_HIDDEN);
+        QFile::setPermissions(_dir.absolutePath(), QFile::ReadOwner | QFile::WriteOwner);
+        if (!QDir().rmdir(_dir.absolutePath()))
+        {
+            res = true;
+        }
+        else
+        {
+            res=false;
+        }
+    }
+    else
+    {
+        res = true;
+    }
+    return res;
+}
+//----------------------------------------------------------
+void MainModule::SendDeleteLogin(int _num)
+{
+    mod_conv->SendDeleteLogin(_num);
+}
+//----------------------------------------------------------
+void MainModule::SaveLoginWritable(const QStandardItemModel *_model, const int _row)
+{
+    mod_conv->SaveLoginWritable(_model, _row);
+}
+//----------------------------------------------------------
+void MainModule::GetLoginsModel(QStandardItemModel *model)
+{
+    db_op->GetLoginsModel(model);
+}
+//----------------------------------------------------------
+bool MainModule::VerPassword(const QString &login, const QString &_pass)
+{
+    return db_op->VerPassword(login, _pass);
+}
+//----------------------------------------------------------
+void MainModule::SavePermissionsToServer(const qlonglong _num_login)
+{
+    mod_conv->SavePermissionsToServer(_num_login);
+}
+//----------------------------------------------------------
+qlonglong MainModule::GetNumLogin(const int _row) const
+{
+    return db_op->GetNumLogin(_row);
+}
+//----------------------------------------------------------
+qlonglong MainModule::GetNumLogin(const QString &_login) const
+{
+    return db_op->GetNumLogin(_login);
+}
+//----------------------------------------------------------
+void MainModule::SaveReadPermission(const QString &_login, const qlonglong _mod_num, const bool _state)
+{
+    db_op->SaveReadPermission(_login, _mod_num, _state);
+}
+//----------------------------------------------------------
+void MainModule::ResetFoundModelAdmin()
+{
+    db_op->ResetFoundModelAdmin();
+}
+//----------------------------------------------------------
+bool MainModule::NextModelAdmin() const
+{
+    return db_op->NextModelAdmin();
+}
+//----------------------------------------------------------
+QStringList MainModule::NextStructListModelAdmin(const QString &_login, bool &_read, qlonglong &_server_num) const
+{
+    return db_op->NextStructListModelAdmin(_login, _read, _server_num);
+}
+//----------------------------------------------------------
+void MainModule::SendLoginPassword(const QString &_login, const QString &_password, const int _row, const bool _new_user)
+{
+    mod_conv->SendLoginPassword(_login, _password, _row, _new_user);
 }

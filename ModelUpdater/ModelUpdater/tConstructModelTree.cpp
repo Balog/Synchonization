@@ -1,32 +1,32 @@
 #include "tConstructModelTree.h"
 
-tConstructModelTree::tConstructModelTree():db_op(NULL), table_name("")
-{
-}
+//tConstructModelTree::tConstructModelTree():main(NULL), table_name("")
+//{
+//}
 //--------------------------------------------------------------------
 tConstructModelTree::~tConstructModelTree()
 {
-    db_op->ResetFoundModelAdmin();
+    main->ResetFoundModelAdmin();
 }
 //--------------------------------------------------------------------
-tConstructModelTree::tConstructModelTree(tDatabaseOp *_db_op, const QString &_login)
+tConstructModelTree::tConstructModelTree(tExportMain *_main, const QString &_login)
 {
 //    table_name=_table;
     login=_login;
-    db_op=_db_op;
+    main=_main;
 
-    db_op->ResetFoundModelAdmin();
+    main->ResetFoundModelAdmin();
 }
 //--------------------------------------------------------------------
 bool tConstructModelTree::NextModelAdmin()
 {
 //    bool ret=false;
-    return db_op->NextModelAdmin();
+    return main->NextModelAdmin();
 }
 //--------------------------------------------------------------------
 QStringList tConstructModelTree::ListAdmin(bool &_read, qlonglong& _server_num)
 {
-    return db_op->NextStructListModelAdmin(login, _read, _server_num);
+    return main->NextStructListModelAdmin(login, _read, _server_num);
 
 }
 //--------------------------------------------------------------------

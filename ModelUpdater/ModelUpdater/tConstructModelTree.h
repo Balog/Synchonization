@@ -2,22 +2,22 @@
 #define TCONSTRUCTMODELTREE_H
 #include <QObject>
 #include <QStringList>
-#include "tDatabaseOp.h"
+#include "tExportMain.h"
 
-class tConstructModelTree
+class Q_DECL_EXPORT tConstructModelTree
 {
 public:
-    tConstructModelTree(tDatabaseOp *_db_op, const QString& _login);
+    tConstructModelTree(tExportMain *_main, const QString& _login);
     ~tConstructModelTree();
     bool NextModelAdmin();
     QStringList ListAdmin(bool &_read, qlonglong &_server_num);
 
 private:
-    tConstructModelTree();
+//    tConstructModelTree();
 
     QString table_name;
     QString login;
-    tDatabaseOp *db_op;
+    tExportMain *main;
 };
 
 #endif // TCONSTRUCTMODELTREE_H

@@ -4,11 +4,18 @@
 #include <QMenu>
 #include <QFileDialog>
 
+Qt::ItemFlags TableModel::flags ( const QModelIndex & index ) const
+{
+    Qt::ItemFlags result = QStandardItemModel::flags(index);
+    if (index.column()==0) result |= Qt::ItemIsUserCheckable;
+    return result;
+}
+//******************************************************************************************
 MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm), QDialog(parent,Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint),
     main(new tExportMain), zast( new Zast), autoriz(new Autoriz), form_new_path(new tNewPath),
     read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel()), adm_tree_model(new QStandardItemModel()),
-    table_files_model(NULL), previews(NULL), fProgress(new tProgress)
+    table_files_model(NULL), previews(NULL), fProgress(new tProgress), tableModel (new TableModel()), login_pass(new tEditLoginPass)
 {
 
     ui->setupUi(this);
@@ -30,11 +37,19 @@ MainForm::MainForm(QWidget *parent) :
 //    connect(main, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
     connect(main, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
     connect(main, SIGNAL(Disconnect()), this, SLOT(OnDisconnect()));
-    connect(main, SIGNAL(ErrorUserFolders(QString&, QString&)), form_new_path, SLOT(Visible(QString&, QString&)));
-
+    connect(main, SIGNAL(ErrorUserFolders(QString&, QString&)), this, SLOT(Visible(QString&, QString&)));
+    connect(this, SIGNAL(ErrorUserFolders(QString&, QString&,tExportMain*)), form_new_path, SLOT(Visible(QString&, QString&,tExportMain*)));
+    connect(form_new_path, SIGNAL(ContinueStrat()), this, SLOT(OnContinueStart()));
+    connect(main, SIGNAL(Update_Logins()), this, SLOT(UpdateLogins()));
+    connect(login_pass, SIGNAL(EndEditing(QString&,QString&,int,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,int,bool)));
 
     ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->tvWrite->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->lvLogins->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    ui->tabWidget->setCurrentIndex(0);
+    ui->tabWidget_2->setCurrentIndex(0);
+    ui->tabWidget_3->setCurrentIndex(0);
 
     emit ZastVisible(true);
 }
@@ -84,7 +99,7 @@ void MainForm::OnEndUpdatingFromServer(QList<CompareTableRec> _list_compare,bool
     ui->leAddr->setText(addr);
     ui->sbPort->setValue(port);
 
-    this->setVisible(true);
+
     ConstructTree(Read, _list_compare);
     ConstructTree(Write, _list_compare);
     if(_rebuild)
@@ -92,6 +107,35 @@ void MainForm::OnEndUpdatingFromServer(QList<CompareTableRec> _list_compare,bool
 
         RecoveryTreeIndex();
     }
+
+    ui->leRoot->setText(main->GetRoot());
+    ui->leTemp->setText(main->GetTemp());
+
+    bool is_admin_user=false;
+    bool is_writable_user=false;
+    main->GetPermissionsUser(user_login, is_admin_user, is_writable_user);
+
+
+    if(!is_admin_user)
+    {
+        ui->tabWidget->setTabEnabled(2, false);
+    }
+    else
+    {
+        ui->tabWidget->setTabEnabled(2, true);
+    }
+
+    if(!is_writable_user)
+    {
+        ui->tabWidget->setTabEnabled(1, false);
+    }
+    else
+    {
+        ui->tabWidget->setTabEnabled(1, true);
+    }
+    ui->tabWidget->setCurrentIndex(0);
+
+    this->setVisible(true);
 }
 //---------------------------------------------------------------------
 void MainForm::ConstructTree(const tTreeMod _tree_mod, QList<CompareTableRec> _comp_table)
@@ -1820,3 +1864,622 @@ void MainForm::OnDisconnect()
     ui->sbPort->setReadOnly(false);
 }
 //---------------------------------------------------------------------
+void MainForm::Visible(QString& user_login, QString& message)
+{
+    emit ErrorUserFolders(user_login, message, main);
+}
+//---------------------------------------------------------------------
+//void MainForm::OnContinueStart()
+//{
+//    main->SaveFoldersToSettings(user_login);
+//    ui->leRoot->setText(main->GetRoot());
+//    ui->leTemp->setText(main->GetTemp());
+//    bool is_admin_user=false;
+//    bool is_writable_user=false;
+//    main->GetPermissionsUser(user_login, is_admin_user, is_writable_user);
+
+//    if(!is_admin_user)
+//    {
+//        ui->tabWidget->setTabEnabled(2, false);
+//    }
+//    else
+//    {
+//        ui->tabWidget->setTabEnabled(2, true);
+//    }
+
+//    if(!is_writable_user)
+//    {
+//        ui->tabWidget->setTabEnabled(1, false);
+//    }
+//    else
+//    {
+//        ui->tabWidget->setTabEnabled(1, true);
+//    }
+//    ui->tabWidget->setCurrentIndex(0);
+
+//    main->RefreshModelsFiles();
+
+//    main->OnListFilesLocal();
+//    OnListFiles();
+//}
+//---------------------------------------------------------------------
+void MainForm::on_rbSourseLoc_clicked()
+{
+    ui->rbSourseLoc_2->setChecked(ui->rbSourseLoc->isChecked());
+    ui->pbLoadPreviews->setEnabled(false);
+    ui->pbLoadPreviews_2->setEnabled(false);
+
+    DisplayInfo(_current_local_num, _current_server_num);
+}
+//---------------------------------------------------------------------
+void MainForm::on_rbSourceServ_clicked()
+{
+    ui->rbSourceServ_2->setChecked(ui->rbSourceServ->isChecked());
+    if(_current_local_num>0 || _current_server_num>0)
+    {
+        ui->pbLoadPreviews->setEnabled(true);
+        ui->pbLoadPreviews_2->setEnabled(true);
+
+        DisplayInfo(_current_local_num, _current_server_num);
+    }
+}
+//---------------------------------------------------------------------
+void MainForm::on_rbSourseLoc_2_clicked()
+{
+    ui->rbSourseLoc->setChecked(ui->rbSourseLoc_2->isChecked());
+    on_rbSourseLoc_clicked();
+}
+//---------------------------------------------------------------------
+void MainForm::on_rbSourceServ_2_clicked()
+{
+    ui->rbSourceServ->setChecked(ui->rbSourceServ_2->isChecked());
+    on_rbSourceServ_clicked();
+}
+//---------------------------------------------------------------------
+void MainForm::on_tbFirstPreview_clicked()
+{
+    num_preview=0;
+    ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    DisplayPreview(previews);
+}
+//---------------------------------------------------------------------
+void MainForm::on_tbPriorPreview_clicked()
+{
+    num_preview--;
+    if(num_preview<0)
+    {
+        num_preview=0;
+    }
+    ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    DisplayPreview(previews);
+}
+//---------------------------------------------------------------------
+void MainForm::on_tbNextPreview_clicked()
+{
+    num_preview++;
+    if(num_preview>previews.size()-1)
+    {
+        num_preview=previews.size()-1;
+    }
+    ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    DisplayPreview(previews);
+}
+//---------------------------------------------------------------------
+void MainForm::on_tbLastPreview_clicked()
+{
+    num_preview=previews.size()-1;
+    ui->leNumPreview->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    ui->leNumPreview_2->setText(QString::number(num_preview+1)+" из "+QString::number(previews.size()));
+    DisplayPreview(previews);
+}
+//---------------------------------------------------------------------
+void MainForm::on_tbFirstPreview_2_clicked()
+{
+    on_tbFirstPreview_clicked();
+}
+//---------------------------------------------------------------------
+void MainForm::on_tbPriorPreview_2_clicked()
+{
+    on_tbPriorPreview_clicked();
+}
+//---------------------------------------------------------------------
+void MainForm::on_tbNextPreview_2_clicked()
+{
+    on_tbNextPreview_clicked();
+}
+//---------------------------------------------------------------------
+void MainForm::on_tbLastPreview_2_clicked()
+{
+    on_tbLastPreview_clicked();
+}
+//---------------------------------------------------------------------
+void MainForm::on_pbLoadPreviews_clicked()
+{
+    //Загрузка превью с сервера
+
+    if(_current_local_num>0 || _current_server_num>0)
+    {
+        QString prev_path=main->GetTemp()+"Previews/"+QString::number(_current_server_num)+"/";
+        QDir dir;
+        dir.setPath(prev_path);
+        main->removeFolder(dir, true);
+
+        StartReadModeles(prev_path, _current_server_num, true);
+    }
+}
+//---------------------------------------------------------------------
+void MainForm::on_pbLoadPreviews_2_clicked()
+{
+    on_pbLoadPreviews_clicked();
+}
+//---------------------------------------------------------------------
+void MainForm::OnEditLogin()
+{
+    QModelIndex MI=ui->lvLogins->currentIndex();
+    int N=MI.row();
+    if(N>=0)
+    {
+        QString S=tableModel->data(MI, Qt::EditRole).toString();
+
+        login_pass->setModal(true);
+        login_pass->setVisible(true);
+        login_pass->SetLogin(S);
+        login_pass->new_user=false;
+        login_pass->row=N;
+
+//        mi=ui->lvLogins->selectionModel()->currentIndex();
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Выделите редактируемый логин"));
+        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+        MB.exec();
+    }
+}
+//----------------------------------------------------------
+void MainForm::OnDelLogin()
+{
+    QModelIndex MI=ui->lvLogins->currentIndex();
+    int N=MI.row();
+    if(N>=0)
+    {
+        main->SendDeleteLogin(N);
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Выделите удаляемый логин"));
+        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+        MB.exec();
+    }
+}
+//----------------------------------------------------------
+void MainForm::on_lvLogins_clicked(const QModelIndex &_ind)
+{
+    int N=_ind.row();
+    if(N>=0)
+    {
+        ui->pbEditUser->setEnabled(true);
+        ui->pbDelUser->setEnabled(true);
+    }
+    else
+    {
+        ui->pbEditUser->setEnabled(false);
+        ui->pbDelUser->setEnabled(false);
+    }
+    admin_logins_index=_ind;
+    QModelIndex MI=ui->lvLogins->currentIndex();
+    QString S=tableModel->data(MI, Qt::EditRole).toString();
+
+    TreesBuildings(S);
+
+    main->SaveLoginWritable(tableModel,N);
+}
+//----------------------------------------------------------
+void MainForm::UpdateLogins()
+{
+    main->GetLoginsModel(tableModel);
+
+    ui->lvLogins->setModel(tableModel);
+}
+//----------------------------------------------------------
+void MainForm::on_pbVerPassword_clicked()
+{
+    if(main->VerPassword(ui->lvLogins->currentIndex().data().toString(), ui->le_ver_pass->text()))
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Пароль указан верно"));
+        MB.setWindowTitle(QString::fromUtf8("Проверка пароля"));
+        MB.exec();
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Пароль указан неверно"));
+        MB.setWindowTitle(QString::fromUtf8("Проверка пароля"));
+        MB.exec();
+    }
+}
+//----------------------------------------------------------
+void MainForm::on_tvAdminTree_clicked(const QModelIndex &_index)
+{
+    //Для модификации отметок нужно проделать две операции:
+    //1. Вверх по предкам
+    //1.1. От предка пройти по всем его потомкам (в том числе и текущей ветви) и проверить их состояние
+    //     Если однозначное то такое же выставить предку, если неоднозначное поставить неопределенное.
+    //     Определенное и неопределенное в сумме дает неопределенное
+    //1.2. Перейти к предку предка и повторять операцию до самого корня
+
+    //2. Вниз по потомкам
+    //2.1. если текущая ветвь выставлена в истину то выставить всех потомков в истину
+    //     если текущая ветвь выставлена в ложь то всех потомков выставить в ложь
+
+    //В конце нужно будет сохранить состояние в таблице и синхронизировать на сервер
+
+
+    UpToParent(_index, adm_tree_model->itemFromIndex(_index)->checkState());
+    DownToChildrens(_index, adm_tree_model->itemFromIndex(_index)->checkState());
+
+    QModelIndex MI=ui->lvLogins->currentIndex();
+    QString S=tableModel->data(MI, Qt::EditRole).toString();
+    main->SavePermissionsToServer(main->GetNumLogin(S));
+}
+//----------------------------------------------------------
+void MainForm::DownToChildrens(const QModelIndex _index, const Qt::CheckState _state)
+{
+    QStandardItem *item=adm_tree_model->itemFromIndex(_index);
+
+    qlonglong s_num=item->data().toLongLong();
+    if(s_num>0)
+    {
+        //это модель и s_num ее серверный номер
+        //обновить таблицу ModelRead
+        bool state=false;
+        if(_state==Qt::Checked)
+        {
+            state=true;
+        }
+
+        QModelIndex MI=ui->lvLogins->currentIndex();
+        QString S=tableModel->data(MI, Qt::EditRole).toString();
+        main->SaveReadPermission(S, s_num, state);
+    }
+
+    int child_count=item->rowCount();
+    if(child_count==0)
+    {
+        return;
+    }
+    else
+    {
+        for(int i=0; i<child_count; i++)
+        {
+            QStandardItem *children=item->child(i);
+            children->setCheckState(_state);
+            QModelIndex child_index=children->index();
+
+
+            DownToChildrens(child_index, _state);
+        }
+    }
+}
+//----------------------------------------------------------
+void MainForm::on_lvLogins_customContextMenuRequested(const QPoint &_pos)
+{
+    QPoint global_pos;
+    if(sender()->inherits("QAbstractScrollArea"))
+    {
+        global_pos=((QAbstractScrollArea*)sender())->viewport()->mapToGlobal(_pos);
+    }
+    else
+    {
+
+            global_pos=ui->lvLogins->mapToGlobal(_pos);
+
+    }
+
+    QModelIndex click_index;
+    click_index=ui->lvLogins->indexAt(_pos);
+
+        QMenu menu;
+
+
+
+    QAction *action1=new QAction(QString::fromUtf8("Добавить пользователя"), this);
+    action1->setData(1);
+    menu.addAction(action1);
+
+    if(click_index!=QModelIndex())
+    {
+    QAction *action2=new QAction(QString::fromUtf8("Отредактировать пользователя"), this);
+    action2->setData(2);
+    menu.addAction(action2);
+
+    QAction *action3=new QAction(QString::fromUtf8("Удалить пользователя"), this);
+    action3->setData(3);
+    menu.addAction(action3);
+    }
+    QAction* selectedItem=menu.exec(global_pos);
+
+    if(selectedItem)
+    {
+        int menu_id=selectedItem->data().toInt();
+
+        switch(menu_id)
+        {
+        case 1:
+        {
+            OnNewLogin();
+            break;
+        }
+        case 2:
+        {
+            OnEditLogin();
+            break;
+        }
+        case 3:
+        {
+            OnDelLogin();
+            break;
+        }
+        }
+    }
+
+}
+//----------------------------------------------------------
+void MainForm::TreesBuildings(const QString& _login)
+{
+    //Постороение деревьев моделей
+    tLog log;
+    log.Write(tr("Постороение деревьев моделей"));
+
+    adm_tree_model->clear();
+    tConstructModelTree *constr_mod_tree=new tConstructModelTree(main,  _login);
+
+
+    while(constr_mod_tree->NextModelAdmin())
+    {
+        bool read=false;
+        qlonglong server_num_model=-1;
+
+        QStringList list_model=constr_mod_tree->ListAdmin(read, server_num_model);
+
+        //добавить модель к дереву
+
+        //получить корень дерева
+
+        QStandardItem *item=adm_tree_model->invisibleRootItem();
+        item->setCheckable(true);
+
+        for(int i=0; i<list_model.size(); i++)
+        {
+            QString txt=item->text();
+
+            //ветви уже есть
+            //проверить всех потомков текущей ветви
+            //если есть совпадение то перейти к этому потомку
+            //если нет - создать нового потомка
+            bool find=false;
+            int row_count=item->rowCount();
+            for(int j=0; j<row_count; j++)
+            {
+                QString ch_text=item->child(j)->text();
+                QString mod_text=list_model[i];
+
+                if(ch_text==mod_text)
+                {
+                    Qt::CheckState st=item->child(j)->checkState();
+
+                    switch (st)
+                    {
+                    case Qt::Checked:
+                    {
+                        if(!read)
+                        {
+                            item->child(j)->setCheckState(Qt::PartiallyChecked);
+                        }
+                        else
+                        {
+                            item->child(j)->setCheckState(Qt::Checked);
+                        }
+                        break;
+                    }
+                    case Qt::Unchecked:
+                    {
+                        if(read)
+                        {
+                            item->child(j)->setCheckState(Qt::PartiallyChecked);
+                        }
+                        else
+                        {
+                            item->child(j)->setCheckState(Qt::Unchecked);
+                        }
+                        break;
+                    }
+                    case Qt::PartiallyChecked:
+                    {
+                        break;
+                    }
+                    }
+
+                    item=item->child(j);
+                    QString t=item->text();
+                    find=true;
+                    break;
+                }
+            }
+            if(!find)
+            {
+                QStandardItem *new_item=new QStandardItem(list_model[i]);
+                QFont font;
+                if(i==list_model.size()-1)
+                {
+                    new_item->setData(server_num_model);
+                    font.setBold(true);
+                }
+                else
+                {
+                    new_item->setData(-1);
+                    font.setBold(false);
+                }
+                new_item->setFont(font);
+                new_item->setCheckable(true);
+                new_item->setTristate(true);
+                if(read)
+                {
+                    new_item->setCheckState(Qt::Checked);
+                }
+                else
+                {
+                    new_item->setCheckState(Qt::Unchecked);
+                }
+                new_item->setEditable(false);
+                new_item->setSelectable(true);
+                item->appendRow(new_item);
+
+
+                Qt::CheckState new_check;
+                if(item->checkState()==Qt::PartiallyChecked)
+                {
+                    if(read)
+                    {
+                        new_check=Qt::Unchecked;
+                    }
+                    else
+                    {
+                        new_check=Qt::Checked;
+                    }
+
+                    UpToParent(new_item->index(), new_check);
+                }
+                item=new_item;
+            }
+        }
+    }
+
+    ui->tvAdminTree->setModel(adm_tree_model);
+    ui->tvAdminTree->setHeaderHidden(true);
+    ui->tvAdminTree->expandAll();
+    ui->tvAdminTree->setRootIsDecorated(true);
+    ui->tvAdminTree->setAnimated(true);
+    delete constr_mod_tree;
+    constr_mod_tree=NULL;
+}
+//----------------------------------------------------------
+
+void MainForm::UpToParent(const QModelIndex _index, const Qt::CheckState _state)
+{
+
+    //определим предка
+    const QModelIndex parent_index=adm_tree_model->parent(_index);
+    QStandardItem *parent_item=adm_tree_model->itemFromIndex(parent_index);
+    if(!parent_item)
+    {
+        return;
+    }
+    else
+    {
+
+
+        int child_count=parent_item->rowCount();
+        Qt::CheckState state=_state;
+        if(child_count>1)
+        {
+            for(int i=0; i<child_count;i++)
+            {
+                QStandardItem *child_item=parent_item->child(i);
+                switch (child_item->checkState())
+                {
+                case Qt::Checked:
+                {
+                    if(state!=Qt::Checked)
+                    {
+                        state=Qt::PartiallyChecked;
+                    }
+                    break;
+                }
+                case Qt::Unchecked:
+                {
+                    if(state!=Qt::Unchecked)
+                    {
+                        state=Qt::PartiallyChecked;
+                    }
+                    break;
+                }
+                case Qt::PartiallyChecked:
+                {
+                    state=Qt::PartiallyChecked;
+                    break;
+                }
+                }
+                if(state==Qt::PartiallyChecked)
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            qlonglong s_num=parent_item->data().toLongLong();
+            if(s_num>0)
+            {
+                state=Qt::Checked;
+
+            }
+        }
+        //установим полученый state предку
+        parent_item->setCheckState(state);
+
+        UpToParent(parent_index, state);
+    }
+}
+//----------------------------------------------------------
+void MainForm::OnNewLogin()
+{
+    login_pass->setModal(true);
+    login_pass->setVisible(true);
+    login_pass->new_user=true;
+    login_pass->row=-1;
+    login_pass->SetLogin(QString(""));
+
+
+}
+//----------------------------------------------------------
+void MainForm::on_pbExit_clicked()
+{
+    this->close();
+}
+//----------------------------------------------------------
+void MainForm::OnEndEditLoginPassword(QString& _login,  QString& _password,  int _row,  bool _new_user)
+{
+    if(_login.length()>0 && _password.length()>0)
+    {
+        QRegExp exp;
+        exp.setPattern("^[a-zA-Z0-9]+$");
+
+        if(exp.indexIn(_login)>=0)
+        {
+            //Логин и пароль проверены на клиенте и отправляются на сервер для дальнейшей проверки в БД и регистрации
+
+            main->SendLoginPassword(_login, _password, _row, _new_user);
+        }
+        else
+        {
+            QMessageBox MB;
+            MB.setText(QString::fromUtf8("Логин содержит недопустимые символы"));
+            MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+            MB.exec();
+        }
+    }
+    else
+    {
+        QMessageBox MB;
+        MB.setText(QString::fromUtf8("Логин и пароль не могут быть пустыми"));
+        MB.setWindowTitle(QString::fromUtf8("Ошибка"));
+        MB.exec();
+    }
+}

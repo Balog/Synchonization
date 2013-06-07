@@ -14,6 +14,7 @@ tExportMain::tExportMain(QObject *parent) :
     connect(MModule, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
     connect(MModule, SIGNAL(DisconnectingFromServer()), this, SLOT(OnDisconnectingFromServer()));
     connect(MModule, SIGNAL(ErrorUserFolders(QString&,QString&)), this, SLOT(OnErrorUserFolders(QString&,QString&)));
+    connect(MModule, SIGNAL(Update_Logins()), this, SLOT(OnUpdate_Logins()));
 //    connect(MModule, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
 
 //    StartFindServer();
@@ -258,4 +259,99 @@ void tExportMain::GetFolderParameters(const QString& login, QString& roor_folder
 void tExportMain::OnErrorUserFolders(QString& _login,QString& _mess)
 {
     emit ErrorUserFolders(_login, _mess);
+}
+//----------------------------------------------------------
+bool tExportMain::VerifyUserFolders(QString& _login, QString& _pr_folder, QString& _temp_folder, QString& _message)
+{
+    return MModule->VerifyUserFolders(_login, _pr_folder, _temp_folder, _message);
+}
+//----------------------------------------------------------
+void tExportMain::SaveFoldersToLoginsTable(const QString& _login, const QString& _pr_folder, const QString& _temp_folder)
+{
+    MModule->SaveFoldersToLoginsTable(_login, _pr_folder, _temp_folder);
+}
+//----------------------------------------------------------
+void tExportMain::SaveFoldersToSettings(const QString& _user_login)
+{
+    MModule->SaveFoldersToSettings(_user_login);
+}
+//----------------------------------------------------------
+void tExportMain::GetPermissionsUser(const QString& _login, bool& _is_admin_user, bool& _is_writable_user)
+{
+    MModule->GetPermissionsUser(_login, _is_admin_user, _is_writable_user);
+}
+//----------------------------------------------------------
+void tExportMain::RefreshModelsFiles()
+{
+    MModule->RefreshModelsFiles();
+}
+//----------------------------------------------------------
+bool tExportMain::removeFolder(const QDir & _dir, const bool _del_dir)
+{
+    return MModule->removeFolder(_dir, _del_dir);
+}
+//----------------------------------------------------------
+void tExportMain::SendDeleteLogin(int _num)
+{
+    MModule->SendDeleteLogin(_num);
+}
+//----------------------------------------------------------
+void tExportMain::SaveLoginWritable(const QStandardItemModel *_model, const int _row)
+{
+    MModule->SaveLoginWritable(_model, _row);
+}
+//----------------------------------------------------------
+void tExportMain::GetLoginsModel(QStandardItemModel *model)
+{
+    MModule->GetLoginsModel(model);
+}
+//----------------------------------------------------------
+bool tExportMain::VerPassword(const QString &login, const QString &_pass)
+{
+    return MModule->VerPassword(login, _pass);
+}
+//----------------------------------------------------------
+qlonglong tExportMain::GetNumLogin(const int _row) const
+{
+    return MModule->GetNumLogin(_row);
+}
+//----------------------------------------------------------
+qlonglong tExportMain::GetNumLogin(const QString &_login) const
+{
+    return MModule->GetNumLogin(_login);
+}
+//----------------------------------------------------------
+void tExportMain::SaveReadPermission(const QString &_login, const qlonglong _mod_num, const bool _state)
+{
+    MModule->SaveReadPermission(_login, _mod_num, _state);
+}
+//----------------------------------------------------------
+void tExportMain::ResetFoundModelAdmin()
+{
+    MModule->ResetFoundModelAdmin();
+}
+//----------------------------------------------------------
+bool tExportMain::NextModelAdmin() const
+{
+    return MModule->NextModelAdmin();
+}
+//----------------------------------------------------------
+QStringList tExportMain::NextStructListModelAdmin(const QString &_login, bool &_read, qlonglong &_server_num) const
+{
+    return MModule->NextStructListModelAdmin(_login, _read, _server_num);
+}
+//----------------------------------------------------------
+void tExportMain::SavePermissionsToServer(const qlonglong _num_login)
+{
+    MModule->SavePermissionsToServer(_num_login);
+}
+//----------------------------------------------------------
+void tExportMain::OnUpdate_Logins()
+{
+    emit Update_Logins();
+}
+//----------------------------------------------------------
+void tExportMain::SendLoginPassword(const QString &_login, const QString &_password, const int _row, const bool _new_user)
+{
+    MModule->SendLoginPassword(_login, _password, _row, _new_user);
 }
