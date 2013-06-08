@@ -27,6 +27,10 @@ private:
     QTimer* timer;
     QTimer* timer1;
 
+    QString login;//login_pass->GetLogin();
+    QString password;//login_pass->GetPassword();
+    bool new_user;//login_pass->new_user;
+
 
 public:
     MainModule(QObject *parent = 0);

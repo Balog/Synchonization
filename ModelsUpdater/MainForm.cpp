@@ -15,7 +15,8 @@ MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm), QDialog(parent,Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint),
     main(new tExportMain), zast( new Zast), autoriz(new Autoriz), form_new_path(new tNewPath),
     read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel()), adm_tree_model(new QStandardItemModel()),
-    table_files_model(NULL), previews(NULL), fProgress(new tProgress), tableModel (new TableModel()), login_pass(new tEditLoginPass)
+    table_files_model(NULL), previews(NULL), fProgress(new tProgress), tableModel (new TableModel()), login_pass(new tEditLoginPass),
+    sel_log_row(0)
 {
 
     ui->setupUi(this);
@@ -35,14 +36,16 @@ MainForm::MainForm(QWidget *parent) :
     connect(this, SIGNAL(ProgressStop()), fProgress, SLOT(Stop()));
     connect(main, SIGNAL(EndTransactions()), this, SLOT(EndTransactions()));
 //    connect(main, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
-    connect(main, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
+//    connect(main, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
     connect(main, SIGNAL(Disconnect()), this, SLOT(OnDisconnect()));
     connect(main, SIGNAL(ErrorUserFolders(QString&, QString&)), this, SLOT(Visible(QString&, QString&)));
     connect(this, SIGNAL(ErrorUserFolders(QString&, QString&,tExportMain*)), form_new_path, SLOT(Visible(QString&, QString&,tExportMain*)));
-    connect(form_new_path, SIGNAL(ContinueStrat()), this, SLOT(OnContinueStart()));
+    connect(form_new_path, SIGNAL(ContinueStart()), this, SLOT(OnContinueStart()));
     connect(main, SIGNAL(Update_Logins()), this, SLOT(UpdateLogins()));
     connect(login_pass, SIGNAL(EndEditing(QString&,QString&,int,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,int,bool)));
-
+//SIGNAL(ShowEditLogin())
+    connect(main, SIGNAL(ShowEditLogin(bool,bool)), login_pass, SLOT(OnShowEditLogin(bool, bool)));
+    connect(main, SIGNAL(Update_Logins()),this, SLOT(OnUpdateLogin()));
     ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->tvWrite->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->lvLogins->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -133,7 +136,7 @@ void MainForm::OnEndUpdatingFromServer(QList<CompareTableRec> _list_compare,bool
     {
         ui->tabWidget->setTabEnabled(1, true);
     }
-    ui->tabWidget->setCurrentIndex(0);
+//    ui->tabWidget->setCurrentIndex(0);
 
     this->setVisible(true);
 }
@@ -2060,8 +2063,8 @@ void MainForm::OnDelLogin()
 //----------------------------------------------------------
 void MainForm::on_lvLogins_clicked(const QModelIndex &_ind)
 {
-    int N=_ind.row();
-    if(N>=0)
+    sel_log_row=_ind.row();
+    if(sel_log_row>=0)
     {
         ui->pbEditUser->setEnabled(true);
         ui->pbDelUser->setEnabled(true);
@@ -2071,13 +2074,13 @@ void MainForm::on_lvLogins_clicked(const QModelIndex &_ind)
         ui->pbEditUser->setEnabled(false);
         ui->pbDelUser->setEnabled(false);
     }
-    admin_logins_index=_ind;
+//    admin_logins_index=_ind;
     QModelIndex MI=ui->lvLogins->currentIndex();
     QString S=tableModel->data(MI, Qt::EditRole).toString();
 
     TreesBuildings(S);
 
-    main->SaveLoginWritable(tableModel,N);
+    main->SaveLoginWritable(tableModel,sel_log_row);
 }
 //----------------------------------------------------------
 void MainForm::UpdateLogins()
@@ -2482,4 +2485,71 @@ void MainForm::OnEndEditLoginPassword(QString& _login,  QString& _password,  int
         MB.setWindowTitle(QString::fromUtf8("Ошибка"));
         MB.exec();
     }
+}
+//----------------------------------------------------------
+void MainForm::OnUpdateLogin()
+{
+    main->GetLoginsModel(tableModel);
+    ui->lvLogins->setModel(tableModel);
+    int row_count=tableModel->rowCount(QModelIndex());
+    if(sel_log_row>=row_count)
+    {
+        sel_log_row=tableModel->rowCount(QModelIndex())-1;
+    }
+    QModelIndex ind=tableModel->index(sel_log_row,0);
+    ui->lvLogins->setCurrentIndex(ind);
+
+//    QModelIndex MI=ui->lvLogins->currentIndex();
+    QString S=tableModel->data(ind, Qt::EditRole).toString();
+
+    TreesBuildings(S);
+}
+//----------------------------------------------------------
+void MainForm::on_pbAddUser_clicked()
+{
+    OnNewLogin();
+}
+//----------------------------------------------------------
+void MainForm::on_pbEditUser_clicked()
+{
+    OnEditLogin();
+}
+//----------------------------------------------------------
+void MainForm::on_pbDelUser_clicked()
+{
+    OnDelLogin();
+}
+//----------------------------------------------------------
+void MainForm::OnContinueStart()
+{
+    main->SaveFoldersToSettings(user_login);
+    ui->leRoot->setText(main->GetRoot());
+    ui->leTemp->setText(main->GetTemp());
+    bool is_admin_user=false;
+    bool is_writable_user=false;
+    main->GetPermissionsUser(user_login, is_admin_user, is_writable_user);
+
+    if(!is_admin_user)
+    {
+        ui->tabWidget->setTabEnabled(2, false);
+    }
+    else
+    {
+        ui->tabWidget->setTabEnabled(2, true);
+    }
+
+    if(!is_writable_user)
+    {
+        ui->tabWidget->setTabEnabled(1, false);
+    }
+    else
+    {
+        ui->tabWidget->setTabEnabled(1, true);
+    }
+    ui->tabWidget->setCurrentIndex(0);
+
+    main->RefreshModelsFiles();
+
+    main->OnListFilesLocal();
+    OnListFiles();
 }

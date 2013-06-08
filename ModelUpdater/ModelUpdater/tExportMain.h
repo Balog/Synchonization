@@ -80,13 +80,14 @@ signals:
     void retEndUpdateServerModel(bool _rebuild);
     void Disconnect();
     void ErrorUserFolders(QString& user_login, QString& message);
+    void ShowEditLogin(bool Visible, bool Modal);
     void Update_Logins();
     
 public slots:
     void OnFindServer(bool ok);
     void OnSendAutorization(QString& _login, QString& _password, bool _mod_folder);
     void OnEndUpdatingFromServer(QList<CompareTableRec> _list_compare, bool _rebuild);
-    void OnUpdate_Logins();
+//    void OnUpdate_Logins();
 
 private slots:
     void OnStartAutorizForm();
@@ -95,6 +96,8 @@ private slots:
     void OnRebuildTrees(QList<CompareTableRec> _list);
     void OnDisconnectingFromServer();
     void OnErrorUserFolders(QString& _login,QString& _mess);
+    void OnShowEditLogin(bool Visible, bool Modal);
+    void OnUpdate_Logins();
 
 //    void OnretEndUpdateServerModel(bool _rebuild);
 

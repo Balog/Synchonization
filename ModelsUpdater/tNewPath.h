@@ -38,7 +38,7 @@ private:
         QString temp_folder;
 
 signals:
-        void ContinueStrat();
+        void ContinueStart();
 
 };
 

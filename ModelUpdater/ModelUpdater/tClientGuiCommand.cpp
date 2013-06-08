@@ -296,6 +296,7 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
         l="tClientGuiCommand \tGuiReportAutorization\tОтчет об авторизации. Авторизация принята ";
         log.Write(l);
 
+        qDebug() << " tGuiReportAutorization::ExeCommand Авторизация принята. продолжаем работу";
         //продолжить работу
 
         //сначала проверить наличие рабочей и временной папки в базе
@@ -307,9 +308,10 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
 
 
         bool ver=((MainModule*)link)->VerifyUserFolders();
+        qDebug() << "tGuiReportAutorization::ExeCommand" << "ver: " << ver;
         if(ver)
         {
-            //все в порядке, продолжаем запуск
+            qDebug() << "все в порядке, продолжаем запуск";
 
 
             ((MainModule*)link)->OnContinueStart();

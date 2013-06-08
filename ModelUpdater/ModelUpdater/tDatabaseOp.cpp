@@ -1813,6 +1813,7 @@ void tDatabaseOp::GetDeleteLocalModelFiles(const QString& _name_model, QStringLi
 //----------------------------------------------------------
 void tDatabaseOp::SaveLoginPassword(const QString &_login, const QString &_password, const bool _new_user, const qlonglong _s_num)
 {
+    qDebug() << "Login: " << _login << "Password: " << _password << "s_num" << _s_num;
     l="tDatabaseOp \tSaveLoginPassword\t Обработка логина "+_login.toUtf8();
     log.Write(l);
 
@@ -2254,8 +2255,11 @@ bool tDatabaseOp::VerifyUserFolders(const QString& _login,  QString &_project_fo
             log.Write(QString(QString("tDatabaseOp \t VerifyUserFolders \t ++ ОШИБКА ++ выборки папок логина номер ")+QString::number(num_login)+" "+db.lastError().text()));}
         sel_folders.next();
 
-        project_folder=sel_folders.value(0).toString();
-        temp_folder=sel_folders.value(1).toString();
+        _project_folder=sel_folders.value(0).toString();
+        _temp_folder=sel_folders.value(1).toString();
+        project_folder=_project_folder;
+        temp_folder=_temp_folder;
+
     }
     else
     {
@@ -2296,7 +2300,7 @@ bool tDatabaseOp::VerifyUserFolders(const QString& _login,  QString &_project_fo
                 //папки уникальны
                 //проверить не находятся ли эти папки внутри других папок или не содержат ли в себе другие папки
                 //но это потом, когда будет с чем сравнивать
-                if(project_folder.length()!=temp_folder.length())
+                if(project_folder!=temp_folder)
                 {
                     if(project_folder.length()>temp_folder.length())
                     {
@@ -3132,6 +3136,7 @@ void tDatabaseOp::GetLoginsModel(QStandardItemModel* _model)
     {
         QString login=get_logins.value(0).toString();
         int wr=get_logins.value(1).toInt();
+        qDebug() << "tDatabaseOp::GetLoginsModel" << login << wr;
 
         _model->insertRows(i, 1, QModelIndex());
         QModelIndex index0 = _model->index(i, 0, QModelIndex());

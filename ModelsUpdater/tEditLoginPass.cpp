@@ -47,3 +47,13 @@ void tEditLoginPass::ClearAll()
     ui->leLogin->setText("");
     ui->lePassword->setText("");
 }
+//-------------------------------------------------------------------------
+void tEditLoginPass::OnShowEditLogin(bool Visible, bool Modal)
+{
+    if(!Visible && !Modal)
+    {
+        ClearAll();
+    }
+    this->setVisible(Visible);
+    this->setModal(Modal);
+}

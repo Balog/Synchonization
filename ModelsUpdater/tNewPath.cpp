@@ -61,7 +61,7 @@ void tNewPath::on_pbOk_clicked()
         this->setVisible(false);
         ui->leProjectFolder->setText("");
         ui->leTempFolder->setText("");
-        emit ContinueStrat();
+        emit ContinueStart();
     }
 }
 //-------------------------------------------------------

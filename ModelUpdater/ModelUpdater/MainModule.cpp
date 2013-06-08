@@ -134,10 +134,11 @@ void MainModule::ViewError(const int _num_error, const QString& _error, const QS
 //---------------------------------------------------------
 void MainModule::UpdateLogins()
 {
-    emit Update_Logins();
+
 //    db_op->GetLoginsModel(tableModel);
 
 //    ui->lvLogins->setModel(tableModel);
+    emit Update_Logins();
 }
 //---------------------------------------------------------
 bool MainModule::VerifyUserFolders()
@@ -171,6 +172,7 @@ bool MainModule::VerifyUserFolders(QString& _login, QString& _pr_folder, QString
 //----------------------------------------------------------
 void MainModule::OnContinueStart()
 {
+    qDebug() << "Авторизация принята";
     db_op->SaveFoldersToSettings(user_login);
 
     //Это все можно сделать из главной формы по окончании старта
@@ -206,6 +208,7 @@ void MainModule::OnContinueStart()
     OnListFilesLocal();
     OnListFiles();
 
+    qDebug() << "запрос обновления моделей";
 }
 //----------------------------------------------------------
 void MainModule::CancelAllOperations()
@@ -318,9 +321,7 @@ void MainModule::BuildingTree(const QString& _user_login)
 void MainModule::RegisterUser(const qlonglong _s_num)
 {
     //Получше напишу позже, это пока не так важно
-    QString login="";//login_pass->GetLogin();
-    QString password="";//login_pass->GetPassword();
-    bool new_user=true;//login_pass->new_user;
+
     db_op->SaveLoginPassword(login, password, new_user, _s_num);
 
     //скрытие формы редактирования пользователя
@@ -329,7 +330,7 @@ void MainModule::RegisterUser(const qlonglong _s_num)
 //    login_pass->setVisible(false);
 //    login_pass->ClearAll();
 
-    UpdateLogins();
+UpdateLogins();
 }
 //----------------------------------------------------------
 void MainModule::DeleteUser(const qlonglong _s_num)
@@ -684,5 +685,8 @@ QStringList MainModule::NextStructListModelAdmin(const QString &_login, bool &_r
 //----------------------------------------------------------
 void MainModule::SendLoginPassword(const QString &_login, const QString &_password, const int _row, const bool _new_user)
 {
+    login=_login;
+    password=_password;
+    new_user=_new_user;
     mod_conv->SendLoginPassword(_login, _password, _row, _new_user);
 }

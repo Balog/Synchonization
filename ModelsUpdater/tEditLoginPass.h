@@ -31,6 +31,9 @@ private slots:
     void OnSave();
     void OnCancel();
 
+public slots:
+    void OnShowEditLogin(bool Visible, bool Modal);
+
 signals:
     void EndEditing(QString& _login, QString& _password, int row, bool new_user);
 };

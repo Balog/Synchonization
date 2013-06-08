@@ -12,12 +12,12 @@ tModelsConveyor::tModelsConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *p
 
     connect(conv, SIGNAL(EndCommands()), this, SLOT(EndConveyor()));
 
-    connect(_link, SIGNAL(NextCommand()), conv, SLOT(NextCommand()));
+//    connect(_link, SIGNAL(NextCommand()), conv, SLOT(NextCommand()));
     connect(this, SIGNAL(RunGui(QByteArray&)), conv, SLOT(OnRunGuiCommand(QByteArray&)));
     connect(conv, SIGNAL(Disconnect()), this, SLOT(OnDisconnect()));
-    connect(conv, SIGNAL(CloseMain()), _link, SLOT(close()));
+//    connect(conv, SIGNAL(CloseMain()), _link, SLOT(close()));
     connect(conv, SIGNAL(AutorizStart()), _link, SLOT(OnAutorizStart()));
-    connect(conv, SIGNAL(SetVisible(bool)),_link, SLOT(OnSetVisible(bool)));
+//    connect(conv, SIGNAL(SetVisible(bool)),_link, SLOT(OnSetVisible(bool)));
     connect(_link, SIGNAL(Disconnecting()), conv, SLOT(OnDisconnecting()));
     connect(conv, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));
     connect(this, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));

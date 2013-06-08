@@ -15,9 +15,8 @@ tExportMain::tExportMain(QObject *parent) :
     connect(MModule, SIGNAL(DisconnectingFromServer()), this, SLOT(OnDisconnectingFromServer()));
     connect(MModule, SIGNAL(ErrorUserFolders(QString&,QString&)), this, SLOT(OnErrorUserFolders(QString&,QString&)));
     connect(MModule, SIGNAL(Update_Logins()), this, SLOT(OnUpdate_Logins()));
-//    connect(MModule, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
+    connect(MModule, SIGNAL(ShowEditLogin(bool,bool)), this, SLOT(OnShowEditLogin(bool, bool)));
 
-//    StartFindServer();
 }
 //----------------------------------------------------------
 tExportMain::~tExportMain()
@@ -355,3 +354,10 @@ void tExportMain::SendLoginPassword(const QString &_login, const QString &_passw
 {
     MModule->SendLoginPassword(_login, _password, _row, _new_user);
 }
+//----------------------------------------------------------
+void tExportMain::OnShowEditLogin(bool Visible, bool Modal)
+{
+    emit ShowEditLogin(Visible, Modal);
+}
+//----------------------------------------------------------
+

@@ -85,10 +85,11 @@ private:
     void DownToChildrens(const QModelIndex _index, const Qt::CheckState _state);
     QStandardItemModel* tableModel;
     tEditLoginPass *login_pass;
-    QModelIndex admin_logins_index;
+//    QModelIndex admin_logins_index;
     void TreesBuildings(const QString &_login);
     void UpToParent(const QModelIndex _index, const Qt::CheckState _state);
     void OnNewLogin();
+    int sel_log_row;
 
 
 
@@ -164,6 +165,16 @@ private slots:
     void on_pbExit_clicked();
 
     void OnEndEditLoginPassword(QString &_login, QString &_password, int _row, bool _new_user);
+
+    void OnUpdateLogin();
+
+    void on_pbAddUser_clicked();
+
+    void on_pbEditUser_clicked();
+
+    void on_pbDelUser_clicked();
+
+    void OnContinueStart();
 
 public slots:
 //    void OnretEndUpdateServerModel(bool _rebuild);
