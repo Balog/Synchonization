@@ -270,7 +270,7 @@ public:
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
         lvLogins = new QListView(tab_3);
         lvLogins->setObjectName(QString::fromUtf8("lvLogins"));
-        lvLogins->setGeometry(QRect(10, 40, 271, 671));
+        lvLogins->setGeometry(QRect(10, 40, 271, 721));
         QFont font1;
         font1.setPointSize(11);
         lvLogins->setFont(font1);
@@ -285,18 +285,18 @@ public:
         label_11->setGeometry(QRect(13, 12, 46, 13));
         pbAddUser = new QPushButton(tab_3);
         pbAddUser->setObjectName(QString::fromUtf8("pbAddUser"));
-        pbAddUser->setGeometry(QRect(10, 717, 75, 23));
+        pbAddUser->setGeometry(QRect(10, 766, 75, 23));
         pbEditUser = new QPushButton(tab_3);
         pbEditUser->setObjectName(QString::fromUtf8("pbEditUser"));
         pbEditUser->setEnabled(false);
-        pbEditUser->setGeometry(QRect(100, 717, 91, 23));
+        pbEditUser->setGeometry(QRect(100, 766, 91, 23));
         pbDelUser = new QPushButton(tab_3);
         pbDelUser->setObjectName(QString::fromUtf8("pbDelUser"));
         pbDelUser->setEnabled(false);
-        pbDelUser->setGeometry(QRect(206, 717, 75, 23));
+        pbDelUser->setGeometry(QRect(206, 766, 75, 23));
         tvAdminTree = new QTreeView(tab_3);
         tvAdminTree->setObjectName(QString::fromUtf8("tvAdminTree"));
-        tvAdminTree->setGeometry(QRect(290, 40, 871, 671));
+        tvAdminTree->setGeometry(QRect(290, 40, 871, 721));
         tabWidget->addTab(tab_3, QString());
         pbExit = new QPushButton(MainForm);
         pbExit->setObjectName(QString::fromUtf8("pbExit"));
@@ -320,13 +320,13 @@ public:
         pbDisconnect->setGeometry(QRect(280, 822, 81, 23));
 
         retranslateUi(MainForm);
-        QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
-        QObject::connect(pbAddUser, SIGNAL(clicked()), MainForm, SLOT(OnNewLogin()));
-        QObject::connect(pbDelUser, SIGNAL(clicked()), MainForm, SLOT(OnDelLogin()));
-        QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
-        QObject::connect(pbEditUser, SIGNAL(clicked()), MainForm, SLOT(OnEditLogin()));
-        QObject::connect(pbConnect, SIGNAL(clicked()), MainForm, SLOT(OnConnect()));
-        QObject::connect(pbDisconnect, SIGNAL(clicked()), MainForm, SLOT(OnDisconnecting()));
+//        QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
+//        QObject::connect(pbAddUser, SIGNAL(clicked()), MainForm, SLOT(OnNewLogin()));
+//        QObject::connect(pbDelUser, SIGNAL(clicked()), MainForm, SLOT(OnDelLogin()));
+//        QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
+//        QObject::connect(pbEditUser, SIGNAL(clicked()), MainForm, SLOT(OnEditLogin()));
+//        QObject::connect(pbConnect, SIGNAL(clicked()), MainForm, SLOT(OnConnect()));
+//        QObject::connect(pbDisconnect, SIGNAL(clicked()), MainForm, SLOT(OnDisconnecting()));
 
         tabWidget->setCurrentIndex(2);
         tabWidget_2->setCurrentIndex(1);

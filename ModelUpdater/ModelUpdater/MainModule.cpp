@@ -7,6 +7,7 @@ tSettings my_settings;
 MainModule::MainModule(QObject *parent) :
     QObject(parent), db_op(new tDatabaseOp)
 {
+    IsRequeryServerModel=false;
     qDebug() << "Конструктор MainModule";
     log.Write(QString("Конструктор MainModule"));
     QString S=QCoreApplication::applicationDirPath()+QDir::separator()+"Settings.ini";

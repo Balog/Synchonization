@@ -946,28 +946,33 @@ void tConveyor::Move(const QString &_entry_abs_path, const QString &_new_abs_pat
     if(!file_real.exists() || file_real.remove())
     {
         QFile file_temp(_entry_abs_path);
-        if(file_temp.copy(_new_abs_path))
+
+        for(int i=0; !file_temp.copy(_new_abs_path) && i<10;i++)
         {
             //            db_op->UpdateFileInfo(_new_abs_path, model_file);//возможно не нужна, в конце провести проверку базы и все
 
-            QFile::setPermissions(_entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
-            tFileList fl;
-            fl.file_name=_new_abs_path;
 
-            if(!file_temp.remove())
-            {
-                _error_file=file_temp.fileName();
-                _stopped=true;
-            }
         }
-        else
+        QFile::setPermissions(_entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
+        tFileList fl;
+        fl.file_name=_new_abs_path;
+
+        if(!file_temp.remove())
         {
+            qDebug() << "Удаление " << _entry_abs_path << _new_abs_path;
             _error_file=file_temp.fileName();
             _stopped=true;
         }
+//        else
+//        {
+//            qDebug() << "Копирование " << _entry_abs_path << _new_abs_path;
+//            _error_file=file_temp.fileName();
+//            _stopped=true;
+//        }
     }
     else
     {
+        qDebug() << "Наличие " << _entry_abs_path << _new_abs_path;
         _error_file=file_real.fileName();
         _stopped=true;
     }

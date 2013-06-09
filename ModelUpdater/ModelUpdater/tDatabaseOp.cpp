@@ -3180,6 +3180,7 @@ void tDatabaseOp::SaveLoginsWritable(const QStandardItemModel* _model, const int
 //----------------------------------------------------------
 void tDatabaseOp::GetPermissionsUser(const QString &_user_login, bool &_is_admin_user, bool &_is_writable_user)
 {
+    qDebug() << "tDatabaseOp::GetPermissionsUser" << _user_login;
     QSqlQuery sel_perm(db);
     sel_perm.prepare("SELECT NoDelete, Writable FROM Logins WHERE Login='"+_user_login+"'");
     if(!sel_perm.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ получения разрешений пользователя ") << _user_login;
