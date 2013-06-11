@@ -108,7 +108,7 @@ void tSendStreamFile::SendErrorReport(QDataStream &_in)
     blocker.map_blocker->unlockReadWrite(login);
 
     _in.device()->reset();
-    QString detail="Root: "+root+"\n File name: "+file_name+"\n Reason: can not open file";
+    QString detail="Путь: "+root+"\n Имя файла: "+file_name+"\n Причина: не могу открыть файл";
     int num_error=1;
     QString error="";
     _in >> error;
@@ -284,7 +284,7 @@ void tReceiveStreamFile::SendErrorReport(QDataStream &_in)
 
     enabled=false;
 
-    QString detail="Root: "+root+" File name: "+file_name+"\n"+error_reason;
+    QString detail="Путь: "+root+" Имя файла: "+file_name+"\n"+error_reason;
     int num_error=2;
     QString error="Невозможно изменить файл";
 

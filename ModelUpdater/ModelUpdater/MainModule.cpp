@@ -127,10 +127,10 @@ bool MainModule::GetIsTransaction()
 void MainModule::ViewError(const int _num_error, const QString& _error, const QString &_detail, const QString& _client_detail)
 {
     //Вообще будет выводиться куда-то на панель а пока так
-    QMessageBox MB;
-    MB.setText(_error+"\n"+_detail+"\n"+_client_detail);
-    MB.setWindowTitle(QString::fromUtf8("Ошибка ")+QString::number(_num_error));
-    MB.exec();
+//    QMessageBox MB;
+//    MB.setText(_error+"\n"+_detail+"\n"+_client_detail);
+//    MB.setWindowTitle(QString::fromUtf8("Ошибка ")+QString::number(_num_error));
+//    MB.exec();
 }
 //---------------------------------------------------------
 void MainModule::UpdateLogins()
@@ -280,10 +280,12 @@ void MainModule::SaveServerModelFiles(QByteArray &_block)
 //----------------------------------------------------------
 void MainModule::CorrectLastSynch(const bool _server)
 {
-
+    if(! mod_conv->error_transaction)
+    {
     mod_conv->MarkLastTables(_server, user_login);
 
     db_op->ExecUpdateLastSynch(_server, user_login);
+    }
     mod_conv->ClearAllList();
 }
 //----------------------------------------------------------
@@ -379,6 +381,11 @@ void MainModule::InternalCallBuildingTree()
     {
         qDebug() << "MainModule::InternalCallBuildingTree";
         BuildingTree(user_login);
+
+        for(int i=0; i<ListErrors.size(); i++)
+        {
+            qDebug() << "ListErrors" << ListErrors[i];
+        }
 
         emit RebuildTrees(list_compare);
 //        ConstructTree(Read, list_compare);
@@ -483,7 +490,7 @@ int MainModule::GetCountRecDelModels()
 //----------------------------------------------------------
 void MainModule::StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int max_model)
 {
-    mod_conv->StartReceiveDeleteFiles(_root, _custom_copy, max_model);
+    mod_conv->StartReceiveDeleteFiles(_root, _custom_copy, max_model, true);
 }
 //----------------------------------------------------------
 void MainModule::setValue(int _value)
@@ -515,7 +522,7 @@ int MainModule::GetCountSendDelModels()
 //----------------------------------------------------------
 void MainModule::StartSendDeleteFiles(const int _max_model)
 {
-    mod_conv->StartSendDeleteFiles(_max_model);
+    mod_conv->StartSendDeleteFiles(_max_model, true);
 }
 //----------------------------------------------------------
 void MainModule::ActualiseModel(const QString &_login, const qlonglong _num_model, const bool _from_server)
@@ -691,3 +698,19 @@ void MainModule::SendLoginPassword(const QString &_login, const QString &_passwo
     new_user=_new_user;
     mod_conv->SendLoginPassword(_login, _password, _row, _new_user);
 }
+//----------------------------------------------------------
+QStringList MainModule::GetListErrors() const
+{
+    return ListErrors;
+}
+//----------------------------------------------------------
+void MainModule::ClearListErrors()
+{
+    ListErrors.clear();
+}
+//----------------------------------------------------------
+void MainModule::AddError(const QString &error)
+{
+    ListErrors.push_back(error);
+}
+//----------------------------------------------------------

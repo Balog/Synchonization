@@ -28,8 +28,12 @@ private:
 
 
 private slots:
-    void OnSave();
-    void OnCancel();
+//    void OnSave();
+//    void OnCancel();
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 public slots:
     void OnShowEditLogin(bool Visible, bool Modal);

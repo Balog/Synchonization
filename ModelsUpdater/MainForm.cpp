@@ -4,6 +4,7 @@
 #include <QMenu>
 #include <QFileDialog>
 
+
 Qt::ItemFlags TableModel::flags ( const QModelIndex & index ) const
 {
     Qt::ItemFlags result = QStandardItemModel::flags(index);
@@ -15,13 +16,18 @@ MainForm::MainForm(QWidget *parent) :
     ui(new Ui::MainForm), QDialog(parent,Qt::WindowSystemMenuHint | Qt::WindowTitleHint | Qt::WindowMinimizeButtonHint),
     main(new tExportMain), zast( new Zast), autoriz(new Autoriz), form_new_path(new tNewPath),
     read_tree_model(new QStandardItemModel()), write_tree_model(new QStandardItemModel()), adm_tree_model(new QStandardItemModel()),
-    table_files_model(NULL), previews(NULL), fProgress(new tProgress), tableModel (new TableModel()), login_pass(new tEditLoginPass),
-    sel_log_row(0)
+    table_files_model(NULL), previews(NULL), block_interface(false), tableModel (new TableModel()), login_pass(new tEditLoginPass),
+    sel_log_row(0), show_errors(new tShowErrors)
 {
 
     ui->setupUi(this);
     this->setVisible(false);
-    fProgress->setVisible(false);
+//    fProgress->setVisible(false);
+    show_errors->setVisible(false);
+    show_errors->setModal(false);
+
+    ui->progressBar_Read->setVisible(false);
+    ui->progressBar_Write->setVisible(false);
 
     connect(this, SIGNAL(ZastVisible(bool)), zast, SLOT(FormVisible(bool)));
     connect(main, SIGNAL(FindServer(bool)), this, SLOT(OnFindServer(bool)));
@@ -31,9 +37,10 @@ MainForm::MainForm(QWidget *parent) :
     connect(this, SIGNAL(SendAutorization(QString&,QString&,bool)),main, SLOT(OnSendAutorization(QString&,QString&,bool)));
     connect(main, SIGNAL(EndUpdatingFromServer(QList<CompareTableRec>,bool)), this, SLOT(OnEndUpdatingFromServer(QList<CompareTableRec>,bool)));
 
-    connect(main, SIGNAL(SignalCountFiles(int)), fProgress, SLOT(setValue(int)));
-    connect(this, SIGNAL(ProgressStart(int, int, int, int, int)), fProgress, SLOT(Start(int, int, int, int, int)));
-    connect(this, SIGNAL(ProgressStop()), fProgress, SLOT(Stop()));
+    connect(main, SIGNAL(SignalCountFiles(int)), this, SLOT(setValue(int)));
+//    connect(this, SIGNAL(ProgressStart(int, int, int, int, int)), this, SLOT(Start(int, int, int, int, int)));
+//    connect(this, SIGNAL(ProgressStop()), this, SLOT(Stop()));
+
     connect(main, SIGNAL(EndTransactions()), this, SLOT(EndTransactions()));
 //    connect(main, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
 //    connect(main, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
@@ -59,6 +66,15 @@ MainForm::MainForm(QWidget *parent) :
 //--------------------------------------------------------------------------------
 MainForm::~MainForm()
 {
+    delete show_errors;
+    delete autoriz;
+    delete form_new_path;
+    delete read_tree_model;
+    delete write_tree_model;
+    delete adm_tree_model;
+    delete tableModel;
+    delete login_pass;
+
     delete zast;
     delete main;
     delete ui;
@@ -93,6 +109,15 @@ void MainForm::OnSendAutorization(QString& _login, QString& _password, bool _mod
 void MainForm::OnEndUpdatingFromServer(QList<CompareTableRec> _list_compare,bool _rebuild)
 {
     qDebug() << "Возврат в главную с таблицей разницы моделей";
+
+    QStringList errors=main->GetListErrors();
+    if(errors.size()>0)
+    {
+    show_errors->SetTextErrors(errors);
+    show_errors->setModal(true);
+    show_errors->setVisible(true);
+
+    }
 
     QString addr="";
     int port=0;
@@ -137,6 +162,17 @@ void MainForm::OnEndUpdatingFromServer(QList<CompareTableRec> _list_compare,bool
         ui->tabWidget->setTabEnabled(1, true);
     }
 //    ui->tabWidget->setCurrentIndex(0);
+
+    if(_list_compare.size()==0)
+    {
+        ui->groupBox->setEnabled(false);
+        ui->groupBox_2->setEnabled(false);
+    }
+    else
+    {
+        ui->groupBox->setEnabled(true);
+        ui->groupBox_2->setEnabled(true);
+    }
 
     this->setVisible(true);
 }
@@ -1453,6 +1489,9 @@ void MainForm::EndUpdateServerModel(const bool _rebuild)
 //----------------------------------------------------------
 void MainForm::BuildingTree(const QString& _user_login)
 {
+    ui->tabWidget->setEnabled(true);
+    ui->pbDisconnect->setEnabled(true);
+    block_interface=false;
     //В таблицу CompareTablesToTree из локальной, ласт и серверной таблиц занести ориентируясь на Struct суммарные хеши моделей
     main->WriteToCompareTablesToTree(_user_login);
 
@@ -1470,6 +1509,12 @@ void MainForm::BuildingTree(const QString& _user_login)
 
 void MainForm::on_pbRead_clicked()
 {
+    if(!block_interface)
+    {
+        main->ClearListErrors();
+        ui->tabWidget->setEnabled(false);
+        ui->pbDisconnect->setEnabled(false);
+        block_interface=true;
     SaveDescriptionModel(ui->pteDesRead->toPlainText());
 
     DisplayModelInfo(0, 0);
@@ -1482,6 +1527,7 @@ void MainForm::on_pbRead_clicked()
     //если запрашиваемый файл есть только локально а на сервере его нет то это удаление файла локально
     //остальные случаи это или создание или модификация что тут - одно и то же
     StartReadModeles(main->GetRoot(), 0, false);
+    }
 }
 //----------------------------------------------------------
 void MainForm::StartReadModeles(const QString &_root, const qlonglong _server_num_model, const bool _is_preview)
@@ -1545,12 +1591,12 @@ void MainForm::StartReadModeles(const QString &_root, const qlonglong _server_nu
         {
             max_models=main->GetCountRecDelModels();
         }
-        int x=this->geometry().x();
-        int y=this->geometry().y();
-        int w=this->geometry().width();
-        int h=this->geometry().height();
+//        int x=this->geometry().x();
+//        int y=this->geometry().y();
+//        int w=this->geometry().width();
+//        int h=this->geometry().height();
 
-        emit ProgressStart(max_models, x, y, w, h);
+        Start(max_models);
 
         main->StartReceiveDeleteFiles(destination, custom_copy, max_models);
     }
@@ -1579,7 +1625,7 @@ void MainForm::EndTransactions()
     ConstructTree(Write, list_compare);
 
     DisplayInfo(_current_local_num, _current_server_num);
-    emit ProgressStop();
+    Stop();
     tLog log;
     log.Write(tr("Работа завершена"));
 
@@ -1603,6 +1649,12 @@ void MainForm::OnListFiles()
 //---------------------------------------------------------------------
 void MainForm::on_pbWrite_clicked()
 {
+    if(!block_interface)
+    {
+        main->ClearListErrors();
+        ui->tabWidget->setEnabled(false);
+        ui->pbDisconnect->setEnabled(false);
+        block_interface=true;
     SaveDescriptionModel(ui->pteDesRead_2->toPlainText());
     max_models=0;
 
@@ -1632,11 +1684,11 @@ void MainForm::on_pbWrite_clicked()
     {
         max_models=main->GetCountSendDelModels();
 
-        int x=this->geometry().x();
-        int y=this->geometry().y();
-        int w=this->geometry().width();
-        int h=this->geometry().height();
-        emit ProgressStart(max_models, x, y, w, h);
+//        int x=this->geometry().x();
+//        int y=this->geometry().y();
+//        int w=this->geometry().width();
+//        int h=this->geometry().height();
+        Start(max_models);
 
         main->StartSendDeleteFiles(max_models);
     }
@@ -1647,10 +1699,12 @@ void MainForm::on_pbWrite_clicked()
         MB.setWindowTitle(QString::fromUtf8("Ошибка"));
         MB.exec();
     }
+    }
 }
 //---------------------------------------------------------------------
 void MainForm::on_tvWrite_customContextMenuRequested(const QPoint &_pos)
 {
+
     ShowContextMenu(_pos, false);
 }
 //----------------------------------------------------------
@@ -1768,6 +1822,9 @@ void MainForm::ShowContextMenu(const QPoint _pos, const bool _read)
                     QString mess=main->VerifyCustomCopyPath(Analys_folder);
                     if(mess=="")
                     {
+                        ui->tabWidget->setEnabled(false);
+                        ui->pbDisconnect->setEnabled(false);
+                        block_interface=true;
                     StartReadModeles(Analys_folder+"/", server_num, false);
                     }
                     else
@@ -1790,12 +1847,14 @@ void MainForm::ShowContextMenu(const QPoint _pos, const bool _read)
 //----------------------------------------------------------
 void MainForm::on_tvRead_customContextMenuRequested(const QPoint &_pos)
 {
+
     ShowContextMenu(_pos, true);
 }
 //----------------------------------------------------------
 void MainForm::on_pbRefreshRead_clicked()
 {
     //Обновление серверных таблиц
+    main->ClearListErrors();
     SaveDescriptionModel(ui->pteDesRead->toPlainText());
     IsRequeryServerModel=true;
     OnListFiles();
@@ -1803,6 +1862,7 @@ void MainForm::on_pbRefreshRead_clicked()
 //----------------------------------------------------------
 void MainForm::on_pbRefresh_Write_clicked()
 {
+    main->ClearListErrors();
     SaveDescriptionModel(ui->pteDesRead_2->toPlainText());
     IsRequeryServerModel=true;
     OnListFiles();
@@ -2016,6 +2076,10 @@ void MainForm::on_pbLoadPreviews_clicked()
 //---------------------------------------------------------------------
 void MainForm::on_pbLoadPreviews_2_clicked()
 {
+    ui->tabWidget->setEnabled(false);
+    ui->pbDisconnect->setEnabled(false);
+    block_interface=true;
+
     on_pbLoadPreviews_clicked();
 }
 //---------------------------------------------------------------------
@@ -2454,7 +2518,11 @@ void MainForm::OnNewLogin()
 //----------------------------------------------------------
 void MainForm::on_pbExit_clicked()
 {
+    if(!block_interface)
+    {
     this->close();
+    }
+
 }
 //----------------------------------------------------------
 void MainForm::OnEndEditLoginPassword(QString& _login,  QString& _password,  int _row,  bool _new_user)
@@ -2553,3 +2621,49 @@ void MainForm::OnContinueStart()
     main->OnListFilesLocal();
     OnListFiles();
 }
+//----------------------------------------------------------
+void MainForm::Start(int max)
+{
+
+//    int w=this->geometry().width();
+//    int h=this->geometry().height();
+
+//    int x=_x+(_w-w)/2;
+//    int y=_y+(_h-h)/2;
+
+//    this->setGeometry(x, y, w, h);
+
+    ui->progressBar_Read->setVisible(true);
+    ui->progressBar_Read->setMinimum(0);
+    ui->progressBar_Read->setValue(0);
+    ui->progressBar_Read->setMaximum(max);
+//    ui->progressBar_Read->setFormat(QString("%p"));
+    ui->progressBar_Read->setTextVisible(true);
+
+    ui->progressBar_Write->setVisible(true);
+    ui->progressBar_Write->setMinimum(0);
+    ui->progressBar_Write->setValue(0);
+    ui->progressBar_Write->setMaximum(max);
+//    ui->progressBar_Write->setFormat(QString("%p"));
+    ui->progressBar_Write->setTextVisible(true);
+//    this->setModal(true);
+//    this->setVisible(true);
+}
+//-----------------------------------------------------
+void MainForm::setValue(int _value)
+{
+    ui->progressBar_Read->setValue(_value);
+    ui->progressBar_Write->setValue(_value);
+
+
+}
+//-----------------------------------------------------
+void MainForm::Stop()
+{
+    ui->progressBar_Read->setVisible(false);
+    ui->progressBar_Write->setVisible(false);
+//    this->setModal(false);
+//    this->setVisible(false);
+}
+
+

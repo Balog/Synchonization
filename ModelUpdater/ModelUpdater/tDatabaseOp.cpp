@@ -3136,7 +3136,7 @@ void tDatabaseOp::GetLoginsModel(QStandardItemModel* _model)
     {
         QString login=get_logins.value(0).toString();
         int wr=get_logins.value(1).toInt();
-        qDebug() << "tDatabaseOp::GetLoginsModel" << login << wr;
+//        qDebug() << "tDatabaseOp::GetLoginsModel" << login << wr;
 
         _model->insertRows(i, 1, QModelIndex());
         QModelIndex index0 = _model->index(i, 0, QModelIndex());

@@ -98,7 +98,7 @@ void tConveyor::NextCommand()
         log.Write(l);
 
         ClearTempFolder();
-        emit EndCommands();
+        emit EndCommands(true);
     }
 
 }
@@ -134,7 +134,7 @@ void tConveyor::OnCommand(QByteArray _block)
     connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
     connect(gui_comm, SIGNAL(SendCommand(QByteArray)), client_th, SLOT(OnCommandToSocket(QByteArray)));
     connect(gui_comm, SIGNAL(FinalBlockTransactions()), this, SLOT(OnEndTransactions()));
-    connect(gui_comm, SIGNAL(EndConveyor()), this, SLOT(OnEndConveyor()));
+    connect(gui_comm, SIGNAL(EndConveyor(bool)), this, SLOT(OnEndConveyor(bool)));
 
     connect(gui_comm, SIGNAL(EndCommand()), this, SLOT(OnEndCommand()));
 
@@ -164,7 +164,7 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
     l="tConveyor \tOnCommand\tВыполнение команды из GUI "+command;
     log.Write(l);
 
-    qDebug() << command;
+    qDebug() << "Запускается OnRunGuiCommand " << command;
 
     delete gui_comm;
     gui_comm=NULL;
@@ -174,7 +174,7 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
     connect(gui_comm, SIGNAL(SendCommand(QByteArray)), client_th, SLOT(OnCommandToSocket(QByteArray)));
     connect(gui_comm, SIGNAL(VerifyMoveDelete(QString&, bool)), this, SLOT(VerifyMoveDelete(QString&, bool)));
     connect(gui_comm, SIGNAL(NextCommand()), this, SLOT(NextCommand()));
-    connect(gui_comm, SIGNAL(EndConveyor()), this, SLOT(OnEndConveyor()));
+    connect(gui_comm, SIGNAL(EndConveyor(bool)), this, SLOT(OnEndConveyor(bool)));
 
 //    gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
@@ -474,10 +474,12 @@ void tConveyor::VerifyMoveDelete( QString &_root_folder,  bool _custom_copy)
 
     if(ret)
     {
+        qDebug() << "**************** Next ******************";
         NextCommand();
     }
     else
     {
+        qDebug() << "**************** Error ******************";
         emit ErrorCommands();
     }
 }
@@ -1165,11 +1167,11 @@ void tConveyor::OnEndTransactions()
     emit EndTransactions();
 }
 //----------------------------------------------------------
-void tConveyor::OnEndConveyor()
+void tConveyor::OnEndConveyor(bool Ok)
 {
     l="tConveyor \tOnEndTransactions\tКонец списка команд  ";
     log.Write(l);
-    emit EndConveyor();
+    emit EndConveyor(Ok);
 }
 //----------------------------------------------------------
 void tConveyor::SetLogin(const QString& _user_login)

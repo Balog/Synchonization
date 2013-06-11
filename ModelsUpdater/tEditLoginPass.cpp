@@ -15,17 +15,15 @@ tEditLoginPass::~tEditLoginPass()
 }
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
-void tEditLoginPass::OnSave()
-{
-    emit EndEditing(ui->leLogin->text(), ui->lePassword->text(), row, new_user);
-}
-//-------------------------------------------------------------------------
-void tEditLoginPass::OnCancel()
-{
-    this->setModal(false);
-    this->setVisible(false);
-}
-//-------------------------------------------------------------------------
+//void tEditLoginPass::OnSave()
+//{
+
+//}
+////-------------------------------------------------------------------------
+//void tEditLoginPass::OnCancel()
+//{
+//}
+////-------------------------------------------------------------------------
 void tEditLoginPass::SetLogin(const QString &_login)
 {
     ui->leLogin->setText(_login);
@@ -56,4 +54,16 @@ void tEditLoginPass::OnShowEditLogin(bool Visible, bool Modal)
     }
     this->setVisible(Visible);
     this->setModal(Modal);
+}
+//-------------------------------------------------------------------------
+void tEditLoginPass::on_pushButton_clicked()
+{
+    emit EndEditing(ui->leLogin->text(), ui->lePassword->text(), row, new_user);
+}
+//-------------------------------------------------------------------------
+void tEditLoginPass::on_pushButton_2_clicked()
+{
+
+        this->setModal(false);
+        this->setVisible(false);
 }

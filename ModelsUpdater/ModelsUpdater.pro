@@ -20,8 +20,8 @@ SOURCES += main.cpp\
     tEditLoginPass.cpp \
     MainForm.cpp \
     Autoriz.cpp \
-    tProgress.cpp \
-    tLog.cpp
+    tLog.cpp \
+    tShowErrors.cpp
 
 HEADERS  += \
     Zast.h \
@@ -29,10 +29,10 @@ HEADERS  += \
     tEditLoginPass.h \
     MainForm.h \
     Autoriz.h \
-    tProgress.h \
     tLog.h \
     ../ModelUpdater/ModelUpdater/tExportMain.h \
-    ../ModelUpdater/ModelUpdater/tCalcHash.h
+    ../ModelUpdater/ModelUpdater/tCalcHash.h \
+    tShowErrors.h
 
 
 FORMS += \
@@ -41,7 +41,7 @@ FORMS += \
     tEditLoginPass.ui \
     MainForm.ui \
     Autoriz.ui \
-    tProgress.ui
+    tShowErrors.ui
 
 RESOURCES += \
     Resources.qrc

@@ -102,40 +102,7 @@
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>tEditLoginPass</receiver>
-   <slot>OnSave()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>295</x>
-     <y>21</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>276</x>
-     <y>26</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>tEditLoginPass</receiver>
-   <slot>OnCancel()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>305</x>
-     <y>54</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>274</x>
-     <y>54</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>OnSave()</slot>
   <slot>OnCancel()</slot>

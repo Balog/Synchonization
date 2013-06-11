@@ -21,6 +21,7 @@
 #include <QtGui/QLineEdit>
 #include <QtGui/QListView>
 #include <QtGui/QPlainTextEdit>
+#include <QtGui/QProgressBar>
 #include <QtGui/QPushButton>
 #include <QtGui/QRadioButton>
 #include <QtGui/QSpinBox>
@@ -60,6 +61,7 @@ public:
     QRadioButton *rbSourseLoc;
     QRadioButton *rbSourceServ;
     QLineEdit *leModelTitle;
+    QProgressBar *progressBar_Read;
     QWidget *tab_2;
     QPushButton *pbWrite;
     QTreeView *tvWrite;
@@ -80,6 +82,7 @@ public:
     QGroupBox *groupBox_2;
     QRadioButton *rbSourseLoc_2;
     QRadioButton *rbSourceServ_2;
+    QProgressBar *progressBar_Write;
     QWidget *tab_3;
     QListView *lvLogins;
     QLineEdit *le_ver_pass;
@@ -109,17 +112,17 @@ public:
         MainForm->setMaximumSize(QSize(1184, 846));
         leRoot = new QLineEdit(MainForm);
         leRoot->setObjectName(QString::fromUtf8("leRoot"));
-        leRoot->setGeometry(QRect(720, 822, 141, 20));
+        leRoot->setGeometry(QRect(780, 822, 121, 20));
         leRoot->setReadOnly(true);
         label = new QLabel(MainForm);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(660, 824, 51, 16));
+        label->setGeometry(QRect(740, 824, 51, 16));
         label_2 = new QLabel(MainForm);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(870, 824, 51, 16));
+        label_2->setGeometry(QRect(910, 824, 61, 20));
         leTemp = new QLineEdit(MainForm);
         leTemp->setObjectName(QString::fromUtf8("leTemp"));
-        leTemp->setGeometry(QRect(930, 822, 141, 20));
+        leTemp->setGeometry(QRect(970, 822, 121, 20));
         leTemp->setReadOnly(true);
         tabWidget = new QTabWidget(MainForm);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
@@ -137,6 +140,38 @@ public:
         pbRead = new QPushButton(tab_4);
         pbRead->setObjectName(QString::fromUtf8("pbRead"));
         pbRead->setGeometry(QRect(10, 760, 101, 23));
+        QPalette palette;
+        QBrush brush(QColor(212, 208, 200, 255));
+        brush.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Button, brush);
+        QBrush brush1(QColor(85, 170, 0, 255));
+        brush1.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Midlight, brush1);
+        QBrush brush2(QColor(12, 91, 0, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::ButtonText, brush2);
+        QBrush brush3(QColor(255, 255, 255, 255));
+        brush3.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Base, brush3);
+        QBrush brush4(QColor(255, 170, 0, 255));
+        brush4.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::Window, brush4);
+        palette.setBrush(QPalette::Active, QPalette::AlternateBase, brush4);
+        palette.setBrush(QPalette::Inactive, QPalette::Button, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::Midlight, brush1);
+        palette.setBrush(QPalette::Inactive, QPalette::ButtonText, brush2);
+        palette.setBrush(QPalette::Inactive, QPalette::Base, brush3);
+        palette.setBrush(QPalette::Inactive, QPalette::Window, brush4);
+        palette.setBrush(QPalette::Inactive, QPalette::AlternateBase, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::Button, brush);
+        palette.setBrush(QPalette::Disabled, QPalette::Midlight, brush1);
+        QBrush brush5(QColor(120, 120, 120, 255));
+        brush5.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::ButtonText, brush5);
+        palette.setBrush(QPalette::Disabled, QPalette::Base, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::Window, brush4);
+        palette.setBrush(QPalette::Disabled, QPalette::AlternateBase, brush4);
+        pbRead->setPalette(palette);
         pbRefreshRead = new QPushButton(tab_4);
         pbRefreshRead->setObjectName(QString::fromUtf8("pbRefreshRead"));
         pbRefreshRead->setGeometry(QRect(120, 760, 75, 23));
@@ -182,7 +217,7 @@ public:
         tabvListFiles->verticalHeader()->setVisible(false);
         groupBox = new QGroupBox(tab_4);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(560, 754, 201, 32));
+        groupBox->setGeometry(QRect(990, 754, 171, 32));
         rbSourseLoc = new QRadioButton(groupBox);
         rbSourseLoc->setObjectName(QString::fromUtf8("rbSourseLoc"));
         rbSourseLoc->setGeometry(QRect(10, 8, 82, 18));
@@ -198,12 +233,26 @@ public:
         font.setWeight(75);
         leModelTitle->setFont(font);
         leModelTitle->setReadOnly(true);
+        progressBar_Read = new QProgressBar(tab_4);
+        progressBar_Read->setObjectName(QString::fromUtf8("progressBar_Read"));
+        progressBar_Read->setGeometry(QRect(200, 760, 781, 23));
+        progressBar_Read->setValue(0);
         tabWidget->addTab(tab_4, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         pbWrite = new QPushButton(tab_2);
         pbWrite->setObjectName(QString::fromUtf8("pbWrite"));
         pbWrite->setGeometry(QRect(10, 760, 101, 23));
+        QPalette palette1;
+        QBrush brush6(QColor(255, 0, 4, 255));
+        brush6.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::ButtonText, brush6);
+        palette1.setBrush(QPalette::Inactive, QPalette::ButtonText, brush6);
+        palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush5);
+        pbWrite->setPalette(palette1);
+        QFont font1;
+        font1.setUnderline(false);
+        pbWrite->setFont(font1);
         tvWrite = new QTreeView(tab_2);
         tvWrite->setObjectName(QString::fromUtf8("tvWrite"));
         tvWrite->setGeometry(QRect(10, 10, 541, 741));
@@ -257,7 +306,7 @@ public:
         tabvListFiles_2->verticalHeader()->setVisible(false);
         groupBox_2 = new QGroupBox(tab_2);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        groupBox_2->setGeometry(QRect(560, 754, 201, 32));
+        groupBox_2->setGeometry(QRect(990, 754, 171, 32));
         rbSourseLoc_2 = new QRadioButton(groupBox_2);
         rbSourseLoc_2->setObjectName(QString::fromUtf8("rbSourseLoc_2"));
         rbSourseLoc_2->setGeometry(QRect(10, 8, 82, 18));
@@ -265,15 +314,19 @@ public:
         rbSourceServ_2 = new QRadioButton(groupBox_2);
         rbSourceServ_2->setObjectName(QString::fromUtf8("rbSourceServ_2"));
         rbSourceServ_2->setGeometry(QRect(108, 8, 82, 18));
+        progressBar_Write = new QProgressBar(tab_2);
+        progressBar_Write->setObjectName(QString::fromUtf8("progressBar_Write"));
+        progressBar_Write->setGeometry(QRect(200, 760, 781, 23));
+        progressBar_Write->setValue(0);
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
         lvLogins = new QListView(tab_3);
         lvLogins->setObjectName(QString::fromUtf8("lvLogins"));
         lvLogins->setGeometry(QRect(10, 40, 271, 721));
-        QFont font1;
-        font1.setPointSize(11);
-        lvLogins->setFont(font1);
+        QFont font2;
+        font2.setPointSize(11);
+        lvLogins->setFont(font2);
         le_ver_pass = new QLineEdit(tab_3);
         le_ver_pass->setObjectName(QString::fromUtf8("le_ver_pass"));
         le_ver_pass->setGeometry(QRect(60, 10, 141, 20));
@@ -303,32 +356,25 @@ public:
         pbExit->setGeometry(QRect(1100, 821, 75, 23));
         sbPort = new QSpinBox(MainForm);
         sbPort->setObjectName(QString::fromUtf8("sbPort"));
-        sbPort->setGeometry(QRect(130, 822, 61, 22));
+        sbPort->setGeometry(QRect(90, 822, 61, 22));
         sbPort->setReadOnly(true);
         sbPort->setMaximum(9999);
         sbPort->setValue(1234);
         pbConnect = new QPushButton(MainForm);
         pbConnect->setObjectName(QString::fromUtf8("pbConnect"));
         pbConnect->setEnabled(false);
-        pbConnect->setGeometry(QRect(200, 822, 75, 23));
+        pbConnect->setGeometry(QRect(160, 822, 75, 23));
         leAddr = new QLineEdit(MainForm);
         leAddr->setObjectName(QString::fromUtf8("leAddr"));
-        leAddr->setGeometry(QRect(10, 822, 113, 20));
+        leAddr->setGeometry(QRect(10, 822, 71, 20));
         leAddr->setReadOnly(true);
         pbDisconnect = new QPushButton(MainForm);
         pbDisconnect->setObjectName(QString::fromUtf8("pbDisconnect"));
-        pbDisconnect->setGeometry(QRect(280, 822, 81, 23));
+        pbDisconnect->setGeometry(QRect(240, 822, 81, 23));
 
         retranslateUi(MainForm);
-//        QObject::connect(lvLogins, SIGNAL(clicked(QModelIndex)), MainForm, SLOT(OnLoginsClicked(QModelIndex)));
-//        QObject::connect(pbAddUser, SIGNAL(clicked()), MainForm, SLOT(OnNewLogin()));
-//        QObject::connect(pbDelUser, SIGNAL(clicked()), MainForm, SLOT(OnDelLogin()));
-//        QObject::connect(pbVerPassword, SIGNAL(clicked()), MainForm, SLOT(OnVerPassword()));
-//        QObject::connect(pbEditUser, SIGNAL(clicked()), MainForm, SLOT(OnEditLogin()));
-//        QObject::connect(pbConnect, SIGNAL(clicked()), MainForm, SLOT(OnConnect()));
-//        QObject::connect(pbDisconnect, SIGNAL(clicked()), MainForm, SLOT(OnDisconnecting()));
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
         tabWidget_2->setCurrentIndex(1);
         tabWidget_3->setCurrentIndex(1);
 
@@ -340,8 +386,8 @@ public:
     {
         MainForm->setWindowTitle(QApplication::translate("MainForm", "\320\223\320\273\320\260\320\262\320\275\320\260\321\217 \321\204\320\276\321\200\320\274\320\260", 0, QApplication::UnicodeUTF8));
         leRoot->setText(QString());
-        label->setText(QApplication::translate("MainForm", "Root path", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("MainForm", "Temp path", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\320\265\320\272\321\202", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("MainForm", "\320\222\321\200\320\265\320\274\320\265\320\275\320\275\320\260\321\217", 0, QApplication::UnicodeUTF8));
         leTemp->setText(QString());
         pbRead->setText(QApplication::translate("MainForm", "\320\247\320\270\321\202\320\260\321\202\321\214 \321\201 \321\201\320\265\321\200\320\262\320\265\321\200\320\260", 0, QApplication::UnicodeUTF8));
         pbRefreshRead->setText(QApplication::translate("MainForm", "\320\237\321\200\320\276\320\262\320\265\321\200\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
@@ -376,9 +422,9 @@ public:
         pbDelUser->setText(QApplication::translate("MainForm", "\320\243\320\264\320\260\320\273\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainForm", "\320\220\320\264\320\274\320\270\320\275\320\270\321\201\321\202\321\200\320\270\321\200\320\276\320\262\320\260\320\275\320\270\320\265", 0, QApplication::UnicodeUTF8));
         pbExit->setText(QApplication::translate("MainForm", "\320\222\321\213\321\205\320\276\320\264", 0, QApplication::UnicodeUTF8));
-        pbConnect->setText(QApplication::translate("MainForm", "Connect", 0, QApplication::UnicodeUTF8));
+        pbConnect->setText(QApplication::translate("MainForm", "\320\241\320\276\320\265\320\264\320\270\320\275\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
         leAddr->setText(QApplication::translate("MainForm", "127.0.0.1", 0, QApplication::UnicodeUTF8));
-        pbDisconnect->setText(QApplication::translate("MainForm", "Disconnect", 0, QApplication::UnicodeUTF8));
+        pbDisconnect->setText(QApplication::translate("MainForm", "\320\236\321\202\321\201\320\276\320\265\320\264\320\270\320\275\320\270\321\202\321\214", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

@@ -59,8 +59,6 @@ public:
         pushButton_2->setGeometry(QRect(280, 38, 75, 23));
 
         retranslateUi(tEditLoginPass);
-        QObject::connect(pushButton, SIGNAL(clicked()), tEditLoginPass, SLOT(OnSave()));
-        QObject::connect(pushButton_2, SIGNAL(clicked()), tEditLoginPass, SLOT(OnCancel()));
 
         QMetaObject::connectSlotsByName(tEditLoginPass);
     } // setupUi

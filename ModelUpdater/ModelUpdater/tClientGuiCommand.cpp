@@ -136,6 +136,8 @@ void tGuiError::ExeCommand(QDataStream& _in)
 
         ((MainModule*)link)->ViewError(num_error, error, detail, client_detail);
 
+        ((MainModule*)link)->AddError(detail+"\n"+client_detail+"\n"+"------------------------------------------------");
+
         emit SendCommand(block);
     }
     else
@@ -461,7 +463,7 @@ void tGuiReportCancelTransaction::ExeCommand(QDataStream &)
 
     qDebug() << QString::fromUtf8("Отмена транзакции с сервера ");
 
-    emit EndConveyor();
+    emit EndConveyor(false);
 }
 //************************************************************************************************
 void tGuiDeleteFile::ExeCommand(QDataStream &_in)
@@ -587,7 +589,7 @@ void tGuiBreakReceiveFile::ExeCommand(QDataStream &)
     log.Write(l);
 
     qDebug() << QString::fromUtf8("Транзакция отменена\nОдин из локальных файлов нельзя открыть для записи");
-    emit EndConveyor();
+    emit EndConveyor(false);
 }
 //************************************************************************************************
 void tVerifyMoveDelete::ExeCommand(QDataStream &_out)
@@ -741,6 +743,7 @@ void tGUIReportSaveLoginPassword::ExeCommand(QDataStream &_in)
 qlonglong s_num=0;
 _in >> s_num;
 ((MainModule*)link)->RegisterUser(s_num);
+emit EndCommand();
 }
 //************************************************************************************************
 void tGUIDeleteLogin::ExeCommand(QDataStream &_in)
@@ -769,6 +772,7 @@ void tGUIReportDeleteLogin::ExeCommand(QDataStream &_in)
 qlonglong s_num=0;
 _in >> s_num;
 ((MainModule*)link)->DeleteUser(s_num);
+emit EndCommand();
 }
 //************************************************************************************************
 void tGUIReceiveLoginsTable::ExeCommand(QDataStream &_in)
@@ -877,7 +881,7 @@ void tGUIReportSavePermissions::ExeCommand(QDataStream &)
     l="tClientGuiCommand \ttGUIReportReceiveReadPermissions\t Отчет записи списка разрешений на чтение моделей на сервер";
     log.Write(l);
 
-
+emit EndCommand();
 
 }
 //************************************************************************************************
@@ -914,6 +918,6 @@ void tGUIReportSaveLoginWritable::ExeCommand(QDataStream &)
     log.Write(l);
 
 
-
+emit EndCommand();
 }
 //************************************************************************************************

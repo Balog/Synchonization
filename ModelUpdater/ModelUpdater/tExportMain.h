@@ -64,6 +64,8 @@ public:
     bool NextModelAdmin() const;
     QStringList NextStructListModelAdmin(const QString &_login, bool &_read, qlonglong &_server_num) const;
     void SendLoginPassword(const QString &_login, const QString &_password, const int _row, const bool _new_user);
+    QStringList GetListErrors();
+    void ClearListErrors();
 
 private:
     MainModule* MModule;

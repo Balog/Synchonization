@@ -360,4 +360,12 @@ void tExportMain::OnShowEditLogin(bool Visible, bool Modal)
     emit ShowEditLogin(Visible, Modal);
 }
 //----------------------------------------------------------
-
+QStringList tExportMain::GetListErrors()
+{
+    return MModule->GetListErrors();
+}
+//----------------------------------------------------------
+void tExportMain::ClearListErrors()
+{
+    MModule->ClearListErrors();
+}

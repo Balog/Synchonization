@@ -7,8 +7,9 @@
 #include "../ModelUpdater/ModelUpdater/tConstructModelTree.h"
 #include "Autoriz.h"
 #include "tNewPath.h"
-#include "tProgress.h"
+//#include "tProgress.h"
 #include "tEditLoginPass.h"
+#include "tShowErrors.h"
 
 namespace Ui {
 class MainForm;
@@ -41,7 +42,8 @@ private:
     QString user_login;
     bool modify_folder;
     tNewPath* form_new_path;
-    tProgress *fProgress;
+//    tProgress *fProgress;
+    tShowErrors *show_errors;
 
     void ConstructTree(const tTreeMod _tree_mod, QList<CompareTableRec> _comp_table);
     void RecoveryTreeIndex();
@@ -91,7 +93,7 @@ private:
     void OnNewLogin();
     int sel_log_row;
 
-
+    bool block_interface;
 
 
 private slots:
@@ -176,6 +178,12 @@ private slots:
 
     void OnContinueStart();
 
+    void Start(int max);
+    void setValue(int _value);
+    void Stop();
+
+//    void on_tabWidget_currentChanged(int index);
+
 public slots:
 //    void OnretEndUpdateServerModel(bool _rebuild);
 
@@ -185,8 +193,8 @@ signals:
     void FindServer(bool ok);
     void ZastVisible(bool vis);
     void SendAutorization(QString& _login, QString& _password, bool _mod_folder);
-    void ProgressStart(int _max, int x, int y, int w, int h);
-    void ProgressStop();
+//    void ProgressStart(int _max, int x, int y, int w, int h);
+//    void ProgressStop();
     void RunGui(QByteArray& block);
     void ErrorUserFolders(QString& user_login, QString& message, tExportMain *main);
 

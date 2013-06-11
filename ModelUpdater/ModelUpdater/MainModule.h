@@ -31,6 +31,9 @@ private:
     QString password;//login_pass->GetPassword();
     bool new_user;//login_pass->new_user;
 
+    QStringList ListErrors;
+
+
 
 public:
     MainModule(QObject *parent = 0);
@@ -104,6 +107,10 @@ public:
     bool NextModelAdmin() const;
     QStringList NextStructListModelAdmin(const QString &_login, bool &_read, qlonglong &_server_num) const;
     void SendLoginPassword(const QString &_login, const QString &_password, const int _row, const bool _new_user);
+
+    QStringList GetListErrors() const;
+    void ClearListErrors();
+    void AddError(const QString &error);
 
 
 

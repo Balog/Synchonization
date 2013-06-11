@@ -61,7 +61,6 @@ public:
         cbModifyFolder->setGeometry(QRect(60, 70, 111, 18));
 
         retranslateUi(Autoriz);
-//        QObject::connect(pbOk, SIGNAL(clicked()), Autoriz, SLOT(OnOk()));
 
         QMetaObject::connectSlotsByName(Autoriz);
     } // setupUi

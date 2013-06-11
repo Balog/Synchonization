@@ -4,13 +4,13 @@
 tModelsConveyor::tModelsConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
     QObject(parent), db_op(_db_op), link(_link),Transaction(false), user_login("")
 {
-
+error_transaction=false;
     mod_custom_copy=false;
     conv=new tConveyor(link, db_op, 0);
 
 
 
-    connect(conv, SIGNAL(EndCommands()), this, SLOT(EndConveyor()));
+    connect(conv, SIGNAL(EndCommands(bool)), this, SLOT(EndConveyor(bool)));
 
 //    connect(_link, SIGNAL(NextCommand()), conv, SLOT(NextCommand()));
     connect(this, SIGNAL(RunGui(QByteArray&)), conv, SLOT(OnRunGuiCommand(QByteArray&)));
@@ -22,7 +22,7 @@ tModelsConveyor::tModelsConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *p
     connect(conv, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));
     connect(this, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));
 
-    connect(conv, SIGNAL(EndConveyor()), this, SLOT(EndConveyor()));
+    connect(conv, SIGNAL(EndConveyor(bool)), this, SLOT(EndConveyor(bool)));
 
 
 
@@ -48,6 +48,7 @@ void tModelsConveyor::StartServer(const QString &_addr, const int _port)
 //-------------------------------------------------------------------------
 void tModelsConveyor::Clear()
 {
+    error_transaction=false;
     conv->Clear();
     db_op->ClearlModConv();
 
@@ -69,17 +70,19 @@ void tModelsConveyor::CancelOperations()
     conv->CancelOperations();
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::EndConveyor()
+void tModelsConveyor::EndConveyor(bool Ok)
 {
+    error_transaction=Ok;
     conv->ClearTempFolder();
     conv->Clear();
+
     if(send)
     {
-        StartSendDeleteFiles(max_model);
+        StartSendDeleteFiles(max_model, Ok);
     }
     else
     {
-        StartReceiveDeleteFiles(root_folder, mod_custom_copy, max_model);
+        StartReceiveDeleteFiles(root_folder, mod_custom_copy, max_model, Ok);
     }
 
 
@@ -101,7 +104,7 @@ void tModelsConveyor::ErrorConveyor()
     l="tModelsConveyor \tErrorConveyor\tВыполнение пакета команд прервано";
     log.Write(l);
 
-    EndConveyor();
+    EndConveyor(false);
 }
 //-------------------------------------------------------------------------
 void tModelsConveyor::Autorization(const QString& _login, const QString& _password)
@@ -144,7 +147,7 @@ void tModelsConveyor::DeletingLocalFile(const QString& _file_name)
     db_op->PrepareDeletingLocal(_file_name);
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::StartSendDeleteFiles(const int _max_model)
+void tModelsConveyor::StartSendDeleteFiles(const int _max_model, bool Ok)
 {
     l="tModelsConveyor \tStartSendDeleteFiles\tФормирование списка команд транзакции передачи и удаления файлов на сервере";
     log.Write(l);
@@ -218,7 +221,7 @@ void tModelsConveyor::StartSendDeleteFiles(const int _max_model)
             l="tModelsConveyor \tStartSendDeleteFiles\tЛокальный файл изменился. Выполнение списка отменено";
             log.Write(l);
 
-            EndConveyor();
+            EndConveyor(false);
         }
     }
     else
@@ -230,6 +233,8 @@ void tModelsConveyor::StartSendDeleteFiles(const int _max_model)
         //СЮДА НАЧАЛО ПРОЦЕДУРЫ ОБНОВЛЕНИЯ LAST
         //ДО ОБНОВЛЕНИЯ СЕРВЕРНЫХ ТАБЛИЦ (ОКОНЧАНИЕ В void tReportGuiGetListServerModels::ExeCommand)
 
+        if(Ok)
+        {
         l="tModelsConveyor \tStartSendDeleteFiles\t НАЧАЛО ПРОЦЕДУРЫ ОБНОВЛЕНИЯ LAST";
         log.Write(l);
 
@@ -238,6 +243,7 @@ void tModelsConveyor::StartSendDeleteFiles(const int _max_model)
         db_op->PrepareUpdateLastSynch(true, user_login);
 
         MarkLastTables(true, user_login);
+        }
         conv->GetServerModels();
     }
 
@@ -252,7 +258,7 @@ void tModelsConveyor::MarkLastTables(const bool _send, const QString& _user_logi
 }
 
 //-------------------------------------------------------------------------
-void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int _max_model)
+void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int _max_model, bool Ok)
 {
     mod_custom_copy=_custom_copy;
     l="tModelsConveyor \tStartReceiveDeleteFiles\tФормирование списка команд транзакции приема и удаления файлов на клиенте";
@@ -318,7 +324,7 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, int _custom_
             l="tModelsConveyor \tStartReceiveDeleteFiles\tЛокальный файл изменился. Выполнение списка отменено";
             log.Write(l);
 
-            EndConveyor();
+            EndConveyor(false);
         }
     }
     else
@@ -332,10 +338,12 @@ void tModelsConveyor::StartReceiveDeleteFiles(const QString &_root, int _custom_
 
         db_op->RefreshModelsFiles();
 
+        if(Ok)
+        {
         MarkLastTables(false, user_login);
 
         db_op->ExecUpdateLastSynch(false, user_login);
-
+        }
         ClearAllList();
         }
         emit SignalCountFiles(max_model);

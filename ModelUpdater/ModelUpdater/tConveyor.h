@@ -111,7 +111,7 @@ private:
     QString user_login;
 
 signals:
-    void EndCommands();
+    void EndCommands(bool);
     void Disconnect();
     void CloseMain();
     void AutorizStart();
@@ -119,7 +119,7 @@ signals:
     void DisconnectFromServer();
     void ErrorCommands();
     void EndTransactions();
-    void EndConveyor();
+    void EndConveyor(bool Ok);
 
 
 public slots:
@@ -132,7 +132,7 @@ public slots:
     void OnDisconnecting();
     void VerifyMoveDelete(QString &_root_folder, bool _custom_copy);
     void OnEndTransactions();
-    void OnEndConveyor();
+    void OnEndConveyor(bool Ok);
     void OnEndCommand();
 };
 

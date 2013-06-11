@@ -20,10 +20,10 @@ public:
     void CancelOperations();
     void Autorization(const QString &_login, const QString &_password);
     void OnListFiles();
-    void StartSendDeleteFiles(const int _max_model);
+    void StartSendDeleteFiles(const int _max_model, bool Ok);
     void ReceiveFile(const QString& _file_name);
     void DeletingLocalFile(const QString& _file_name);
-    void StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int max_model);
+    void StartReceiveDeleteFiles(const QString &_root, int _custom_copy, int max_model, bool Ok);
     void CorrectLastSynch(const bool _server);
     bool GetIsTransaction()
     {
@@ -42,6 +42,7 @@ public:
 
     void ClearAllList();
     void SaveLoginWritable(const QStandardItemModel *_model, const int _row);
+    bool error_transaction;
 
 private:
     QObject *link;
@@ -77,7 +78,7 @@ public slots:
     void OnRunGui(QByteArray& _block);
 
 private slots:
-    void EndConveyor();
+    void EndConveyor(bool Ok);
     void OnDisconnect();
     void OnAutorizStart();
     void ErrorConveyor();

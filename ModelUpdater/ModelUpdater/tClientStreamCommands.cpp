@@ -124,7 +124,7 @@ void tStreamReceiveFile::ProcessError(QDataStream &)
     enabled=false;
     int num_error=1;
     QString error="Error in command 1";
-    QString detail="File name: "+file_name+"\nFile size: "+QString::number(file_size);
+    QString detail="Имя файла: "+file_name+"\nРазмер файла: "+QString::number(file_size);
 
     QString client_detail="Ошибка на стороне клиента \n"+error_reason;
 
@@ -259,9 +259,9 @@ void tPrepareReceiveFile::ProcessError(QDataStream & )
 {
     int num_error=1;
     QString error="Error in command 1";
-    QString detail="File name: "+file_name+"\nFile is open ";
+    QString detail="Имя файла: "+file_name+"\nФайл открыт ";
 
-    QString client_detail="Ошибка на стороне клиента \nWrite file error ";
+    QString client_detail="Ошибка на стороне клиента \nФайл не может быть изменен ";
 
     l="tPrepareReceiveFile \tProcessError\t Ошибка в подготовке приема файла "+detail.toUtf8();
     log.Write(l);

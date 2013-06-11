@@ -33,7 +33,7 @@ signals:
     void NextCommand();
     void FinalBlockTransactions();
     void VerifyMoveDelete(QString&, bool);
-    void EndConveyor();
+    void EndConveyor(bool Ok);
     void EndCommand();
 
 };
