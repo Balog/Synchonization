@@ -31,6 +31,15 @@ void tSettings::SetFilePath(const QString &_ini_file)
     port=s.value("port", 1234).toInt();
     s.endGroup();
 
+    s.beginGroup("Autologin");
+    login=s.value("login","").toString();
+    password=s.value("password","").toString();
+    s.endGroup();
+
+    s.beginGroup("Folders");
+    root=s.value("root","").toString();
+    temp=s.value("temp","").toString();
+    s.endGroup();
 }
 //-----------------------------------------------------------------
 void tSettings::sync()

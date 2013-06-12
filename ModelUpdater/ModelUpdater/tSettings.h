@@ -21,6 +21,11 @@ public:
     inline const QString GetTemp() const  {return temp;}
     inline const QString GetServerAddr() const  {return ip;}
     inline const int GetServerPort() const  {return port;}
+    inline const QString GetLogin() const {return login;}
+    inline const QString GetPassword() const {return password;}
+//    inline const QString GetRoot() const {return root;}
+//    inline const QString GetTemp() const {return temp;}
+
 
     inline void SetRoot(const QString &_root) {root=_root;}
     inline void SetTemp(const QString &_temp) {temp=_temp;}
@@ -35,6 +40,11 @@ private:
     QString temp;
     QString ip;
     int port;
+
+    QString login;
+    QString password;
+//    QString root;
+//    QString temp;
 
     QString ini_path;
 

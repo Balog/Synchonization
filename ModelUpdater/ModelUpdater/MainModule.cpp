@@ -1,11 +1,12 @@
 #include "MainModule.h"
 #include<QMessageBox>
 #include<tSettings.h>
+#include<QFileInfo>
 
 tSettings my_settings;
 
 MainModule::MainModule(QObject *parent) :
-    QObject(parent), db_op(new tDatabaseOp)
+    QObject(parent)
 {
     IsRequeryServerModel=false;
     qDebug() << "Конструктор MainModule";
@@ -25,6 +26,21 @@ MainModule::MainModule(QObject *parent) :
     timer->setInterval(10000);
     timer->start();
 
+
+//    connect(this, SIGNAL(FindServerTrue()), zast_mod, SLOT(OnTimerTrue()));
+
+}
+//---------------------------------------------------------
+void MainModule::StartDatabase(bool start)
+{
+    if(start)
+    {
+        db_op=new tDatabaseOp;
+    }
+    else
+    {
+        db_op=NULL;
+    }
     qDebug() << "База данных" << db_op;
     mod_conv= new tModelsConveyor(this, db_op);
 
@@ -32,8 +48,6 @@ MainModule::MainModule(QObject *parent) :
     connect(mod_conv, SIGNAL(EndTransactionsMain()), this, SLOT(OnEndTransactions()));
     connect(this, SIGNAL(RunGui(QByteArray&)),mod_conv, SLOT(OnRunGui(QByteArray&)));
     connect(mod_conv, SIGNAL(Disconnecting()), this, SLOT(OnDisconnectingFromServer()));
-
-//    connect(this, SIGNAL(FindServerTrue()), zast_mod, SLOT(OnTimerTrue()));
 
 }
 //---------------------------------------------------------
@@ -46,6 +60,10 @@ void MainModule::OnDisconnectingFromServer()
 void MainModule::OnFindServerFalse()
 {
     qDebug() << "Время истекло";
+    delete timer;
+    timer=NULL;
+    delete timer1;
+    timer1=NULL;
     tLog log;
     log.Write(tr("MainForm \t OnFindServerFalse \t Время истекло"));
     emit FindServer(false);
@@ -96,7 +114,15 @@ void MainModule::OnAutorizStart()
     delete timer;
     timer=NULL;
 
+    if(db_op!=NULL)
+    {
+        qDebug() << "Запрашиваем список логинов";
     mod_conv->ReceiveLoginsTable();
+    }
+    else
+    {
+        qDebug() << "Список логинов не нужен";
+    }
 
     emit FindServer(true);
 }
@@ -124,7 +150,7 @@ bool MainModule::GetIsTransaction()
     return mod_conv->GetIsTransaction();
 }
 //---------------------------------------------------------
-void MainModule::ViewError(const int _num_error, const QString& _error, const QString &_detail, const QString& _client_detail)
+void MainModule::ViewError(const int , const QString& , const QString &, const QString& )
 {
     //Вообще будет выводиться куда-то на панель а пока так
 //    QMessageBox MB;
@@ -148,9 +174,12 @@ bool MainModule::VerifyUserFolders()
     QString message="";
     QString project_folder="";
     QString temp_folder="";
+    if(db_op!=NULL)
+    {
     if(!modify_folder && db_op->VerifyUserFolders(user_login, project_folder, temp_folder, message))
     {
         qDebug() << "MainModule::VerifyUserFolders" << user_login << project_folder << temp_folder << message;
+        OnContinueStart();
         return true;
     }
     else
@@ -162,6 +191,46 @@ bool MainModule::VerifyUserFolders()
 //        form_new_path->SetMessage(message);
 //        form_new_path->setVisible(true);
         return false;
+    }
+    }
+    else
+    {
+        //автоюзер, базы данных нет, нужно узнать папки из файла настройки и проверить их
+        //если папки некорректны - выдать наружу сигнал с сообщением об ошибке
+        QString error="";
+        project_folder=my_settings.GetRoot();
+        temp_folder=my_settings.GetTemp();
+        QFileInfo info(project_folder);
+        if(!info.exists())
+        {
+            //Нет рабочей папки проекта
+            error="Рабочая папка "+project_folder+" несуществует";
+        }
+        QFileInfo info2(temp_folder);
+        if(!info2.exists())
+        {
+            //Нет временной папки проекта
+            if(error=="")
+            {
+                error="Временная папка "+temp_folder+" несуществует";
+            }
+            else
+            {
+                error=error+"\n"+"Временная папка "+temp_folder+" несуществует";
+            }
+        }
+        if(error=="")
+        {
+            //ошибок небыло
+            OnContinueStart();
+            return true;
+        }
+        else
+        {
+            //были ошибки
+            emit ErrorFolders(error);
+            return false;
+        }
     }
 
 }
@@ -175,34 +244,6 @@ void MainModule::OnContinueStart()
 {
     qDebug() << "Авторизация принята";
     db_op->SaveFoldersToSettings(user_login);
-
-    //Это все можно сделать из главной формы по окончании старта
-//    ui->leRoot->setText(my_settings.GetRoot());
-//    ui->leTemp->setText(my_settings.GetTemp());
-
-//    bool is_admin_user=false;
-//    bool is_writable_user=false;
-//    db_op->GetPermissionsUser(user_login, is_admin_user, is_writable_user);
-
-    //Это можно сделать по окончании старта, проверить переменные и все сделать в главной форме
-//    if(!is_admin_user)
-//    {
-//        ui->tabWidget->setTabEnabled(2, false);
-//    }
-//    else
-//    {
-//        ui->tabWidget->setTabEnabled(2, true);
-//    }
-
-//    if(!is_writable_user)
-//    {
-//        ui->tabWidget->setTabEnabled(1, false);
-//    }
-//    else
-//    {
-//        ui->tabWidget->setTabEnabled(1, true);
-//    }
-//    ui->tabWidget->setCurrentIndex(0);
 
     db_op->RefreshModelsFiles();
 
@@ -554,6 +595,7 @@ void MainModule::SetServerParameters(const QString &_addr, const int _port)
 //----------------------------------------------------------
 void MainModule::StartServer()
 {
+    qDebug() << "Старт сервера 2";
     mod_conv->StartServer(my_settings.GetServerAddr(), my_settings.GetServerPort());
 }
 //----------------------------------------------------------
@@ -714,3 +756,8 @@ void MainModule::AddError(const QString &error)
     ListErrors.push_back(error);
 }
 //----------------------------------------------------------
+void MainModule::GetAutorizationInfo(QString& _login, QString& _password)
+{
+    _login=my_settings.GetLogin();
+    _password=my_settings.GetPassword();
+}

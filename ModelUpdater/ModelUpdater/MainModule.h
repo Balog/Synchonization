@@ -4,7 +4,7 @@
 #include <QObject>
 #include"tModelsConveyor.h"
 #include "tDatabaseOp.h"
-#include "tZastModule.h"
+//#include "tZastModule.h"
 
 
 class MainModule : public QObject
@@ -14,7 +14,7 @@ private:
 
     tDatabaseOp* db_op;
     tModelsConveyor* mod_conv;
-    tZastModule* zast_mod;
+//    tZastModule* zast_mod;
     QString user_login;
     bool modify_folder;
     QStringList listSend;
@@ -38,8 +38,9 @@ private:
 public:
     MainModule(QObject *parent = 0);
     ~MainModule();
+    void StartDatabase(bool start);
     bool GetIsTransaction();
-    void ViewError(const int _num_error, const QString &_error, const QString &_detail, const QString &_client_detail);
+    void ViewError(const int, const QString &, const QString &, const QString &);
     void UpdateLogins();
     bool VerifyUserFolders();
     bool VerifyUserFolders(QString& _login, QString& _pr_folder, QString& _temp_folder, QString& _message);
@@ -113,6 +114,7 @@ public:
     void AddError(const QString &error);
 
 
+    void GetAutorizationInfo(QString& _login, QString& _password);
 
 signals:
     void Update_Logins();//сигнал в главную форму на обновление модели представления логинов
@@ -128,9 +130,7 @@ signals:
     void EndTransactions();
     void Disconnecting();
     void DisconnectingFromServer();
-//    void Disconnect();
-//    void retEndUpdateServerModel(bool);
-//    void OnDisconnecting();
+    void ErrorFolders(QString& error);
 
     
 public slots:

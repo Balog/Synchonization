@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include "MainModule.h"
-#include "tZastModule.h"
 #include "tDatabaseOp.h"
 
 class Q_DECL_EXPORT tExportMain : public QObject
@@ -69,7 +68,6 @@ public:
 
 private:
     MainModule* MModule;
-//    tZastModule* zast_mod;
     void StartFindServer();
     
 signals:

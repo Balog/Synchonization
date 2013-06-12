@@ -2,7 +2,7 @@
 #define TEXPORTZAST_H
 
 #include <QObject>
-#include "tZastModule.h"
+//#include "tZastModule.h"
 #include"tLog.h"
 
 class tExportZast : public QObject
@@ -15,7 +15,7 @@ public:
     void StartFindServer();
 
 private:
-    tZastModule* zast_mod;
+//    tZastModule* zast_mod;
     tLog log;
     
 signals:

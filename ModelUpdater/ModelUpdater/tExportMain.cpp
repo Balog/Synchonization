@@ -3,7 +3,8 @@
 tExportMain::tExportMain(QObject *parent) :
     QObject(parent), MModule(new MainModule())
 {
-    qDebug() << "Конструктор ExportMain";
+    MModule->StartDatabase(true);
+    qDebug() << "Конструктор ExportMain!";
     connect(MModule, SIGNAL(FindServer(bool)), this, SLOT(OnFindServer(bool)));
     connect(MModule, SIGNAL(StartAutorizForm()), this, SLOT(OnStartAutorizForm()));
     connect(this, SIGNAL(SendAutorization(QString&,QString&,bool)), MModule, SLOT(OnSendAutorization(QString&,QString&, bool)));

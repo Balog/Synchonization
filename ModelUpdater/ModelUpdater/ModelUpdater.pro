@@ -18,7 +18,7 @@ CONFIG += shared
 DESTDIR = ..
 VERSION = 1.0.0
 
-SOURCES +=\
+SOURCES += main.cpp\
     tLog.cpp \
     tDatabaseOp.cpp \
     tConstructModelTree.cpp \
@@ -31,7 +31,8 @@ SOURCES +=\
     MainModule.cpp \
     tModelsConveyor.cpp \
     tConveyor.cpp \
-    tExportMain.cpp
+    tExportMain.cpp \
+    tAutoExportMain.cpp
 
 
 HEADERS  += \
@@ -51,7 +52,8 @@ HEADERS  += \
     MainModule.h \
     tModelsConveyor.h \
     tConveyor.h \
-    tExportMain.h
+    tExportMain.h \
+    tAutoExportMain.h
 
 
 HEADERS +=

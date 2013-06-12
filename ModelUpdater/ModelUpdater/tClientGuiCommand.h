@@ -238,18 +238,18 @@ inline tAbstractGuiCommand* Create_tReportGuiGetListFiles()
     return new tReportGuiGetListFiles;
 }
 //**********************************************************************************
-//class tGuiGetLocalListFiles : public tAbstractGuiCommand
-//{
-//    Q_OBJECT
-//public:
-//    virtual void ExeCommand(QDataStream &_in);
-//private:
-//    //Сканирование рабочей папки на клиенте
-//};
-//inline tAbstractGuiCommand* Create_tGuiGetLocalListFiles()
-//{
-//    return new tGuiGetLocalListFiles;
-//}
+class tGuiGetLocalListFiles : public tAbstractGuiCommand
+{
+    Q_OBJECT
+public:
+    virtual void ExeCommand(QDataStream &_in);
+private:
+    //Сканирование рабочей папки на клиенте
+};
+inline tAbstractGuiCommand* Create_tGuiGetLocalListFiles()
+{
+    return new tGuiGetLocalListFiles;
+}
 //**********************************************************************************
 class tGuiPrepareReceiveFile : public tAbstractGuiCommand
 {

@@ -311,13 +311,13 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
 
         bool ver=((MainModule*)link)->VerifyUserFolders();
         qDebug() << "tGuiReportAutorization::ExeCommand" << "ver: " << ver;
-        if(ver)
-        {
-            qDebug() << "все в порядке, продолжаем запуск";
+//        if(ver)
+//        {
+//            qDebug() << "все в порядке, продолжаем запуск";
 
 
-            ((MainModule*)link)->OnContinueStart();
-        }
+//            ((MainModule*)link)->OnContinueStart();
+//        }
     }
     else
     {
