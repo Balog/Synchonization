@@ -40,7 +40,6 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
-
 # Build results
 [Dd]ebug/
 [Rr]elease/
@@ -163,3 +162,15 @@ pip-log.txt
 .DS_Store
 #####################
 *.log
+Makefile
+Makefile.*
+*.pdb
+moc_*
+*.obj
+*.manifest
+*.ilk
+*.dll
+*.exp
+*.lib
+*.pdb
+*.rc
