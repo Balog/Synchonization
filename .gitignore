@@ -174,3 +174,12 @@ moc_*
 *.lib
 *.pdb
 *.rc
+/AutoLoader-build-Desktop-Debug/.gitignore
+/Socket_Client_v5/build-Dialogs-Desktop-Debug/.gitignore
+/Socket_Client_v5/build-Dialogs-Desktop-Release/.gitignore
+/build-ModelsUpdater-Desktop-Debug/.gitignore
+/build-ModelsUpdater-Desktop-Debug/Database.db
+/build-Socket_Server_v3-Desktop-Debug/.gitignore
+/build-Socket_Server_v3-Desktop-Debug/Database.db
+/build-Socket_Server_v3-Desktop-Release/.gitignore
+/build-Socket_Server_v3-Desktop-Release/Database.db
