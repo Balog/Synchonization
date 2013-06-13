@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "../ModelUpdater/ModelUpdater/tAutoExportMain.h"
+#include "../ModelUpdater/ModelUpdater/tModels.h"
 
 namespace Ui {
 class tStart;
@@ -19,10 +20,16 @@ public:
 private slots:
     void on_pushButton_clicked();
     void OnError(QString& error);
+    void OnFindServer(QString &_login, QString &_password);
+    void OnFoldersOk();
+    void OnSendModels(QList<tServerModel> model);
 
 private:
     Ui::tStart *ui;
     tAutoExportMain *main;
+    QList<tServerModel>Models;
+    QString login;
+    QString password;
 };
 
 #endif // TSTART_H

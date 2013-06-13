@@ -39,6 +39,8 @@ tConveyor::tConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
     gui_vf.reg("GetListModels",Create_tGetListModels);
     gui_vf.reg("ReportGetListServerModels",Create_tReportGuiGetListServerModels);
 
+    gui_vf.reg("GetListModels_List",Create_tGetListModels_List);
+
     gui_vf.reg("UpdateMainLocal",Create_tUpdateMainLocal);
 
     gui_vf.reg("SaveLoginPassword",Create_tGUISaveLoginPassword);
@@ -141,7 +143,7 @@ void tConveyor::OnCommand(QByteArray _block)
 //    gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
     gui_comm->ExeCommand(out);
-    if(!gui_comm) {delete gui_comm;}
+    if(!gui_comm) {qDebug() << "Удаление команды " << command; delete gui_comm;}
     gui_comm=NULL;
 }
 //-----------------------------------------------------------------
@@ -204,6 +206,8 @@ void tConveyor::OnDisconnect()
 //--------------------------------------------------------------------------------
 void tConveyor::OnStartStop(const bool _res)
 {
+    delete gui_comm;
+    gui_comm=NULL;
     if(_res)
     {
         l="tConveyor \tOnStartStop\tПодключение разрешено ";

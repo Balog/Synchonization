@@ -8,10 +8,14 @@ tAutoExportMain::tAutoExportMain(QObject *parent) :
 
     connect(MModule, SIGNAL(FindServer(bool)), this, SLOT(OnFindServer(bool)));
     connect(MModule, SIGNAL(ErrorFolders(QString&)), this, SLOT(OnErrorFolders(QString&)));
+    connect(MModule, SIGNAL(FoldersOk()), this, SLOT(OnFoldersOk()));
+    connect(MModule, SIGNAL(SendModels(QList<tServerModel>)), this, SLOT(OnSendModels(QList<tServerModel>)));
+    connect(this, SIGNAL(SendAutorization(QString&,QString&,bool)), MModule, SLOT(OnSendAutorization(QString&,QString&, bool)));
 }
 //----------------------------------------------------------
 tAutoExportMain::~tAutoExportMain()
 {
+    qDebug() << "Удаляю MModule";
     delete MModule;
 }
 
@@ -30,11 +34,11 @@ void tAutoExportMain::OnFindServer(bool ok)
         QString password="";
         MModule->GetAutorizationInfo(login, password);
 
-        qDebug() << login << password;
+        qDebug() << "логин и пароль " << login << password;
 
         //тут можно переприсвоить значение login и password
 
-
+        emit FindServer(login, password);
     }
     else
     {
@@ -42,10 +46,38 @@ void tAutoExportMain::OnFindServer(bool ok)
         QString error="Сервер не найден";
         emit Error(error);
     }
-//    emit FindServer(ok);
+
+}
+//----------------------------------------------------------
+void tAutoExportMain::VerifyUserFolders()
+{
+    MModule->VerifyUserFolders();
 }
 //----------------------------------------------------------
 void tAutoExportMain::OnErrorFolders(QString& error)
 {
     emit Error(error);
+}
+//----------------------------------------------------------
+void tAutoExportMain::OnFoldersOk()
+{
+    emit FoldersOk();
+}
+//----------------------------------------------------------
+void tAutoExportMain::OnListFiles()
+{
+    //Нужно передавать список моделей, предварительно прочитав их из файла.
+    QStringList ModelsList=MModule->ReadAutoUserModels();
+    MModule->OnListFiles(ModelsList);
+}
+//----------------------------------------------------------
+void tAutoExportMain::OnSendModels(QList<tServerModel> Model)
+{
+    emit SendModels(Model);
+}
+//----------------------------------------------------------
+void tAutoExportMain::Autorization(QString& _login, QString& _password)
+{
+    qDebug() << "tExportMain::OnSendAutorization" << _login << _password;
+    emit SendAutorization(_login, _password, false);
 }

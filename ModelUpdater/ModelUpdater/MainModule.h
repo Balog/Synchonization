@@ -2,8 +2,9 @@
 #define MAINMODULE_H
 
 #include <QObject>
-#include"tModelsConveyor.h"
+#include "tModelsConveyor.h"
 #include "tDatabaseOp.h"
+#include "tModels.h"
 //#include "tZastModule.h"
 
 
@@ -32,7 +33,8 @@ private:
     bool new_user;//login_pass->new_user;
 
     QStringList ListErrors;
-
+    void ParsingServerModels(QByteArray &_block);
+    QList<tServerModel> Models;
 
 
 public:
@@ -46,6 +48,7 @@ public:
     bool VerifyUserFolders(QString& _login, QString& _pr_folder, QString& _temp_folder, QString& _message);
     void CancelAllOperations();
     void OnListFiles();
+    void OnListFiles(const QStringList &models);
     void VerifyLastTable(const QString& user_login);
     void SaveServerModelFiles(QByteArray &_block);
     bool IsRequeryServerModel;
@@ -115,6 +118,7 @@ public:
 
 
     void GetAutorizationInfo(QString& _login, QString& _password);
+    QStringList ReadAutoUserModels();
 
 signals:
     void Update_Logins();//сигнал в главную форму на обновление модели представления логинов
@@ -131,6 +135,8 @@ signals:
     void Disconnecting();
     void DisconnectingFromServer();
     void ErrorFolders(QString& error);
+    void FoldersOk();
+    void SendModels(QList<tServerModel> Models);
 
     
 public slots:

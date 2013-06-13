@@ -53,7 +53,8 @@ HEADERS  += \
     tModelsConveyor.h \
     tConveyor.h \
     tExportMain.h \
-    tAutoExportMain.h
+    tAutoExportMain.h \
+    tModels.h
 
 
 HEADERS +=

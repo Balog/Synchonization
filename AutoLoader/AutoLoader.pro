@@ -19,7 +19,8 @@ SOURCES += main.cpp\
 
 HEADERS  += tStart.h \
     ../ModelUpdater/ModelUpdater/tCalcHash.h \
-    ../ModelUpdater/ModelUpdater/tAutoExportMain.h
+    ../ModelUpdater/ModelUpdater/tAutoExportMain.h \
+    ../ModelUpdater/ModelUpdater/tModels.h
 
 FORMS    += tStart.ui
 

@@ -209,7 +209,6 @@ void tGuiConnectConfirmReport::ExeCommand(QDataStream& _in)
 
     emit StartStop(ok);
 
-//    emit EndCommand();
 }
 //************************************************************************************************
 void tGuiPrepareSendFile::ExeCommand(QDataStream &_in)
@@ -311,13 +310,7 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
 
         bool ver=((MainModule*)link)->VerifyUserFolders();
         qDebug() << "tGuiReportAutorization::ExeCommand" << "ver: " << ver;
-//        if(ver)
-//        {
-//            qDebug() << "все в порядке, продолжаем запуск";
 
-
-//            ((MainModule*)link)->OnContinueStart();
-//        }
     }
     else
     {
@@ -540,7 +533,7 @@ void tReportGuiGetListFiles::ExeCommand(QDataStream &)
 {
     l="tClientGuiCommand \tReportGuiGetListFiles\tОтчет запроса списка файлов с сервера ";
     log.Write(l);
-
+    qDebug() << "tClientGuiCommand \tReportGuiGetListFiles\tОтчет запроса списка файлов с сервера";
 //    QStringList list;
 
 //    int num=-1;
@@ -638,6 +631,7 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     l="tClientGuiCommand \tGetListModels\t Вызов обновления серверных таблиц";
     log.Write(l);
 
+
     ((MainModule*)link)->SaveServerModelFiles(block);
     if(!((MainModule*)link)->IsRequeryServerModel)
     {
@@ -691,6 +685,28 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     }
 
     //emit EndCommand();
+}
+//************************************************************************************************
+void tGetListModels_List::ExeCommand(QDataStream &_in)
+{
+    l="tClientGuiCommand \tGetListModels\t Запрос списка моделей с сервера (список)";
+    log.Write(l);
+
+    QString comm="";
+    QStringList list_models;
+
+    _in >> comm;
+    _in >> list_models;
+
+    QByteArray block;
+    QDataStream out(&block, QIODevice::WriteOnly);
+
+    block.clear();
+
+    out << comm;
+    out << list_models;
+
+    emit SendCommand(block);
 }
 //************************************************************************************************
 void tUpdateMainLocal::ExeCommand(QDataStream &)

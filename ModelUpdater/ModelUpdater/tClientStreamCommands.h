@@ -8,6 +8,7 @@
 #include <QDateTime>
 #include "Windows.h"
 #include <QList>
+#include <QStringList>
 
 
 //****************************************************************
@@ -385,6 +386,22 @@ private:
 inline tAbstractStreamCommand* Create_tReportGetListServerModels()
 {
     return new tReportGetListServerModels;
+}
+//****************************************************************
+class tGetServerListModels_List : public tAbstractStreamCommand
+{
+    Q_OBJECT
+public:
+    virtual bool Initialize(QDataStream &_in);
+    virtual bool ExeCommand(QDataStream &_out);
+    virtual void ProcessError(QDataStream &){}
+    virtual void ExternalExit() {emit EndCommand();}
+private:
+    QStringList model_list;
+};
+inline tAbstractStreamCommand* Create_tGetServerListModels_List()
+{
+    return new tGetServerListModels_List;
 }
 //****************************************************************
 class tStreamSaveLoginPassword : public tAbstractStreamCommand

@@ -1124,6 +1124,36 @@ bool tReportGetListServerModels::ExeCommand(QDataStream &)
 //-----------------------------------------------------------------
 //*****************************************************************
 //-----------------------------------------------------------------
+bool tGetServerListModels_List::Initialize(QDataStream &_in)
+{
+    _in >> model_list;
+    return true;
+}
+//-----------------------------------------------------------------
+bool tGetServerListModels_List::ExeCommand(QDataStream &_out)
+{
+    l="tGetServerListModels \tExeCommand\t Запрос списка моделей с сервера ";
+    log.Write(l);
+
+    QString Comm="Command:";
+    int num_comm=18;
+
+    _out << quint16(0);
+
+    _out << Comm;
+    _out << num_comm;
+    _out << model_list;
+
+    _out.device()->seek(0);
+    quint16 bs=(quint16)(_out.device()->size() - sizeof(quint16));
+    _out << bs;
+    _out.device()->seek(_out.device()->size());
+
+    return false;
+}
+//-----------------------------------------------------------------
+//*****************************************************************
+//-----------------------------------------------------------------
 bool tStreamSaveLoginPassword::Initialize(QDataStream &_in)
 {
     login="";

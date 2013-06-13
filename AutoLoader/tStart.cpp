@@ -13,8 +13,9 @@ tStart::tStart(QWidget *parent) :
 //-------------------------------------------------------
 tStart::~tStart()
 {
-    delete ui;
     delete main;
+    delete ui;
+
 }
 //-------------------------------------------------------
 void tStart::on_pushButton_clicked()
@@ -25,6 +26,7 @@ void tStart::on_pushButton_clicked()
     //Запрос файлов
     //Чтение
     //Отключение
+
     QTextCodec *codec =QTextCodec::codecForName("UTF-8");
 
     QTextCodec::setCodecForTr(codec);
@@ -33,7 +35,10 @@ void tStart::on_pushButton_clicked()
     qDebug() << "Начало";
     main=new tAutoExportMain();
 
+    connect(main, SIGNAL(FindServer(QString&, QString&)), this, SLOT(OnFindServer(QString&, QString&)));
     connect(main, SIGNAL(Error(QString&)), this, SLOT(OnError(QString&)));
+    connect(main, SIGNAL(FoldersOk()),this, SLOT(OnFoldersOk()));
+    connect(main, SIGNAL(SendModels(QList<tServerModel>)), this, SLOT(OnSendModels(QList<tServerModel>)));
 
 }
 //-------------------------------------------------------
@@ -46,4 +51,28 @@ void tStart::OnError(QString& error)
 
     delete main;
     main=NULL;
+}
+//-------------------------------------------------------
+void tStart::OnFindServer(QString& _login, QString& _password)
+{
+    login=_login;
+    password=_password;
+    main->Autorization(login, password);
+//    qDebug() << "Продолжаем работу, проверяем папки";
+//    main->VerifyUserFolders();
+}
+//-------------------------------------------------------
+void tStart::OnFoldersOk()
+{
+    qDebug() << "авторизовались, папки в порядке, продолжаем запуск";
+
+
+
+    //потом - запрос списка моделей
+//    main->OnListFiles();
+}
+//-------------------------------------------------------
+void tStart::OnSendModels(QList<tServerModel> model)
+{
+
 }
