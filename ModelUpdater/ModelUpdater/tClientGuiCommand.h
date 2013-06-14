@@ -313,17 +313,17 @@ inline tAbstractGuiCommand* Create_tReportGuiGetListServerModels()
     return new tReportGuiGetListServerModels;
 }
 //**********************************************************************************
-class tGetListModels_List : public tAbstractGuiCommand
-{
-    Q_OBJECT
-public:
-    virtual void ExeCommand(QDataStream &_in);
+//class tGetListModels_List : public tAbstractGuiCommand
+//{
+//    Q_OBJECT
+//public:
+//    virtual void ExeCommand(QDataStream &_in);
 
-};
-inline tAbstractGuiCommand* Create_tGetListModels_List()
-{
-    return new tGetListModels_List;
-}
+//};
+//inline tAbstractGuiCommand* Create_tGetListModels_List()
+//{
+//    return new tGetListModels_List;
+//}
 //**********************************************************************************
 class tUpdateMainLocal : public tAbstractGuiCommand
 {

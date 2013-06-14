@@ -39,7 +39,7 @@ tConveyor::tConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
     gui_vf.reg("GetListModels",Create_tGetListModels);
     gui_vf.reg("ReportGetListServerModels",Create_tReportGuiGetListServerModels);
 
-    gui_vf.reg("GetListModels_List",Create_tGetListModels_List);
+//    gui_vf.reg("GetListModels_List",Create_tGetListModels_List);
 
     gui_vf.reg("UpdateMainLocal",Create_tUpdateMainLocal);
 

@@ -276,20 +276,20 @@ void MainModule::OnListFiles()
     emit RunGui(block);
 }
 //---------------------------------------------------------------------
-void MainModule::OnListFiles(const QStringList &models)
-{
-    tLog log;
-    log.Write(tr("MainForm \t OnListFiles \t Запрос с главной формы GetListModels со списком моделей через RunGui"));
+//void MainModule::OnListFiles(const QStringList &models)
+//{
+//    tLog log;
+//    log.Write(tr("MainForm \t OnListFiles \t Запрос с главной формы GetListModels со списком моделей через RunGui"));
 
-    QByteArray block;
-    QDataStream out(&block, QIODevice::WriteOnly);
+//    QByteArray block;
+//    QDataStream out(&block, QIODevice::WriteOnly);
 
-    out << tr("GetListModels_List");
-    out << tr("GetListModels_List");
-    out << models;
+//    out << tr("GetListModels_List");
+//    out << tr("GetListModels_List");
+//    out << models;
 
-    emit RunGui(block);
-}
+//    emit RunGui(block);
+//}
 //---------------------------------------------------------------------
 void MainModule::OnClearSendAll()
 {

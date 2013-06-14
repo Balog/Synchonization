@@ -306,10 +306,9 @@ void tGuiReportAutorization::ExeCommand(QDataStream &_in)
 
         //и только потом продолжать загрузку и обновление данных
         //запросить обновление логинов а потом доступов на чтение
+        qDebug() << "tGuiReportAutorization::ExeCommand";
+        ((MainModule*)link)->VerifyUserFolders();
 
-
-        bool ver=((MainModule*)link)->VerifyUserFolders();
-        qDebug() << "tGuiReportAutorization::ExeCommand" << "ver: " << ver;
 
     }
     else
@@ -687,27 +686,27 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     //emit EndCommand();
 }
 //************************************************************************************************
-void tGetListModels_List::ExeCommand(QDataStream &_in)
-{
-    l="tClientGuiCommand \tGetListModels\t Запрос списка моделей с сервера (список)";
-    log.Write(l);
+//void tGetListModels_List::ExeCommand(QDataStream &_in)
+//{
+//    l="tClientGuiCommand \tGetListModels\t Запрос списка моделей с сервера (список)";
+//    log.Write(l);
 
-    QString comm="";
-    QStringList list_models;
+//    QString comm="";
+//    QStringList list_models;
 
-    _in >> comm;
-    _in >> list_models;
+//    _in >> comm;
+//    _in >> list_models;
 
-    QByteArray block;
-    QDataStream out(&block, QIODevice::WriteOnly);
+//    QByteArray block;
+//    QDataStream out(&block, QIODevice::WriteOnly);
 
-    block.clear();
+//    block.clear();
 
-    out << comm;
-    out << list_models;
+//    out << comm;
+//    out << list_models;
 
-    emit SendCommand(block);
-}
+//    emit SendCommand(block);
+//}
 //************************************************************************************************
 void tUpdateMainLocal::ExeCommand(QDataStream &)
 {

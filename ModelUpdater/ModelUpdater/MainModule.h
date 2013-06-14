@@ -48,7 +48,7 @@ public:
     bool VerifyUserFolders(QString& _login, QString& _pr_folder, QString& _temp_folder, QString& _message);
     void CancelAllOperations();
     void OnListFiles();
-    void OnListFiles(const QStringList &models);
+//    void OnListFiles(const QStringList &models);
     void VerifyLastTable(const QString& user_login);
     void SaveServerModelFiles(QByteArray &_block);
     bool IsRequeryServerModel;

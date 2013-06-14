@@ -69,7 +69,7 @@ void tStart::OnFoldersOk()
 
 
     //потом - запрос списка моделей
-//    main->OnListFiles();
+    main->OnListFiles();
 }
 //-------------------------------------------------------
 void tStart::OnSendModels(QList<tServerModel> model)

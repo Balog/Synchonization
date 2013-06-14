@@ -67,8 +67,8 @@ void tAutoExportMain::OnFoldersOk()
 void tAutoExportMain::OnListFiles()
 {
     //Нужно передавать список моделей, предварительно прочитав их из файла.
-    QStringList ModelsList=MModule->ReadAutoUserModels();
-    MModule->OnListFiles(ModelsList);
+//    QStringList ModelsList=MModule->ReadAutoUserModels();
+    MModule->OnListFiles();
 }
 //----------------------------------------------------------
 void tAutoExportMain::OnSendModels(QList<tServerModel> Model)
