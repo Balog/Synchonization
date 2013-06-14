@@ -35,6 +35,7 @@ private:
     QStringList ListErrors;
     void ParsingServerModels(QByteArray &_block);
     QList<tServerModel> Models;
+    QString NormalizePathFiles(QString _path) const;
 
 
 public:
@@ -120,6 +121,9 @@ public:
     void GetAutorizationInfo(QString& _login, QString& _password);
     QStringList ReadAutoUserModels();
 
+    bool IsAutoload();
+    void ReceivingModels(QList<tServerModel> &_models);
+
 signals:
     void Update_Logins();//сигнал в главную форму на обновление модели представления логинов
     void ErrorUserFolders(QString& user_login, QString& message);//сигнал форме задания путей что пути у пользователя неверны
@@ -136,7 +140,8 @@ signals:
     void DisconnectingFromServer();
     void ErrorFolders(QString& error);
     void FoldersOk();
-    void SendModels(QList<tServerModel> Models);
+    void SendModels(QList<tServerModel> &_Model);
+
 
     
 public slots:

@@ -5,6 +5,7 @@
 #include "tDatabaseOp.h"
 #include "tConveyor.h"
 #include "tLog.h"
+#include "tModels.h"
 
 class tModelsConveyor : public QObject
 {
@@ -43,6 +44,7 @@ public:
     void ClearAllList();
     void SaveLoginWritable(const QStandardItemModel *_model, const int _row);
     bool error_transaction;
+    void ReceivingModels(QList<tServerModel> &_models);
 
 private:
     QObject *link;
@@ -60,6 +62,9 @@ private:
     int mod_custom_copy;
     int count_models;
     int max_model;
+    QList<tServerModel> auto_load_models;
+    void StartAutoReceiveFiles(const QString &root_folder);
+    int number_auto_model;
 
 signals:
     void NextCommand();

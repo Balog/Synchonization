@@ -9,8 +9,9 @@ tAutoExportMain::tAutoExportMain(QObject *parent) :
     connect(MModule, SIGNAL(FindServer(bool)), this, SLOT(OnFindServer(bool)));
     connect(MModule, SIGNAL(ErrorFolders(QString&)), this, SLOT(OnErrorFolders(QString&)));
     connect(MModule, SIGNAL(FoldersOk()), this, SLOT(OnFoldersOk()));
-    connect(MModule, SIGNAL(SendModels(QList<tServerModel>)), this, SLOT(OnSendModels(QList<tServerModel>)));
+    connect(MModule, SIGNAL(SendModels(QList<tServerModel>&)), this, SLOT(OnSendModels(QList<tServerModel>&)));
     connect(this, SIGNAL(SendAutorization(QString&,QString&,bool)), MModule, SLOT(OnSendAutorization(QString&,QString&, bool)));
+    connect(MModule, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));
 }
 //----------------------------------------------------------
 tAutoExportMain::~tAutoExportMain()
@@ -64,20 +65,37 @@ void tAutoExportMain::OnFoldersOk()
     emit FoldersOk();
 }
 //----------------------------------------------------------
-void tAutoExportMain::OnListFiles()
+void tAutoExportMain::OnListFiles()//const QStringList& _auto_models
 {
-    //Нужно передавать список моделей, предварительно прочитав их из файла.
-//    QStringList ModelsList=MModule->ReadAutoUserModels();
+
+//    ModelsList=_auto_models;
     MModule->OnListFiles();
 }
 //----------------------------------------------------------
-void tAutoExportMain::OnSendModels(QList<tServerModel> Model)
+void tAutoExportMain::OnSendModels(QList<tServerModel>& _Model)
 {
-    emit SendModels(Model);
+    emit SendModels(_Model);//
 }
 //----------------------------------------------------------
 void tAutoExportMain::Autorization(QString& _login, QString& _password)
 {
     qDebug() << "tExportMain::OnSendAutorization" << _login << _password;
     emit SendAutorization(_login, _password, false);
+}
+//----------------------------------------------------------
+QStringList tAutoExportMain::ReadAutoUserModels()
+{
+    QStringList list=MModule->ReadAutoUserModels();
+    qDebug() << "Число моделей:" << list.size();
+    return list;
+}
+//----------------------------------------------------------
+void tAutoExportMain::ReceivingModels(QList<tServerModel> &_models)
+{
+    MModule->ReceivingModels(_models);
+}
+//----------------------------------------------------------
+void tAutoExportMain::OnEndTransactions()
+{
+    emit EndTransactions();
 }

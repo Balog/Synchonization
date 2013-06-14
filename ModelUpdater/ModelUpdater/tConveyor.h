@@ -39,6 +39,7 @@ public:
 
     bool SendFile(const QString &_file_name, QStringList &_all_files);
     bool ReceiveFile(const QString &_file_name, QStringList &_all_files);
+    bool ReceiveFile(const QString &_file_name, const QString& server_hash, const QString& _root, QStringList &_all_files);
     bool DeletingFile(const QString &_file_name, QStringList &_all_files, const bool _send);
 
     void AddCommitTransaction(const bool _send, const QString &_root, const bool _custom_copy);

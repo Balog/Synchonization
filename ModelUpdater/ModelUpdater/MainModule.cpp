@@ -2,11 +2,12 @@
 #include<QMessageBox>
 #include<tSettings.h>
 #include<QFile>
+#include <QApplication>
 
 tSettings my_settings;
 
 MainModule::MainModule(QObject *parent) :
-    QObject(parent)
+    QObject(parent), db_op(NULL)
 {
     IsRequeryServerModel=false;
     qDebug() << "Конструктор MainModule";
@@ -330,6 +331,7 @@ void MainModule::SaveServerModelFiles(QByteArray &_block)
     else
     {
         ParsingServerModels(_block);
+        emit
     }
 }
 //----------------------------------------------------------
@@ -993,7 +995,57 @@ void MainModule::ParsingServerModels(QByteArray &_block)
 //----------------------------------------------------------
 QStringList MainModule::ReadAutoUserModels()
 {
+    qDebug() << "MainModule::ReadAutoUserModels" << "Чтение списка моделей";
     QStringList list;
+    list.clear();
 
+    QFile list_models(QApplication::applicationDirPath() + "/AutoLoad.models");
+    if(list_models.exists())
+    {
+        if(!list_models.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            qDebug() << "Не удалось открыть файл AutoLoad.models " ;
+            log.Write(QString(QString("MainModule \t ReadAutoUserModels \t Не удалось открыть файл AutoLoad.models ")));
+        }
+        else
+        {
+            qDebug() << "Читаем список моделей";
+            while(!list_models.atEnd())
+            {
+                QString mod=NormalizePathFiles(list_models.readLine());
+                qDebug() << "Модель: " << mod;
+                list.push_back(mod);
+            }
+        }
+    }
+    else
+    {
+        qDebug() << "Список моделей не найден" << QApplication::applicationDirPath() + "/AutoLoad.models";
+    }
+
+    qDebug() << "Количество моделей:" << list.size();
     return list;
+}
+//----------------------------------------------------------
+bool MainModule::IsAutoload()
+{
+    bool is_autoload=(db_op==NULL);
+    return is_autoload;
+}
+//----------------------------------------------------------
+QString MainModule::NormalizePathFiles(QString _path) const
+{
+    QTextCodec *codec =QTextCodec::codecForName("UTF-8");
+    QTextCodec::setCodecForTr(codec);
+    QTextCodec::setCodecForCStrings(codec);
+
+    QString before="\\";
+    QString after="/";
+    QString ret=codec->toUnicode(_path.replace(before, after).toAscii());
+    return ret;
+}
+//----------------------------------------------------------
+void MainModule::ReceivingModels(QList<tServerModel> &_models)
+{
+    mod_conv->ReceivingModels(_models);
 }

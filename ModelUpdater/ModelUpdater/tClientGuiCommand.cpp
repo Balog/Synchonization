@@ -632,6 +632,9 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
 
 
     ((MainModule*)link)->SaveServerModelFiles(block);
+    if(!((MainModule*)link)->IsAutoload())
+    {
+        qDebug() << "Работает нормальный пользователь";
     if(!((MainModule*)link)->IsRequeryServerModel)
     {
 
@@ -680,6 +683,12 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
         ((MainModule*)link)->EndUpdateServerModel(true);
         l="tClientGuiCommand \tGuiReportPrepareSendFile\t Проход по кнопке мимо всего ";
         log.Write(l);
+        emit EndCommand();
+    }
+    }
+    else
+    {
+        qDebug() << "Удаление команды обработки списка серверных моделей из-под автозагрузчика";
         emit EndCommand();
     }
 

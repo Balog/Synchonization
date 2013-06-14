@@ -262,6 +262,7 @@ void tSocket::OnCommand(QByteArray _block)
 
     in >> command;
 
+    qDebug() << "socket \tOnCommand\tПолучена команда " << command;
     l=tr("socket \tOnCommand\tПолучена команда ")+command;
     log.Write(l);
 

@@ -22,7 +22,8 @@ private slots:
     void OnError(QString& error);
     void OnFindServer(QString &_login, QString &_password);
     void OnFoldersOk();
-    void OnSendModels(QList<tServerModel> model);
+    void OnSendModels(QList<tServerModel> &_server_model);
+    void OnEndTransactions();
 
 private:
     Ui::tStart *ui;
@@ -30,6 +31,9 @@ private:
     QList<tServerModel>Models;
     QString login;
     QString password;
+    QStringList auto_models;
+    QList<tServerModel> new_models;
+    void FilterModelFiles(QList<tServerModel> &_server_model);
 };
 
 #endif // TSTART_H

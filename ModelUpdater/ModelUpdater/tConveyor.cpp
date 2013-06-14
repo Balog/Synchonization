@@ -64,6 +64,8 @@ tConveyor::tConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
 //-----------------------------------------------------------------
 tConveyor::~tConveyor()
 {
+    delete gui_comm;
+    gui_comm=NULL;
     delete client_th;
     client_th=NULL;
 }
@@ -143,7 +145,7 @@ void tConveyor::OnCommand(QByteArray _block)
 //    gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
     gui_comm->ExeCommand(out);
-    if(!gui_comm) {qDebug() << "Удаление команды " << command; delete gui_comm;}
+    if(gui_comm!=NULL) {qDebug() << "Удаление команды " << command; delete gui_comm;}
     gui_comm=NULL;
 }
 //-----------------------------------------------------------------
@@ -681,6 +683,8 @@ bool tConveyor::AddReceiveCommand(const QString& _root)
 
         bool sending=false;
         bool receiving=false;
+        if(db_op!=NULL)
+        {
         QString H=db_op->GetLocalHash(file_list[i].file_name, sending, receiving);
         if(!receiving)
         {
@@ -689,7 +693,7 @@ bool tConveyor::AddReceiveCommand(const QString& _root)
             ret=true;
             break;
         }
-
+        }
 
         AddCommand(block);
     }
@@ -733,6 +737,39 @@ bool tConveyor::ReceiveFile(const QString &_file_name, QStringList &_all_files)
     return ret;
 }
 
+//--------------------------------------------------------------------------------
+bool tConveyor::ReceiveFile(const QString &_file_name, const QString& server_hash, const QString& _root, QStringList &_all_files)
+{
+    bool ret=false;
+    bool is_find=false;
+    for(int i=0; i<file_list.size(); i++)
+    {
+        if(file_list[i].file_name==_file_name)
+        {
+            is_find=true;
+            break;
+        }
+    }
+
+    if(!is_find)
+    {
+        l="tConveyor \tReceiveFile\tПодготовка команды получения файла "+_file_name.toUtf8();
+        log.Write(l);
+
+        _all_files.push_back(_file_name);
+
+        tFileList fl;
+        fl.file_name=_file_name;
+//        fl.client_hash=db_op->GetLocalHash(_file_name, sending, receiving);//"_client_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
+//        fl.server_hash=db_op->GetServerHash(_file_name);//"_server_hash_"+_file_name; //пока так, потом буду подставлять реальное значение
+        tCalcHash ch;
+        fl.client_hash=ch.GetFileHash(_root+_file_name);
+        fl.server_hash=server_hash;
+        file_list << fl;
+
+    }
+    return ret;
+}
 //--------------------------------------------------------------------------------
 void tConveyor::OnDisconnecting()
 {

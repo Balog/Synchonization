@@ -1,5 +1,6 @@
 #include "tModelsConveyor.h"
 #include <QMessageBox>
+#include "tModels.h"
 
 tModelsConveyor::tModelsConveyor(QObject* _link, tDatabaseOp *_db_op, QObject *parent) :
     QObject(parent), db_op(_db_op), link(_link),Transaction(false), user_login("")
@@ -82,7 +83,15 @@ void tModelsConveyor::EndConveyor(bool Ok)
     }
     else
     {
+        if(db_op!=NULL)
+        {
         StartReceiveDeleteFiles(root_folder, mod_custom_copy, max_model, Ok);
+        }
+        else
+        {
+            number_auto_model++;
+            StartAutoReceiveFiles(root_folder);
+        }
     }
 
 
@@ -478,4 +487,47 @@ void tModelsConveyor::OnRunGui(QByteArray& _block)
 {
     qDebug() << "tModelsConveyor::OnRunGui";
     emit RunGui(_block);
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::ReceivingModels(QList<tServerModel> &_models)
+{
+    auto_load_models=_models;
+    number_auto_model=0;
+    StartAutoReceiveFiles(root_folder);
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::StartAutoReceiveFiles(const QString &root_folder)
+{
+    //Выберем очередную модель и создадим транзакцию приема всех файлов
+    //что в ней содержатся
+    //если все модели пройдены - конец процесса с выдачей сигнала наверх
+    all_files.clear();
+    qDebug() << "Модель№ " << number_auto_model;
+    if(number_auto_model<auto_load_models.size())
+    {
+        //модели еще есть
+
+        for(int i=0; i<auto_load_models[number_auto_model].Files.size(); i++)
+        {
+            qDebug() << "Добавляем файл " << auto_load_models[number_auto_model].Files[i].File;
+            conv->ReceiveFile(auto_load_models[number_auto_model].Files[i].File, auto_load_models[number_auto_model].Files[i].Hash_F, root_folder, all_files);
+
+        }
+        qDebug() << "Добавляем начало транзакции";
+        conv->AddStartTransaction(false);
+
+        qDebug() << "Добавляем файлы";
+        conv->AddReceiveCommand(root_folder);
+
+        qDebug() << "Добавляем коммит транзакции";
+        conv->AddCommitTransaction(send, root_folder, true);
+
+        qDebug() << "Запуск транзакции";
+        conv->StartExecution();
+    }
+    else
+    {
+        //моделей больше нет
+        emit EndTransactionsMain();
+    }
 }
