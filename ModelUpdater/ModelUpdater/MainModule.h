@@ -162,6 +162,7 @@ private slots:
     void OnEndTransactions();
 
     void OnDisconnectingFromServer();
+    void OnSendModels();
 };
 
 #endif // MAINMODULE_H

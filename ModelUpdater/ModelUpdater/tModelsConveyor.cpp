@@ -24,6 +24,7 @@ error_transaction=false;
     connect(this, SIGNAL(EndTransactions()), this, SLOT(OnEndTransactions()));
 
     connect(conv, SIGNAL(EndConveyor(bool)), this, SLOT(EndConveyor(bool)));
+    connect(conv, SIGNAL(SendModels()), this, SLOT(OnSendModels()));
 
 
 
@@ -530,4 +531,9 @@ void tModelsConveyor::StartAutoReceiveFiles(const QString &root_folder)
         //моделей больше нет
         emit EndTransactionsMain();
     }
+}
+//-------------------------------------------------------------------------
+void tModelsConveyor::OnSendModels()
+{
+    emit SendModels();
 }

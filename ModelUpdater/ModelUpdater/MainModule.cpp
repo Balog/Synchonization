@@ -49,6 +49,7 @@ void MainModule::StartDatabase(bool start)
     connect(mod_conv, SIGNAL(EndTransactionsMain()), this, SLOT(OnEndTransactions()));
     connect(this, SIGNAL(RunGui(QByteArray&)),mod_conv, SLOT(OnRunGui(QByteArray&)));
     connect(mod_conv, SIGNAL(Disconnecting()), this, SLOT(OnDisconnectingFromServer()));
+    connect(mod_conv, SIGNAL(SendModels()), this, SLOT(OnSendModels()));
 
 }
 //---------------------------------------------------------
@@ -331,7 +332,6 @@ void MainModule::SaveServerModelFiles(QByteArray &_block)
     else
     {
         ParsingServerModels(_block);
-        emit
     }
 }
 //----------------------------------------------------------
@@ -819,15 +819,6 @@ void MainModule::ParsingServerModels(QByteArray &_block)
     int num_models=-1;
     out >> num_models;
 
-//    QSqlQuery reset_found_ser_mod(db);
-//    reset_found_ser_mod.prepare("UPDATE ServerStructModels SET Found=0");
-//    if(!reset_found_ser_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ сброса Found серверных моделей ");
-//        log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ сброса Found серверных моделей  ")));}
-
-//    l="tDatabaseOp \tSaveServerModelFiles\t Сброс Found серверных моделей. Число моделей "+QString::number(num_models);
-//    log.Write(l);
-
-
     for(int i=0; i<num_models; i++)
     {
         QString DiskFile="";
@@ -863,70 +854,6 @@ void MainModule::ParsingServerModels(QByteArray &_block)
         model.ListFilesHash=ListFilesHash;
         model.Num=Num;
 
-
-//        l="tDatabaseOp \tSaveServerModelFiles\t Получение данных о модели "+Title.toUtf8();
-//        log.Write(l);
-
-//        QSqlQuery is_found_mod(db);
-//        is_found_mod.prepare("SELECT Count(*), Num FROM ServerStructModels WHERE DiskFile='"+DiskFile+"'");
-//        if(!is_found_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ проверки наличия серверной модели ") << DiskFile;
-//            log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ проверки наличия серверной модели  ")+DiskFile+" "+db.lastError().text()));}
-//        is_found_mod.next();
-//        int c=is_found_mod.value(0).toInt();
-
-//        l="tDatabaseOp \tSaveServerModelFiles\t Проверка наличия модели в базе ";
-//        log.Write(l);
-
-//        qlonglong num_server_model=0;
-//        if(c==0)
-//        {
-//            l="tDatabaseOp \tSaveServerModelFiles\t Такой модели нет ";
-//            log.Write(l);
-
-//            QSqlQuery insert_server_model(db);
-//            insert_server_model.prepare("INSERT INTO ServerStructModels (DiskFile, Title, Description, Struct, LastMod, Hash, ListFilesLastMod, ListFilesHash, SummListHash, ServerNum, Found) "
-//                                        "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
-//            insert_server_model.bindValue(0, DiskFile);
-//            insert_server_model.bindValue(1, Title);
-//            insert_server_model.bindValue(2,Description );
-//            insert_server_model.bindValue(3, Struct);
-//            insert_server_model.bindValue(4, LastMod);
-//            insert_server_model.bindValue(5, Hash);
-//            insert_server_model.bindValue(6, ListFilesLastMod);
-//            insert_server_model.bindValue(7, ListFilesHash);
-//            insert_server_model.bindValue(8, SummListHash);
-//            insert_server_model.bindValue(9, Num);
-//            insert_server_model.bindValue(10, 1);
-
-//            if(!insert_server_model.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления серверной модели ") << DiskFile;
-//                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления серверной модели ")+DiskFile.toUtf8()+" "+db.lastError().text()));}
-
-//            num_server_model=insert_server_model.lastInsertId().toLongLong();
-
-//            l="tDatabaseOp \tSaveServerModelFiles\t Модель добавлена. Новый номер "+QString::number(num_server_model);
-//            log.Write(l);
-//        }
-//        else
-//        {
-//            l="tDatabaseOp \tSaveServerModelFiles\t Такая модель есть  ";
-//            log.Write(l);
-
-//            QSqlQuery update_s_mod(db);
-//            update_s_mod.prepare("UPDATE ServerStructModels SET Title='"+Title+"', Description='"+Description+"', Struct='"+Struct+"', LastMod='"+LastMod.toString(Qt::ISODate)+"', Hash='"+Hash+"', ListFilesLastMod='"+ListFilesLastMod.toString(Qt::ISODate)+"', ListFilesHash='"+ListFilesHash+"', SummListHash='"+SummListHash+"', ServerNum="+QString::number(Num)+", Found=1  WHERE DiskFile='"+DiskFile+"'");
-//            if(!update_s_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ обновления серверной модели ") << DiskFile;
-//                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ обновления серверной модели  ")+DiskFile+" "+db.lastError().text()));}
-
-//            num_server_model=is_found_mod.value(1).toInt();
-
-//            QSqlQuery del_model_files(db);
-//            del_model_files.prepare("DELETE FROM ServerFiles WHERE Model="+QString::number(num_server_model));
-//            if(!del_model_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ очистки файлов серверной модели ") << num_server_model;
-//                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ очистки файлов серверной модели ")+QString::number(num_server_model)+" "+db.lastError().text()));}
-
-//            l="tDatabaseOp \tSaveServerModelFiles\t Удаление файлов модели из базы перед обновлением ";
-//            log.Write(l);
-//        }
-
         int num_files=-1;
 
         out >> num_files;
@@ -956,41 +883,13 @@ void MainModule::ParsingServerModels(QByteArray &_block)
             file.num_who=num_who;
 
             model.Files.push_back(file);
-
-//            QSqlQuery insert_server_files(db);
-//            insert_server_files.prepare("INSERT INTO ServerFiles (Model, File, Size, lastMod, Hash, ServerNum, WrittenWho) VALUES (?, ?, ?, ?, ?, ?, ?);");
-
-//            insert_server_files.bindValue(0, num_server_model);
-//            insert_server_files.bindValue(1, File);
-//            insert_server_files.bindValue(2, Size);
-//            insert_server_files.bindValue(3, LastMod_F);
-//            insert_server_files.bindValue(4, Hash_F);
-//            insert_server_files.bindValue(5, Num_F);
-//            insert_server_files.bindValue(6, num_who);
-//            if(!insert_server_files.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ добавления файлов серверной модели ") << num_server_model;
-//                log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ добавления файлов серверной модели ")+QString::number(num_server_model)));}
-
         }
-//        l="tDatabaseOp \tSaveServerModelFiles\t Файлы модели добавлены  ";
-//        log.Write(l);
-//    }
 
-//    QSqlQuery delete_unfound_serv_mod(db);
-//    delete_unfound_serv_mod.prepare("DELETE FROM ServerStructModels WHERE Found=0");
-//    if(!delete_unfound_serv_mod.exec()){qDebug() << QString::fromUtf8("++ ОШИБКА ++ удаления ненайденых моделей из базы ");
-//        log.Write(QString(QString("tDatabaseOp \t SaveServerModelFiles \t ++ ОШИБКА ++ удаления ненайденых моделей из базы ")+" "+db.lastError().text()));}
 
-//    l="tDatabaseOp \tSaveServerModelFiles\t Удаление ненайденых моделей  ";
-//    log.Write(l);
-
-//    db.commit();
-
-//    l="tDatabaseOp \tSaveServerModelFiles\t Обновление серверных таблиц завершено  ";
-//    log.Write(l);
         Models.push_back(model);
     }
 
-    emit SendModels(Models);
+
 }
 //----------------------------------------------------------
 QStringList MainModule::ReadAutoUserModels()
@@ -1029,8 +928,9 @@ QStringList MainModule::ReadAutoUserModels()
 //----------------------------------------------------------
 bool MainModule::IsAutoload()
 {
-    bool is_autoload=(db_op==NULL);
-    return is_autoload;
+    bool autoload=db_op==NULL;
+    qDebug() << "Is autoload" << autoload;
+    return autoload;
 }
 //----------------------------------------------------------
 QString MainModule::NormalizePathFiles(QString _path) const
@@ -1048,4 +948,9 @@ QString MainModule::NormalizePathFiles(QString _path) const
 void MainModule::ReceivingModels(QList<tServerModel> &_models)
 {
     mod_conv->ReceivingModels(_models);
+}
+//----------------------------------------------------------
+void MainModule::OnSendModels()
+{
+    emit SendModels(Models);
 }

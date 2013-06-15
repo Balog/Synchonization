@@ -689,7 +689,9 @@ void tReportGuiGetListServerModels::ExeCommand(QDataStream &_in)
     else
     {
         qDebug() << "Удаление команды обработки списка серверных моделей из-под автозагрузчика";
-        emit EndCommand();
+
+        emit SendModels();
+//        emit EndCommand();
     }
 
     //emit EndCommand();

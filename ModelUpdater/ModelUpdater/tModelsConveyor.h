@@ -76,6 +76,7 @@ signals:
     void EndTransactions();
     void EndTransactionsMain();
     void Disconnecting();
+    void SendModels();
 
     void SignalCountFiles(int count_files);
 
@@ -88,6 +89,7 @@ private slots:
     void OnAutorizStart();
     void ErrorConveyor();
     void OnEndTransactions();
+    void OnSendModels();
 
 
 

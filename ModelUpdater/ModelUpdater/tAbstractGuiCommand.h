@@ -35,6 +35,7 @@ signals:
     void VerifyMoveDelete(QString&, bool);
     void EndConveyor(bool Ok);
     void EndCommand();
+    void SendModels();
 
 };
 

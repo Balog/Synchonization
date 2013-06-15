@@ -121,6 +121,7 @@ signals:
     void ErrorCommands();
     void EndTransactions();
     void EndConveyor(bool Ok);
+    void SendModels();
 
 
 public slots:
@@ -135,6 +136,7 @@ public slots:
     void OnEndTransactions();
     void OnEndConveyor(bool Ok);
     void OnEndCommand();
+    void OnSendModels();
 };
 
 #endif // TCONVEYOR_H

@@ -141,6 +141,7 @@ void tConveyor::OnCommand(QByteArray _block)
     connect(gui_comm, SIGNAL(EndConveyor(bool)), this, SLOT(OnEndConveyor(bool)));
 
     connect(gui_comm, SIGNAL(EndCommand()), this, SLOT(OnEndCommand()));
+    connect(gui_comm, SIGNAL(SendModels()), this, SLOT(OnSendModels()));
 
 //    gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
@@ -1218,4 +1219,9 @@ void tConveyor::OnEndConveyor(bool Ok)
 void tConveyor::SetLogin(const QString& _user_login)
 {
     user_login=_user_login;
+}
+//----------------------------------------------------------
+void tConveyor::OnSendModels()
+{
+    emit SendModels();
 }
