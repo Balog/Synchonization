@@ -44,7 +44,7 @@ public:
     void ClearAllList();
     void SaveLoginWritable(const QStandardItemModel *_model, const int _row);
     bool error_transaction;
-    void ReceivingModels(QList<tServerModel> &_models);
+    void ReceivingModels(QList<tServerModel> &_models, QString _root);
 
 private:
     QObject *link;

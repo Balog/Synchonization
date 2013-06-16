@@ -215,6 +215,7 @@ bool MainModule::VerifyUserFolders()
         if(error=="")
         {
             //ошибок небыло
+
             emit FoldersOk();
 //            OnContinueStart();
             return true;
@@ -259,9 +260,12 @@ void MainModule::CancelAllOperations()
 //----------------------------------------------------------
 void MainModule::OnListFilesLocal()
 {
+    if(db_op!=NULL)
+    {
     db_op->RefreshModelsFiles();
 
     VerifyLastTable(user_login);
+    }
 }
 //---------------------------------------------------------------------
 void MainModule::OnListFiles()
@@ -947,7 +951,7 @@ QString MainModule::NormalizePathFiles(QString _path) const
 //----------------------------------------------------------
 void MainModule::ReceivingModels(QList<tServerModel> &_models)
 {
-    mod_conv->ReceivingModels(_models);
+    mod_conv->ReceivingModels(_models, my_settings.GetRoot());
 }
 //----------------------------------------------------------
 void MainModule::OnSendModels()

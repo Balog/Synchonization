@@ -412,13 +412,22 @@ void tConveyor::VerifyMoveDelete( QString &_root_folder,  bool _custom_copy)
     stopped=false;
     error_file="";
 
+    qDebug() << "tConveyor::VerifyMoveDelete" << "root" << _root_folder << "temp" << temp << "custom_copy" << _custom_copy;
+    if(db_op!=NULL)
+    {
     VerifyReplacedFiles(_custom_copy);
     VerifyDeletedFiles();
-
+    }
+    else
+    {
+        stopped=false;
+    }
     if(!stopped)
     {
+        qDebug() << "Проверяем файлы";
         if(FolderOperation(dir, 0))
         {
+            qDebug() << "Перемещаем файлы";
             if(FolderOperation(dir, 1))
             {
 
@@ -933,6 +942,9 @@ bool tConveyor::FolderOperation(const QDir & _dir, const int _mode)
     //Получаем список файлов
     QStringList lst_files = _dir.entryList(QDir::Files | QDir::Hidden);
 
+    qDebug() << "LST_DIRS" << lst_dirs << "LST_FILES" << lst_files;
+//    Sleep(10000);
+
     //проверяем и перемещаем файлы
     foreach (QString entry, lst_files)
     {
@@ -960,16 +972,20 @@ bool tConveyor::FolderOperation(const QDir & _dir, const int _mode)
         }
     }
     //Для папок делаем рекурсивный вызов
+    qDebug() << "Для папок делаем рекурсивный вызов" << "lst_dirs" << lst_dirs;
     foreach (QString entry, lst_dirs)
     {
         if(stopped) return false;
 
         QString entry_abs_path = _dir.absolutePath() + "/" + entry;
+        qDebug() << "ROOT" << root << "entry_abs_path" << entry_abs_path << "TEMP" << temp;
         QString new_abs_path=root+entry_abs_path.right(entry_abs_path.length()-temp.length()); //root+entry;
+        qDebug() << "NEW_ABS_PATH" << new_abs_path;
         QDir dir(entry_abs_path);
         if(dir.mkpath(new_abs_path))
         {
             QDir dr(entry_abs_path);
+            qDebug() << "Обрабатываем папку" << entry_abs_path;
             stopped=!FolderOperation(dr, _mode);
         }
         else
@@ -986,6 +1002,7 @@ bool tConveyor::FolderOperation(const QDir & _dir, const int _mode)
 //----------------------------------------------------------
 void tConveyor::Move(const QString &_entry_abs_path, const QString &_new_abs_path, bool &_stopped, QString &_error_file)
 {
+    qDebug() << "File" << _new_abs_path << "copy to " << _new_abs_path;
     QFile file_real(_new_abs_path);
     if(!file_real.exists() || file_real.remove())
     {
@@ -997,6 +1014,8 @@ void tConveyor::Move(const QString &_entry_abs_path, const QString &_new_abs_pat
 
 
         }
+
+        qDebug() << "Задаем свойства файла" << _entry_abs_path;
         QFile::setPermissions(_entry_abs_path, QFile::ReadOwner | QFile::WriteOwner);
         tFileList fl;
         fl.file_name=_new_abs_path;
@@ -1044,6 +1063,8 @@ void tConveyor::Verify(const QString &_new_abs_path, bool &_stopped, QString &_e
         _stopped=false;
         _error_file="";
     }
+
+    qDebug() << "Verify file " << _new_abs_path << _stopped;
 }
 //----------------------------------------------------------
 bool tConveyor::Delete(const QString &_new_abs_path, QString &_error_file) const

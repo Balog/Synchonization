@@ -3,6 +3,7 @@
 #include <QDataStream>
 #include "tLog.h"
 
+
 class tAbstractStreamCommand : public QObject
 {
     Q_OBJECT

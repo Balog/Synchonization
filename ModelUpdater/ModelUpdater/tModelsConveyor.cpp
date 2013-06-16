@@ -490,9 +490,12 @@ void tModelsConveyor::OnRunGui(QByteArray& _block)
     emit RunGui(_block);
 }
 //-------------------------------------------------------------------------
-void tModelsConveyor::ReceivingModels(QList<tServerModel> &_models)
+void tModelsConveyor::ReceivingModels(QList<tServerModel> &_models, QString _root)
 {
+    root_folder=_root;
     auto_load_models=_models;
+    number_auto_model=0;
+    qDebug() << "tModelsConveyor::ReceivingModels" << "ROOT FOLDER" << root_folder;
     number_auto_model=0;
     StartAutoReceiveFiles(root_folder);
 }
@@ -514,6 +517,8 @@ void tModelsConveyor::StartAutoReceiveFiles(const QString &root_folder)
             conv->ReceiveFile(auto_load_models[number_auto_model].Files[i].File, auto_load_models[number_auto_model].Files[i].Hash_F, root_folder, all_files);
 
         }
+
+        send=false;
         qDebug() << "Добавляем начало транзакции";
         conv->AddStartTransaction(false);
 
@@ -521,7 +526,8 @@ void tModelsConveyor::StartAutoReceiveFiles(const QString &root_folder)
         conv->AddReceiveCommand(root_folder);
 
         qDebug() << "Добавляем коммит транзакции";
-        conv->AddCommitTransaction(send, root_folder, true);
+        qDebug() << "ROOT FOLDER " << root_folder;
+        conv->AddCommitTransaction(false, root_folder, true);
 
         qDebug() << "Запуск транзакции";
         conv->StartExecution();

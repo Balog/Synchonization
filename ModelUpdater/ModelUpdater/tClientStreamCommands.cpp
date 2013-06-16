@@ -3,6 +3,7 @@
 #include <QFileInfo>
 
 
+
 extern tSettings my_settings;
 //-----------------------------------------------------------------
 bool tStreamReceiveFile::Initialize(QDataStream& _in)
@@ -25,6 +26,7 @@ bool tStreamReceiveFile::Initialize(QDataStream& _in)
 
     root=my_settings.GetTemp()+"Receive/";
 
+    qDebug() << "Пишем в файл " << root+file_name;
     file.setFileName(root+file_name);
 
     QDir dir(root);
@@ -79,6 +81,7 @@ bool tStreamReceiveFile::ExeCommand(QDataStream& _in)
             ret=true;
             qDebug() << "File transfer complete";
 
+
             QByteArray block;
             QDataStream out(&block, QIODevice::WriteOnly);
             out.setVersion(QDataStream::Qt_4_8);
@@ -88,7 +91,7 @@ bool tStreamReceiveFile::ExeCommand(QDataStream& _in)
             QString command="ReceiveReport";
 
             file.close();
-
+//            Sleep(20000);
             bool error_detected1=!SetAttributeFile(file_name, hidden, create_date_time, last_modified, permission, hash);
 
             if(!error_detected1 && !error_detected)
@@ -96,7 +99,7 @@ bool tStreamReceiveFile::ExeCommand(QDataStream& _in)
                 out << command;
                 out << file_name;
                 out << file_size;
-
+                qDebug() << "Ошибок нет";
                 emit Result(block);
                 emit EndCommand();
             }
@@ -873,6 +876,9 @@ bool tStreamReportCommitTransaction::ExeCommand(QDataStream &)
 
     l="tStreamReportCommitTransaction \tExeCommand\t Коммит завершился успешно ";
     log.Write(l);
+    qDebug() << "tStreamReportCommitTransaction \tExeCommand\t Коммит завершился успешно ";
+
+//    Sleep(20000);
 
     emit Result(block);
 

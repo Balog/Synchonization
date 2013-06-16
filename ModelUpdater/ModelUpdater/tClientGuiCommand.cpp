@@ -589,10 +589,15 @@ void tVerifyMoveDelete::ExeCommand(QDataStream &_out)
     l="tClientGuiCommand \tVerifyMoveDelete\t Команда проверки, замены и удаления локальных файлов";
     log.Write(l);
 
+
+
     QString root="";
     bool custom_copy=false;
     _out >> root;
     _out >> custom_copy;
+
+    qDebug() << "tClientGuiCommand \tVerifyMoveDelete\t Команда проверки, замены и удаления локальных файлов" << root << custom_copy;
+
     emit VerifyMoveDelete(root, custom_copy);
 }
 //************************************************************************************************
