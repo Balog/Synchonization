@@ -1379,7 +1379,7 @@ void tDatabaseOp::PrepareUpdateLastSynch(const bool _send, const QString& _login
 void tDatabaseOp::UpdateLastSynchMark(const QString& _file_name, const bool _server, const QString& _user_login)
 {
 
-    //ПРОДОЛЖЕНИЕ ОБНОВЛЕНИЯ ТАБЛИЦ ДФЫЕ
+    //ПРОДОЛЖЕНИЕ ОБНОВЛЕНИЯ ТАБЛИЦ LAST
 
     //Вначале сбросить отметки Found у всех моделей той группы таблиц что нужно, серверной или локальной.
     //сбросить отметки Found у всех Last моделей

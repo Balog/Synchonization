@@ -38,7 +38,15 @@ void tSettings::SetFilePath(const QString &_ini_file)
 
     s.beginGroup("Folders");
     root=s.value("root","").toString();
+    if(root.right(1)!="/")
+    {
+        root=root+"/";
+    }
     temp=s.value("temp","").toString();
+    if(temp.right(1)!="/")
+    {
+        temp=temp+"/";
+    }
     s.endGroup();
 }
 //-----------------------------------------------------------------

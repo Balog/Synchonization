@@ -104,6 +104,7 @@ void tGuiReportSendFile::ExeCommand(QDataStream& _in)
 //************************************************************************************************
 void tGuiError::ExeCommand(QDataStream& _in)
 {
+    qDebug() << "GUI ERROR" << "Transaction" << ((MainModule*)link)->GetIsTransaction();
     int num_error=-9999;
     QString error="";
     QString detail="";
@@ -117,6 +118,7 @@ void tGuiError::ExeCommand(QDataStream& _in)
     if(((MainModule*)link)->GetIsTransaction())
     {
         //Отмена транзакции из-за ошибки
+        qDebug() << "Отмена транзакции из-за ошибки";
         QByteArray block;
         QDataStream out(&block, QIODevice::WriteOnly);
 
@@ -166,6 +168,7 @@ void tGuiError::ExeCommand(QDataStream& _in)
 
             break;
         }
+
         case 12:
         {
             title=QString::fromUtf8("Запись логина");
@@ -599,6 +602,8 @@ void tVerifyMoveDelete::ExeCommand(QDataStream &_out)
     qDebug() << "tClientGuiCommand \tVerifyMoveDelete\t Команда проверки, замены и удаления локальных файлов" << root << custom_copy;
 
     emit VerifyMoveDelete(root, custom_copy);
+//    qDebug() << "Срабатывание emit VerifyMoveDelete(root, custom_copy);";
+//     VerifyMoveDelete(root, custom_copy);
 }
 //************************************************************************************************
 void tGetListModels::ExeCommand(QDataStream &_in)

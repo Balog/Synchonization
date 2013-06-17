@@ -22,6 +22,8 @@ public:
     void Autorization(QString &_login, QString &_password);
     QStringList ReadAutoUserModels();
     void ReceivingModels(QList<tServerModel> &_models);
+    QList<tServerModel> FilterModelFiles(QList<tServerModel> &_server_model, QStringList auto_models);
+    void ClearNewModel(QList<tServerModel> &_server_model);
 
 signals:
     void Error(QString& error);

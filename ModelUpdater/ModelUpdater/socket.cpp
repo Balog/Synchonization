@@ -18,6 +18,7 @@ tSocket::tSocket(const QString &_address, const int _port, const QString &_root,
     owner=_owner;
 
     vf.reg("Error:0",Create_tProcessingError);
+    vf.reg("Error:1",Create_tProcessingError);
     vf.reg("Report:1",Create_tReceiveFile);
     vf.reg("Report:2",Create_tReportSendFile);
     vf.reg("PrepareReceiveFile", Create_tPrepareReceiveFile);

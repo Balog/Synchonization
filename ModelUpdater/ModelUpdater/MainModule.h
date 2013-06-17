@@ -124,6 +124,9 @@ public:
     bool IsAutoload();
     void ReceivingModels(QList<tServerModel> &_models);
 
+    QList<tServerModel> FilterModelFiles(QList<tServerModel> &_server_model, QStringList auto_models);
+    void ClearNewModel(QList<tServerModel> _models);
+
 signals:
     void Update_Logins();//сигнал в главную форму на обновление модели представления логинов
     void ErrorUserFolders(QString& user_login, QString& message);//сигнал форме задания путей что пути у пользователя неверны

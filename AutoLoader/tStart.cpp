@@ -27,6 +27,7 @@ void tStart::on_pushButton_clicked()
     //Чтение
     //Отключение
 
+
     QTextCodec *codec =QTextCodec::codecForName("UTF-8");
 
     QTextCodec::setCodecForTr(codec);
@@ -78,57 +79,10 @@ void tStart::OnSendModels(QList<tServerModel> &_server_model)
 {
     //Нужно проанализировать список моделей с сервера, пропускать те модели что не проходят по списку разрешенных
     //Потом нужно по моделям создавать транзакции чтения и запускать процесс
-    FilterModelFiles(_server_model);
+    new_models=main->FilterModelFiles(_server_model, auto_models);
     main->ReceivingModels(new_models);
 }
-//-------------------------------------------------------
-void tStart::FilterModelFiles(QList<tServerModel> &_server_model)
-{
-    for(int i=0; i<_server_model.size(); i++)
-    {
-        QString serv_struct=_server_model[i].Struct;
 
-        for(int j=0; j<auto_models.size(); j++)
-        {
-            QString auto_struct=auto_models[j];
-            if(auto_struct.right(1)=="\n")
-            {
-                auto_struct=auto_struct.left(auto_struct.length()-1);
-            }
-            if(serv_struct.left(auto_struct.length())==auto_struct)
-            {
-                //модель подходит
-
-                tServerModel n_model;
-                n_model.Description=_server_model[i].Description;
-                n_model.DiskFile=_server_model[i].DiskFile;
-                n_model.Struct=_server_model[i].Struct;
-                n_model.Title=_server_model[i].Title;
-
-                QList<tServerFile>n_files;
-                for(int k=0; k<_server_model[i].Files.size(); k++)
-                {
-                    QFileInfo info(_server_model[i].Files[k].File);
-                    QString path=info.path();
-                    if(path.right(5)!=".info")
-                    {
-                        tServerFile n_file;
-                        n_file.File=_server_model[i].Files[k].File;
-                        n_file.Size=_server_model[i].Files[k].Size;
-                        n_file.Hash_F=_server_model[i].Files[k].Hash_F;
-                        n_file.LastMod_F=_server_model[i].Files[k].LastMod_F;
-                        n_files.push_back(n_file);
-                    }
-                }
-
-                n_model.Files=n_files;
-
-                new_models.push_back(n_model);
-                break;
-            }
-        }
-    }
-}
 //-------------------------------------------------------
 void tStart::OnEndTransactions()
 {
@@ -136,4 +90,9 @@ void tStart::OnEndTransactions()
     MB.setText(QString::fromUtf8("Готово!"));
     MB.setWindowTitle(QString::fromUtf8("Результат"));
     MB.exec();
+
+    main->ClearNewModel(new_models);
+    delete main;
+    main=NULL;
 }
+

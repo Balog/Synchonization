@@ -222,8 +222,10 @@ bool tPrepareReceiveFile::Initialize(QDataStream &_in)
 //    root=my_settings.GetRoot();
     QString f=root+file_name;
     file.setFileName(root+file_name);
+    if(file.exists())
+    {
     file.open(QIODevice::Append);
-
+    }
 
     error_detected=file.exists() && !file.isOpen();
 
@@ -271,6 +273,8 @@ void tPrepareReceiveFile::ProcessError(QDataStream & )
 
     QByteArray block;
     QDataStream in(&block, QIODevice::WriteOnly);
+
+    qDebug() << "ERROR" << num_error << error << detail << client_detail;
 
     in << tr("Error");
     in << num_error;
@@ -452,6 +456,7 @@ void tProcessingError::ProcessError(QDataStream &_in)
     QByteArray block;
     QDataStream in(&block, QIODevice::WriteOnly);
 
+    qDebug() << "ERROR" << num_error << error << detail << client_detail;
     in << tr("Error");
     in << num_error;
     in << error;

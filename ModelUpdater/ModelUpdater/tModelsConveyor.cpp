@@ -74,6 +74,7 @@ void tModelsConveyor::CancelOperations()
 //-------------------------------------------------------------------------
 void tModelsConveyor::EndConveyor(bool Ok)
 {
+
     error_transaction=Ok;
     conv->ClearTempFolder();
     conv->Clear();
@@ -492,6 +493,7 @@ void tModelsConveyor::OnRunGui(QByteArray& _block)
 //-------------------------------------------------------------------------
 void tModelsConveyor::ReceivingModels(QList<tServerModel> &_models, QString _root)
 {
+    Transaction=true;
     root_folder=_root;
     auto_load_models=_models;
     number_auto_model=0;

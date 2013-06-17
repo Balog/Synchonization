@@ -34,6 +34,7 @@ private:
     QStringList auto_models;
     QList<tServerModel> new_models;
     void FilterModelFiles(QList<tServerModel> &_server_model);
+    void ClearNewModel();
 };
 
 #endif // TSTART_H

@@ -102,7 +102,8 @@ void tConveyor::NextCommand()
         log.Write(l);
 
         ClearTempFolder();
-        emit EndCommands(true);
+
+        emit EndCommands(false);
     }
 
 }
@@ -146,8 +147,8 @@ void tConveyor::OnCommand(QByteArray _block)
 //    gui_comm->Initialize(ui);
     gui_comm->SetLink(link);
     gui_comm->ExeCommand(out);
-    if(gui_comm!=NULL) {qDebug() << "Удаление команды " << command; delete gui_comm;}
-    gui_comm=NULL;
+//    if(gui_comm!=NULL) {qDebug() << "Удаление команды " << command; delete gui_comm; gui_comm=NULL;}
+//    gui_comm=NULL;
 }
 //-----------------------------------------------------------------
 void tConveyor::OnEndCommand()
@@ -185,8 +186,9 @@ void tConveyor::OnRunGuiCommand(QByteArray& _block)
     gui_comm->SetLink(link);
     gui_comm->ExeCommand(out);
 
-    delete gui_comm;
-    gui_comm=NULL;
+//    if(gui_comm!=NULL) {qDebug() << "Удаление команды " << command; delete gui_comm; gui_comm=NULL;}
+//    delete gui_comm;
+//    gui_comm=NULL;
 }
 //---------------------------------------------------------------------
 void tConveyor::StartServer(const QString &_addr, const int _port)
@@ -360,6 +362,9 @@ void tConveyor::AddCommitTransaction(const bool _send, const QString& _root, con
 
         AddCommand(block);
 
+//        qDebug() << "CUSTOM_COPY" << _custom_copy;
+        if(!_custom_copy)
+        {
         QByteArray block1;
         QDataStream out1(&block1, QIODevice::WriteOnly);
 
@@ -370,6 +375,7 @@ void tConveyor::AddCommitTransaction(const bool _send, const QString& _root, con
         log.Write(l);
 
         AddCommand(block1);
+        }
     }
 }
 //--------------------------------------------------------------------------------
@@ -391,6 +397,9 @@ void tConveyor::AddCommitTransactionDel()
 //--------------------------------------------------------------------------------
 void tConveyor::VerifyMoveDelete( QString &_root_folder,  bool _custom_copy)
 {
+    delete gui_comm;
+    gui_comm=NULL;
+
     if(!_custom_copy)
     {
     db_op->PrepareUpdateLastSynch(false, user_login);
@@ -1234,6 +1243,7 @@ void tConveyor::OnEndConveyor(bool Ok)
 {
     l="tConveyor \tOnEndTransactions\tКонец списка команд  ";
     log.Write(l);
+
     emit EndConveyor(Ok);
 }
 //----------------------------------------------------------

@@ -99,3 +99,13 @@ void tAutoExportMain::OnEndTransactions()
 {
     emit EndTransactions();
 }
+//----------------------------------------------------------
+QList<tServerModel> tAutoExportMain::FilterModelFiles(QList<tServerModel> &_server_model, QStringList auto_models)
+{
+    return MModule->FilterModelFiles(_server_model, auto_models);
+}
+//----------------------------------------------------------
+void tAutoExportMain::ClearNewModel(QList<tServerModel> &_server_model)
+{
+    MModule->ClearNewModel(_server_model);
+}

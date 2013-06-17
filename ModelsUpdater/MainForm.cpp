@@ -19,9 +19,10 @@ MainForm::MainForm(QWidget *parent) :
     table_files_model(NULL), previews(NULL), block_interface(false), tableModel (new TableModel()), login_pass(new tEditLoginPass),
     sel_log_row(0), show_errors(new tShowErrors)
 {
-
+    qDebug() << "Начало";
     ui->setupUi(this);
     this->setVisible(false);
+    ui->tabWidget->setEnabled(true);
 //    fProgress->setVisible(false);
     show_errors->setVisible(false);
     show_errors->setModal(false);
@@ -36,23 +37,18 @@ MainForm::MainForm(QWidget *parent) :
     connect(autoriz, SIGNAL(SendAutorization(QString&,QString&,bool)),this, SLOT(OnSendAutorization(QString&,QString&,bool)));
     connect(this, SIGNAL(SendAutorization(QString&,QString&,bool)),main, SLOT(OnSendAutorization(QString&,QString&,bool)));
     connect(main, SIGNAL(EndUpdatingFromServer(QList<CompareTableRec>,bool)), this, SLOT(OnEndUpdatingFromServer(QList<CompareTableRec>,bool)));
-
     connect(main, SIGNAL(SignalCountFiles(int)), this, SLOT(setValue(int)));
-//    connect(this, SIGNAL(ProgressStart(int, int, int, int, int)), this, SLOT(Start(int, int, int, int, int)));
-//    connect(this, SIGNAL(ProgressStop()), this, SLOT(Stop()));
-
-    connect(main, SIGNAL(EndTransactions()), this, SLOT(EndTransactions()));
-//    connect(main, SIGNAL(retEndUpdateServerModel(bool)), this, SLOT(OnretEndUpdateServerModel(bool)));
-//    connect(main, SIGNAL(RebuildTrees(QList<CompareTableRec>)), this, SLOT(OnRebuildTrees(QList<CompareTableRec>)));
     connect(main, SIGNAL(Disconnect()), this, SLOT(OnDisconnect()));
     connect(main, SIGNAL(ErrorUserFolders(QString&, QString&)), this, SLOT(Visible(QString&, QString&)));
     connect(this, SIGNAL(ErrorUserFolders(QString&, QString&,tExportMain*)), form_new_path, SLOT(Visible(QString&, QString&,tExportMain*)));
     connect(form_new_path, SIGNAL(ContinueStart()), this, SLOT(OnContinueStart()));
     connect(main, SIGNAL(Update_Logins()), this, SLOT(UpdateLogins()));
     connect(login_pass, SIGNAL(EndEditing(QString&,QString&,int,bool)), this, SLOT(OnEndEditLoginPassword(QString&,QString&,int,bool)));
-//SIGNAL(ShowEditLogin())
     connect(main, SIGNAL(ShowEditLogin(bool,bool)), login_pass, SLOT(OnShowEditLogin(bool, bool)));
     connect(main, SIGNAL(Update_Logins()),this, SLOT(OnUpdateLogin()));
+    connect(main, SIGNAL(EndTransactions()), this, SLOT(EndTransactions()));
+
+
     ui->tvRead->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->tvWrite->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->lvLogins->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -1606,6 +1602,10 @@ void MainForm::StartReadModeles(const QString &_root, const qlonglong _server_nu
         MB.setText(QString::fromUtf8("Нет выделеных моделей для чтения"));
         MB.setWindowTitle(QString::fromUtf8("Ошибка"));
         MB.exec();
+
+        ui->tabWidget->setEnabled(true);
+        ui->pbDisconnect->setEnabled(true);
+        block_interface=false;
     }
 }
 
@@ -1698,6 +1698,10 @@ void MainForm::on_pbWrite_clicked()
         MB.setText(QString::fromUtf8("Нет выделеных моделей для записи"));
         MB.setWindowTitle(QString::fromUtf8("Ошибка"));
         MB.exec();
+
+        ui->tabWidget->setEnabled(true);
+        ui->pbDisconnect->setEnabled(true);
+        block_interface=false;
     }
     }
 }
@@ -1889,6 +1893,7 @@ void MainForm::on_pbConnect_clicked()
 //    ui->leAddr->setText(addr);
 //    ui->sbPort->setValue(port);
 
+    ui->tabWidget->setEnabled(true);
     adm_tree_model->clear();
     ui->pbConnect->setEnabled(false);
     ui->pbDisconnect->setEnabled(true);
@@ -1917,6 +1922,7 @@ void MainForm::on_pbDisconnect_clicked()
     ui->pbConnect->setEnabled(true);
     ui->leAddr->setReadOnly(false);
     ui->sbPort->setReadOnly(false);
+    ui->tabWidget->setEnabled(false);
 }
 //----------------------------------------------------------
 void MainForm::OnDisconnect()

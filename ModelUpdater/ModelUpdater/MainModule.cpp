@@ -165,22 +165,22 @@ bool MainModule::VerifyUserFolders()
     QString temp_folder="";
     if(db_op!=NULL)
     {
-    if(!modify_folder && db_op->VerifyUserFolders(user_login, project_folder, temp_folder, message))
-    {
-        qDebug() << "MainModule::VerifyUserFolders" << user_login << project_folder << temp_folder << message;
-        OnContinueStart();
-        return true;
-    }
-    else
-    {
-        qDebug() << "ErrorUserFolders" << user_login << message;
-        emit ErrorUserFolders(user_login, message);
-//        form_new_path->SetDatabase(db_op);
-//        form_new_path->SetLogin(_user_login);
-//        form_new_path->SetMessage(message);
-//        form_new_path->setVisible(true);
-        return false;
-    }
+        if(!modify_folder && db_op->VerifyUserFolders(user_login, project_folder, temp_folder, message))
+        {
+            qDebug() << "MainModule::VerifyUserFolders" << user_login << project_folder << temp_folder << message;
+            OnContinueStart();
+            return true;
+        }
+        else
+        {
+            qDebug() << "ErrorUserFolders" << user_login << message;
+            emit ErrorUserFolders(user_login, message);
+            //        form_new_path->SetDatabase(db_op);
+            //        form_new_path->SetLogin(_user_login);
+            //        form_new_path->SetMessage(message);
+            //        form_new_path->setVisible(true);
+            return false;
+        }
     }
     else
     {
@@ -217,7 +217,7 @@ bool MainModule::VerifyUserFolders()
             //ошибок небыло
 
             emit FoldersOk();
-//            OnContinueStart();
+            //            OnContinueStart();
             return true;
         }
         else
@@ -341,6 +341,7 @@ void MainModule::SaveServerModelFiles(QByteArray &_block)
 //----------------------------------------------------------
 void MainModule::CorrectLastSynch(const bool _server)
 {
+
     if(! mod_conv->error_transaction)
     {
     mod_conv->MarkLastTables(_server, user_login);
@@ -951,10 +952,70 @@ QString MainModule::NormalizePathFiles(QString _path) const
 //----------------------------------------------------------
 void MainModule::ReceivingModels(QList<tServerModel> &_models)
 {
+
     mod_conv->ReceivingModels(_models, my_settings.GetRoot());
 }
 //----------------------------------------------------------
 void MainModule::OnSendModels()
 {
     emit SendModels(Models);
+}
+//-------------------------------------------------------
+QList<tServerModel> MainModule::FilterModelFiles(QList<tServerModel> &_server_model, QStringList auto_models)
+{
+    QList<tServerModel> new_models;
+    for(int i=0; i<_server_model.size(); i++)
+    {
+        QString serv_struct=_server_model[i].Struct;
+
+        for(int j=0; j<auto_models.size(); j++)
+        {
+            QString auto_struct=auto_models[j];
+            if(auto_struct.right(1)=="\n")
+            {
+                auto_struct=auto_struct.left(auto_struct.length()-1);
+            }
+            if(serv_struct.left(auto_struct.length())==auto_struct)
+            {
+                //модель подходит
+
+                tServerModel n_model;
+                n_model.Description=_server_model[i].Description;
+                n_model.DiskFile=_server_model[i].DiskFile;
+                n_model.Struct=_server_model[i].Struct;
+                n_model.Title=_server_model[i].Title;
+
+                QList<tServerFile>n_files;
+                for(int k=0; k<_server_model[i].Files.size(); k++)
+                {
+                    QFileInfo info(_server_model[i].Files[k].File);
+                    QString path=info.path();
+                    if(path.right(5)!=".info")
+                    {
+                        tServerFile n_file;
+                        n_file.File=_server_model[i].Files[k].File;
+                        n_file.Size=_server_model[i].Files[k].Size;
+                        n_file.Hash_F=_server_model[i].Files[k].Hash_F;
+                        n_file.LastMod_F=_server_model[i].Files[k].LastMod_F;
+                        n_files.push_back(n_file);
+                    }
+                }
+
+                n_model.Files=n_files;
+
+                new_models.push_back(n_model);
+                break;
+            }
+        }
+    }
+    return new_models;
+}
+//-------------------------------------------------------
+void MainModule::ClearNewModel(QList<tServerModel> _models)
+{
+    for(int i=0; i<_models.size();i++)
+    {
+        _models[i].Files.clear();
+    }
+    _models.clear();
 }
